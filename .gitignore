@@ -1,0 +1,16 @@
+.idea/
+.vagrant/
+
+cron.log
+
+app/cache/
+app/logs/
+build/
+web/bundles/
+src/GDIModelBundle
+
+Front/dist/
+Front/build/
+
+!.gitignore
+/src/NewPPIBundle/Command/ExportCrintCommand.php
