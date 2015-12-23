@@ -35,4 +35,6 @@ return array(
     'Doctrine\\Common\\' => array($vendorDir . '/doctrine/common/lib'),
     'CG\\' => array($vendorDir . '/jms/cg/src'),
     'Apoutchika\\LoremIpsumBundle' => array($vendorDir . '/apoutchika/loremipsum-bundle'),
+    'AerialShip\\SamlSPBundle\\' => array($vendorDir . '/aerialship/saml-sp-bundle/src'),
+    '' => array($vendorDir . '/aerialship/lightsaml/src'),
 );

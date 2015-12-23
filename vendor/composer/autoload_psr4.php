@@ -29,6 +29,8 @@ return array(
     'Prophecy\\PhpUnit\\' => array($vendorDir . '/phpspec/prophecy-phpunit'),
     'Negotiation\\' => array($vendorDir . '/willdurand/negotiation/src/Negotiation'),
     'Monolog\\' => array($vendorDir . '/monolog/monolog/src/Monolog'),
+    'KnpU\\Guard\\' => array($vendorDir . '/knpuniversity/guard/src'),
+    'KnpU\\GuardBundle\\' => array($vendorDir . '/knpuniversity/guard-bundle'),
     'JMS\\AopBundle\\' => array($vendorDir . '/jms/aop-bundle'),
     'Incenteev\\ParameterHandler\\' => array($vendorDir . '/incenteev/composer-parameter-handler'),
     'Doctrine\\Instantiator\\' => array($vendorDir . '/doctrine/instantiator/src/Doctrine/Instantiator'),
