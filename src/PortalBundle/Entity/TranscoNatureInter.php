@@ -31,7 +31,7 @@ class TranscoNatureInter
     /**
      * Competence
      *
-     * @var
+     * @var $opticSkill
      * @ORM\Column(type="string")
      */
     protected $opticSkill;
@@ -39,7 +39,7 @@ class TranscoNatureInter
     /**
      * Libelle nature intervention
      *
-     * @var
+     * @var $opticNatLabel
      * @ORM\Column(type="string")
      */
     protected $opticNatLabel;
@@ -47,7 +47,7 @@ class TranscoNatureInter
     /**
      * Code NatOp
      *
-     * @var
+     * @var $pictrelNatOpCode
      * @ORM\Column(type="string")
      */
     protected $pictrelNatOpCode;
@@ -55,7 +55,7 @@ class TranscoNatureInter
     /**
      * Libelle NatOp
      *
-     * @var
+     * @var $pictrelNatOpLabel
      * @ORM\Column(type="string")
      */
     protected $pictrelNatOpLabel;
@@ -63,7 +63,7 @@ class TranscoNatureInter
     /**
      * Libelle NatOp tronqué
      *
-     * @var
+     * @var $troncatedPictrelNatOpLabel
      * @ORM\Column(type="string")
      */
     protected $troncatedPictrelNatOpLabel;
@@ -71,7 +71,7 @@ class TranscoNatureInter
     /**
      * app
      *
-     * @var
+     * @var $app
      * @ORM\Column(type="string")
      */
     protected $app;
