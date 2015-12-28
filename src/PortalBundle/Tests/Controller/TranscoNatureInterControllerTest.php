@@ -18,7 +18,6 @@ class TranscoNatureInterControllerTest extends BaseWebTestCase
     public function setUp()
     {
         parent::setUp();
-        $this->insertTranscoNatureInter();
 
         $this->headers = ['HTTP_gaiaId' => 'AO4620', 'Content-Type' => 'multipart/form-data'];
     }
@@ -28,6 +27,7 @@ class TranscoNatureInterControllerTest extends BaseWebTestCase
      */
     public function testGetAllAction()
     {
+        $this->insertTranscoNatureInter();
 
         $transcoNatureInters = $this->em->getRepository('PortalBundle:TranscoNatureInter')->findAll();
 
@@ -45,18 +45,37 @@ class TranscoNatureInterControllerTest extends BaseWebTestCase
      */
     public function testGetAction()
     {
+        $this->insertTranscoNatureInter();
 
-
-        $transcoNatureInter = $this->em->getRepository('PortalBundle:TranscoNatureInter')->find(1);
+        $transcoNatureInter = $this->em->getRepository('PortalBundle:TranscoNatureInter')->findAll()[0];
         $this->client->request(
             'GET',
-            "/transconatureinter/1",
+            "/transconatureinter/".$transcoNatureInter->getId(),
             [],
             [],
             $this->headers
         );
         $response = json_decode($this->client->getResponse()->getContent(), true);
+        $this->assertEquals($transcoNatureInter->getId(), $response['id']);
+        $this->assertEquals($transcoNatureInter->getApp(), $response['app']);
+    }
 
+    /*
+     *
+     */
+    public function testCreateAction()
+    {
+        $this->insertTranscoNatureInter();
+
+        $transcoNatureInter = $this->em->getRepository('PortalBundle:TranscoNatureInter')->findAll()[0];
+        $this->client->request(
+            'GET',
+            "/transconatureinter/".$transcoNatureInter->getId(),
+            [],
+            [],
+            $this->headers
+        );
+        $response = json_decode($this->client->getResponse()->getContent(), true);
         $this->assertEquals($transcoNatureInter->getId(), $response['id']);
         $this->assertEquals($transcoNatureInter->getApp(), $response['app']);
     }
@@ -70,7 +89,6 @@ class TranscoNatureInterControllerTest extends BaseWebTestCase
 
             $transcoNatureInter = new TranscoNatureInter();
 
-            $transcoNatureInter->setId($i);
             $transcoNatureInter->setOpticNatCode('AAA');
             $transcoNatureInter->setOpticSkill('lorem ipsum');
             $transcoNatureInter->setOpticNatLabel('lorem ipsum');
