@@ -86,7 +86,7 @@ class TranscoNatureInterService
      * Displays a form to edit an existing TranscoNatureInter entity.
      * @param Request $request
      * @param $transcoNatureInterId
-     * @return
+     * @return TranscoNatureInter
      */
     public function edit(Request $request, $transcoNatureInterId)
     {
@@ -99,11 +99,12 @@ class TranscoNatureInterService
             $this->em->persist($transcoNatureInter);
             $this->em->flush();
         }
-        return $this->$transcoNatureInter;
+        return $transcoNatureInter;
     }
 
     /**
      * Deletes a TranscoNatureInter entity.
+     * @param $transcoNatureInterId
      */
     public function delete($transcoNatureInterId)
     {
