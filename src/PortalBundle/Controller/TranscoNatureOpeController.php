@@ -24,7 +24,7 @@ class TranscoNatureOpeController extends FOSRestController
 
     /**
      * Lists all TranscoNatureOpe entities.
-     * @Rest\Get("/TranscoNatureOpe/all")
+     * @Rest\Get("/transconatureope/all")
      * @Rest\View
      *
      * @ApiDoc(
@@ -40,7 +40,7 @@ class TranscoNatureOpeController extends FOSRestController
 
     /**
      * Creates a new TranscoNatureOpe entity.
-     * @Rest\Post("/TranscoNatureOpe/new")
+     * @Rest\Post("/transconatureope/new")
      * @Rest\View
      *
      * @ApiDoc(
@@ -58,7 +58,7 @@ class TranscoNatureOpeController extends FOSRestController
 
     /**
      * Finds and displays a TranscoNatureOpe entity.
-     * @Rest\Get("/TranscoNatureOpe/{TranscoNatureOpeId}")
+     * @Rest\Get("/transconatureope/{transconatureopeId}")
      * @Rest\View
      *
      * @ApiDoc(
@@ -79,7 +79,7 @@ class TranscoNatureOpeController extends FOSRestController
 
     /**
      * Displays a form to edit an existing TranscoNatureOpe entity.
-     * @Rest\Post("/TranscoNatureOpe/{TranscoNatureOpeId}/edit")
+     * @Rest\Post("/transconatureope/{transconatureopeId}/edit")
      * @Rest\View
      *
      * @ApiDoc(
@@ -101,7 +101,7 @@ class TranscoNatureOpeController extends FOSRestController
 
     /**
      * Deletes a TranscoNatureOpe entity.
-     * @Rest\Get("/TranscoNatureOpe/{TranscoNatureOpeId}/delete")
+     * @Rest\Get("/transconatureope/{transconatureopeId}/delete")
      * @Rest\View
      *
      * @ApiDoc(
