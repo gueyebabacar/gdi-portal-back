@@ -23,20 +23,24 @@ class LoadTranscoNatureInterdData implements FixtureInterface, ContainerAwareInt
 
     public function load(ObjectManager $manager)
     {
-        $transcoNatureInter = new TranscoNatureInter();
 
         /** @var LoremIpsum $loremIpsum */
         $loremIpsum = $this->container->get("apoutchika.lorem_ipsum");
 
-        $transcoNatureInter->setOpticNatCode($loremIpsum->getWords(1));
-        $transcoNatureInter->setOpticSkill($loremIpsum->getWords(3));
-        $transcoNatureInter->setOpticNatLabel($loremIpsum->getWords(3));
-        $transcoNatureInter->setPictrelNatOpCode($loremIpsum->getWords(1));
-        $transcoNatureInter->setPictrelNatOpLabel($loremIpsum->getWords(3));
-        $transcoNatureInter->setTroncatedPictrelNatOpLabel($loremIpsum->getWords(3));
-        $transcoNatureInter->setApp(1);
+        for($i = 0; $i < 20; $i++){
+            $transcoNatureInter = new TranscoNatureInter();
 
-        $manager->persist($transcoNatureInter);
+            $transcoNatureInter->setOpticNatCode($loremIpsum->getWords(1));
+            $transcoNatureInter->setOpticSkill($loremIpsum->getWords(3));
+            $transcoNatureInter->setOpticNatLabel($loremIpsum->getWords(3));
+            $transcoNatureInter->setPictrelNatOpCode($loremIpsum->getWords(1));
+            $transcoNatureInter->setPictrelNatOpLabel($loremIpsum->getWords(3));
+            $transcoNatureInter->setTroncatedPictrelNatOpLabel($loremIpsum->getWords(3));
+            $transcoNatureInter->setApp($i);
+
+            $manager->persist($transcoNatureInter);
+        }
+
         $manager->flush();
     }
 }
