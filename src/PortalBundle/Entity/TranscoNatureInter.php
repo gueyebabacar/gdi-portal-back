@@ -3,6 +3,7 @@
 namespace PortalBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use JMS\Serializer\Annotation\Expose;
 
 /**
  * TranscoNatureInter
@@ -17,6 +18,7 @@ class TranscoNatureInter
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
+     * @Expose
      */
     protected $id;
 
@@ -25,6 +27,7 @@ class TranscoNatureInter
      *
      * @var $opticNatCode
      * @ORM\Column(type="string")
+     * @Expose
      */
     protected $opticNatCode;
 
@@ -33,6 +36,7 @@ class TranscoNatureInter
      *
      * @var $opticSkill
      * @ORM\Column(type="string")
+     * @Expose
      */
     protected $opticSkill;
 
@@ -41,6 +45,7 @@ class TranscoNatureInter
      *
      * @var $opticNatLabel
      * @ORM\Column(type="string")
+     * @Expose
      */
     protected $opticNatLabel;
 
@@ -49,6 +54,7 @@ class TranscoNatureInter
      *
      * @var $pictrelNatOpCode
      * @ORM\Column(type="string")
+     * @Expose
      */
     protected $pictrelNatOpCode;
 
@@ -57,6 +63,7 @@ class TranscoNatureInter
      *
      * @var $pictrelNatOpLabel
      * @ORM\Column(type="string")
+     * @Expose
      */
     protected $pictrelNatOpLabel;
 
@@ -65,6 +72,7 @@ class TranscoNatureInter
      *
      * @var $troncatedPictrelNatOpLabel
      * @ORM\Column(type="string")
+     * @Expose
      */
     protected $troncatedPictrelNatOpLabel;
 
@@ -73,6 +81,7 @@ class TranscoNatureInter
      *
      * @var $app
      * @ORM\Column(type="string")
+     * @Expose
      */
     protected $app;
 
