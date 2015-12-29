@@ -58,7 +58,7 @@ class TranscoNatureOpeController extends FOSRestController
 
     /**
      * Finds and displays a TranscoNatureOpe entity.
-     * @Rest\Get("/transconatureope/{transconatureopeId}")
+     * @Rest\Get("/transconatureope/{transcoNatureOpeId}")
      * @Rest\View
      *
      * @ApiDoc(
@@ -66,20 +66,20 @@ class TranscoNatureOpeController extends FOSRestController
      *      resource = true,
      *      description = "Afficher une ligne de la table TranscoNatureOpe",
      *      parameters={
-     *          {"name"="TranscoNatureOpeId", "dataType"="Integer", "required"=true, "description"="Id TranscoNatureOpe"},
+     *          {"name"="transcoNatureOpeId", "dataType"="Integer", "required"=true, "description"="Id TranscoNatureOpe"},
      *      }
      * )
-     * @param $TranscoNatureOpeId
+     * @param $transcoNatureOpeId
      * @return TranscoNatureOpe
      */
-    public function showAction($TranscoNatureOpeId)
+    public function getAction($transcoNatureOpeId)
     {
-        return $this->transcoNatureOpeService->get($TranscoNatureOpeId);
+        return $this->transcoNatureOpeService->get($transcoNatureOpeId);
     }
 
     /**
      * Displays a form to edit an existing TranscoNatureOpe entity.
-     * @Rest\Post("/transconatureope/{transconatureopeId}/edit")
+     * @Rest\Post("/transconatureope/{transcoNatureOpeId}/edit")
      * @Rest\View
      *
      * @ApiDoc(
@@ -87,21 +87,21 @@ class TranscoNatureOpeController extends FOSRestController
      *      resource = true,
      *      description = "Editer une ligne de la table TranscoNatureOpe",
      *      parameters={
-     *          {"name"="TranscoNatureOpeId", "dataType"="Integer", "required"=true, "description"="Id TranscoNatureOpe"},
+     *          {"name"="transcoNatureOpeId", "dataType"="Integer", "required"=true, "description"="Id TranscoNatureOpe"},
      *      }
      * )
      * @param Request $request
-     * @param $TranscoNatureOpeId
+     * @param $transcoNatureOpeId
      * @return TranscoNatureOpe
      */
-    public function editAction(Request $request, $TranscoNatureOpeId)
+    public function editAction(Request $request, $transcoNatureOpeId)
     {
-        return $this->transcoNatureOpeService->edit($request, $TranscoNatureOpeId);
+        return $this->transcoNatureOpeService->edit($request, $transcoNatureOpeId);
     }
 
     /**
      * Deletes a TranscoNatureOpe entity.
-     * @Rest\Get("/transconatureope/{transconatureopeId}/delete")
+     * @Rest\Get("/transconatureope/{transcoNatureOpeId}/delete")
      * @Rest\View
      *
      * @ApiDoc(
@@ -109,13 +109,13 @@ class TranscoNatureOpeController extends FOSRestController
      *      resource = true,
      *      description = "Supprime une ligne de la table TranscoNatureOpe",
      *      parameters={
-     *          {"name"="TranscoNatureOpeId", "dataType"="Integer", "required"=true, "description"="Id TranscoNatureOpe"},
+     *          {"name"="transcoNatureOpeId", "dataType"="Integer", "required"=true, "description"="Id TranscoNatureOpe"},
      *      }
      * )
-     * @param $TranscoNatureOpeId
+     * @param $transcoNatureOpeId
      */
-    public function deleteAction($TranscoNatureOpeId)
+    public function deleteAction($transcoNatureOpeId)
     {
-        $this->transcoNatureOpeService->delete($TranscoNatureOpeId);
+        $this->transcoNatureOpeService->delete($transcoNatureOpeId);
     }
 }
