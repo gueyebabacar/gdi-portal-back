@@ -31,7 +31,13 @@ class TranscoNatureInterType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'PortalBundle\Entity\TranscoNatureInter'
+            'data_class' => 'PortalBundle\Entity\TranscoNatureInter',
+            'csrf_protection' => false
         ));
+    }
+
+    public function getName()
+    {
+        return '';
     }
 }
