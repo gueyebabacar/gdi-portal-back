@@ -80,7 +80,7 @@ class TranscoNatureInter
      * app
      *
      * @var $app
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="integer")
      * @Expose
      */
     protected $app;
