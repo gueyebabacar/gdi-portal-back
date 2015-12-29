@@ -23,7 +23,7 @@ class TranscoNatureInterControllerTest extends BaseWebTestCase
     }
 
     /**
-     *
+     *testGetAllAction
      */
     public function testGetAllAction()
     {
@@ -41,7 +41,7 @@ class TranscoNatureInterControllerTest extends BaseWebTestCase
     }
 
     /**
-     *
+     *testGetAction
      */
     public function testGetAction()
     {
@@ -60,28 +60,94 @@ class TranscoNatureInterControllerTest extends BaseWebTestCase
         $this->assertEquals($transcoNatureInter->getApp(), $response['app']);
     }
 
-    /*
-     *
+    /**
+     *testNewAction
      */
-    public function testCreateAction()
+    public function testNewAction()
     {
-        $this->insertTranscoNatureInter();
+        $data = array(
+            'id' => 1,
+            'opticNatCode' => 'ROBI',
+            'opticSkill' => 'Maintenance Robinet',
+            'opticNatLabel' => 'Inspection robinet reseau',
+            'pictrelNatOpCode' => 'AA',
+            'pictrelNatLabel' => 'Inspection robinet reseau',
+            'troncatedPictrelNatOpLabel' => 'Inspection robinet reseau',
+            'app' => 1,
+        );
 
-        $transcoNatureInter = $this->em->getRepository('PortalBundle:TranscoNatureInter')->findAll()[0];
+        $transcoNatureInter = new TranscoNatureInter();
+
+        $transcoNatureInter->setId($data['id']);
+        $transcoNatureInter->setOpticNatCode($data['opticNatCode']);
+        $transcoNatureInter->setOpticSkill($data['opticSkill']);
+        $transcoNatureInter->setOpticNatLabel($data['opticNatLabel']);
+        $transcoNatureInter->setPictrelNatOpCode($data['pictrelNatOpCode']);
+        $transcoNatureInter->setPictrelNatOpLabel($data['pictrelNatLabel']);
+        $transcoNatureInter->setTroncatedPictrelNatOpLabel($data['troncatedPictrelNatOpLabel']);
+        $transcoNatureInter->setApp($data['app']);
+
         $this->client->request(
-            'GET',
-            "/transconatureinter/".$transcoNatureInter->getId(),
-            [],
+            'POST',
+            "/transconatureinter/new",
+            $data,
             [],
             $this->headers
         );
         $response = json_decode($this->client->getResponse()->getContent(), true);
-        $this->assertEquals($transcoNatureInter->getId(), $response['id']);
+        $this->assertEquals($transcoNatureInter->getOpticNatCode(), $response['optic_nat_code']);
         $this->assertEquals($transcoNatureInter->getApp(), $response['app']);
     }
 
     /**
-     *
+     *testNewAction
+     */
+    public function testEditAction()
+    {
+        $this->insertTranscoNatureInter();
+
+        $data = array(
+            'id' => 1,
+            'opticNatCode' => 'ROBO',
+        );
+
+        $transcoNatureInter = $this->em->getRepository('PortalBundle:TranscoNatureInter')->findAll()[0];
+        $transcoNatureInter->setOpticNatCode($data['opticNatCode']);
+
+        $this->client->request(
+            'POST',
+            "/transconatureinter/".$transcoNatureInter->getId()."/edit",
+            $data,
+            [],
+            $this->headers
+        );
+        $response = json_decode($this->client->getResponse()->getContent(), true);
+        $this->assertEquals($transcoNatureInter->getOpticNatCode(), $response['optic_nat_code']);
+    }
+
+    /**
+     *testNewAction
+     */
+    public function testDeleteAction()
+    {
+        $this->insertTranscoNatureInter();
+
+        $transcoNatureInter = $this->em->getRepository('PortalBundle:TranscoNatureInter')->findAll()[0];
+        $id = $transcoNatureInter->getId();
+        $this->client->request(
+            'GET',
+            "/transconatureinter/".$id."/delete",
+            [],
+            [],
+            $this->headers
+        );
+        $transcoNatureInter = $this->em->getRepository('PortalBundle:TranscoNatureInter')->find($id);
+
+        $this->assertNull($transcoNatureInter);
+    }
+
+    /**
+     *insertTranscoNatureInter
      */
     public function insertTranscoNatureInter()
     {
