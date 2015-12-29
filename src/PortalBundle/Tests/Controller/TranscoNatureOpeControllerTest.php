@@ -37,7 +37,6 @@ class TranscoNatureOpeControllerTest extends BaseWebTestCase
 
         $this->assertEquals(sizeof($transcoNatureOpes), sizeof($response));
         $this->assertEquals($transcoNatureOpes[0]->getCounter(), $response[0]['counter']);
-        $this->assertEquals($transcoNatureOpes[0]->getId(), $response[0]['id']);
     }
 
     /**
@@ -48,6 +47,7 @@ class TranscoNatureOpeControllerTest extends BaseWebTestCase
         $this->insertTranscoNatureOpe();
 
         $transcoNatureOpe = $this->em->getRepository('PortalBundle:TranscoNatureOpe')->findAll()[0];
+
         $this->client->request(
             'GET',
             "/transconatureope/".$transcoNatureOpe->getId(),
@@ -56,7 +56,6 @@ class TranscoNatureOpeControllerTest extends BaseWebTestCase
             $this->headers
         );
         $response = json_decode($this->client->getResponse()->getContent(), true);
-        $this->assertEquals($transcoNatureOpe->getId(), $response['id']);
         $this->assertEquals($transcoNatureOpe->getCounter(), $response['counter']);
         $this->assertEquals($transcoNatureOpe->getNatureInterCode(), $response['nature_inter_code']);
 
@@ -68,24 +67,22 @@ class TranscoNatureOpeControllerTest extends BaseWebTestCase
     public function testNewAction()
     {
         $data = array(
-            'id' => 1,
             'workType' => 'ROBI',
-            'gammeGroup' => 'Maintenance Robinet',
-            'purpose' => 'Inspection robinet reseau',
-            'Counter' => 'AA',
-            'segmentationValue' => 'Inspection robinet reseau',
-            'segmentationName' => 'Inspection robinet reseau',
-            'programmingMode' => 'Inspection robinet reseau',
-            'natureInterCode' => 'Inspection robinet reseau',
+            'gammeGroup' => 'lorem ipsum',
+            'purpose' => 'lorem ipsum',
+            'counter' => 1,
+            'segmentationValue' => 'lorem ipsum',
+            'segmentationName' => 'lorem ipsum',
+            'programmingMode' => 'lorem ipsum',
+            'natureInterCode' => 'lorem ipsum',
         );
 
         $transcoNatureOpe = new TranscoNatureOpe();
 
-        $transcoNatureOpe->setId($data['id']);
         $transcoNatureOpe->setWorkType($data['workType']);
         $transcoNatureOpe->setGammeGroup($data['gammeGroup']);
         $transcoNatureOpe->setPurpose($data['purpose']);
-        $transcoNatureOpe->setCounter($data['Counter']);
+        $transcoNatureOpe->setCounter($data['counter']);
         $transcoNatureOpe->setSegmentationValue($data['segmentationValue']);
         $transcoNatureOpe->setSegmentationName($data['segmentationName']);
         $transcoNatureOpe->setProgrammingMode($data['programmingMode']);
