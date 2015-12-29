@@ -18,7 +18,7 @@ class TranscoNatureOpeTest extends \PHPUnit_Framework_TestCase
             'workType' => 'ROBI',
             'gammeGroup' => 'Maintenance Robinet',
             'purpose' => 'Inspection robinet reseau',
-            'Counter' => 'AA',
+            'counter' => 'AA',
             'segmentationValue' => 'Inspection robinet reseau',
             'segmentationName' => 'Inspection robinet reseau',
             'programmingMode' => 'Inspection robinet reseau',
@@ -31,7 +31,7 @@ class TranscoNatureOpeTest extends \PHPUnit_Framework_TestCase
         $transcoNatureOpe->setWorkType($data['workType']);
         $transcoNatureOpe->setGammeGroup($data['gammeGroup']);
         $transcoNatureOpe->setPurpose($data['purpose']);
-        $transcoNatureOpe->setCounter($data['Counter']);
+        $transcoNatureOpe->setCounter($data['counter']);
         $transcoNatureOpe->setSegmentationValue($data['segmentationValue']);
         $transcoNatureOpe->setSegmentationName($data['segmentationName']);
         $transcoNatureOpe->setProgrammingMode($data['programmingMode']);
@@ -41,7 +41,7 @@ class TranscoNatureOpeTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($data['workType'], $transcoNatureOpe->getWorkType());
         $this->assertEquals($data['gammeGroup'], $transcoNatureOpe->getGammeGroup());
         $this->assertEquals($data['purpose'], $transcoNatureOpe->getPurpose());
-        $this->assertEquals($data['Counter'], $transcoNatureOpe->getCounter());
+        $this->assertEquals($data['counter'], $transcoNatureOpe->getCounter());
         $this->assertEquals($data['segmentationValue'], $transcoNatureOpe->getSegmentationValue());
         $this->assertEquals($data['segmentationName'], $transcoNatureOpe->getSegmentationName());
         $this->assertEquals($data['programmingMode'], $transcoNatureOpe->getProgrammingMode());
