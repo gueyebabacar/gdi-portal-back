@@ -74,24 +74,24 @@ class TranscoNatureOpeService
 
     /**
      * Finds and displays a TranscoNatureOpe entity.
-     * @param $TranscoNatureOpeId
+     * @param $transcoNatureOpeId
      * @return null|object|TranscoNatureOpe
      */
-    public function get($TranscoNatureOpeId)
+    public function get($transcoNatureOpeId)
     {
-        return $this->em->getRepository('PortalBundle:TranscoNatureOpe')->find($TranscoNatureOpeId);
+        return $this->em->getRepository('PortalBundle:TranscoNatureOpe')->find($transcoNatureOpeId);
     }
 
     /**
      * Displays a form to edit an existing TranscoNatureOpe entity.
      * @param Request $request
-     * @param $TranscoNatureOpeId
+     * @param $transcoNatureOpeId
      * @return TranscoNatureOpe
      */
-    public function edit(Request $request, $TranscoNatureOpeId)
+    public function edit(Request $request, $transcoNatureOpeId)
     {
         /** @var TranscoNatureOpe $TranscoNatureOpe */
-        $TranscoNatureOpe = $this->em->getRepository('PortalBundle:TranscoNatureOpe')->find($TranscoNatureOpeId);
+        $TranscoNatureOpe = $this->em->getRepository('PortalBundle:TranscoNatureOpe')->find($transcoNatureOpeId);
         $form = $this->formFactory->create(new TranscoNatureOpeType(), $TranscoNatureOpe);
         $form->handleRequest($request);
 
@@ -104,12 +104,12 @@ class TranscoNatureOpeService
 
     /**
      * Deletes a TranscoNatureOpe entity.
-     * @param $TranscoNatureOpeId
+     * @param $transcoNatureOpeId
      */
-    public function delete($TranscoNatureOpeId)
+    public function delete($transcoNatureOpeId)
     {
         /** @var TranscoNatureOpe $TranscoNatureOpe */
-        $TranscoNatureOpe = $this->em->getRepository('PortalBundle:TranscoNatureOpe')->find($TranscoNatureOpeId);
+        $TranscoNatureOpe = $this->em->getRepository('PortalBundle:TranscoNatureOpe')->find($transcoNatureOpeId);
         $this->em->remove($TranscoNatureOpe);
         $this->em->flush();
     }
