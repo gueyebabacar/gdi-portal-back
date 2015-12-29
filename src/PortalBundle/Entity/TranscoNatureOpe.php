@@ -3,6 +3,7 @@
 namespace PortalBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use JMS\Serializer\Annotation\Expose;
 
 /**
  * TranscoNatureOpe
@@ -17,6 +18,7 @@ class TranscoNatureOpe
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
+     * @Expose
      */
     protected $id;
 
@@ -25,6 +27,7 @@ class TranscoNatureOpe
      *
      * @var $workType
      * @ORM\Column(type="string")
+     * @Expose
      */
     protected $workType;
 
@@ -33,6 +36,7 @@ class TranscoNatureOpe
      *
      * @var $gammeGroup
      * @ORM\Column(type="string")
+     * @Expose
      */
     protected $gammeGroup;
 
@@ -40,7 +44,8 @@ class TranscoNatureOpe
      * Compteur
      *
      * @var $counter
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="integer")
+     * @Expose
      */
     protected $counter;
 
@@ -49,6 +54,7 @@ class TranscoNatureOpe
      *
      * @var $purpose
      * @ORM\Column(type="string")
+     * @Expose
      */
     protected $purpose;
 
@@ -57,6 +63,7 @@ class TranscoNatureOpe
      *
      * @var $natureInterCode
      * @ORM\Column(type="string")
+     * @Expose
      */
     protected $natureInterCode;
 
@@ -65,6 +72,7 @@ class TranscoNatureOpe
      *
      * @var $programmingMode
      * @ORM\Column(type="string")
+     * @Expose
      */
     protected $programmingMode;
 
@@ -73,6 +81,7 @@ class TranscoNatureOpe
      *
      * @var $segmentationName
      * @ORM\Column(type="string")
+     * @Expose
      */
     protected $segmentationName;
 
@@ -81,6 +90,7 @@ class TranscoNatureOpe
      *
      * @var $workType
      * @ORM\Column(type="string")
+     * @Expose
      */
     protected $segmentationValue;
 
