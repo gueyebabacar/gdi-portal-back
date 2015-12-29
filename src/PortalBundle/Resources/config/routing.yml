@@ -1,0 +1,3 @@
+transconatureope:
+    type: rest
+    resource: @PortalBundle/Controller/TranscoNatureOpeController.php
