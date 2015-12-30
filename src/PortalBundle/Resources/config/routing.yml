@@ -1,3 +1,6 @@
 transcodestersite:
     type: rest
     resource: @PortalBundle/Controller/TranscoDestTerrSiteController.php
+
+soap:
+    resource: PortalBundle\Controller\SoapServerController
