@@ -113,4 +113,12 @@ class TranscoNatureInterService
         $this->em->remove($transcoNatureInter);
         $this->em->flush();
     }
+
+    public function getCodeNatIntFromCodeNatOp(array $data){
+        return $this->em->getRepository('PortalBundle:TranscoNatureInter')->findCodeNatIntFromCodeNatOp($data);
+    }
+
+    public function getCodeNatOpFromCodeNatInt(array $data){
+        return $this->em->getRepository('PortalBundle:TranscoNatureInter')->findCodeNatopFromCodeNatInt($data);
+    }
 }
