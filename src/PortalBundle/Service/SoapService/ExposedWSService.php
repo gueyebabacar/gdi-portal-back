@@ -6,7 +6,7 @@ use JMS\DiExtraBundle\Annotation as DI;
 use Symfony\Component\PropertyInfo\Type;
 
 /**
- * Class TranscoNatureInterService
+ * Class TranscoDestTerrSiteService
  * @package PortalBundle\Service
  *
  * @DI\Service("portal.service.exposed_ws", public=true)
@@ -14,21 +14,21 @@ use Symfony\Component\PropertyInfo\Type;
 class ExposedWSService
 {
     /**
-     * @var TranscoNatureInterService
-     * @DI\Inject("portal.service.transconatureinter")
+     * @var TranscoDestTerrSiteService
+     * @DI\Inject("portal.service.trans.dest.terr.site")
      */
-    public $transcoNatureInterService;
+    public $transcoDestTerrSiteService;
 
 
     /**
      * @DI\InjectParams({
-     *     "transcoNatureInterService" = @DI\Inject("portal.service.transconatureinter"),
+     *     "transcoDestTerrSiteService" = @DI\Inject("portal.service.trans.dest.terr.site"),
      * })
-     * @param $transcoNatureInterService
+     * @param $transcoDestTerrSiteService
      */
-    public function __construct($transcoNatureInterService)
+    public function __construct($transcoDestTerrSiteService)
     {
-        $this->transcoNatureInterService = $transcoNatureInterService;
+        $this->transcoDestTerrSiteService = $transcoDestTerrSiteService;
     }
 
     /**
