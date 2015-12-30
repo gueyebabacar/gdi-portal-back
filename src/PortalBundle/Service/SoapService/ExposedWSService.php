@@ -3,6 +3,7 @@
 namespace PortalBundle\Service\SoapService;
 
 use JMS\DiExtraBundle\Annotation as DI;
+use PortalBundle\Service\TranscoDestTerrSiteService;
 use Symfony\Component\PropertyInfo\Type;
 
 /**
