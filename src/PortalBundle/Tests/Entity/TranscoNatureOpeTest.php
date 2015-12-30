@@ -11,7 +11,7 @@ class TranscoNatureOpeTest extends \PHPUnit_Framework_TestCase
      * @group portal
      * @group entity
      */
-    public function testTranscoNatureInterSettersGetters()
+    public function testTranscoNatureOpeSettersGetters()
     {
         $data = array(
             'id' => 1,

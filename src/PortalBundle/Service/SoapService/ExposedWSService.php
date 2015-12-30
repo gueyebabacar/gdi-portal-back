@@ -3,10 +3,11 @@
 namespace PortalBundle\Service\SoapService;
 
 use JMS\DiExtraBundle\Annotation as DI;
+use PortalBundle\Service\TranscoNatureOpeService;
 use Symfony\Component\PropertyInfo\Type;
 
 /**
- * Class TranscoNatureInterService
+ * Class TranscoNatureOpeService
  * @package PortalBundle\Service
  *
  * @DI\Service("portal.service.exposed_ws", public=true)
@@ -14,21 +15,20 @@ use Symfony\Component\PropertyInfo\Type;
 class ExposedWSService
 {
     /**
-     * @var TranscoNatureInterService
-     * @DI\Inject("portal.service.transconatureinter")
+     * @var TranscoNatureOpeService
+     * @DI\Inject("portal.service.transconatureope")
      */
-    public $transcoNatureInterService;
-
+    public $transcoNatureOpeService;
 
     /**
      * @DI\InjectParams({
-     *     "transcoNatureInterService" = @DI\Inject("portal.service.transconatureinter"),
+     *     "transcoNatureOpeService" = @DI\Inject("portal.service.transconatureope"),
      * })
-     * @param $transcoNatureInterService
+     * @param $transcoNatureOpeService
      */
-    public function __construct($transcoNatureInterService)
+    public function __construct($transcoNatureOpeService)
     {
-        $this->transcoNatureInterService = $transcoNatureInterService;
+        $this->transcoNatureOpeService = $transcoNatureOpeService;
     }
 
     /**

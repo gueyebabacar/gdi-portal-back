@@ -14,7 +14,7 @@ use JMS\DiExtraBundle\Annotation as DI;
  * Class TranscoNatureOpeService
  * @package PortalBundle\Service
  *
- * @DI\Service("portal.service.TranscoNatureOpe", public=true)
+ * @DI\Service("portal.service.transconatureope", public=true)
  */
 class TranscoNatureOpeService
 {
