@@ -1,0 +1,6 @@
+transconatureinter:
+    type: rest
+    resource: @PortalBundle/Controller/TranscoNatureInterController.php
+
+soap:
+    resource: PortalBundle\Controller\SoapServerController
