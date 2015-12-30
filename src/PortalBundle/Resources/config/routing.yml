@@ -1,0 +1,3 @@
+transcodestersite:
+    type: rest
+    resource: @PortalBundle/Controller/TranscoDestTerrSiteController.php
