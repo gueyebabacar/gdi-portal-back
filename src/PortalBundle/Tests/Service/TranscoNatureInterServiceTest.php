@@ -211,6 +211,38 @@ class TranscoNatureInterServiceTest extends \PHPUnit_Framework_TestCase
         $this->transcoService->delete(1);
     }
 
+    public function testGetCodeNatIntFromCodeNatOp(){
+        $transcoRepositoryProphecy = $this->prophet->prophesize(TranscoNatureInterRepository::class);
+
+        $this->emProphecy
+            ->getRepository(Argument::exact('PortalBundle:TranscoNatureInter'))
+            ->willReturn($transcoRepositoryProphecy->reveal())
+            ->shouldBeCalled();
+
+        $transcoRepositoryProphecy
+            ->findCodeNatIntFromCodeNatOp([])
+            ->willReturn([])
+            ->shouldBeCalled();
+
+        $this->assertEquals([], $this->transcoService->getCodeNatIntFromCodeNatOp([]));
+    }
+
+    public function testGetCodeNatOpFromCodeNatInt(){
+        $transcoRepositoryProphecy = $this->prophet->prophesize(TranscoNatureInterRepository::class);
+
+        $this->emProphecy
+            ->getRepository(Argument::exact('PortalBundle:TranscoNatureInter'))
+            ->willReturn($transcoRepositoryProphecy->reveal())
+            ->shouldBeCalled();
+
+        $transcoRepositoryProphecy
+            ->findCodeNatopFromCodeNatInt([])
+            ->willReturn([])
+            ->shouldBeCalled();
+
+        $this->assertEquals([], $this->transcoService->getCodeNatOpFromCodeNatInt([]));
+    }
+
     private function createTranscoTable()
     {
         $transcos = [];
