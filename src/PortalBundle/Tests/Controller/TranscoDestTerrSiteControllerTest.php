@@ -49,7 +49,7 @@ class TranscoDestTerrSiteControllerTest extends BaseWebTestCase
         $transcoDestTerrSite = $this->em->getRepository('PortalBundle:TranscoDestTerrSite')->findAll()[0];
         $this->client->request(
             'GET',
-            "/transconatureinter/".$transcoDestTerrSite->getId(),
+            "/transcodestersite/".$transcoDestTerrSite->getId(),
             [],
             [],
             $this->headers
@@ -68,14 +68,14 @@ class TranscoDestTerrSiteControllerTest extends BaseWebTestCase
         $transcoDestTerrSite = $this->em->getRepository('PortalBundle:TranscoDestTerrSite')->findAll()[0];
         $this->client->request(
             'GET',
-            "/transconatureinter/".$transcoDestTerrSite->getId(),
+            "/transcodestersite/".$transcoDestTerrSite->getId(),
             [],
             [],
             $this->headers
         );
         $response = json_decode($this->client->getResponse()->getContent(), true);
         $this->assertEquals($transcoDestTerrSite->getId(), $response['id']);
-        $this->assertEquals($transcoDestTerrSite->getIdRefStructureOp(), $response['idRefStructureOp']);
+        $this->assertEquals($transcoDestTerrSite->getIdRefStructureOp(), $response['id_ref_structure_op']);
     }
 
     /**
@@ -92,6 +92,7 @@ class TranscoDestTerrSiteControllerTest extends BaseWebTestCase
             $transcoDestTerrSite->setAdressee('lorem ipsum');
             $transcoDestTerrSite->setSite('lorem ipsum');
             $transcoDestTerrSite->setPr('lorem ipsum');
+            $transcoDestTerrSite->setTerritory('055');
 
             $this->em->persist($transcoDestTerrSite);
         }

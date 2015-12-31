@@ -8,6 +8,7 @@ use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\Tools\EntityRepositoryGenerator;
 use PhpOption\Tests\Repository;
 use PortalBundle\Entity\TranscoDestTerrSite;
+use PortalBundle\Form\TranscoDestTerrSiteType;
 use PortalBundle\Form\TranscoDestTerrSiteTypeType;
 use PortalBundle\Service\TranscoDestTerrSiteService;
 use Prophecy\Argument;
@@ -40,7 +41,7 @@ class TranscoDestTerrSiteServiceTest extends \PHPUnit_Framework_TestCase
      */
     private $repositoryProphecy;
 
-    /** @var  TranscoDestTerrSiteInterService */
+    /** @var  TranscoDestTerrSiteService */
     private $transcoService;
 
     public function setUp()
@@ -222,6 +223,7 @@ class TranscoDestTerrSiteServiceTest extends \PHPUnit_Framework_TestCase
             $transcoDestTerrSite->setAdressee('lorem ipsum');
             $transcoDestTerrSite->setSite('lorem ipsum');
             $transcoDestTerrSite->setPr('lorem ipsum');
+            $transcoDestTerrSite->setTerritory('055');
 
             $transcos[] = $transcoDestTerrSite;
         }
