@@ -4,20 +4,43 @@ namespace PortalBundle\Service\SoapService;
 
 use JMS\DiExtraBundle\Annotation as DI;
 use PortalBundle\Service\TranscoDestTerrSiteService;
+use PortalBundle\Service\TranscoNatureOpeService;
+use PortalBundle\Service\TranscoNatureInterService;
 use Symfony\Component\PropertyInfo\Type;
 
 /**
- * Class TranscoDestTerrSiteService
+ * Class ExposedWSService
  * @package PortalBundle\Service
  *
  * @DI\Service("portal.service.exposed_ws", public=true)
  */
 class ExposedWSService
 {
+    //NatureOpe
+    const CODE_NAT_INTER3 = "CodeNatureIntervention3";
+    const MODE_PROGRAM= "ModeProgrammation";
+
+    //NatureInter
+    const CODE_NAT_INTER = "CodeNatureIntervention";
+    const CODE_NAT_OP = "CodeNatureOperation";
+
+    //DestTerrSite
     const TERRITORY = "Territoire";
     const ADRESSEE = "Destinataire";
     const PR = "PR";
     const ATG = "ATG";
+
+    /**
+     * @var TranscoNatureInterService
+     * @DI\Inject("portal.service.transconatureope")
+     */
+    public $transcoNatureInterService;
+
+    /**
+     * @var TranscoNatureOpeService
+     * @DI\Inject("portal.service.transconatureope")
+     */
+    public $transcoNatureOpeService;
 
     /**
      * @var TranscoDestTerrSiteService
@@ -25,17 +48,24 @@ class ExposedWSService
      */
     public $transcoDestTerrSiteService;
 
-    public $return;
-
+    /**
+     * @var $return
+     */
+    private $return;
 
     /**
      * @DI\InjectParams({
+     *     "transcoNatureInterService" = @DI\Inject("portal.service.transconatureinter"),
+     *     "transcoNatureOpeService" = @DI\Inject("portal.service.transconatureope"),
      *     "transcoDestTerrSiteService" = @DI\Inject("portal.service.trans.dest.terr.site"),
      * })
-     * @param $transcoDestTerrSiteService
+     * @param $transcoNatureInterService
+     * @param $transcoNatureOpeService
      */
-    public function __construct($transcoDestTerrSiteService)
+    public function __construct($transcoNatureInterService, $transcoNatureOpeService, $transcoDestTerrSiteService)
     {
+        $this->transcoNatureOpeService = $transcoNatureOpeService;
+        $this->transcoNatureInterService = $transcoNatureInterService;
         $this->transcoDestTerrSiteService = $transcoDestTerrSiteService;
     }
 
@@ -53,13 +83,31 @@ class ExposedWSService
 
         $valeurRecherchee = $data->requeteTranscoGDIServiceInput->valeurRecherchee;
         $query['values']['query'] = $valeurRecherchee;
-        $choice = [];
+
         foreach ($data->requeteTranscoGDIServiceInput->critere as $key => $item) {
             $query['criteria'][$key]['name'] = $item->NomCritere;
             $query['criteria'][$key]['value'] = $item->ValeurCritere;
         }
+
         try {
             switch ($valeurRecherchee) {
+                //NatureInter
+                case $this::CODE_NAT_INTER:
+                    $this->return['result'] = $this->transcoNatureInterService->getCodeNatIntFromCodeNatOp($query);
+                    break;
+
+                case $this::CODE_NAT_OP:
+                    $this->return['result'] = $this->transcoNatureInterService->getCodeNatOpFromCodeNatInt($query);
+                    break;
+                //NatureOpe
+                case $this::CODE_NAT_INTER3:
+                    $this->return['result'] = $this->transcoNatureOpeService->getCodeNatureIntervention3($query);
+                    break;
+
+                case $this::MODE_PROGRAM:
+                    $this->return['result'] = $this->transcoNatureOpeService->getModeProgrammation($query);
+                    break;
+
                 case $this::ADRESSEE:
                     $this->return['result'] = $this->transcoDestTerrSiteService->getAdresseeFromAtg($query);
                     break;
@@ -85,7 +133,6 @@ class ExposedWSService
             $response->codeReponse->codeRetour = $this->return['code'];
             $response->codeReponse->messageRetour = $this->return['message'];
         } catch (\Exception $exception) {
-//            $response->reponseTranscoGDIServiceOutput->valeurTrouvee = 'coucou';
             $response->codeReponse->codeRetour = 'KO';
             $response->codeReponse->messageRetour = $exception->getMessage();
         }
@@ -93,19 +140,18 @@ class ExposedWSService
         return $response;
     }
 
-
     private function validationQuery(array $query)
     {
         $fields = $this->fieldIsNull($query);
         if (!empty($fields)) {
             $this->return['result'] = '';
-            $this->return['message'] = "Les champs obligatoires ne sont pas remplis:" . implode($fields);
+            $this->return['message'] = "Les champs obligatoires ne sont pas remplis:" . implode($fields, ', ');
             $this->return['code'] = "0000000001";
         } elseif ($this->return['result'] == null) {
             $this->return['result'] = '';
             $this->return['message'] = "ValeurRecherchee non reconnue";
             $this->return['code'] = "0000000003";
-        } elseif (is_array($this->return['result'])) {
+        } elseif(is_array($this->return['result'])) {
             $this->return['result'] = '';
             $this->return['message'] = "Transcodification impossible !";
             $this->return['code'] = "0000000002";
