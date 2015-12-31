@@ -1,6 +1,6 @@
 <?php
 
-namespace PortalBundle\Entity;
+namespace PortalBundle\Repository;
 
 use Doctrine\ORM\EntityRepository;
 
