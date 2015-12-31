@@ -20,7 +20,6 @@ class TranscoNatureInterRepository extends EntityRepository
         $qb->select("tni.opticNatCode")
             ->where("tni.pictrelNatOpCode = :natOp")
             ->setParameter('natOp', $data['criteria'][0]['value']);
-
         return $qb->getQuery()->getArrayResult();
     }
 
