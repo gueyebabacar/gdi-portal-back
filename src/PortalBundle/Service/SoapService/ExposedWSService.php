@@ -8,20 +8,20 @@ use PortalBundle\Service\TranscoNatureOpeService;
 use Symfony\Component\PropertyInfo\Type;
 
 /**
- * Class TranscoNatureInterService
+ * Class ExposedWSService
  * @package PortalBundle\Service
  *
  * @DI\Service("portal.service.exposed_ws", public=true)
  */
 class ExposedWSService
 {
-    //NatureInter
-    const CODE_NAT_INTER = "CodeNatureIntervention";
-    const CODE_NAT_OP = "CodeNatureOperation";
-
     //NatureOpe
     const CODE_NAT_INTER3 = "CodeNatureIntervention3";
     const MODE_PROGRAM= "ModeProgrammation";
+
+    //NatureInter
+    const CODE_NAT_INTER = "CodeNatureIntervention";
+    const CODE_NAT_OP = "CodeNatureOperation";
 
     /**
      * @var TranscoNatureOpeService
@@ -43,15 +43,16 @@ class ExposedWSService
 
     /**
      * @DI\InjectParams({
-     *     "transcoNatureInterService" = @DI\Inject("portal.service.transconatureinter"),
      *     "transcoNatureOpeService" = @DI\Inject("portal.service.transconatureope"),
+     *     "transcoNatureInterService" = @DI\Inject("portal.service.transconatureinter"),
      * })
+     * @param $transcoNatureOpeService
      * @param $transcoNatureInterService
      */
-    public function __construct($transcoNatureInterService, $transcoNatureOpeService)
+    public function __construct($transcoNatureOpeService, $transcoNatureInterService)
     {
-        $this->transcoNatureInterService = $transcoNatureInterService;
         $this->transcoNatureOpeService = $transcoNatureOpeService;
+        $this->transcoNatureInterService = $transcoNatureInterService;
     }
 
     /**
@@ -76,15 +77,6 @@ class ExposedWSService
 
         try {
             switch ($valeurRecherchee) {
-                //NatureInter
-                case $this::CODE_NAT_INTER:
-                    $this->return['result'] = $this->transcoNatureInterService->getCodeNatIntFromCodeNatOp($query);
-                    break;
-
-                case $this::CODE_NAT_OP:
-                    $this->return['result'] = $this->transcoNatureInterService->getCodeNatOpFromCodeNatInt($query);
-                    break;
-
                 //NatureOpe
                 case $this::CODE_NAT_INTER3:
                     $this->return['result'] = $this->transcoNatureOpeService->getCodeNatureIntervention3($query);
@@ -92,6 +84,15 @@ class ExposedWSService
 
                 case $this::MODE_PROGRAM:
                     $this->return['result'] = $this->transcoNatureOpeService->getModeProgrammation($query);
+                    break;
+
+                //NatureInter
+                case $this::CODE_NAT_INTER:
+                    $this->return['result'] = $this->transcoNatureInterService->getCodeNatIntFromCodeNatOp($query);
+                    break;
+
+                case $this::CODE_NAT_OP:
+                    $this->return['result'] = $this->transcoNatureInterService->getCodeNatOpFromCodeNatInt($query);
                     break;
 
                 default:
@@ -115,7 +116,7 @@ class ExposedWSService
         $fields = $this->fieldIsNull($query);
         if (!empty($fields)) {
             $this->return['result'] = '';
-            $this->return['message'] = "Les champs obligatoires ne sont pas remplis:" . implode($fields, ', ');
+            $this->return['message'] = "Les champs obligatoires ne sont pas remplis:" . implode($fields);
             $this->return['code'] = "0000000001";
         } elseif ($this->return['result'] == null) {
             $this->return['result'] = '';
