@@ -24,12 +24,12 @@ class TranscoDestTerrSiteRepositoryTest extends KernelTestCase
 
     public function testFindByIdRefOp()
     {
-        $destinaSite = $this->em
+        $destinataireSite = $this->em
             ->getRepository('PortalBundle:TranscoDestTerrSite')
             ->findByIdRefOp('055')
         ;
 
-        $this->assertCount(1, $destinaSite);
+        $this->assertCount(1, $destinataireSite);
     }
 
     /**
@@ -38,6 +38,7 @@ class TranscoDestTerrSiteRepositoryTest extends KernelTestCase
     protected function tearDown()
     {
         parent::tearDown();
+
         $this->em->close();
     }
 }
