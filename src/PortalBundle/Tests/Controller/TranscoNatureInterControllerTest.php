@@ -149,7 +149,7 @@ class TranscoNatureInterControllerTest extends BaseWebTestCase
     /**
      *insertTranscoNatureInter
      */
-    public function insertTranscoNatureInter()
+    private function insertTranscoNatureInter()
     {
         for ($i = 0; $i < 2; $i++) {
 
