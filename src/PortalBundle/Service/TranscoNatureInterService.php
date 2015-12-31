@@ -114,6 +114,11 @@ class TranscoNatureInterService
         $this->em->flush();
     }
 
+    /**
+     * Return NatIntCode from NatOpCode
+     * @param array $data
+     * @return mixed
+     */
     public function getCodeNatIntFromCodeNatOp(array $data){
         $response = $this->em->getRepository('PortalBundle:TranscoNatureInter')->findCodeNatIntFromCodeNatOp($data);
         if(sizeof($response) !== 1){
@@ -122,6 +127,11 @@ class TranscoNatureInterService
         return reset($response[0]);
     }
 
+    /**
+     * Return NatOpCode from NatIntCode
+     * @param array $data
+     * @return mixed
+     */
     public function getCodeNatOpFromCodeNatInt(array $data){
         $response =  $this->em->getRepository('PortalBundle:TranscoNatureInter')->findCodeNatopFromCodeNatInt($data);
         if(sizeof($response) !== 1){
