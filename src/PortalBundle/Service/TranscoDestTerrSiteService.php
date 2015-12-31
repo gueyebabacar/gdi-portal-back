@@ -113,4 +113,45 @@ class TranscoDestTerrSiteService
         $this->em->remove($transcoDestTerrSite);
         $this->em->flush();
     }
+
+    public function getTerritory(array $data){
+        $response =  $this->em->getRepository('PortalBundle:TranscoDestTerrSite')->findByTerritory($data);
+        if(sizeof($response) !== 1){
+            return $response;
+        }
+        return reset($response[0]);
+    }
+
+    public function getIdRefOperationnel(array $data){
+        $response =  $this->em->getRepository('PortalBundle:TranscoDestTerrSite')->findByIdRefOp($data);
+        if(sizeof($response) !== 1){
+            return $response;
+        }
+        return reset($response[0]);
+    }
+
+
+    public function getSite(array $data){
+        $response =  $this->em->getRepository('PortalBundle:TranscoDestTerrSite')->findBySite($data);
+        if(sizeof($response) !== 1){
+            return $response;
+        }
+        return reset($response[0]);
+    }
+
+    public function getAdressee(array $data){
+        $response =  $this->em->getRepository('PortalBundle:TranscoDestTerrSite')->findByAdressee($data);
+        if(sizeof($response) !== 1){
+            return $response;
+        }
+        return reset($response[0]);
+    }
+
+    public function getPr(array $data){
+        $response =  $this->em->getRepository('PortalBundle:TranscoDestTerrSite')->findByPr($data);
+        if(sizeof($response) !== 1){
+            return $response;
+        }
+        return reset($response[0]);
+    }
 }
