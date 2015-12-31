@@ -4,10 +4,11 @@ namespace PortalBundle\Service\SoapService;
 
 use JMS\DiExtraBundle\Annotation as DI;
 use PortalBundle\Service\TranscoNatureOpeService;
+use PortalBundle\Service\TranscoNatureInterService;
 use Symfony\Component\PropertyInfo\Type;
 
 /**
- * Class TranscoNatureOpeService
+ * Class ExposedWSService
  * @package PortalBundle\Service
  *
  * @DI\Service("portal.service.exposed_ws", public=true)
@@ -17,6 +18,16 @@ class ExposedWSService
     //NatureOpe
     const CODE_NAT_INTER3 = "CodeNatureIntervention3";
     const MODE_PROGRAM= "ModeProgrammation";
+
+    //NatureInter
+    const CODE_NAT_INTER = "CodeNatureIntervention";
+    const CODE_NAT_OP = "CodeNatureOperation";
+
+    /**
+     * @var TranscoNatureInterService
+     * @DI\Inject("portal.service.transconatureope")
+     */
+    public $transcoNatureInterService;
 
     /**
      * @var TranscoNatureOpeService
@@ -31,19 +42,22 @@ class ExposedWSService
 
     /**
      * @DI\InjectParams({
-     *     "transcoNatureOpeService" = @DI\Inject("portal.service.transconatureope"),
+     *     "transcoNatureInterService" = @DI\Inject("portal.service.transconatureinter"),
+     *     "transcoNatureOpeService" = @DI\Inject("portal.service.transconatureope")
      * })
+     * @param $transcoNatureInterService
      * @param $transcoNatureOpeService
      */
-    public function __construct($transcoNatureOpeService)
+    public function __construct($transcoNatureInterService, $transcoNatureOpeService)
     {
         $this->transcoNatureOpeService = $transcoNatureOpeService;
+        $this->transcoNatureInterService = $transcoNatureInterService;
     }
 
     /**
      * diffuserCalendrierRessource
      *
-     * @param \stdClass|Type $data
+     * @param type $data
      * @return \stdClass
      */
     public function transcoGdiService(\stdClass $data)
@@ -62,6 +76,14 @@ class ExposedWSService
 
         try {
             switch ($valeurRecherchee) {
+                //NatureInter
+                case $this::CODE_NAT_INTER:
+                    $this->return['result'] = $this->transcoNatureInterService->getCodeNatIntFromCodeNatOp($query);
+                    break;
+
+                case $this::CODE_NAT_OP:
+                    $this->return['result'] = $this->transcoNatureInterService->getCodeNatOpFromCodeNatInt($query);
+                    break;
                 //NatureOpe
                 case $this::CODE_NAT_INTER3:
                     $this->return['result'] = $this->transcoNatureOpeService->getCodeNatureIntervention3($query);
