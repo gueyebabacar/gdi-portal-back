@@ -113,4 +113,28 @@ class TranscoNatureOpeService
         $this->em->remove($TranscoNatureOpe);
         $this->em->flush();
     }
+
+    /**
+     * @param array $data
+     * @return mixed
+     */
+    public function getCodeNatureIntervention3(array $data){
+        $response = $this->em->getRepository('PortalBundle:TranscoNatureOpe')->getCodeNatureIntervention3($data);
+        if(sizeof($response) !== 1){
+            return $response;
+        }
+        return reset($response[0]);
+    }
+
+    /**
+     * @param array $data
+     * @return mixed
+     */
+    public function getModeProgrammation(array $data){
+        $response =  $this->em->getRepository('PortalBundle:TranscoNatureOpe')->getModeProgrammation($data);
+        if(sizeof($response) !== 1){
+            return $response;
+        }
+        return reset($response[0]);
+    }
 }
