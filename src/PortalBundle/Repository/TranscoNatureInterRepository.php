@@ -21,7 +21,7 @@ class TranscoNatureInterRepository extends EntityRepository
             ->where("tni.pictrelNatOpCode = :natOp")
             ->setParameter('natOp', $data['criteria'][0]['value']);
 
-        return $qb->getQuery()->getOneOrNullResult();
+        return $qb->getQuery()->getArrayResult();
     }
 
     /**
@@ -36,7 +36,7 @@ class TranscoNatureInterRepository extends EntityRepository
             ->where("tni.opticNatCode = :natInt")
             ->setParameter('natInt', $data['criteria'][0]['value']);
 
-        return $qb->getQuery()->getOneOrNullResult();
+        return $qb->getQuery()->getArrayResult();
     }
 
 
