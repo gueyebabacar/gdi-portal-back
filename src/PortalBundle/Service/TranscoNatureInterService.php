@@ -115,10 +115,18 @@ class TranscoNatureInterService
     }
 
     public function getCodeNatIntFromCodeNatOp(array $data){
-        return $this->em->getRepository('PortalBundle:TranscoNatureInter')->findCodeNatIntFromCodeNatOp($data);
+        $response = $this->em->getRepository('PortalBundle:TranscoNatureInter')->findCodeNatIntFromCodeNatOp($data);
+        if(sizeof($response) !== 1){
+            return $response;
+        }
+        return reset($response[0]);
     }
 
     public function getCodeNatOpFromCodeNatInt(array $data){
-        return $this->em->getRepository('PortalBundle:TranscoNatureInter')->findCodeNatopFromCodeNatInt($data);
+        $response =  $this->em->getRepository('PortalBundle:TranscoNatureInter')->findCodeNatopFromCodeNatInt($data);
+        if(sizeof($response) !== 1){
+            return $response;
+        }
+        return reset($response[0]);
     }
 }
