@@ -14,24 +14,18 @@ use Symfony\Component\PropertyInfo\Type;
  */
 class ExposedWSService
 {
-    const TERRITORY = "territory";
-    const ADRESSEE = "adresse";
-    const PR = "pr";
-
-    public function atgChoice(array $choice, $query)
-    {
-        if ($choice['atg'] === 'territoire') {
-            return  $this->$transcoDestTerrSiteService->getTerritoryFromAtg($query);
-        } else if ($choice['atg'] === 'destinataire') {
-            return  $this->$transcoDestTerrSiteService->getTerritoryFromAtg($query);
-        }
-    }
+    const TERRITORY = "Territoire";
+    const ADRESSEE = "Destinataire";
+    const PR = "PR";
+    const ATG = "ATG";
 
     /**
      * @var TranscoDestTerrSiteService
      * @DI\Inject("portal.service.trans.dest.terr.site")
      */
     public $transcoDestTerrSiteService;
+
+    public $return;
 
 
     /**
@@ -64,28 +58,22 @@ class ExposedWSService
             $query['criteria'][$key]['name'] = $item->NomCritere;
             $query['criteria'][$key]['value'] = $item->ValeurCritere;
         }
-
         try {
             switch ($valeurRecherchee) {
-
-                case $this::TERRITORY:
-                    $this->return['result'] = $this->$transcoDestTerrSiteService->getTerritoryFromAtg($query);
-                    break;
-
-                case $this->atgChoice($choice, $query):
-                $this->return['result'] = $this->$transcoDestTerrSiteService->getAtgFromAdressee($query);
-                break;
-
-                case $this::SITE:
-                    $this->return['result'] = $this->$transcoDestTerrSiteService->getAtgFromTerritory($query);
-                    break;
-
                 case $this::ADRESSEE:
-                    $this->return['result'] = $this->$transcoDestTerrSiteService->getAdresseeFromAtg($query);
+                    $this->return['result'] = $this->transcoDestTerrSiteService->getAdresseeFromAtg($query);
                     break;
 
                 case $this::PR:
-                    $this->return['result'] = $this->$transcoDestTerrSiteService->getPrFromAtg($query);
+                    $this->return['result'] = $this->transcoDestTerrSiteService->getPrFromAtg($query);
+                    break;
+
+                case $this::TERRITORY:
+                    $this->return['result'] = $this->transcoDestTerrSiteService->getTerritoryFromAtg($query);
+                    break;
+
+                case $this::ATG:
+                    $this->return['result'] = $this->transcoDestTerrSiteService->getAtgFromTerritoryOrAdressee($query);
                     break;
 
                 default:
@@ -97,6 +85,7 @@ class ExposedWSService
             $response->codeReponse->codeRetour = $this->return['code'];
             $response->codeReponse->messageRetour = $this->return['message'];
         } catch (\Exception $exception) {
+//            $response->reponseTranscoGDIServiceOutput->valeurTrouvee = 'coucou';
             $response->codeReponse->codeRetour = 'KO';
             $response->codeReponse->messageRetour = $exception->getMessage();
         }
@@ -116,7 +105,7 @@ class ExposedWSService
             $this->return['result'] = '';
             $this->return['message'] = "ValeurRecherchee non reconnue";
             $this->return['code'] = "0000000003";
-        } elseif(is_array($this->return['result'])) {
+        } elseif (is_array($this->return['result'])) {
             $this->return['result'] = '';
             $this->return['message'] = "Transcodification impossible !";
             $this->return['code'] = "0000000002";
