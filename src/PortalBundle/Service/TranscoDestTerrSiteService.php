@@ -114,16 +114,18 @@ class TranscoDestTerrSiteService
         $this->em->flush();
     }
 
-    public function getTerritory(array $data){
-        $response =  $this->em->getRepository('PortalBundle:TranscoDestTerrSite')->findByTerritory($data);
+    public function getTerritoryFromAtg(array $data)
+    {
+        $response =  $this->em->getRepository('PortalBundle:TranscoDestTerrSite')->findTerritoryFromAtg($data);
         if(sizeof($response) !== 1){
             return $response;
         }
         return reset($response[0]);
     }
 
-    public function getIdRefOperationnel(array $data){
-        $response =  $this->em->getRepository('PortalBundle:TranscoDestTerrSite')->findByIdRefOp($data);
+    public function getAtgFromAdressee(array $data)
+    {
+        $response =  $this->em->getRepository('PortalBundle:TranscoDestTerrSite')->findAtgFromAdressee($data);
         if(sizeof($response) !== 1){
             return $response;
         }
@@ -131,27 +133,29 @@ class TranscoDestTerrSiteService
     }
 
 
-    public function getSite(array $data){
-        $response =  $this->em->getRepository('PortalBundle:TranscoDestTerrSite')->findBySite($data);
-        if(sizeof($response) !== 1){
+    public function getAtgFromTerritory(array $data)
+    {
+        $response =  $this->em->getRepository('PortalBundle:TranscoDestTerrSite')->findAtgFromTerritory($data);
+        if (sizeof($response) !== 1) {
             return $response;
         }
         return reset($response[0]);
     }
 
-    public function getAdressee(array $data){
-        $response =  $this->em->getRepository('PortalBundle:TranscoDestTerrSite')->findByAdressee($data);
-        if(sizeof($response) !== 1){
+    public function getAdresseeFromAtg(array $data){
+        $response =  $this->em->getRepository('PortalBundle:TranscoDestTerrSite')-> findAdresseeFromAtg($data);
+        if (sizeof($response) !== 1) {
             return $response;
         }
         return reset($response[0]);
     }
 
-    public function getPr(array $data){
-        $response =  $this->em->getRepository('PortalBundle:TranscoDestTerrSite')->findByPr($data);
+    public function getPrFromAtg(array $data){
+        $response =  $this->em->getRepository('PortalBundle:TranscoDestTerrSite')->findPrFromAtg($data);
         if(sizeof($response) !== 1){
             return $response;
         }
         return reset($response[0]);
     }
 }
+
