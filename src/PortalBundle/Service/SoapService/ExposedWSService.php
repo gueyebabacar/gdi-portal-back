@@ -73,19 +73,19 @@ class ExposedWSService
                     break;
 
                 case $this->atgChoice($choice, $query):
-                $this->return['result'] = $this->transcoNatureInterService->getAtgFromAdressee($query);
+                $this->return['result'] = $this->$transcoDestTerrSiteService->getAtgFromAdressee($query);
                 break;
 
                 case $this::SITE:
-                    $this->return['result'] = $this->transcoNatureInterService->getAtgFromTerritory($query);
+                    $this->return['result'] = $this->$transcoDestTerrSiteService->getAtgFromTerritory($query);
                     break;
 
                 case $this::ADRESSEE:
-                    $this->return['result'] = $this->transcoNatureInterService->getAdresseeFromAtg($query);
+                    $this->return['result'] = $this->$transcoDestTerrSiteService->getAdresseeFromAtg($query);
                     break;
 
                 case $this::PR:
-                    $this->return['result'] = $this->transcoNatureInterService->getPrFromAtg($query);
+                    $this->return['result'] = $this->$transcoDestTerrSiteService->getPrFromAtg($query);
                     break;
 
                 default:
