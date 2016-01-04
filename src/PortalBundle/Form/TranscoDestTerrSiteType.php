@@ -29,7 +29,13 @@ class TranscoDestTerrSiteType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'PortalBundle\Entity\TranscoDestTerrSite'
+            'data_class' => 'PortalBundle\Entity\TranscoDestTerrSite',
+            'csrf_protection' => false
         ));
+    }
+
+    public function getName()
+    {
+        return '';
     }
 }
