@@ -3,11 +3,12 @@
 namespace PortalBundle\Repository;
 
 use Doctrine\ORM\EntityRepository;
+use PortalBundle\Service\SoapService\ExposedWSService;
 
 class TranscoDestTerrSiteRepository extends EntityRepository
 {
 
-    public  function findByIdRefOp($idRefStructureOp)
+    public function findByIdRefOp($idRefStructureOp)
     {
         $qb = $this->createQueryBuilder('t');
 
@@ -42,7 +43,7 @@ class TranscoDestTerrSiteRepository extends EntityRepository
      * @return mixed
      * @throws \Doctrine\ORM\NonUniqueResultException
      */
-    public  function findAdresseeFromAtg(array $data)
+    public function findAdresseeFromAtg(array $data)
     {
         $qb = $this->createQueryBuilder("t");
         $qb->select("t.adressee")
@@ -57,7 +58,7 @@ class TranscoDestTerrSiteRepository extends EntityRepository
      * @return mixed
      * @throws \Doctrine\ORM\NonUniqueResultException
      */
-    public  function findPrFromAtg(array $data)
+    public function findPrFromAtg(array $data)
     {
         $qb = $this->createQueryBuilder("t");
         $qb->select("t.pr")
@@ -72,28 +73,17 @@ class TranscoDestTerrSiteRepository extends EntityRepository
      * @return mixed
      * @throws \Doctrine\ORM\NonUniqueResultException
      */
-    public  function findAtgFromTerritory(array $data)
+    public function findAtgFromTerritoryOrAdressee(array $data)
     {
         $qb = $this->createQueryBuilder("t");
-        $qb->select("t.idRefStructureOp")
-            ->where("t.territory = :territory")
-            ->setParameter('territory', $data['criteria'][0]['value']);
-
-        return $qb->getQuery()->getArrayResult();
-    }
-
-
-    /**
-     * @param array $data
-     * @return mixed
-     * @throws \Doctrine\ORM\NonUniqueResultException
-     */
-    public  function findAtgFromAdressee(array $data)
-    {
-        $qb = $this->createQueryBuilder("t");
-        $qb->select("t.idRefStructureOp")
-            ->where("t.adressee = :adressee")
-            ->setParameter('adressee', $data['criteria'][0]['value']);
+        $qb->select("t.idRefStructureOp");
+        if($data['criteria'][0]['name'] === ExposedWSService::TERRITORY){
+            $qb->andWhere("t.territory = :territory")
+                ->setParameter('territory', $data['criteria'][0]['value']);
+        } elseif($data['criteria'][0]['name'] === ExposedWSService::ADRESSEE){
+            $qb->andWhere("t.adressee = :addressee")
+            ->setParameter('addressee', $data['criteria'][0]['value']);
+        }
 
         return $qb->getQuery()->getArrayResult();
     }

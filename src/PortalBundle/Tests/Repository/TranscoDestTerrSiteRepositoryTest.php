@@ -22,8 +22,10 @@ class TranscoDestTerrSiteRepositoryTest extends KernelTestCase
             ->getManager();
     }
 
+
     public function testFindByIdRefOp()
     {
+        $this->markTestSkipped();
         $destinataireSite = $this->em
             ->getRepository('PortalBundle:TranscoDestTerrSite')
             ->findByIdRefOp('055')
