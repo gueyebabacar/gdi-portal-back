@@ -64,7 +64,7 @@ class TranscoNatureOpeControllerTest extends BaseWebTestCase
     /**
      *testNewAction
      */
-    public function testNewAction()
+    public function testCreateAction()
     {
         $data = array(
             'workType' => 'ROBI',
@@ -103,7 +103,7 @@ class TranscoNatureOpeControllerTest extends BaseWebTestCase
     /**
      *testNewAction
      */
-    public function testEditAction()
+    public function testUpdateAction()
     {
         $this->insertTranscoNatureOpe();
 
