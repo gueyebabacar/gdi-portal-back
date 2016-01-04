@@ -63,7 +63,7 @@ class TranscoNatureInterControllerTest extends BaseWebTestCase
     /**
      *testNewAction
      */
-    public function testNewAction()
+    public function testCreateAction()
     {
         $data = array(
             'id' => 1,
@@ -89,7 +89,7 @@ class TranscoNatureInterControllerTest extends BaseWebTestCase
 
         $this->client->request(
             'POST',
-            "/transconatureinter/new",
+            "/transconatureinter/create",
             $data,
             [],
             $this->headers
@@ -102,7 +102,7 @@ class TranscoNatureInterControllerTest extends BaseWebTestCase
     /**
      *testNewAction
      */
-    public function testEditAction()
+    public function testUpdateAction()
     {
         $this->insertTranscoNatureInter();
 
@@ -116,7 +116,7 @@ class TranscoNatureInterControllerTest extends BaseWebTestCase
 
         $this->client->request(
             'POST',
-            "/transconatureinter/".$transcoNatureInter->getId()."/edit",
+            "/transconatureinter/".$transcoNatureInter->getId()."/update",
             $data,
             [],
             $this->headers
