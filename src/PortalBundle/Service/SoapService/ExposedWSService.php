@@ -14,13 +14,18 @@ use Symfony\Component\PropertyInfo\Type;
  */
 class ExposedWSService
 {
-    //NatureInter
     const TERRITORY = "territory";
-    const ID_REF_OP = "IdRefOp";
-    const SITE = "site";
-    const ADRESSEE = "adressee";
+    const ADRESSEE = "adresse";
     const PR = "pr";
 
+    public function atgChoice(array $choice, $query)
+    {
+        if ($choice['atg'] === 'territoire') {
+            return  $this->$transcoDestTerrSiteService->getTerritoryFromAtg($query);
+        } else if ($choice['atg'] === 'destinataire') {
+            return  $this->$transcoDestTerrSiteService->getTerritoryFromAtg($query);
+        }
+    }
 
     /**
      * @var TranscoDestTerrSiteService
@@ -54,7 +59,7 @@ class ExposedWSService
 
         $valeurRecherchee = $data->requeteTranscoGDIServiceInput->valeurRecherchee;
         $query['values']['query'] = $valeurRecherchee;
-
+        $choice = [];
         foreach ($data->requeteTranscoGDIServiceInput->critere as $key => $item) {
             $query['criteria'][$key]['name'] = $item->NomCritere;
             $query['criteria'][$key]['value'] = $item->ValeurCritere;
@@ -64,23 +69,23 @@ class ExposedWSService
             switch ($valeurRecherchee) {
 
                 case $this::TERRITORY:
-                    $this->return['result'] = $this->$transcoDestTerrSiteService->getTerritory($query);
+                    $this->return['result'] = $this->$transcoDestTerrSiteService->getTerritoryFromAtg($query);
                     break;
 
-                case $this::ID_REF_OP:
-                $this->return['result'] = $this->transcoNatureInterService->getIdRefOperationnel($query);
+                case $this->atgChoice($choice, $query):
+                $this->return['result'] = $this->transcoNatureInterService->getAtgFromAdressee($query);
                 break;
 
                 case $this::SITE:
-                    $this->return['result'] = $this->transcoNatureInterService->getSite($query);
+                    $this->return['result'] = $this->transcoNatureInterService->getAtgFromTerritory($query);
                     break;
 
                 case $this::ADRESSEE:
-                    $this->return['result'] = $this->transcoNatureInterService->getAdressee($query);
+                    $this->return['result'] = $this->transcoNatureInterService->getAdresseeFromAtg($query);
                     break;
 
                 case $this::PR:
-                    $this->return['result'] = $this->transcoNatureInterService->getPr($query);
+                    $this->return['result'] = $this->transcoNatureInterService->getPrFromAtg($query);
                     break;
 
                 default:
