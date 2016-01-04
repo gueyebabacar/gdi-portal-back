@@ -70,6 +70,7 @@ class TranscoDestTerrSite
 
     /**
      * @param int $id
+     * @return $this
      */
     public function setId($id)
     {
@@ -87,6 +88,7 @@ class TranscoDestTerrSite
 
     /**
      * @param mixed $territory
+     * @return $this
      */
     public function setTerritory($territory)
     {
@@ -104,6 +106,7 @@ class TranscoDestTerrSite
 
     /**
      * @param mixed $adressee
+     * @return $this
      */
     public function setAdressee($adressee)
     {
@@ -121,6 +124,7 @@ class TranscoDestTerrSite
 
     /**
      * @param mixed $site
+     * @return $this
      */
     public function setSite($site)
     {
@@ -138,6 +142,7 @@ class TranscoDestTerrSite
 
     /**
      * @param mixed $pr
+     * @return $this
      */
     public function setPr($pr)
     {
@@ -155,6 +160,7 @@ class TranscoDestTerrSite
 
     /**
      * @param mixed $idRefStructureOp
+     * @return $this
      */
     public function setIdRefStructureOp($idRefStructureOp)
     {
