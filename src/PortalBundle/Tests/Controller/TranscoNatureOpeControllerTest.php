@@ -90,7 +90,7 @@ class TranscoNatureOpeControllerTest extends BaseWebTestCase
 
         $this->client->request(
             'POST',
-            "/transconatureope/new",
+            "/transconatureope/create",
             $data,
             [],
             $this->headers
@@ -117,7 +117,7 @@ class TranscoNatureOpeControllerTest extends BaseWebTestCase
 
         $this->client->request(
             'POST',
-            "/transconatureope/".$transcoNatureOpe->getId()."/edit",
+            "/transconatureope/".$transcoNatureOpe->getId()."/update",
             $data,
             [],
             $this->headers
