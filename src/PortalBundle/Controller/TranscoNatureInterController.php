@@ -2,6 +2,7 @@
 
 namespace PortalBundle\Controller;
 
+use FOS\RestBundle\Controller\Annotations\RouteResource;
 use FOS\RestBundle\Controller\FOSRestController;
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 use PortalBundle\Service\TranscoNatureInterService;
@@ -12,6 +13,7 @@ use FOS\RestBundle\Controller\Annotations as Rest;
 
 /**
  * TranscoNatureInter controller
+ * @RouteResource("TranscoNatureInter")
  */
 class TranscoNatureInterController extends FOSRestController
 {
@@ -33,14 +35,14 @@ class TranscoNatureInterController extends FOSRestController
      *      description = "Lister la table TranscoNatureInter"
      * )
      */
-    public function indexAction()
+    public function getAllAction()
     {
         return $this->transcoNatureInterService->getAll();
     }
 
     /**
      * Creates a new TranscoNatureInter entity.
-     * @Rest\Post("/transconatureinter/new")
+     * @Rest\Post("/transconatureinter/create")
      * @Rest\View
      *
      * @ApiDoc(
@@ -51,7 +53,7 @@ class TranscoNatureInterController extends FOSRestController
      * @param Request $request
      * @return TranscoNatureInter
      */
-    public function newAction(Request $request)
+    public function createAction(Request $request)
     {
         return $this->transcoNatureInterService->create($request);
     }
@@ -72,14 +74,14 @@ class TranscoNatureInterController extends FOSRestController
      * @param $transcoNatureInterId
      * @return TranscoNatureInter
      */
-    public function showAction($transcoNatureInterId)
+    public function getAction($transcoNatureInterId)
     {
         return $this->transcoNatureInterService->get($transcoNatureInterId);
     }
 
     /**
      * Displays a form to edit an existing TranscoNatureInter entity.
-     * @Rest\Post("/transconatureinter/{transcoNatureInterId}/edit")
+     * @Rest\Post("/transconatureinter/{transcoNatureInterId}/update")
      * @Rest\View
      *
      * @ApiDoc(
