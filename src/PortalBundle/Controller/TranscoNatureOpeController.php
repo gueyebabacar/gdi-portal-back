@@ -2,6 +2,7 @@
 
 namespace PortalBundle\Controller;
 
+use FOS\RestBundle\Controller\Annotations\RouteResource;
 use FOS\RestBundle\Controller\FOSRestController;
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 use PortalBundle\Service\TranscoNatureOpeService;
@@ -12,6 +13,7 @@ use FOS\RestBundle\Controller\Annotations as Rest;
 
 /**
  * TranscoNatureOpe controller
+ * @RouteResource("TranscoNatureOpe")
  */
 class TranscoNatureOpeController extends FOSRestController
 {
@@ -33,14 +35,14 @@ class TranscoNatureOpeController extends FOSRestController
      *      description = "Lister la table TranscoNatureOpe"
      * )
      */
-    public function indexAction()
+    public function getAllAction()
     {
         return $this->transcoNatureOpeService->getAll();
     }
 
     /**
      * Creates a new TranscoNatureOpe entity.
-     * @Rest\Post("/transconatureope/new")
+     * @Rest\Post("/transconatureope/create")
      * @Rest\View
      *
      * @ApiDoc(
@@ -51,7 +53,7 @@ class TranscoNatureOpeController extends FOSRestController
      * @param Request $request
      * @return TranscoNatureOpe
      */
-    public function newAction(Request $request)
+    public function createAction(Request $request)
     {
         return $this->transcoNatureOpeService->create($request);
     }
@@ -79,7 +81,7 @@ class TranscoNatureOpeController extends FOSRestController
 
     /**
      * Displays a form to edit an existing TranscoNatureOpe entity.
-     * @Rest\Post("/transconatureope/{transcoNatureOpeId}/edit")
+     * @Rest\Post("/transconatureope/{transcoNatureOpeId}/update")
      * @Rest\View
      *
      * @ApiDoc(
@@ -94,7 +96,7 @@ class TranscoNatureOpeController extends FOSRestController
      * @param $transcoNatureOpeId
      * @return TranscoNatureOpe
      */
-    public function editAction(Request $request, $transcoNatureOpeId)
+    public function updateAction(Request $request, $transcoNatureOpeId)
     {
         return $this->transcoNatureOpeService->edit($request, $transcoNatureOpeId);
     }
