@@ -2,6 +2,7 @@
 
 namespace PortalBundle\Controller;
 
+use FOS\RestBundle\Controller\Annotations\RouteResource;
 use FOS\RestBundle\Controller\FOSRestController;
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 use PortalBundle\Service\TranscoDestTerrSiteService;
@@ -12,6 +13,7 @@ use FOS\RestBundle\Controller\Annotations as Rest;
 
 /**
  * TranscoNatureInter controller
+ * @RouteResource("TranscoDestTerrSite")
  */
 class TranscoDestTerrSiteController extends FOSRestController
 {
@@ -33,14 +35,14 @@ class TranscoDestTerrSiteController extends FOSRestController
      *      description = "Lister la table TranscoDestTerrSite"
      * )
      */
-    public function indexAction()
+    public function getAllAction()
     {
         return $this->transcoDestTerrSiteService->getAll();
     }
 
     /**
      * Creates a new TranscoDestTerrSite entity.
-     * @Rest\Post("/transcodestersite/new")
+     * @Rest\Post("/transcodestersite/create")
      * @Rest\View
      *
      * @ApiDoc(
@@ -51,7 +53,7 @@ class TranscoDestTerrSiteController extends FOSRestController
      * @param Request $request
      * @return TranscoDestTerrSite
      */
-    public function newAction(Request $request)
+    public function createAction(Request $request)
     {
         return $this->transcoDestTerrSiteService->create($request);
     }
@@ -72,14 +74,14 @@ class TranscoDestTerrSiteController extends FOSRestController
      * @param $idRefStructureOp
      * @return TranscoDestTerrSite
      */
-    public function showAction($idRefStructureOp)
+    public function getAction($idRefStructureOp)
     {
         return $this->transcoDestTerrSiteService->get($idRefStructureOp);
     }
 
     /**
      * Displays a form to edit an existing TranscoDestTerrSite entity.
-     * @Rest\Post("/transcodestersite/{idRefStructureOp}/edit")
+     * @Rest\Post("/transcodestersite/{idRefStructureOp}/update")
      * @Rest\View
      *
      * @ApiDoc(
@@ -94,7 +96,7 @@ class TranscoDestTerrSiteController extends FOSRestController
      * @param $idRefStructureOp
      * @return TranscoDestTerrSite
      */
-    public function editAction(Request $request, $idRefStructureOp)
+    public function updateAction(Request $request, $idRefStructureOp)
     {
         return $this->transcoDestTerrSiteService->edit($request, $idRefStructureOp);
     }

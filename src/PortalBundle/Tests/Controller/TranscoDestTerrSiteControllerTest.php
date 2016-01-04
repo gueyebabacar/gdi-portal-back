@@ -58,24 +58,83 @@ class TranscoDestTerrSiteControllerTest extends BaseWebTestCase
         $this->assertEquals($transcoDestTerrSite->getId(), $response['id']);
     }
 
-    /*
-     *
+    /**
+     *testCreateAction
      */
     public function testCreateAction()
     {
-        $this->insertTranscoDestTerrSite();
+        $data = array(
+            'territory' => '050',
+            'adressee' => 'COU13',
+            'site' => 'METZ',
+            'pr' => 'X',
+            'idRefStructureOp' => 'ATG050',
+        );
 
-        $transcoDestTerrSite = $this->em->getRepository('PortalBundle:TranscoDestTerrSite')->findAll()[0];
+        $transcoDestTerrSite = new TranscoDestTerrSite();
+        $transcoDestTerrSite->setTerritory($data['territory']);
+        $transcoDestTerrSite->setAdressee($data['adressee']);
+        $transcoDestTerrSite->setSite($data['site']);
+        $transcoDestTerrSite->setPr($data['pr']);
+        $transcoDestTerrSite->setIdRefStructureOp($data['idRefStructureOp']);
+
         $this->client->request(
-            'GET',
-            "/transcodestersite/".$transcoDestTerrSite->getId(),
-            [],
+            'POST',
+            "/transcodestersite/create",
+            $data,
             [],
             $this->headers
         );
         $response = json_decode($this->client->getResponse()->getContent(), true);
-        $this->assertEquals($transcoDestTerrSite->getId(), $response['id']);
+        $this->assertEquals($transcoDestTerrSite->getPr(), $response['pr']);
         $this->assertEquals($transcoDestTerrSite->getIdRefStructureOp(), $response['id_ref_structure_op']);
+    }
+
+    /**
+     *testNewAction
+     */
+    public function testEditAction()
+    {
+        $this->insertTranscoDestTerrSite();
+
+        $data = array(
+            'id' => 1,
+            'territory' => '056',
+        );
+
+        $transcoDestTerrSite = $this->em->getRepository('PortalBundle:TranscoDestTerrSite')->findAll()[0];
+        $transcoDestTerrSite->setTerritory($data['territory']);
+
+        $this->client->request(
+            'POST',
+            "/transcodestersite/".$transcoDestTerrSite->getId()."/update",
+            $data,
+            [],
+            $this->headers
+        );
+        $response = json_decode($this->client->getResponse()->getContent(), true);
+        $this->assertEquals($transcoDestTerrSite->getTerritory(), $response['territory']);
+    }
+
+    /**
+     *testDeleteAction
+     */
+    public function testDeleteAction()
+    {
+        $this->insertTranscoDestTerrSite();
+
+        $transcoNatureInter = $this->em->getRepository('PortalBundle:TranscoDestTerrSite')->findAll()[0];
+        $id = $transcoNatureInter->getId();
+        $this->client->request(
+            'GET',
+            "/transcodestersite/".$id."/delete",
+            [],
+            [],
+            $this->headers
+        );
+        $transcoNatureInter = $this->em->getRepository('PortalBundle:TranscoDestTerrSite')->find($id);
+
+        $this->assertNull($transcoNatureInter);
     }
 
     /**
