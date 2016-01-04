@@ -10,6 +10,7 @@ use PhpOption\Tests\Repository;
 use PortalBundle\Entity\TranscoDestTerrSite;
 use PortalBundle\Form\TranscoDestTerrSiteType;
 use PortalBundle\Form\TranscoDestTerrSiteTypeType;
+use PortalBundle\Repository\TranscoDestTerrSiteRepository;
 use PortalBundle\Service\TranscoDestTerrSiteService;
 use Prophecy\Argument;
 use Prophecy\Prophecy\ObjectProphecy;
@@ -228,6 +229,70 @@ class TranscoDestTerrSiteServiceTest extends \PHPUnit_Framework_TestCase
             $transcos[] = $transcoDestTerrSite;
         }
         return $transcos;
+    }
+
+    public function testGetTerritoryFromAtg(){
+        $transcoRepositoryProphecy = $this->prophet->prophesize(TranscoDestTerrSiteRepository::class);
+
+        $this->emProphecy
+            ->getRepository(Argument::exact('PortalBundle:TranscoDestTerrSite'))
+            ->willReturn($transcoRepositoryProphecy->reveal())
+            ->shouldBeCalled();
+
+        $transcoRepositoryProphecy
+            ->findTerritoryFromAtg([])
+            ->willReturn([])
+            ->shouldBeCalled();
+
+        $this->assertEquals([], $this->transcoService->getTerritoryFromAtg([]));
+    }
+
+    public function testGetAtgFromTerritoryOrAdressee(){
+        $transcoRepositoryProphecy = $this->prophet->prophesize(TranscoDestTerrSiteRepository::class);
+
+        $this->emProphecy
+            ->getRepository(Argument::exact('PortalBundle:TranscoDestTerrSite'))
+            ->willReturn($transcoRepositoryProphecy->reveal())
+            ->shouldBeCalled();
+
+        $transcoRepositoryProphecy
+            ->findAtgFromTerritoryOrAdressee([])
+            ->willReturn([])
+            ->shouldBeCalled();
+
+        $this->assertEquals([], $this->transcoService->getAtgFromTerritoryOrAdressee([]));
+    }
+
+    public function testGetAdresseeFromAtg(){
+        $transcoRepositoryProphecy = $this->prophet->prophesize(TranscoDestTerrSiteRepository::class);
+
+        $this->emProphecy
+            ->getRepository(Argument::exact('PortalBundle:TranscoDestTerrSite'))
+            ->willReturn($transcoRepositoryProphecy->reveal())
+            ->shouldBeCalled();
+
+        $transcoRepositoryProphecy
+            ->findAdresseeFromAtg([])
+            ->willReturn([])
+            ->shouldBeCalled();
+
+        $this->assertEquals([], $this->transcoService->getAdresseeFromAtg([]));
+    }
+
+    public function testgetPrFromAtg(){
+        $transcoRepositoryProphecy = $this->prophet->prophesize(TranscoDestTerrSiteRepository::class);
+
+        $this->emProphecy
+            ->getRepository(Argument::exact('PortalBundle:TranscoDestTerrSite'))
+            ->willReturn($transcoRepositoryProphecy->reveal())
+            ->shouldBeCalled();
+
+        $transcoRepositoryProphecy
+            ->findPrFromAtg([])
+            ->willReturn([])
+            ->shouldBeCalled();
+
+        $this->assertEquals([], $this->transcoService->getPrFromAtg([]));
     }
 
     public function tearDown()

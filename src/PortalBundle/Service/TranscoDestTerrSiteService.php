@@ -123,20 +123,10 @@ class TranscoDestTerrSiteService
         return reset($response[0]);
     }
 
-    public function getAtgFromAdressee(array $data)
+    public function getAtgFromTerritoryOrAdressee(array $data)
     {
-        $response =  $this->em->getRepository('PortalBundle:TranscoDestTerrSite')->findAtgFromAdressee($data);
+        $response =  $this->em->getRepository('PortalBundle:TranscoDestTerrSite')->findAtgFromTerritoryOrAdressee($data);
         if(sizeof($response) !== 1){
-            return $response;
-        }
-        return reset($response[0]);
-    }
-
-
-    public function getAtgFromTerritory(array $data)
-    {
-        $response =  $this->em->getRepository('PortalBundle:TranscoDestTerrSite')->findAtgFromTerritory($data);
-        if (sizeof($response) !== 1) {
             return $response;
         }
         return reset($response[0]);
