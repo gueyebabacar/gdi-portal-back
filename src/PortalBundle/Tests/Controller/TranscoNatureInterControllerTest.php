@@ -36,7 +36,7 @@ class TranscoNatureInterControllerTest extends BaseWebTestCase
         $response = json_decode($this->client->getResponse()->getContent(), true);
 
         $this->assertEquals(sizeof($transcoNatureInters), sizeof($response));
-        $this->assertEquals($transcoNatureInters[0]->getCounter(), $response[0]['app']);
+        $this->assertEquals($transcoNatureInters[0]->getCounter(), $response[0]['counter']);
         $this->assertEquals($transcoNatureInters[0]->getId(), $response[0]['id']);
     }
 
@@ -57,7 +57,7 @@ class TranscoNatureInterControllerTest extends BaseWebTestCase
         );
         $response = json_decode($this->client->getResponse()->getContent(), true);
         $this->assertEquals($transcoNatureInter->getId(), $response['id']);
-        $this->assertEquals($transcoNatureInter->getCounter(), $response['app']);
+        $this->assertEquals($transcoNatureInter->getCounter(), $response['counter']);
     }
 
     /**
@@ -73,7 +73,7 @@ class TranscoNatureInterControllerTest extends BaseWebTestCase
             'pictrelNatOpCode' => 'AA',
             'pictrelNatLabel' => 'Inspection robinet reseau',
             'troncatedPictrelNatOpLabel' => 'Inspection robinet reseau',
-            'app' => 1,
+            'counter' => 1,
         );
 
         $transcoNatureInter = new TranscoNatureInter();
@@ -85,7 +85,7 @@ class TranscoNatureInterControllerTest extends BaseWebTestCase
         $transcoNatureInter->setPictrelNatOpCode($data['pictrelNatOpCode']);
         $transcoNatureInter->setPictrelNatOpLabel($data['pictrelNatLabel']);
         $transcoNatureInter->setTroncatedPictrelNatOpLabel($data['troncatedPictrelNatOpLabel']);
-        $transcoNatureInter->setCounter($data['app']);
+        $transcoNatureInter->setCounter($data['counter']);
 
         $this->client->request(
             'POST',
@@ -96,7 +96,7 @@ class TranscoNatureInterControllerTest extends BaseWebTestCase
         );
         $response = json_decode($this->client->getResponse()->getContent(), true);
         $this->assertEquals($transcoNatureInter->getOpticNatCode(), $response['optic_nat_code']);
-        $this->assertEquals($transcoNatureInter->getCounter(), $response['app']);
+        $this->assertEquals($transcoNatureInter->getCounter(), $response['counter']);
     }
 
     /**
