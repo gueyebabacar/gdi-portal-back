@@ -33,7 +33,7 @@ class LoadTranscoNatureOpeData implements FixtureInterface, ContainerAwareInterf
             $transcoNatureOpe->setWorkType($loremIpsum->getWords(1));
             $transcoNatureOpe->setGammeGroup(strtoupper($loremIpsum->getWords(1)));
             $transcoNatureOpe->setPurpose($loremIpsum->getWords(1));
-            $transcoNatureOpe->setCounter($i);
+            $transcoNatureOpe->setCounter($i + 1);
             $transcoNatureOpe->setSegmentationValue($loremIpsum->getWords(3));
             $transcoNatureOpe->setSegmentationName($loremIpsum->getWords(3));
             $transcoNatureOpe->setProgrammingMode($loremIpsum->getWords(3));
