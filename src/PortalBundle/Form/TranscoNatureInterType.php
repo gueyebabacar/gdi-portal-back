@@ -21,7 +21,7 @@ class TranscoNatureInterType extends AbstractType
             ->add('pictrelNatOpCode')
             ->add('pictrelNatOpLabel')
             ->add('troncatedPictrelNatOpLabel')
-            ->add('app')
+            ->add('counter')
         ;
     }
     

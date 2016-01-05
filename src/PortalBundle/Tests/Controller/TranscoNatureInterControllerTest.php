@@ -36,7 +36,7 @@ class TranscoNatureInterControllerTest extends BaseWebTestCase
         $response = json_decode($this->client->getResponse()->getContent(), true);
 
         $this->assertEquals(sizeof($transcoNatureInters), sizeof($response));
-        $this->assertEquals($transcoNatureInters[0]->getApp(), $response[0]['app']);
+        $this->assertEquals($transcoNatureInters[0]->getCounter(), $response[0]['app']);
         $this->assertEquals($transcoNatureInters[0]->getId(), $response[0]['id']);
     }
 
@@ -57,7 +57,7 @@ class TranscoNatureInterControllerTest extends BaseWebTestCase
         );
         $response = json_decode($this->client->getResponse()->getContent(), true);
         $this->assertEquals($transcoNatureInter->getId(), $response['id']);
-        $this->assertEquals($transcoNatureInter->getApp(), $response['app']);
+        $this->assertEquals($transcoNatureInter->getCounter(), $response['app']);
     }
 
     /**
@@ -85,7 +85,7 @@ class TranscoNatureInterControllerTest extends BaseWebTestCase
         $transcoNatureInter->setPictrelNatOpCode($data['pictrelNatOpCode']);
         $transcoNatureInter->setPictrelNatOpLabel($data['pictrelNatLabel']);
         $transcoNatureInter->setTroncatedPictrelNatOpLabel($data['troncatedPictrelNatOpLabel']);
-        $transcoNatureInter->setApp($data['app']);
+        $transcoNatureInter->setCounter($data['app']);
 
         $this->client->request(
             'POST',
@@ -96,7 +96,7 @@ class TranscoNatureInterControllerTest extends BaseWebTestCase
         );
         $response = json_decode($this->client->getResponse()->getContent(), true);
         $this->assertEquals($transcoNatureInter->getOpticNatCode(), $response['optic_nat_code']);
-        $this->assertEquals($transcoNatureInter->getApp(), $response['app']);
+        $this->assertEquals($transcoNatureInter->getCounter(), $response['app']);
     }
 
     /**
@@ -161,7 +161,7 @@ class TranscoNatureInterControllerTest extends BaseWebTestCase
             $transcoNatureInter->setPictrelNatOpCode('lorem ipsum');
             $transcoNatureInter->setPictrelNatOpLabel('lorem ipsum');
             $transcoNatureInter->setTroncatedPictrelNatOpLabel('lorem ipsum');
-            $transcoNatureInter->setApp($i);
+            $transcoNatureInter->setCounter($i);
 
             $this->em->persist($transcoNatureInter);
         }

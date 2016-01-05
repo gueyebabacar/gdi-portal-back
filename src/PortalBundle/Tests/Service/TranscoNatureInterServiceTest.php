@@ -257,7 +257,7 @@ class TranscoNatureInterServiceTest extends \PHPUnit_Framework_TestCase
             $transcoNatureInter->setPictrelNatOpCode('lorem ipsum');
             $transcoNatureInter->setPictrelNatOpLabel('lorem ipsum');
             $transcoNatureInter->setTroncatedPictrelNatOpLabel('lorem ipsum');
-            $transcoNatureInter->setApp($i);
+            $transcoNatureInter->setCounter($i);
 
             $transcos[] = $transcoNatureInter;
         }

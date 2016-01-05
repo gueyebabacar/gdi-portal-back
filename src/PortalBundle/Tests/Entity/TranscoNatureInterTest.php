@@ -33,7 +33,7 @@ class TranscoNatureInterTest extends \PHPUnit_Framework_TestCase
         $transcoNatureInter->setPictrelNatOpCode($data['pictrelNatOpCode']);
         $transcoNatureInter->setPictrelNatOpLabel($data['pictrelNatLabel']);
         $transcoNatureInter->setTroncatedPictrelNatOpLabel($data['troncatedPictrelNatOpLabel']);
-        $transcoNatureInter->setApp($data['app']);
+        $transcoNatureInter->setCounter($data['app']);
 
         $this->assertEquals($data['id'], $transcoNatureInter->getId());
         $this->assertEquals($data['opticNatCode'], $transcoNatureInter->getOpticNatCode());
@@ -41,6 +41,6 @@ class TranscoNatureInterTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($data['pictrelNatOpCode'], $transcoNatureInter->getPictrelNatOpCode());
         $this->assertEquals($data['pictrelNatLabel'], $transcoNatureInter->getPictrelNatOpLabel());
         $this->assertEquals($data['troncatedPictrelNatOpLabel'], $transcoNatureInter->getTroncatedPictrelNatOpLabel());
-        $this->assertEquals($data['app'], $transcoNatureInter->getApp());
+        $this->assertEquals($data['app'], $transcoNatureInter->getCounter());
     }
 }

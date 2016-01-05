@@ -48,7 +48,7 @@ class TranscoNatureInterRepositoryTest extends BaseWebTestCase
         $transcoNatureInter->setPictrelNatOpCode('NATOPCODE');
         $transcoNatureInter->setPictrelNatOpLabel('nat op label');
         $transcoNatureInter->setTroncatedPictrelNatOpLabel('troncated nat op label');
-        $transcoNatureInter->setApp(0);
+        $transcoNatureInter->setCounter(0);
 
         $this->em->persist($transcoNatureInter);
         $this->em->flush();

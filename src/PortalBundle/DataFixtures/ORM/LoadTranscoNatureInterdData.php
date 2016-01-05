@@ -36,7 +36,7 @@ class LoadTranscoNatureInterdData implements FixtureInterface, ContainerAwareInt
             $transcoNatureInter->setPictrelNatOpCode($loremIpsum->getWords(1));
             $transcoNatureInter->setPictrelNatOpLabel($loremIpsum->getWords(3));
             $transcoNatureInter->setTroncatedPictrelNatOpLabel($loremIpsum->getWords(3));
-            $transcoNatureInter->setApp($i);
+            $transcoNatureInter->setCounter($i + 1);
 
             $manager->persist($transcoNatureInter);
         }

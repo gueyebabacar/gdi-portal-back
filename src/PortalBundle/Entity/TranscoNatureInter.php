@@ -79,11 +79,11 @@ class TranscoNatureInter
     /**
      * app
      *
-     * @var $app
+     * @var $counter
      * @ORM\Column(type="integer")
      * @Expose
      */
-    protected $app;
+    protected $counter;
 
     /**
      * @return int
@@ -214,18 +214,18 @@ class TranscoNatureInter
     /**
      * @return mixed
      */
-    public function getApp()
+    public function getCounter()
     {
-        return $this->app;
+        return $this->counter;
     }
 
     /**
-     * @param mixed $app
+     * @param mixed $counter
      * @return $this
      */
-    public function setApp($app)
+    public function setCounter($counter)
     {
-        $this->app = $app;
+        $this->counter = $counter;
         return $this;
     }
 }
