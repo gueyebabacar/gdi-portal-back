@@ -1,0 +1,36 @@
+# This file is auto-generated during the composer install
+parameters:
+    database_name: gdi-pop_recette
+
+    soap_optic_parameters:
+        login: GDI
+        password: GDI
+
+    soap_pictrel_parameters:
+        login: GDI
+        password: GDI
+
+    #OPTIC SOAP ACCOUNT
+    optic.account.login: GDI
+    optic.account.password: GDI
+
+    #PICTREL SOAP ACCOUNT
+    optic.account.login: GDI
+    optic.account.password: GDI
+
+    #PICTREL SOAP ACCOUNT
+    pictrel.account.login: GDI
+    pictrel.account.password: GDI
+
+    #OPTIC SOAP LOCATION
+    optic.serviceConsulterPlanning.location : http://172.17.8.135:8001/lisa_mock/v2.0/mockserviceConsulterPlanningBinding_newPPITT
+
+    #PICTREL SOAP LOCATION
+    pictrel.associerDITournee.location : http://172.17.8.135:8001/lisa_mock/v2.0/mockserviceAssocierDITournee
+    pictrel.affecterTechnicienTournee.location : http://172.17.8.135:8001/lisa_mock/v2.0/mockserviceAffecterTechnicienTournee
+    pictrel.passageTourneePretACharger.location: http://172.17.8.135:8001/lisa_mock/v2.0/mockservicePassagePretACharger
+    pictrel.passageEnCreation.location : http://172.17.8.135:8001/lisa_mock/v2.0/mockservicePassageEnCreation
+    pictrel.listeTourneeDestinataire.location: http://172.17.8.135:8001/lisa_mock/v2.0/mockserviceListeTourneesDestinataire
+    pictrel.listeDemandeIntervention.location: http://172.17.8.135:8001/lisa_mock/v2.0/mockserviceListeDemandeInterventions
+    pictrel.rechercheDetailDemandeIntervention.location: http://172.17.8.135:8001/lisa_mock/v2.0/mockserviceRechercheDetailDemandeIntervention
+
