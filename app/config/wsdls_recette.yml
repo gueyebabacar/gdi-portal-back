@@ -1,0 +1,8 @@
+parameters:
+    wsdl_exposed_path : "%kernel.root_dir%/Resources/wsdl/exposed"
+    wsdl_login    : PortailGDI
+    wsdl_password : PortailGDI
+    exposed_wsdls:
+        serviceTransco :
+            filePath : "%wsdl_exposed_path%/serviceTransco/com.grdf.serviceTranscoGDI.v1.0.wsdl"
+            location: 'http://172.17.14.173/api/soap/service-transco'
