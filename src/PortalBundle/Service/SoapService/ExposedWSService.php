@@ -32,7 +32,7 @@ class ExposedWSService
 
     /**
      * @var TranscoNatureInterService
-     * @DI\Inject("portal.service.transconatureope")
+     * @DI\Inject("portal.service.transconatureinter")
      */
     public $transcoNatureInterService;
 
@@ -61,6 +61,7 @@ class ExposedWSService
      * })
      * @param $transcoNatureInterService
      * @param $transcoNatureOpeService
+     * @param $transcoDestTerrSiteService
      */
     public function __construct($transcoNatureInterService, $transcoNatureOpeService, $transcoDestTerrSiteService)
     {
@@ -165,7 +166,7 @@ class ExposedWSService
     {
         $fields = [];
         foreach ($query['criteria'] as $criteria) {
-            if ($criteria['value'] == null) {
+            if ($criteria['value'] == null || $criteria['name'] == null ) {
                 $fields[] = $criteria['name'];
             }
         }

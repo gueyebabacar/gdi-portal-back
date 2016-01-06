@@ -10,7 +10,7 @@ use Doctrine\ORM\EntityRepository;
 class TranscoNatureOpeRepository extends EntityRepository
 {
     const TYPE_DE_TRAVAIL = "TypeDeTravail";
-    const GROUPE_DE_GAME = "GroupeDeGame";
+    const GROUPE_DE_GAMME = "GroupeDeGamme";
     const COMPTEUR = "Compteur";
 
     public function getCodeNatureIntervention3(array $data)
@@ -22,7 +22,7 @@ class TranscoNatureOpeRepository extends EntityRepository
                 $qb->andWhere('tno.workType = :workType')
                     ->setParameter('workType', $item['value']);
             }
-            if ($item['name'] === self::GROUPE_DE_GAME) {
+            if ($item['name'] === self::GROUPE_DE_GAMME) {
                 $qb->andWhere('tno.gammeGroup = :gammeGroup')
                     ->setParameter('gammeGroup', $item['value']);
             }
@@ -43,7 +43,7 @@ class TranscoNatureOpeRepository extends EntityRepository
                 $qb->andWhere('tno.workType = :workType')
                     ->setParameter('workType', $item['value']);
             }
-            if ($item['name'] === self::GROUPE_DE_GAME) {
+            if ($item['name'] === self::GROUPE_DE_GAMME) {
                 $qb->andWhere('tno.gammeGroup = :gammeGroup')
                     ->setParameter('gammeGroup', $item['value']);
             }
