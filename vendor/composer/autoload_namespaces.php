@@ -34,6 +34,7 @@ return array(
     'Doctrine\\Common\\Annotations\\' => array($vendorDir . '/doctrine/annotations/lib'),
     'Doctrine\\Common\\' => array($vendorDir . '/doctrine/common/lib'),
     'CG\\' => array($vendorDir . '/jms/cg/src'),
+    'Assetic' => array($vendorDir . '/kriswallsmith/assetic/src'),
     'Apoutchika\\LoremIpsumBundle' => array($vendorDir . '/apoutchika/loremipsum-bundle'),
     'AerialShip\\SamlSPBundle\\' => array($vendorDir . '/aerialship/saml-sp-bundle/src'),
     '' => array($vendorDir . '/aerialship/lightsaml/src'),

@@ -45,19 +45,15 @@ class ComposerAutoloaderIniteb1ba802458b4f47be7161769d7444b8
         $loader->register(true);
 
         $includeFiles = require __DIR__ . '/autoload_files.php';
-        foreach ($includeFiles as $fileIdentifier => $file) {
-            composerRequireeb1ba802458b4f47be7161769d7444b8($fileIdentifier, $file);
+        foreach ($includeFiles as $file) {
+            composerRequireeb1ba802458b4f47be7161769d7444b8($file);
         }
 
         return $loader;
     }
 }
 
-function composerRequireeb1ba802458b4f47be7161769d7444b8($fileIdentifier, $file)
+function composerRequireeb1ba802458b4f47be7161769d7444b8($file)
 {
-    if (empty($GLOBALS['__composer_autoload_files'][$fileIdentifier])) {
-        require $file;
-
-        $GLOBALS['__composer_autoload_files'][$fileIdentifier] = true;
-    }
+    require $file;
 }
