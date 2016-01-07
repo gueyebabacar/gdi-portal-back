@@ -2,6 +2,8 @@
 namespace PortalBundle\Controller;
 
 use PortalBundle\Entity\TranscoDestTerrSite;
+use FOS\RestBundle\Controller\FOSRestController;
+use Symfony\Component\EventDispatcher\Tests\Debug\TraceableEventDispatcherTest;
 use Symfony\Component\HttpFoundation\Response;
 use FOS\RestBundle\Controller\Annotations as Rest;
 
@@ -22,31 +24,12 @@ class ImportCsvController extends FOSRestController
     public function destiTerrsiteImportCsvAction()
     {
 
-        $path = realpath($this->get('kernel')->getRootDir() . "/../doc/");
-        define('CSV_PATH',$path);
+        $dumpCsv = $this->get('csv_import_service');
+        $dumpCsv->dumpCvs();
 
-        $csv_file = CSV_PATH . "test.csv"; // Name of your CSV file
-        $csvfile = fopen($csv_file, 'r');
-        $transcoDestTerrSite = new  TranscoDestTerrSite();
-        $i = 0;
-        while (!feof($csvfile)) {
-            $csv_data[] = fgets($csvfile, 1024);
-            $csv_array = explode(",", $csv_data[$i]);
-
-            $transcoDestTerrSite->setIdRefStructureOp($csv_array[3]);
-            $transcoDestTerrSite->setTerritory($csv_array[0]);
-            $transcoDestTerrSite->setAdressee($csv_array[1]);
-            $transcoDestTerrSite->setSite($csv_array[2]);
-            $transcoDestTerrSite->setPr($csv_array[4]);
-
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($transcoDestTerrSite);
-            $i++;
-        }
-
-        fclose($csvfile);
-
-        return new Response("File data successfully imported to database!!");
+        return new Response('TranscodestTerrSite csv file uploaded on database succesfully');
 
     }
+
 }
+
