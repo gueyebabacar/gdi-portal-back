@@ -3,6 +3,7 @@
 namespace PortalBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -15,11 +16,11 @@ class TranscoDestTerrSiteType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('territory')
-            ->add('adressee')
-            ->add('site')
-            ->add('idRefStructureOp')
-            ->add('pr')
+            ->add('territory', TextType::class)
+            ->add('adressee', TextType::class)
+            ->add('site', TextType::class)
+            ->add('idRefStructureOp', TextType::class)
+            ->add('pr', TextType::class)
         ;
     }
 
@@ -34,7 +35,7 @@ class TranscoDestTerrSiteType extends AbstractType
         ));
     }
 
-    public function getName()
+    public function getBlockPrefix()
     {
         return '';
     }

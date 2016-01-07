@@ -3,6 +3,7 @@
 namespace PortalBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -15,14 +16,14 @@ class TranscoNatureOpeType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('workType')
-            ->add('gammeGroup')
-            ->add('counter')
-            ->add('purpose')
-            ->add('natureInterCode')
-            ->add('programmingMode')
-            ->add('segmentationName')
-            ->add('segmentationValue')
+            ->add('workType', TextType::class)
+            ->add('gammeGroup', TextType::class)
+            ->add('counter', TextType::class)
+            ->add('purpose', TextType::class)
+            ->add('natureInterCode', TextType::class)
+            ->add('programmingMode', TextType::class)
+            ->add('segmentationName', TextType::class)
+            ->add('segmentationValue', TextType::class)
         ;
     }
     
@@ -37,7 +38,7 @@ class TranscoNatureOpeType extends AbstractType
         ));
     }
 
-    public function getName()
+    public function getBlockPrefix()
     {
         return '';
     }
