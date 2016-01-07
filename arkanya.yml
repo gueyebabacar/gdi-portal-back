@@ -9,7 +9,7 @@ prepare:
     - php app/console doctrine:schema:create -e test
     - php app/console cache:clear -e test
     - php app/console assets:install web --symlink -e test
-    - php app/console doctrine:fixtures:load -n --fixtures= src/GDIModelBundle/DataFixtures/ORM -e test --append
+    - php app/console doctrine:fixtures:load -n --fixtures= src/TranscoBundle/DataFixtures/ORM -e test --append
   js:
     - rm -rf build/
     - mkdir -p build
@@ -30,10 +30,10 @@ target:
       phpunit:
         bin: php vendor/phpunit/phpunit/phpunit
         directories:
-          - src/GDIModelBundle/Tests/*
-          - src/NewPPIBundle/Tests/Command/
-          - src/NewPPIBundle/Tests/Security/
-          - src/NewPPIBundle/Tests/Service/
+          - src/TranscoBundle/Tests/Entity/
+          - src/TranscoBundle/Tests/Form/
+          - src/TranscoBundle/Tests/Repository/
+          - src/TranscoBundle/Tests/Service/
       end: php-unit
     jenkins-php-functional:
       dir: .
@@ -47,14 +47,14 @@ target:
       phpunit:
         bin: php vendor/phpunit/phpunit/phpunit
         directories:
-          - src/NewPPIBundle/Tests/Controller/
+          - src/TranscoBundle/Tests/Controller/
     jenkins-js-unit:
       dir: . # by default => .
       vagrant: # Optional
         enabled: true
         managelevel: 3 # 0 : do nothing | 1 : up | 2 : up then halt
         rsync: true # by default => true
-        name: js-ci-gdi-newppi
+        name: js-ci-gdi-portal-back
         path: /var/www # by default => /var/www
       prepare: js
       npm:
@@ -66,7 +66,7 @@ target:
         enabled: true
         managelevel: 3 # 0 : do nothing | 1 : up | 2 : up then halt
         rsync: true # by default => true
-        name: js-cif-gdi-newppi
+        name: js-cif-gdi-portal-back
         path: /var/www # by default => /var/www
       prepare: js
       npm:

@@ -102,7 +102,6 @@ echo "
 # README.Debian.gz
 
 Listen 80
-Listen 8089
 Listen 8090
 
 <IfModule mod_ssl.c>
@@ -123,8 +122,7 @@ echo "
 <VirtualHost *:80>
     ServerAdmin webmaster@localhost
     ProxyPreserveHost on
-    ProxyPass /api/gdii http://127.0.0.1:8089
-    ProxyPass /api/newppi http://127.0.0.1:8090
+    ProxyPass /api/portal-back http://127.0.0.1:8090
 
     DocumentRoot /var/www/gdi-portal/dist
     <Directory /var/www/gdi-portal/dist>
@@ -145,26 +143,16 @@ echo "
     CustomLog /var/log/apache2/access_angular.log combined
 </VirtualHost>
 
-<VirtualHost *:8089>
-    DocumentRoot /var/www/gdi-intervenant/web/
-    <Directory /var/www/gdi-intervenant/web/>
-        AllowOverride All
-        Require all granted
-        Options FollowSymLinks MultiViews
-    </Directory>
-    ErrorLog /var/log/apache2/error_sf2.log
-    CustomLog /var/log/apache2/access_sf2.log combined
-</VirtualHost>
-
 <VirtualHost *:8090>
-    DocumentRoot /var/www/gdi-newppi/web/
-    <Directory /var/www/gdi-newppi/web/>
+    DocumentRoot /var/www/gdi-portal-back/web/
+    <Directory /var/www/gdi-portal-back/web/>
         AllowOverride All
-        Require all granted
-        Options FollowSymLinks MultiViews
+        Options ExecCGI SymLinksIfOwnerMatch
+        Order allow,deny
+        Allow from all
     </Directory>
-    ErrorLog /var/log/apache2/error_pop.log
-    CustomLog /var/log/apache2/access_pop.log combined
+    ErrorLog /var/log/apache2/error_portal_back.log
+    CustomLog /var/log/apache2/access_portal_back.log combined
 </VirtualHost>
 
 " > /etc/apache2/sites-available/default.conf
