@@ -1,0 +1,14 @@
+transcodestersite:
+    type: rest
+    resource: @PortalBundle/Controller/TranscoDestTerrSiteController.php
+
+transconatureope:
+    type: rest
+    resource: @PortalBundle/Controller/TranscoNatureOpeController.php
+
+transconatureinter:
+    type: rest
+    resource: @PortalBundle/Controller/TranscoNatureInterController.php
+
+soap:
+    resource: PortalBundle\Controller\SoapServerController
