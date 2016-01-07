@@ -1,0 +1,74 @@
+prepare:
+  reinit-php:
+    - rm -rf build/
+    - mkdir -p build/reports/junit
+    - mkdir -p build/tmp/coverage
+    - php app/console doctrine:database:drop --force --if-exists -e test
+    - php app/console doctrine:database:create --if-not-exists -e test
+    - php app/console doctrine:schema:drop --force -e test
+    - php app/console doctrine:schema:create -e test
+    - php app/console cache:clear -e test
+    - php app/console assets:install web --symlink -e test
+    - php app/console doctrine:fixtures:load -n --fixtures= src/GDIModelBundle/DataFixtures/ORM -e test --append
+  js:
+    - rm -rf build/
+    - mkdir -p build
+    - npm run build
+end:
+  php-unit:
+    - php app/console api:doc:dump --format=html -e test > build/reports/api.html
+target:
+    jenkins-php-unit:
+      dir: .
+      vagrant: # Optional
+        enabled: true
+        managelevel: 3 # 0 : do nothing | 1 : up | 2 : up then halt
+        rsync: true
+        name: ci
+        path: /var/www
+      prepare: reinit-php
+      phpunit:
+        bin: php vendor/phpunit/phpunit/phpunit
+        directories:
+          - src/GDIModelBundle/Tests/*
+          - src/NewPPIBundle/Tests/Command/
+          - src/NewPPIBundle/Tests/Security/
+          - src/NewPPIBundle/Tests/Service/
+      end: php-unit
+    jenkins-php-functional:
+      dir: .
+      vagrant:
+        enabled: true
+        managelevel: 3
+        rsync: true
+        name: cif
+        path: /var/www
+      prepare: reinit-php
+      phpunit:
+        bin: php vendor/phpunit/phpunit/phpunit
+        directories:
+          - src/NewPPIBundle/Tests/Controller/
+    jenkins-js-unit:
+      dir: . # by default => .
+      vagrant: # Optional
+        enabled: true
+        managelevel: 3 # 0 : do nothing | 1 : up | 2 : up then halt
+        rsync: true # by default => true
+        name: js-ci-gdi-newppi
+        path: /var/www # by default => /var/www
+      prepare: js
+      npm:
+        bin: npm # by default => /usr/bin/npm
+        target: test:unit
+    jenkins-js-functional:
+      dir: . # by default => .
+      vagrant: # Optional
+        enabled: true
+        managelevel: 3 # 0 : do nothing | 1 : up | 2 : up then halt
+        rsync: true # by default => true
+        name: js-cif-gdi-newppi
+        path: /var/www # by default => /var/www
+      prepare: js
+      npm:
+        bin: npm # by default => /usr/bin/npm
+        target: test:func
