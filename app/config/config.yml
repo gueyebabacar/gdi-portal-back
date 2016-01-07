@@ -79,7 +79,7 @@ fos_rest:
 jms_di_extra:
     locations:
         all_bundles: false
-        bundles: [PortalBundle]
+        bundles: [TranscoBundle]
         directories: ["%kernel.root_dir%/../src"]
 
 nelmio_api_doc:

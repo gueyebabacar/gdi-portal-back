@@ -5,4 +5,4 @@ NelmioApiDocBundle:
 portal:
     type: rest
     prefix: /
-    resource: "@PortalBundle/Resources/config/routing.yml"
+    resource: "@TranscoBundle/Resources/config/routing.yml"
