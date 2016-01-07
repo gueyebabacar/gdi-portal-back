@@ -42,7 +42,9 @@ class TranscoDestTerrSiteServiceTest extends \PHPUnit_Framework_TestCase
      */
     private $repositoryProphecy;
 
-    /** @var  TranscoDestTerrSiteService */
+    /**
+     * @var  TranscoDestTerrSiteService
+     */
     private $transcoService;
 
     public function setUp()
@@ -95,7 +97,7 @@ class TranscoDestTerrSiteServiceTest extends \PHPUnit_Framework_TestCase
         $formProphecy = $this->prophet->prophesize(Form::class);
 
         $this->formFactoryProphecy
-            ->create(Argument::type(TranscoDestTerrSiteType::class), $transcoDestTerrSite)
+            ->create(TranscoDestTerrSiteType::class, $transcoDestTerrSite)
             ->willReturn($formProphecy->reveal())
             ->shouldBeCalled();
 
@@ -162,7 +164,7 @@ class TranscoDestTerrSiteServiceTest extends \PHPUnit_Framework_TestCase
             ->shouldBeCalled();
 
         $this->formFactoryProphecy
-            ->create(Argument::type(TranscoDestTerrSiteType::class), $transcoDestTerrSite)
+            ->create(TranscoDestTerrSiteType::class, $transcoDestTerrSite)
             ->willReturn($formProphecy->reveal())
             ->shouldBeCalled();
 

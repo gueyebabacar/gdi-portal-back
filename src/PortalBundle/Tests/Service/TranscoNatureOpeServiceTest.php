@@ -36,7 +36,9 @@ class TranscoNatureOpeServiceTest extends \PHPUnit_Framework_TestCase
      */
     private $repositoryProphecy;
 
-    /** @var  TranscoNatureOpeService */
+    /**
+     * @var  TranscoNatureOpeService
+     */
     private $transcoService;
 
     public function setUp()
@@ -89,7 +91,7 @@ class TranscoNatureOpeServiceTest extends \PHPUnit_Framework_TestCase
         $formProphecy = $this->prophet->prophesize(Form::class);
 
         $this->formFactoryProphecy
-            ->create(Argument::type(TranscoNatureOpeType::class), $transcoNatureOpe)
+            ->create(TranscoNatureOpeType::class, $transcoNatureOpe)
             ->willReturn($formProphecy->reveal())
             ->shouldBeCalled();
 
@@ -156,7 +158,7 @@ class TranscoNatureOpeServiceTest extends \PHPUnit_Framework_TestCase
             ->shouldBeCalled();
 
         $this->formFactoryProphecy
-            ->create(Argument::type(TranscoNatureOpeType::class), $transcoNatureOpe)
+            ->create(TranscoNatureOpeType::class, $transcoNatureOpe)
             ->willReturn($formProphecy->reveal())
             ->shouldBeCalled();
 

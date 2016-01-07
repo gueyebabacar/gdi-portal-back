@@ -41,7 +41,9 @@ class TranscoNatureInterServiceTest extends \PHPUnit_Framework_TestCase
      */
     private $repositoryProphecy;
 
-    /** @var  TranscoNatureInterService */
+    /**
+     * @var  TranscoNatureInterService
+     */
     private $transcoService;
 
     public function setUp()
@@ -94,7 +96,7 @@ class TranscoNatureInterServiceTest extends \PHPUnit_Framework_TestCase
         $formProphecy = $this->prophet->prophesize(Form::class);
 
         $this->formFactoryProphecy
-            ->create(Argument::type(TranscoNatureInterType::class), $transcoNatureInter)
+            ->create(TranscoNatureInterType::class, $transcoNatureInter)
             ->willReturn($formProphecy->reveal())
             ->shouldBeCalled();
 
@@ -161,7 +163,7 @@ class TranscoNatureInterServiceTest extends \PHPUnit_Framework_TestCase
             ->shouldBeCalled();
 
         $this->formFactoryProphecy
-            ->create(Argument::type(TranscoNatureInterType::class), $transcoNatureInter)
+            ->create(TranscoNatureInterType::class, $transcoNatureInter)
             ->willReturn($formProphecy->reveal())
             ->shouldBeCalled();
 

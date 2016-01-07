@@ -62,7 +62,7 @@ class TranscoNatureOpeService
     public function create(Request $request)
     {
         $TranscoNatureOpe = new TranscoNatureOpe();
-        $form = $this->formFactory->create(new TranscoNatureOpeType(), $TranscoNatureOpe);
+        $form = $this->formFactory->create(TranscoNatureOpeType::class, $TranscoNatureOpe);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -92,7 +92,7 @@ class TranscoNatureOpeService
     {
         /** @var TranscoNatureOpe $TranscoNatureOpe */
         $TranscoNatureOpe = $this->em->getRepository('PortalBundle:TranscoNatureOpe')->find($transcoNatureOpeId);
-        $form = $this->formFactory->create(new TranscoNatureOpeType(), $TranscoNatureOpe);
+        $form = $this->formFactory->create(TranscoNatureOpeType::class, $TranscoNatureOpe);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {

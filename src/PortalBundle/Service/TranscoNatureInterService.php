@@ -62,7 +62,7 @@ class TranscoNatureInterService
     public function create(Request $request)
     {
         $transcoNatureInter = new TranscoNatureInter();
-        $form = $this->formFactory->create(new TranscoNatureInterType(), $transcoNatureInter);
+        $form = $this->formFactory->create(TranscoNatureInterType::class, $transcoNatureInter);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -92,7 +92,7 @@ class TranscoNatureInterService
     {
         /** @var TranscoNatureInter $transcoNatureInter */
         $transcoNatureInter = $this->em->getRepository('PortalBundle:TranscoNatureInter')->find($transcoNatureInterId);
-        $form = $this->formFactory->create(new TranscoNatureInterType(), $transcoNatureInter);
+        $form = $this->formFactory->create(TranscoNatureInterType::class, $transcoNatureInter);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {

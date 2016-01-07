@@ -62,7 +62,7 @@ class TranscoDestTerrSiteService
     public function create(Request $request)
     {
         $transcoDestTerrSite = new TranscoDestTerrSite();
-        $form = $this->formFactory->create(new TranscoDestTerrSiteType(), $transcoDestTerrSite);
+        $form = $this->formFactory->create(TranscoDestTerrSiteType::class, $transcoDestTerrSite);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -92,7 +92,7 @@ class TranscoDestTerrSiteService
     {
         /** @var  $transcoDestTerrSite */
         $transcoDestTerrSite = $this->em->getRepository('PortalBundle:TranscoDestTerrSite')->find($idRefStructureOp);
-        $form = $this->formFactory->create(new TranscoDestTerrSiteType(), $transcoDestTerrSite);
+        $form = $this->formFactory->create(TranscoDestTerrSiteType::class, $transcoDestTerrSite);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
