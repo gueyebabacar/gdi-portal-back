@@ -29,12 +29,11 @@ class LoadTranscoDestTerrSiteData implements FixtureInterface, ContainerAwareInt
 
         for ($i = 0; $i < 20; $i++) {
             $transcoDestTerrSite = new TranscoDestTerrSite();
-            $number = rand(0, 100);
-            $transcoDestTerrSite->setTerritory($number);
+            $transcoDestTerrSite->setTerritory($i);
             $transcoDestTerrSite->setAdressee(strtoupper($loremIpsum->getWords(1)));
             $transcoDestTerrSite->setSite(strtoupper($loremIpsum->getWords(1)));
             $transcoDestTerrSite->setPr(strtoupper($loremIpsum->getWords(1)));
-            $transcoDestTerrSite->setIdRefStructureOp("ATG" . $number);
+            $transcoDestTerrSite->setIdRefStructureOp("ATG" . $i);
 
             $manager->persist($transcoDestTerrSite);
         }
