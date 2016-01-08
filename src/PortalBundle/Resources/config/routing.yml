@@ -12,3 +12,8 @@ transconatureinter:
 
 soap:
     resource: PortalBundle\Controller\SoapServerController
+
+
+importCsv:
+    type: rest
+    resource: @PortalBundle/Controller/ImportCsvController.php
