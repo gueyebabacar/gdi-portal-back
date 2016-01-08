@@ -213,7 +213,8 @@ class TranscoNatureInterServiceTest extends \PHPUnit_Framework_TestCase
         $this->transcoService->delete(1);
     }
 
-    public function testGetCodeNatIntFromCodeNatOp(){
+    public function testGetCodeNatIntFromCodeNatOp()
+    {
         $transcoRepositoryProphecy = $this->prophet->prophesize(TranscoNatureInterRepository::class);
 
         $this->emProphecy
@@ -229,7 +230,8 @@ class TranscoNatureInterServiceTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals([], $this->transcoService->getCodeNatIntFromCodeNatOp([]));
     }
 
-    public function testGetCodeNatOpFromCodeNatInt(){
+    public function testGetCodeNatOpFromCodeNatInt()
+    {
         $transcoRepositoryProphecy = $this->prophet->prophesize(TranscoNatureInterRepository::class);
 
         $this->emProphecy

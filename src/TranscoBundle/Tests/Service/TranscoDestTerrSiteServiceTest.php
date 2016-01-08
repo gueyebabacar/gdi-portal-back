@@ -233,7 +233,8 @@ class TranscoDestTerrSiteServiceTest extends \PHPUnit_Framework_TestCase
         return $transcos;
     }
 
-    public function testGetTerritoryFromAtg(){
+    public function testGetTerritoryFromAtg()
+    {
         $transcoRepositoryProphecy = $this->prophet->prophesize(TranscoDestTerrSiteRepository::class);
 
         $this->emProphecy
@@ -249,7 +250,8 @@ class TranscoDestTerrSiteServiceTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals([], $this->transcoService->getTerritoryFromAtg([]));
     }
 
-    public function testGetAtgFromTerritoryOrAdressee(){
+    public function testGetAtgFromTerritoryOrAdressee()
+    {
         $transcoRepositoryProphecy = $this->prophet->prophesize(TranscoDestTerrSiteRepository::class);
 
         $this->emProphecy
@@ -265,7 +267,8 @@ class TranscoDestTerrSiteServiceTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals([], $this->transcoService->getAtgFromTerritoryOrAdressee([]));
     }
 
-    public function testGetAdresseeFromAtg(){
+    public function testGetAdresseeFromAtg()
+    {
         $transcoRepositoryProphecy = $this->prophet->prophesize(TranscoDestTerrSiteRepository::class);
 
         $this->emProphecy
@@ -281,7 +284,8 @@ class TranscoDestTerrSiteServiceTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals([], $this->transcoService->getAdresseeFromAtg([]));
     }
 
-    public function testgetPrFromAtg(){
+    public function testgetPrFromAtg()
+    {
         $transcoRepositoryProphecy = $this->prophet->prophesize(TranscoDestTerrSiteRepository::class);
 
         $this->emProphecy

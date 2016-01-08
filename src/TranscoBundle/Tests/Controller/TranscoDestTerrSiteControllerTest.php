@@ -49,7 +49,7 @@ class TranscoDestTerrSiteControllerTest extends BaseWebTestCase
         $transcoDestTerrSite = $this->em->getRepository('TranscoBundle:TranscoDestTerrSite')->findAll()[0];
         $this->client->request(
             'GET',
-            "/transcodestersite/".$transcoDestTerrSite->getId(),
+            "/transcodestersite/" . $transcoDestTerrSite->getId(),
             [],
             [],
             $this->headers
@@ -107,7 +107,7 @@ class TranscoDestTerrSiteControllerTest extends BaseWebTestCase
 
         $this->client->request(
             'POST',
-            "/transcodestersite/".$transcoDestTerrSite->getId()."/update",
+            "/transcodestersite/" . $transcoDestTerrSite->getId() . "/update",
             $data,
             [],
             $this->headers
@@ -127,7 +127,7 @@ class TranscoDestTerrSiteControllerTest extends BaseWebTestCase
         $id = $transcoNatureInter->getId();
         $this->client->request(
             'GET',
-            "/transcodestersite/".$id."/delete",
+            "/transcodestersite/" . $id . "/delete",
             [],
             [],
             $this->headers
@@ -142,12 +142,11 @@ class TranscoDestTerrSiteControllerTest extends BaseWebTestCase
      */
     public function insertTranscoDestTerrSite()
     {
-        for ($i = 0; $i < 2; $i++) {
-
+        for ($i = 0; $i < 2; $i++)
+        {
             $transcoDestTerrSite = new TranscoDestTerrSite();
 
             $transcoDestTerrSite->setIdRefStructureOp(254);
-            $transcoDestTerrSite->setSite('lorem ipsum');
             $transcoDestTerrSite->setAdressee('lorem ipsum');
             $transcoDestTerrSite->setSite('lorem ipsum');
             $transcoDestTerrSite->setPr('lorem ipsum');
