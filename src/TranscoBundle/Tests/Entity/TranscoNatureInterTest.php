@@ -38,6 +38,7 @@ class TranscoNatureInterTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($data['id'], $transcoNatureInter->getId());
         $this->assertEquals($data['opticNatCode'], $transcoNatureInter->getOpticNatCode());
         $this->assertEquals($data['opticNatLabel'], $transcoNatureInter->getOpticNatLabel());
+        $this->assertEquals($data['opticSkill'], $transcoNatureInter->getOpticSkill());
         $this->assertEquals($data['pictrelNatOpCode'], $transcoNatureInter->getPictrelNatOpCode());
         $this->assertEquals($data['pictrelNatLabel'], $transcoNatureInter->getPictrelNatOpLabel());
         $this->assertEquals($data['troncatedPictrelNatOpLabel'], $transcoNatureInter->getTroncatedPictrelNatOpLabel());
