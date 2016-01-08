@@ -25,7 +25,7 @@ class TranscoDestTerrSiteRepositoryTest extends BaseWebTestCase
      */
     public function testFindTerritoryFromAtg()
     {
-        $data['criteria'][0]['value'] = 59;
+        $data['criteria'][0]['value'] = 999;
         $this->insertTranscoDestTerrSite();
         $result = $this->transcoDestTerrSiteRepo->findTerritoryFromAtg($data);
         $this->assertEquals(reset($result[0]), "056");
@@ -36,7 +36,7 @@ class TranscoDestTerrSiteRepositoryTest extends BaseWebTestCase
      */
     public function testFindAdresseeFromAtg()
     {
-        $data['criteria'][0]['value'] = 59;
+        $data['criteria'][0]['value'] = 999;
         $this->insertTranscoDestTerrSite();
         $result = $this->transcoDestTerrSiteRepo->findAdresseeFromAtg($data);
         $this->assertEquals(reset($result[0]), "adresse");
@@ -47,7 +47,7 @@ class TranscoDestTerrSiteRepositoryTest extends BaseWebTestCase
      */
     public function testFindPrFromAtg()
     {
-        $data['criteria'][0]['value'] = 59;
+        $data['criteria'][0]['value'] = 999;
         $this->insertTranscoDestTerrSite();
         $result = $this->transcoDestTerrSiteRepo->findPrFromAtg($data);
         $this->assertEquals(reset($result[0]), "PR");
@@ -62,13 +62,13 @@ class TranscoDestTerrSiteRepositoryTest extends BaseWebTestCase
         $data['criteria'][0]['name'] = ExposedWSService::ATG;
         $this->insertTranscoDestTerrSite();
         $result = $this->transcoDestTerrSiteRepo->findAtgFromTerritoryOrAdressee($data);
-        $this->assertEquals(reset($result[0]), 59);
+        $this->assertEquals(reset($result[0]), 999);
 
         $data['criteria'][0]['value'] = 'adresse';
         $data['criteria'][0]['name'] = ExposedWSService::ADRESSEE;
         $this->insertTranscoDestTerrSite();
         $result = $this->transcoDestTerrSiteRepo->findAtgFromTerritoryOrAdressee($data);
-        $this->assertEquals(reset($result[0]), 59);
+        $this->assertEquals(reset($result[0]), 999);
     }
 
     /**
@@ -78,7 +78,7 @@ class TranscoDestTerrSiteRepositoryTest extends BaseWebTestCase
     {
         $transcoDestTerrSite = new TranscoDestTerrSite();
 
-        $transcoDestTerrSite->setIdRefStructureOp(59);
+        $transcoDestTerrSite->setIdRefStructureOp(999);
         $transcoDestTerrSite->setAdressee('adresse');
         $transcoDestTerrSite->setSite('site');
         $transcoDestTerrSite->setPr('PR');
