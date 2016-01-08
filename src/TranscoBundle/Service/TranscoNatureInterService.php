@@ -51,7 +51,7 @@ class TranscoNatureInterService
      */
     public function getAll()
     {
-        return $transcoNatureInters = $this->em->getRepository('TranscoBundle:TranscoNatureInter')->findAll();
+        return $this->em->getRepository('TranscoBundle:TranscoNatureInter')->findAll();
     }
 
     /**

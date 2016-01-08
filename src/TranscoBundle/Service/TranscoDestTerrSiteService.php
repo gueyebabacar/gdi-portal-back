@@ -51,7 +51,7 @@ class TranscoDestTerrSiteService
      */
     public function getAll()
     {
-        return $transcoDestTerrSite = $this->em->getRepository('TranscoBundle:TranscoDestTerrSite')->findAll();
+        return $this->em->getRepository('TranscoBundle:TranscoDestTerrSite')->findAll();
     }
 
     /**

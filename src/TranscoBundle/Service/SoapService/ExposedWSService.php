@@ -18,7 +18,7 @@ class ExposedWSService
 {
     //NatureOpe
     const CODE_NAT_INTER3 = "CodeNatureIntervention3";
-    const MODE_PROGRAM= "ModeProgrammation";
+    const MODE_PROGRAM = "ModeProgrammation";
 
     //NatureInter
     const CODE_NAT_INTER = "CodeNatureIntervention";
@@ -108,7 +108,7 @@ class ExposedWSService
                 case $this::MODE_PROGRAM:
                     $this->return['result'] = $this->transcoNatureOpeService->getModeProgrammation($query);
                     break;
-
+                //DestTerrSite
                 case $this::ADRESSEE:
                     $this->return['result'] = $this->transcoDestTerrSiteService->getAdresseeFromAtg($query);
                     break;
@@ -152,7 +152,7 @@ class ExposedWSService
             $this->return['result'] = '';
             $this->return['message'] = "ValeurRecherchee non reconnue";
             $this->return['code'] = "0000000003";
-        } elseif(is_array($this->return['result'])) {
+        } elseif (is_array($this->return['result'])) {
             $this->return['result'] = '';
             $this->return['message'] = "Transcodification impossible !";
             $this->return['code'] = "0000000002";
@@ -166,7 +166,7 @@ class ExposedWSService
     {
         $fields = [];
         foreach ($query['criteria'] as $criteria) {
-            if ($criteria['value'] == null || $criteria['name'] == null ) {
+            if ($criteria['value'] == null || $criteria['name'] == null) {
                 $fields[] = $criteria['name'];
             }
         }

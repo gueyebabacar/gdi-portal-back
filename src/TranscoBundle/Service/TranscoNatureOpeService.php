@@ -51,7 +51,7 @@ class TranscoNatureOpeService
      */
     public function getAll()
     {
-        return $TranscoNatureOpes = $this->em->getRepository('TranscoBundle:TranscoNatureOpe')->findAll();
+        return $this->em->getRepository('TranscoBundle:TranscoNatureOpe')->findAll();
     }
 
     /**
@@ -61,15 +61,15 @@ class TranscoNatureOpeService
      */
     public function create(Request $request)
     {
-        $TranscoNatureOpe = new TranscoNatureOpe();
-        $form = $this->formFactory->create(TranscoNatureOpeType::class, $TranscoNatureOpe);
+        $transcoNatureOpe = new TranscoNatureOpe();
+        $form = $this->formFactory->create(TranscoNatureOpeType::class, $transcoNatureOpe);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $this->em->persist($TranscoNatureOpe);
+            $this->em->persist($transcoNatureOpe);
             $this->em->flush();
         }
-        return $TranscoNatureOpe;
+        return $transcoNatureOpe;
     }
 
     /**
@@ -90,16 +90,16 @@ class TranscoNatureOpeService
      */
     public function edit(Request $request, $transcoNatureOpeId)
     {
-        /** @var TranscoNatureOpe $TranscoNatureOpe */
-        $TranscoNatureOpe = $this->em->getRepository('TranscoBundle:TranscoNatureOpe')->find($transcoNatureOpeId);
-        $form = $this->formFactory->create(TranscoNatureOpeType::class, $TranscoNatureOpe);
+        /** @var TranscoNatureOpe $transcoNatureOpe */
+        $transcoNatureOpe = $this->em->getRepository('TranscoBundle:TranscoNatureOpe')->find($transcoNatureOpeId);
+        $form = $this->formFactory->create(TranscoNatureOpeType::class, $transcoNatureOpe);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $this->em->persist($TranscoNatureOpe);
+            $this->em->persist($transcoNatureOpe);
             $this->em->flush();
         }
-        return $TranscoNatureOpe;
+        return $transcoNatureOpe;
     }
 
     /**
@@ -108,9 +108,9 @@ class TranscoNatureOpeService
      */
     public function delete($transcoNatureOpeId)
     {
-        /** @var TranscoNatureOpe $TranscoNatureOpe */
-        $TranscoNatureOpe = $this->em->getRepository('TranscoBundle:TranscoNatureOpe')->find($transcoNatureOpeId);
-        $this->em->remove($TranscoNatureOpe);
+        /** @var TranscoNatureOpe $transcoNatureOpe */
+        $transcoNatureOpe = $this->em->getRepository('TranscoBundle:TranscoNatureOpe')->find($transcoNatureOpeId);
+        $this->em->remove($transcoNatureOpe);
         $this->em->flush();
     }
 
