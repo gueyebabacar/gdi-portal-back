@@ -31,7 +31,6 @@ class TranscoDestTerrSiteTypeTest extends TypeTestCase
         $form->submit($formData);
 
         $this->assertTrue($form->isSynchronized());
-        $view = $form->createView();
 
         $this->assertEquals($formData['territory'], $form->getData()->getTerritory());
     }

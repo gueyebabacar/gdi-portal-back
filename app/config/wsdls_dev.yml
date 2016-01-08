@@ -5,4 +5,4 @@ parameters:
     exposed_wsdls:
         serviceTransco :
             filePath : "%wsdl_exposed_path%/serviceTransco/com.grdf.serviceTranscoGDI.v1.0.wsdl"
-            location: 'http://127.0.0.1/api/soap/service-transco'
+            location: 'http://10.0.55.2:8091/app_dev.php/soap/service-transco'

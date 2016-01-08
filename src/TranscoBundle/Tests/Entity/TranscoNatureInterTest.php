@@ -21,7 +21,7 @@ class TranscoNatureInterTest extends \PHPUnit_Framework_TestCase
             'pictrelNatOpCode' => 'AA',
             'pictrelNatLabel' => 'Inspection robinet reseau',
             'troncatedPictrelNatOpLabel' => 'Inspection robinet reseau',
-            'app' => 1,
+            'counter' => 1,
         );
 
         $transcoNatureInter = new TranscoNatureInter();
@@ -33,7 +33,7 @@ class TranscoNatureInterTest extends \PHPUnit_Framework_TestCase
         $transcoNatureInter->setPictrelNatOpCode($data['pictrelNatOpCode']);
         $transcoNatureInter->setPictrelNatOpLabel($data['pictrelNatLabel']);
         $transcoNatureInter->setTroncatedPictrelNatOpLabel($data['troncatedPictrelNatOpLabel']);
-        $transcoNatureInter->setCounter($data['app']);
+        $transcoNatureInter->setCounter($data['counter']);
 
         $this->assertEquals($data['id'], $transcoNatureInter->getId());
         $this->assertEquals($data['opticNatCode'], $transcoNatureInter->getOpticNatCode());
@@ -42,6 +42,6 @@ class TranscoNatureInterTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($data['pictrelNatOpCode'], $transcoNatureInter->getPictrelNatOpCode());
         $this->assertEquals($data['pictrelNatLabel'], $transcoNatureInter->getPictrelNatOpLabel());
         $this->assertEquals($data['troncatedPictrelNatOpLabel'], $transcoNatureInter->getTroncatedPictrelNatOpLabel());
-        $this->assertEquals($data['app'], $transcoNatureInter->getCounter());
+        $this->assertEquals($data['counter'], $transcoNatureInter->getCounter());
     }
 }
