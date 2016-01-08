@@ -24,7 +24,7 @@ class TranscoNatureInterRepositoryTest extends BaseWebTestCase
         $data['criteria'][0]['value'] = "NATOPCODE";
         $this->insertTranscoNatureInter();
         $result = $this->transcoNatureInterRepo->findCodeNatIntFromCodeNatOp($data);
-        $this->assertEquals(reset($result[0]), 'AAA');
+        $this->assertEquals('AAA', reset($result[0]));
     }
 
     public function testfindCodeNatopFromCodeNatInt()
@@ -32,7 +32,7 @@ class TranscoNatureInterRepositoryTest extends BaseWebTestCase
         $data['criteria'][0]['value'] = "AAA";
         $this->insertTranscoNatureInter();
         $result = $this->transcoNatureInterRepo->findCodeNatopFromCodeNatInt($data);
-        $this->assertEquals(reset($result[0]), "NATOPCODE");
+        $this->assertEquals("NATOPCODE", reset($result[0]));
     }
 
     /**

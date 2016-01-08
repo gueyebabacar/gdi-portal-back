@@ -32,7 +32,7 @@ class TranscoNatureOpeRepositoryTest extends BaseWebTestCase
         $data['criteria'][2]['name'] = TranscoNatureOpeRepository::GROUPE_DE_GAMME;
         $this->insertTranscoNatureOpe();
         $result = $this->transcoNatureOpeRepo->findCodeNatureIntervention3($data);
-        $this->assertEquals(reset($result[0]), 'NatIntCode');
+        $this->assertEquals('NatIntCode', reset($result[0]));
     }
 
     public function testFindModeProgrammation()
@@ -45,7 +45,7 @@ class TranscoNatureOpeRepositoryTest extends BaseWebTestCase
         $data['criteria'][2]['name'] = TranscoNatureOpeRepository::GROUPE_DE_GAMME;
         $this->insertTranscoNatureOpe();
         $result = $this->transcoNatureOpeRepo->findModeProgrammation($data);
-        $this->assertEquals(reset($result[0]), 'Prog Mode');
+        $this->assertEquals('Prog Mode', reset($result[0]));
     }
 
     /**
