@@ -25,10 +25,10 @@ class TranscoDestTerrSiteRepositoryTest extends BaseWebTestCase
      */
     public function testFindTerritoryFromAtg()
     {
-        $data['criteria'][0]['value'] = 56;
+        $data['criteria'][0]['value'] = 59;
         $this->insertTranscoDestTerrSite();
         $result = $this->transcoDestTerrSiteRepo->findTerritoryFromAtg($data);
-        $this->assertEquals(reset($result[0]), "055");
+        $this->assertEquals(reset($result[0]), "056");
     }
 
     /**
@@ -36,7 +36,7 @@ class TranscoDestTerrSiteRepositoryTest extends BaseWebTestCase
      */
     public function testFindAdresseeFromAtg()
     {
-        $data['criteria'][0]['value'] = 56;
+        $data['criteria'][0]['value'] = 59;
         $this->insertTranscoDestTerrSite();
         $result = $this->transcoDestTerrSiteRepo->findAdresseeFromAtg($data);
         $this->assertEquals(reset($result[0]), "adresse");
@@ -47,7 +47,7 @@ class TranscoDestTerrSiteRepositoryTest extends BaseWebTestCase
      */
     public function testFindPrFromAtg()
     {
-        $data['criteria'][0]['value'] = 56;
+        $data['criteria'][0]['value'] = 59;
         $this->insertTranscoDestTerrSite();
         $result = $this->transcoDestTerrSiteRepo->findPrFromAtg($data);
         $this->assertEquals(reset($result[0]), "PR");
@@ -58,17 +58,17 @@ class TranscoDestTerrSiteRepositoryTest extends BaseWebTestCase
      */
     public function testFindAtgFromTerritoryOrAdressee()
     {
-        $data['criteria'][0]['value'] = '055';
+        $data['criteria'][0]['value'] = '056';
         $data['criteria'][0]['name'] = ExposedWSService::ATG;
         $this->insertTranscoDestTerrSite();
         $result = $this->transcoDestTerrSiteRepo->findAtgFromTerritoryOrAdressee($data);
-        $this->assertEquals(reset($result[0]), 56);
+        $this->assertEquals(reset($result[0]), 59);
 
         $data['criteria'][0]['value'] = 'adresse';
         $data['criteria'][0]['name'] = ExposedWSService::ADRESSEE;
         $this->insertTranscoDestTerrSite();
         $result = $this->transcoDestTerrSiteRepo->findAtgFromTerritoryOrAdressee($data);
-        $this->assertEquals(reset($result[0]), 56);
+        $this->assertEquals(reset($result[0]), 59);
     }
 
     /**
@@ -78,11 +78,11 @@ class TranscoDestTerrSiteRepositoryTest extends BaseWebTestCase
     {
         $transcoDestTerrSite = new TranscoDestTerrSite();
 
-        $transcoDestTerrSite->setIdRefStructureOp(56);
+        $transcoDestTerrSite->setIdRefStructureOp(59);
         $transcoDestTerrSite->setAdressee('adresse');
         $transcoDestTerrSite->setSite('site');
         $transcoDestTerrSite->setPr('PR');
-        $transcoDestTerrSite->setTerritory('055');
+        $transcoDestTerrSite->setTerritory('056');
 
         $this->em->persist($transcoDestTerrSite);
         $this->em->flush();
