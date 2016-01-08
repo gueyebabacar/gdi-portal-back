@@ -27,14 +27,14 @@ class LoadTranscoDestTerrSiteData implements FixtureInterface, ContainerAwareInt
         /** @var LoremIpsum $loremIpsum */
         $loremIpsum = $this->container->get("apoutchika.lorem_ipsum");
 
-        for($i = 0; $i < 20; $i++){
+        for ($i = 0; $i < 20; $i++) {
             $transcoDestTerrSite = new TranscoDestTerrSite();
             $number = rand(0, 100);
             $transcoDestTerrSite->setTerritory($number);
             $transcoDestTerrSite->setAdressee(strtoupper($loremIpsum->getWords(1)));
             $transcoDestTerrSite->setSite(strtoupper($loremIpsum->getWords(1)));
             $transcoDestTerrSite->setPr(strtoupper($loremIpsum->getWords(1)));
-            $transcoDestTerrSite->setIdRefStructureOp("ATG".$number);
+            $transcoDestTerrSite->setIdRefStructureOp("ATG" . $number);
 
             $manager->persist($transcoDestTerrSite);
         }

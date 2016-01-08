@@ -27,7 +27,7 @@ class LoadTranscoNatureInterdData implements FixtureInterface, ContainerAwareInt
         /** @var LoremIpsum $loremIpsum */
         $loremIpsum = $this->container->get("apoutchika.lorem_ipsum");
 
-        for($i = 0; $i < 20; $i++){
+        for ($i = 0; $i < 20; $i++) {
             $transcoNatureInter = new TranscoNatureInter();
 
             $transcoNatureInter->setOpticNatCode($loremIpsum->getWords(1));

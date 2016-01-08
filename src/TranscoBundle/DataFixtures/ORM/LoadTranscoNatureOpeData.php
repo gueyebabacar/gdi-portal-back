@@ -27,7 +27,7 @@ class LoadTranscoNatureOpeData implements FixtureInterface, ContainerAwareInterf
         /** @var LoremIpsum $loremIpsum */
         $loremIpsum = $this->container->get("apoutchika.lorem_ipsum");
 
-        for($i = 0; $i < 20; $i++){
+        for ($i = 0; $i < 20; $i++) {
             $transcoNatureOpe = new TranscoNatureOpe();
 
             $transcoNatureOpe->setWorkType($loremIpsum->getWords(1));
