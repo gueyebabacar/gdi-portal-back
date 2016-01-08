@@ -13,7 +13,7 @@ class TranscoNatureOpeRepository extends EntityRepository
     const GROUPE_DE_GAMME = "GroupeDeGamme";
     const COMPTEUR = "Compteur";
 
-    public function getCodeNatureIntervention3(array $data)
+    public function findCodeNatureIntervention3(array $data)
     {
         $qb = $this->createQueryBuilder('tno');
         $qb->select('tno.natureInterCode');
@@ -34,7 +34,7 @@ class TranscoNatureOpeRepository extends EntityRepository
         return $qb->getQuery()->getArrayResult();
     }
 
-    public function getModeProgrammation(array $data)
+    public function findModeProgrammation(array $data)
     {
         $qb = $this->createQueryBuilder('tno');
         $qb->select('tno.programmingMode');

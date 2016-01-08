@@ -119,7 +119,7 @@ class TranscoNatureOpeService
      * @return mixed
      */
     public function getCodeNatureIntervention3(array $data){
-        $response = $this->em->getRepository('TranscoBundle:TranscoNatureOpe')->getCodeNatureIntervention3($data);
+        $response = $this->em->getRepository('TranscoBundle:TranscoNatureOpe')->findCodeNatureIntervention3($data);
         if(sizeof($response) !== 1){
             return $response;
         }
@@ -131,7 +131,7 @@ class TranscoNatureOpeService
      * @return mixed
      */
     public function getModeProgrammation(array $data){
-        $response =  $this->em->getRepository('TranscoBundle:TranscoNatureOpe')->getModeProgrammation($data);
+        $response =  $this->em->getRepository('TranscoBundle:TranscoNatureOpe')->findModeProgrammation($data);
         if(sizeof($response) !== 1){
             return $response;
         }
