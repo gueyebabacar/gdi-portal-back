@@ -9,6 +9,7 @@ use Symfony\Component\DependencyInjection\Container;
 use TranscoBundle\Entity\TranscoNatureInter;
 use TranscoBundle\Entity\TranscoNatureOpe;
 
+
 /**
  * @DI\Service("csv_import_service", public=true)
  */
@@ -23,6 +24,7 @@ class TranscoExportCsvService
      * @var Container
      */
     protected $container;
+    protected  $kernel;
 
     /**
      * @DI\InjectParams({
@@ -41,7 +43,7 @@ class TranscoExportCsvService
     /**
      * @return string
      */
-    private function getPath()
+    public function getPath()
     {
         $path = realpath($this->container->get('kernel')->getRootDir() . "/../web/uploads/csv");
 
@@ -53,6 +55,7 @@ class TranscoExportCsvService
      */
     public function exportTranscoDestTerrSiteCvs()
     {
+        $this->em->createQuery('DELETE FROM  TranscoBundle:TranscoDestTerrSite')->execute();
         $csv_file = $this->getPath(). "/" . "TranscoDestTerrSite.csv"; // Name of your CSV file
         $fil_content = file($csv_file);
 
@@ -76,6 +79,7 @@ class TranscoExportCsvService
      */
     public function exportTranscoNatureInterCvs()
     {
+        $this->em->createQuery('DELETE FROM  TranscoBundle:TranscoNatureInter')->execute();
         $csv_file = $this->getPath(). "/" . "TranscoNatureInter.csv"; // Name of your CSV file
         $fil_content = file($csv_file);
 
@@ -101,6 +105,7 @@ class TranscoExportCsvService
      */
     public function exportTranscoNatureOp()
     {
+        $this->em->createQuery('DELETE FROM  TranscoBundle:TranscoNatureOpe')->execute();
         $csv_file = $this->getPath(). "/" . "TranscoNatureOp.csv"; // Name of your CSV file
         $fil_content = file($csv_file);
 
