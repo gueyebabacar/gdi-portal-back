@@ -52,7 +52,6 @@ class TranscoExportCsvServiceTest extends \PHPUnit_Framework_TestCase
     public function testGetPath()
     {
         $this->markTestSkipped();
-
         $kernelMock = $this->getMockBuilder('Symfony\Component\HttpKernel\Kernel')
             ->disableOriginalConstructor()
             ->getMock();
