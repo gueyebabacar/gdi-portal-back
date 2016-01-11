@@ -6,6 +6,7 @@ use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityRepository;
 use TranscoBundle\Entity\TranscoNatureOpe;
 use TranscoBundle\Form\TranscoNatureOpeType;
+use TranscoBundle\Repository\TranscoNatureOpeRepository;
 use TranscoBundle\Service\TranscoNatureOpeService;
 use Prophecy\Argument;
 use Prophecy\Prophecy\ObjectProphecy;
@@ -60,6 +61,9 @@ class TranscoNatureOpeServiceTest extends \PHPUnit_Framework_TestCase
         $this->transcoService = new TranscoNatureOpeService($em, $formFactory);
     }
 
+    /**
+     * testGetAll
+     */
     public function testGetAll()
     {
         $transcos = $this->createTranscoTable();
@@ -77,6 +81,9 @@ class TranscoNatureOpeServiceTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($transcos, $this->transcoService->getAll());
     }
 
+    /**
+     * testCreate
+     */
     public function testCreate()
     {
         $transcoNatureOpe = new TranscoNatureOpe();
@@ -117,6 +124,9 @@ class TranscoNatureOpeServiceTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($transcoNatureOpe, $this->transcoService->create($request));
     }
 
+    /**
+     * testGet
+     */
     public function testGet()
     {
         $transcoNatureOpe = new TranscoNatureOpe();
@@ -134,6 +144,9 @@ class TranscoNatureOpeServiceTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($transcoNatureOpe, $this->transcoService->get(1));
     }
 
+    /**
+     * testEdit
+     */
     public function testEdit()
     {
         $transcoNatureOpe = new TranscoNatureOpe();
@@ -184,6 +197,9 @@ class TranscoNatureOpeServiceTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($transcoNatureOpe, $this->transcoService->edit($request, 1));
     }
 
+    /**
+     * testEdit
+     */
     public function testDelete()
     {
         $transcoNatureOpe = new TranscoNatureOpe();
@@ -208,6 +224,47 @@ class TranscoNatureOpeServiceTest extends \PHPUnit_Framework_TestCase
         $this->transcoService->delete(1);
     }
 
+    /**
+     * testGetCodeNatureIntervention3
+     */
+    public function testGetCodeNatureIntervention3()
+    {
+
+        $serviceRepo = $this->prophet->prophesize(TranscoNatureOpeRepository::class);
+
+        $this->emProphecy
+            ->getRepository(Argument::exact('TranscoBundle:TranscoNatureOpe'))
+            ->willReturn($serviceRepo)
+            ->shouldBeCalled();
+
+        $serviceRepo
+            ->findCodeNatureIntervention3([])
+            ->willReturn([])
+            ->shouldBeCalled();
+
+        $this->assertEquals([], $this->transcoService->getCodeNatureIntervention3([]));
+    }
+
+    /**
+     * testGetModeProgrammation
+     */
+    public function testGetModeProgrammation()
+    {
+        $serviceRepo = $this->prophet->prophesize(TranscoNatureOpeRepository::class);
+
+        $this->emProphecy
+            ->getRepository(Argument::exact('TranscoBundle:TranscoNatureOpe'))
+            ->willReturn($serviceRepo)
+            ->shouldBeCalled();
+
+        $serviceRepo
+            ->findModeProgrammation([])
+            ->willReturn([])
+            ->shouldBeCalled();
+
+        $this->assertEquals([], $this->transcoService->getModeProgrammation([]));
+    }
+    
     private function createTranscoTable()
     {
         $transcos = [];
