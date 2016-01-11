@@ -26,7 +26,7 @@ class TranscoNatureOpe
      * Type de travail
      *
      * @var $workType
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="string", nullable=true)
      * @Expose
      */
     protected $workType;
@@ -35,7 +35,7 @@ class TranscoNatureOpe
      * Groupe de gamme
      *
      * @var $gammeGroup
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="string", nullable=true)
      * @Expose
      */
     protected $gammeGroup;
@@ -44,7 +44,7 @@ class TranscoNatureOpe
      * Compteur
      *
      * @var $counter
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="integer", nullable=true)
      * @Expose
      */
     protected $counter;
@@ -53,7 +53,7 @@ class TranscoNatureOpe
      * Finalité
      *
      * @var $purpose
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="string", nullable=true)
      * @Expose
      */
     protected $purpose;
@@ -62,7 +62,7 @@ class TranscoNatureOpe
      * Code Nature Intervention
      *
      * @var $natureInterCode
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="string", nullable=true)
      * @Expose
      */
     protected $natureInterCode;
@@ -71,7 +71,7 @@ class TranscoNatureOpe
      * Mode de programmation
      *
      * @var $programmingMode
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="string", nullable=true)
      * @Expose
      */
     protected $programmingMode;
@@ -80,7 +80,7 @@ class TranscoNatureOpe
      * Nom de Segmentation
      *
      * @var $segmentationName
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="string", nullable=true)
      * @Expose
      */
     protected $segmentationName;
@@ -89,7 +89,7 @@ class TranscoNatureOpe
      * Valeur de Segmentation
      *
      * @var $workType
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="string", nullable=true)
      * @Expose
      */
     protected $segmentationValue;
