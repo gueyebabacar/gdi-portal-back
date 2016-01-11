@@ -24,7 +24,7 @@ class TranscoDestTerrSite
      * territoire
      *
      * @var $territory
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="integer", nullable=true)
      */
     protected $territory;
 
@@ -32,7 +32,7 @@ class TranscoDestTerrSite
      * destinataire
      *
      * @var $adressee
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="string", nullable=true)
      */
     protected $adressee;
 
@@ -40,7 +40,7 @@ class TranscoDestTerrSite
      * site
      *
      * @var $site
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="string", nullable=true)
      */
     protected $site;
 
@@ -48,7 +48,7 @@ class TranscoDestTerrSite
      * pr
      *
      * @var $pr
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="string", nullable=true)
      */
     protected $pr;
 
@@ -56,7 +56,7 @@ class TranscoDestTerrSite
      * identifiant reference structure operationnelle
      *
      * @var $idRefStructureOp
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="string", nullable=true)
      */
     protected $idRefStructureOp;
 
