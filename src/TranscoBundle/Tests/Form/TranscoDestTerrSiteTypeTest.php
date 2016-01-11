@@ -16,8 +16,8 @@ class TranscoDestTerrSiteTypeTest extends TypeTestCase
             'pr' => 'X',
             'idRefStructureOp' => 'ATG050',
         );
-        $type = new TranscoDestTerrSiteType();
-        $form = $this->factory->create($type);
+
+        $form = $this->factory->create(TranscoDestTerrSiteType::class);
 
         $transcoDestTerrSite = new TranscoDestTerrSite();
         $transcoDestTerrSite->setTerritory($formData['territory']);

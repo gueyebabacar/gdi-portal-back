@@ -1,9 +1,7 @@
 <?php
 namespace TranscoBundle\Tests\Form;
 
-use TranscoBundle\Entity\TranscoDestTerrSite;
 use TranscoBundle\Entity\TranscoNatureInter;
-use TranscoBundle\Form\TranscoDestTerrSiteType;
 use Symfony\Component\Form\Test\TypeTestCase;
 use TranscoBundle\Form\TranscoNatureInterType;
 
@@ -22,8 +20,7 @@ class TranscoNatureInterTypeTest extends TypeTestCase
             'counter' => 1,
         );
 
-        $type = new TranscoNatureInterType();
-        $form = $this->factory->create($type);
+        $form = $this->factory->create(TranscoNatureInterType::class);
 
         $transcoNatureInter = new TranscoNatureInter();
         $transcoNatureInter->setCounter($formData['counter']);
