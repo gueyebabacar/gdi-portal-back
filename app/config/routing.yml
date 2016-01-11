@@ -1,8 +1,13 @@
-NelmioApiDocBundle:
-    resource: "@NelmioApiDocBundle/Resources/config/routing.yml"
-    prefix:   /doc
-
 portal:
+    type: rest
+    resource: "@PortalBundle/Resources/config/routing.yml"
+    prefix:   /
+
+transco:
     type: rest
     prefix: /
     resource: "@TranscoBundle/Resources/config/routing.yml"
+
+NelmioApiDocBundle:
+    prefix:   /doc
+    resource: "@NelmioApiDocBundle/Resources/config/routing.yml"
