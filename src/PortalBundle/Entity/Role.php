@@ -10,7 +10,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="transco_dest_terr_site")
  * @ORM\Entity(repositoryClass="TranscoBundle\Repository\TranscoDestTerrSiteRepository")
  */
-class role
+class Role
 {
     /**
      * @var int
