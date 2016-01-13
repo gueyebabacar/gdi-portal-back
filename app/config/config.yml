@@ -86,3 +86,8 @@ jms_di_extra:
 nelmio_api_doc:
     sandbox:
         endpoint: /api/portal
+
+fos_user:
+    db_driver: orm
+    firewall_name: main
+    user_class: PortalBundle\Entity\User
