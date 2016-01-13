@@ -4,6 +4,7 @@ namespace PortalBundle\Tests\Controller;
 
 use PortalBundle\Entity\Agency;
 use PortalBundle\Entity\Region;
+use PortalBundle\Entity\Role;
 use PortalBundle\Entity\User;
 use TranscoBundle\Tests\BaseWebTestCase;
 
@@ -77,6 +78,7 @@ class UserControllerTest extends BaseWebTestCase
             'entity' => 'entity',
             'territorialContext' => 'age',
             'agency' => $agency,
+            'role' => new Role(),
         ];
 
         $user = new User();
@@ -89,6 +91,7 @@ class UserControllerTest extends BaseWebTestCase
         $user->setPhone2($data['phone2']);
         $user->setTerritorialContext($data['territorialContext']);
         $user->setAgency($data['agency']);
+        $user->setRole($data['role']);
 
         $this->client->request(
             'POST',
@@ -125,7 +128,7 @@ class UserControllerTest extends BaseWebTestCase
             $this->headers
         );
         $response = json_decode($this->client->getResponse()->getContent(), true);
-        dump($response);
+
         $this->assertEquals($user->getFirstName(), $response['first_name']);
     }
 
@@ -159,16 +162,14 @@ class UserControllerTest extends BaseWebTestCase
         $region->setLabel('region');
         $region->setcode('REG0');
 
-        $this->em->persist($region);
-        $this->em->flush();
-
         $agency = new Agency();
         $agency->setLabel('agence');
         $agency->setcode('ATG0');
         $agency->setRegion($region);
 
-        $this->em->persist($agency);
-        $this->em->flush();
+        $role = new Role();
+        $role->setLabel('Role');
+        $role->setCode('role');
 
         $data = [
             'firstName' => 'fistName',
@@ -179,7 +180,7 @@ class UserControllerTest extends BaseWebTestCase
             'nni' => 'nni',
             'phone1' => 'phone1',
             'phone2' => 'phone2',
-            'role' => 'role',
+            'role' => $role,
             'agency' => $agency,
             'territorialContext' => 'age',
         ];
@@ -197,6 +198,9 @@ class UserControllerTest extends BaseWebTestCase
         $user->setTerritorialContext($data['territorialContext']);
         $user->setAgency($data['agency']);
 
+        $this->em->persist($region);
+        $this->em->persist($agency);
+        $this->em->persist($role);
         $this->em->persist($user);
         $this->em->flush();
     }

@@ -94,7 +94,6 @@ class UserService
         $user = $this->em->getRepository('PortalBundle:User')->find($idRefStructureOp);
         $form = $this->formFactory->create(UserType::class, $user);
         $form->handleRequest($request);
-
         if ($form->isSubmitted() && $form->isValid()) {
             $this->em->persist($user);
             $this->em->flush();

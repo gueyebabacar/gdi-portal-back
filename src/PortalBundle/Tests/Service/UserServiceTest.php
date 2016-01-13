@@ -6,6 +6,7 @@ use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityRepository;
 use PortalBundle\Entity\Agency;
 use PortalBundle\Entity\Region;
+use PortalBundle\Entity\Role;
 use PortalBundle\Entity\User;
 use PortalBundle\Form\UserType;
 use PortalBundle\Service\UserService;
@@ -241,6 +242,10 @@ class UserServiceTest extends \PHPUnit_Framework_TestCase
         $agency->setcode('ATG0');
         $agency->setRegion($region);
 
+        $role = new Role();
+        $role->setLabel('Role');
+        $role->setCode('role');
+
         $data = [
             'firstName' => 'fistName',
             'lastName' => 'lastName',
@@ -250,7 +255,7 @@ class UserServiceTest extends \PHPUnit_Framework_TestCase
             'nni' => 'nni',
             'phone1' => 'phone1',
             'phone2' => 'phone2',
-            'role' => 'role',
+            'role' => $role,
             'agency' => $agency,
             'territorialContext' => 'age',
         ];

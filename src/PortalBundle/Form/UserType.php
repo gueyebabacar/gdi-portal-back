@@ -27,6 +27,10 @@ class UserType extends AbstractType
                 [
                     'class' => 'PortalBundle\Entity\Agency'
                 ])
+            ->add('role', EntityType::class,
+                [
+                    'class' => 'PortalBundle\Entity\Role'
+                ])
         ;
     }
 
