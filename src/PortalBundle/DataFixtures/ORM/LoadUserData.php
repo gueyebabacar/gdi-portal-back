@@ -34,27 +34,31 @@ class LoadUserData extends AbstractFixture implements FixtureInterface, Containe
             $user->setFirstName(ucfirst($loremIpsum->getWords(1)));
             $user->setLastName(ucfirst($loremIpsum->getWords(1)));
             $user->setEmail(lcfirst($user->getFirstName()) . '.' . lcfirst($user->getLastName()) . '@grdf.fr');
-            $user->setEntity(strtoupper($loremIpsum->getWords(1)));
+            $user->setEntity(shuffle($user->getEntities()));
             $user->setGaia('GAIA' . $i);
             $user->setNni('NNI' . $i);
             $user->setPhone1('+33111111' . $i);
             $user->setPhone2('+33111112' . $i);
-            $user->setRole(strtoupper($loremIpsum->getWords(1)));
 
             switch($i){
                 case 0:
+                    $user->setRole($this->getReference('role-admin-nat'));
                     break;
                 case 1:
                     $user->setAgency($this->getReference('agency-1'));
+                    $user->setRole($this->getReference('role-manager-atg'));
                     break;
                 case 2:
                     $user->setRegion($this->getReference('region-4'));
+                    $user->setRole($this->getReference('role-programmateur'));
                     break;
                 case 3:
                     $user->setAgency($this->getReference('agency-4'));
+                    $user->setRole($this->getReference('role-referent-equipe'));
                     break;
                 case 4:
                     $user->setRegion($this->getReference('region-3'));
+                    $user->setRole($this->getReference('role-programmateur'));
                     break;
             }
             $manager->persist($user);
