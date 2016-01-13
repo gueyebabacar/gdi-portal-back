@@ -5,10 +5,10 @@ namespace PortalBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * TranscoDestTerrSite
+ * Role
  *
- * @ORM\Table(name="transco_dest_terr_site")
- * @ORM\Entity(repositoryClass="TranscoBundle\Repository\TranscoDestTerrSiteRepository")
+ * @ORM\Table(name="roles")
+ * @ORM\Entity(repositoryClass="PortalBundle\Repository\RoleRepository")
  */
 class Role
 {
