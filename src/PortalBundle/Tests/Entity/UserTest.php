@@ -3,6 +3,7 @@
 namespace PortalBundle\Tests\Entity;
 
 use PortalBundle\Entity\Agency;
+use PortalBundle\Entity\Role;
 use PortalBundle\Entity\User;
 
 class UserTest extends \PHPUnit_Framework_TestCase
@@ -13,6 +14,7 @@ class UserTest extends \PHPUnit_Framework_TestCase
     public function testGettersAndSetters()
     {
         $agency = new Agency();
+        $role = new Role();
 
         $data = [
             'firstName' => 'fistName',
@@ -22,7 +24,7 @@ class UserTest extends \PHPUnit_Framework_TestCase
             'nni' => 'nni',
             'phone1' => 'phone1',
             'phone2' => 'phone2',
-            'role' => 'role',
+            'role' => $role,
             'territorialContext' => 'age',
             'agency' => $agency,
         ];

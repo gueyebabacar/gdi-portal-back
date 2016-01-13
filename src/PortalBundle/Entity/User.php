@@ -15,6 +15,10 @@ class User extends BaseUser
     const AGENCY_CONTEXT = 'age';
     const NATIONAL_CONTEXT = 'nat';
 
+    const APPO_ENTITY = 'APPO';
+    const ATG_ENTITY = 'ATG';
+    const VISITOR_ENTITY = 'Visiteur';
+
     /**
      * @var $id
      *
@@ -41,7 +45,7 @@ class User extends BaseUser
     /**
      * @var $email
      *
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="string", nullable=true)
      */
     protected $email;
 
@@ -62,28 +66,28 @@ class User extends BaseUser
     /**
      * @var $nni
      *
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="string", nullable=true)
      */
     protected $nni;
 
     /**
      * @var $phone1
      *
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="string", nullable=true)
      */
     protected $phone1;
 
     /**
      * @var $phone2
      *
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="string", nullable=true)
      */
     protected $phone2;
 
     /**
+     * Role
      * @var $role
-     *
-     * @ORM\Column(type="string")
+     * @ORM\ManyToOne(targetEntity="Role")
      */
     protected $role;
 
@@ -378,6 +382,18 @@ class User extends BaseUser
             $this::REGION_CONTEXT,
             $this::AGENCY_CONTEXT,
             $this::NATIONAL_CONTEXT
+        ];
+    }
+
+    /**
+     * @return array
+     */
+    public function getEntities()
+    {
+        return [
+            $this::APPO_ENTITY,
+            $this::ATG_ENTITY,
+            $this::VISITOR_ENTITY
         ];
     }
 }

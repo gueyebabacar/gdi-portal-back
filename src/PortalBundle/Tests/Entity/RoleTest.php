@@ -18,7 +18,6 @@ class RoleTest extends \PHPUnit_Framework_TestCase
             'id' => 1,
             'label' => 'technicien',
             'code' => 'XX05',
-
         );
 
         $role = new Role();
@@ -30,6 +29,5 @@ class RoleTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($data['id'], $role->getId());
         $this->assertEquals($data['label'], $role->getLabel());
         $this->assertEquals($data['code'], $role->getCode());
-
     }
 }

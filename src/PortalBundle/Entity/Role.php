@@ -28,7 +28,6 @@ class Role
      */
     protected $label;
 
-
     /**
      * code
      *
@@ -90,7 +89,5 @@ class Role
         $this->code = $code;
         return $this;
     }
-
-
 }
 
