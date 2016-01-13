@@ -16,3 +16,4 @@ php app/console cache:clear -e dev
 php app/console assets:install web --symlink -e dev
 
 php app/console doctrine:fixtures:load -n --fixtures= src/TranscoBundle/DataFixtures/ORM
+php app/console doctrine:fixtures:load -n --fixtures= src/PortalBundle/DataFixtures/ORM
