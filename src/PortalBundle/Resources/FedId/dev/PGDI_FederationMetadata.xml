@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<md:EntityDescriptor xmlns:md="urn:oasis:names:tc:SAML:2.0:metadata" entityID="http://10.0.55.2:8091/">
+    <md:SPSSODescriptor protocolSupportEnumeration="urn:oasis:names:tc:SAML:2.0:protocol" WantAssertionsSigned="false">
+        <md:SingleLogoutService Binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-Redirect"
+                                Location="http://10.0.55.2:8091/app_dev.php/saml/sp/logout"/>
+        <md:SingleLogoutService Binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST"
+                                Location="http://10.0.55.2:8091/app_dev.php/saml/sp/logout"/>
+        <md:AssertionConsumerService Binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST"
+                                     Location="http://10.0.55.2:8091/app_dev.php/saml/sp/acs" index="0"/>
+        <md:AssertionConsumerService Binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-Redirect"
+                                     Location="http://10.0.55.2:8091/app_dev.php/saml/sp/acs" index="1"/>
+    </md:SPSSODescriptor>
+</md:EntityDescriptor>
+
+        <?xml version="1.0"?>
+<md:EntityDescriptor xmlns:md="urn:oasis:names:tc:SAML:2.0:metadata"
+                     entityID="https://integration-portaildistributeur.grdf.fr">
+<md:SPSSODescriptor protocolSupportEnumeration="urn:oasis:names:tc:SAML:2.0:protocol" WantAssertionsSigned="false">
+    <md:SingleLogoutService Binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-Redirect"
+                            Location="https://integration-portaildistributeur.grdf.fr/saml/sp/logout"/>
+    <md:SingleLogoutService Binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST"
+                            Location="https://integration-portaildistributeur.grdf.fr/saml/sp/logout"/>
+    <md:AssertionConsumerService Binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST"
+                                 Location="https://integration-portaildistributeur.grdf.fr/saml/sp/acs" index="0"/>
+    <md:AssertionConsumerService Binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-Redirect"
+                                 Location="https://integration-portaildistributeur.grdf.fr/saml/sp/acs" index="1"/>
+</md:SPSSODescriptor>
+</md:EntityDescriptor>
+
