@@ -3,38 +3,23 @@
 namespace TranscoBundle\Repository;
 
 use Doctrine\ORM\EntityRepository;
-use TranscoBundle\Service\SoapService\ExposedWSService;
 
-class TranscoDestTerrSiteRepository extends EntityRepository
+/**
+ * TranscoNatureInterRepository
+ */
+class TranscoNatureInterRepository extends EntityRepository
 {
     /**
      * @param array $data
      * @return mixed
      * @throws \Doctrine\ORM\NonUniqueResultException
      */
-    public function findTerritoryFromAtg(array $data)
+    public function findCodeNatIntFromCodeNatOp(array $data)
     {
-        $qb = $this->createQueryBuilder("t");
-        $qb->select("t.territory")
-            ->where("t.idRefStructureOp = :idRefStructureOp")
-            ->setParameter('idRefStructureOp', $data['criteria'][0]['value']);
-
-        return $qb->getQuery()->getArrayResult();
-    }
-
-
-    /**
-     * @param array $data
-     * @return mixed
-     * @throws \Doctrine\ORM\NonUniqueResultException
-     */
-    public function findAdresseeFromAtg(array $data)
-    {
-        $qb = $this->createQueryBuilder("t");
-        $qb->select("t.adressee")
-            ->where("t.idRefStructureOp = :idRefStructureOp")
-            ->setParameter('idRefStructureOp', $data['criteria'][0]['value']);
-
+        $qb = $this->createQueryBuilder("tni");
+        $qb->select("tni.opticNatCode")
+            ->where("tni.pictrelNatOpCode = :natOp")
+            ->setParameter('natOp', $data['criteria'][0]['value']);
         return $qb->getQuery()->getArrayResult();
     }
 
@@ -43,38 +28,15 @@ class TranscoDestTerrSiteRepository extends EntityRepository
      * @return mixed
      * @throws \Doctrine\ORM\NonUniqueResultException
      */
-    public function findPrFromAtg(array $data)
+    public function findCodeNatopFromCodeNatInt(array $data)
     {
-        $qb = $this->createQueryBuilder("t");
-        $qb->select("t.pr")
-            ->where("t.idRefStructureOp = :idRefStructureOp")
-            ->setParameter('idRefStructureOp', $data['criteria'][0]['value']);
+        $qb = $this->createQueryBuilder("tni");
+        $qb->select("tni.pictrelNatOpCode")
+            ->where("tni.opticNatCode = :natInt")
+            ->setParameter('natInt', $data['criteria'][0]['value']);
 
         return $qb->getQuery()->getArrayResult();
     }
 
-    /**
-     * @param array $data
-     * @return mixed
-     * @throws \Doctrine\ORM\NonUniqueResultException
-     */
-    public function findAtgFromTerritoryOrAdressee(array $data)
-    {
-        $qb = $this->createQueryBuilder("t");
-        $qb->select("t.idRefStructureOp");
-        if($data['criteria'][0]['name'] === ExposedWSService::TERRITORY){
-            $qb->andWhere("t.territory = :territory")
-                ->setParameter('territory', $data['criteria'][0]['value']);
-        } elseif($data['criteria'][0]['name'] === ExposedWSService::ADRESSEE){
-            $qb->andWhere("t.adressee = :addressee")
-            ->setParameter('addressee', $data['criteria'][0]['value']);
-        }
 
-        return $qb->getQuery()->getArrayResult();
-    }
 }
-
-
-
-
-

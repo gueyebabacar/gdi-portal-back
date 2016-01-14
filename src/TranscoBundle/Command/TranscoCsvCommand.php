@@ -35,20 +35,20 @@ class TranscoCsvCommand extends ContainerAwareCommand
         switch ($tableOption) {
 
             case $this::TranscoDestTerrSitre:
-               $exportCsv = $this->getContainer()->get('csv_import_service');
-               $exportCsv->exportTranscoDestTerrSiteCvs();
-               echo 'Exported csv file on TransDestTerrSite table done.....';
+                $exportCsv = $this->getContainer()->get('csv_import_service');
+                $exportCsv->exportTranscoDestTerrSiteCvs();
+                echo 'Exported csv file on TransDestTerrSite table done.....';
                 break;
 
             case $this::TranscoNatureInter:
-               $exportCsv = $this->getContainer()->get('csv_import_service');
-               $exportCsv->exportTranscoNatureInterCvs();
+                $exportCsv = $this->getContainer()->get('csv_import_service');
+                $exportCsv->exportTranscoNatureInterCvs();
                 echo 'Exported csv file on TransNatureIntervention table done.....';
                 break;
 
             case $this::TranscoNatureOp:
-               $exportCsv = $this->getContainer()->get('csv_import_service');
-               $exportCsv->exportTranscoNatureOp();
+                $exportCsv = $this->getContainer()->get('csv_import_service');
+                $exportCsv->exportTranscoNatureOp();
                 echo 'Exported csv file on TransNatureOperation table done.....';
                 break;
 
