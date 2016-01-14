@@ -82,6 +82,7 @@ class ExposedWSService
         $response->codeReponse = new \stdClass();
         $response->reponseTranscoGDIServiceOutput = new \stdClass();
 
+        dump($data);exit;
         $valeurRecherchee = $data->requeteTranscoGDIServiceInput->valeurRecherchee;
         $query['values']['query'] = $valeurRecherchee;
 
