@@ -25,6 +25,7 @@ class AppKernel extends Kernel
             new Apoutchika\LoremIpsumBundle\ApoutchikaLoremIpsumBundle(),
             new PortalBundle\PortalBundle(),
             new FOS\UserBundle\FOSUserBundle(),
+            new AerialShip\SamlSPBundle\AerialShipSamlSPBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'rec', 'test'), true)) {
