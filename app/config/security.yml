@@ -10,10 +10,27 @@ security:
             entity: {class: PortalBundle\Entity\User}
 
     firewalls:
-        # disables authentication for assets and the profiler, adapt it according to your needs
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
+
+        saml:
+            pattern: ^/
+            anonymous: true
+            aerial_ship_saml_sp:
+                local_logout_path: /logout
+                default_target_path: /
+                create_user_if_not_exists: false
+                provider: portail_user_provider
+                services:
+                    saml:
+                        idp:
+                            file: "@PortalBundle/Resources/FedId/dev/GIDPD_FederationMetaData_20151028.xml"
+                        sp:
+                            config:
+                                entity_id: http://10.0.55.2:8091/
+            logout:
+                path: /logout
 
         main:
             anonymous: ~

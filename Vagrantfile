@@ -103,6 +103,7 @@ echo "
 
 Listen 80
 Listen 8090
+Listen 8091
 
 <IfModule mod_ssl.c>
 # If you add NameVirtualHost *:443 here, you will also have to change
@@ -146,6 +147,18 @@ echo "
 <VirtualHost *:8090>
     DocumentRoot /var/www/gdi-portal-back/web/
     <Directory /var/www/gdi-portal-back/web/>
+        AllowOverride All
+        Options ExecCGI SymLinksIfOwnerMatch
+        Order allow,deny
+        Allow from all
+    </Directory>
+    ErrorLog /var/log/apache2/error_portal_back.log
+    CustomLog /var/log/apache2/access_portal_back.log combined
+</VirtualHost>
+
+<VirtualHost *:8091>
+    DocumentRoot /var/www/gdi-portal-back-integration/web/
+    <Directory /var/www/gdi-portal-back-integration/web/>
         AllowOverride All
         Options ExecCGI SymLinksIfOwnerMatch
         Order allow,deny
