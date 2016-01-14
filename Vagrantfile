@@ -124,6 +124,7 @@ echo "
     ServerAdmin webmaster@localhost
     ProxyPreserveHost on
     ProxyPass /api/portal-back http://127.0.0.1:8090
+    ProxyPass /api/portal-back-integration http://127.0.0.1:8091
 
     DocumentRoot /var/www/gdi-portal/dist
     <Directory /var/www/gdi-portal/dist>
