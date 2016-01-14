@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2014 rel. 2 sp1 (http://www.altova.com) by CERISE (GDF SUEZ IT) -->
+<wsdl:definitions xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:tns="com.grdf.TranscoGDI.v1.1" xmlns:ns1="com.grdf.TranscoGDI.v1.1" targetNamespace="com.grdf.TranscoGDI.v1.1">
+    <wsdl:types>
+        <xsi:schema xmlns:xsi="http://www.w3.org/2001/XMLSchema" xmlns:ns="com.grdf.TranscoGDI.v1.1" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:tns="com.grdf.TranscoGDI.v1.1" targetNamespace="com.grdf.TranscoGDI.v1.1" elementFormDefault="unqualified">
+            <xsi:complexType name="TCritere">
+                <xsi:sequence>
+                    <xsi:element name="NomCritere" type="tns:TNomCritere" minOccurs="1" maxOccurs="1"/>
+                    <xsi:element name="ValeurCritere" type="xsi:string" minOccurs="1" maxOccurs="1"/>
+                </xsi:sequence>
+            </xsi:complexType>
+            <xs:simpleType name="TNomCritere">
+                <xs:restriction base="xs:string">
+                </xs:restriction>
+            </xs:simpleType>
+            <xsi:complexType name="TCodeReponse">
+                <xsi:sequence>
+                    <xsi:element name="codeRetour" type="xs:string"/>
+                    <xsi:element name="messageRetour" type="xs:string"/>
+                </xsi:sequence>
+            </xsi:complexType>
+            <xsi:complexType name="TReponseTransco">
+                <xsi:sequence>
+                    <xsi:element name="Reponse" type="tns:TCritere" minOccurs="1" maxOccurs="unbounded"/>
+                </xsi:sequence>
+            </xsi:complexType>
+            <xsi:complexType name="TRequeteTransco">
+                <xsi:sequence>
+                    <xsi:element name="Critere" type="tns:TCritere" minOccurs="1" maxOccurs="unbounded"/>
+                </xsi:sequence>
+            </xsi:complexType>
+            <xsi:element name="TRequeteTranscoGDIService">
+                <xsi:complexType>
+                    <xsi:sequence>
+                        <xsi:element name="requeteTranscoGDIServiceInput" type="tns:TRequeteTransco"/>
+                    </xsi:sequence>
+                </xsi:complexType>
+            </xsi:element>
+            <xsi:element name="TReponseTranscoGDIService">
+                <xsi:complexType>
+                    <xsi:sequence>
+                        <xsi:element name="reponseTranscoGDIServiceOutput" type="tns:TReponseTransco" minOccurs="0"/>
+                        <xsi:element name="codeReponse" type="tns:TCodeReponse"/>
+                    </xsi:sequence>
+                </xsi:complexType>
+            </xsi:element>
+
+            <xsi:element name="delegationOTTranscoGDIServiceRequete">
+                <xsi:complexType>
+                    <xsi:sequence>
+                        <xsi:element name="delegationOTTranscoGDIServiceInput" type="tns:TRequeteTransco"/>
+                    </xsi:sequence>
+                </xsi:complexType>
+            </xsi:element>
+            <xsi:element name="delegationOTTranscoGDIServiceReponse">
+                <xsi:complexType>
+                    <xsi:sequence>
+                        <xsi:element name="delegationOTTranscoGDIServiceOutput" type="tns:TReponseTransco" minOccurs="0"/>
+                        <xsi:element name="codeReponse" type="tns:TCodeReponse"/>
+                    </xsi:sequence>
+                </xsi:complexType>
+            </xsi:element>
+
+            <xsi:element name="delegationBITranscoGDIServiceRequete">
+                <xsi:complexType>
+                    <xsi:sequence>
+                        <xsi:element name="delegationBITranscoGDIServiceInput" type="tns:TRequeteTransco"/>
+                    </xsi:sequence>
+                </xsi:complexType>
+            </xsi:element>
+            <xsi:element name="delegationBITranscoGDIServiceReponse">
+                <xsi:complexType>
+                    <xsi:sequence>
+                        <xsi:element name="delegationBITranscoGDIServiceOutput" type="tns:TReponseTransco" minOccurs="0"/>
+                        <xsi:element name="codeReponse" type="tns:TCodeReponse"/>
+                    </xsi:sequence>
+                </xsi:complexType>
+            </xsi:element>
+
+            <xsi:element name="envoiDIRGTranscoGDIServiceRequete">
+                <xsi:complexType>
+                    <xsi:sequence>
+                        <xsi:element name="envoiDIRGTranscoGDIServiceInput" type="tns:TRequeteTransco"/>
+                    </xsi:sequence>
+                </xsi:complexType>
+            </xsi:element>
+            <xsi:element name="envoiDIRGTranscoGDIServiceReponse">
+                <xsi:complexType>
+                    <xsi:sequence>
+                        <xsi:element name="envoiDIRGTranscoGDIServiceOutput" type="tns:TReponseTransco" minOccurs="0"/>
+                        <xsi:element name="codeReponse" type="tns:TCodeReponse"/>
+                    </xsi:sequence>
+                </xsi:complexType>
+            </xsi:element>
+
+
+            <xsi:element name="publicationOTTranscoGDIServiceRequete">
+                <xsi:complexType>
+                    <xsi:sequence>
+                        <xsi:element name="publicationOTTranscoGDIServiceInput" type="tns:TRequeteTransco"/>
+                    </xsi:sequence>
+                </xsi:complexType>
+            </xsi:element>
+            <xsi:element name="publicationOTTranscoGDIServiceReponse">
+                <xsi:complexType>
+                    <xsi:sequence>
+                        <xsi:element name="publicationOTTranscoGDIServiceOutput" type="tns:TReponseTransco" minOccurs="0"/>
+                        <xsi:element name="codeReponse" type="tns:TCodeReponse"/>
+                    </xsi:sequence>
+                </xsi:complexType>
+            </xsi:element>
+        </xsi:schema>
+    </wsdl:types>
+    <wsdl:message name="delegationOTTranscoServiceRequest">
+        <wsdl:part name="delegationOTTranscoServiceRequest" element="tns:delegationOTTranscoGDIServiceRequete"/>
+    </wsdl:message>
+    <wsdl:message name="delegationOTTranscoServiceResponse">
+        <wsdl:part name="delegationOTTranscoServiceResponse" element="tns:delegationOTTranscoGDIServiceReponse"/>
+    </wsdl:message>
+    <wsdl:message name="delegationBITranscoServiceRequest">
+        <wsdl:part name="delegationBITranscoServiceRequest" element="tns:delegationBITranscoGDIServiceRequete"/>
+    </wsdl:message>
+    <wsdl:message name="delegationBITranscoServiceResponse">
+        <wsdl:part name="delegationBITranscoServiceResponse" element="tns:delegationBITranscoGDIServiceReponse"/>
+    </wsdl:message>
+    <wsdl:message name="envoiDIRGTranscoServiceRequest">
+        <wsdl:part name="envoiDIRGTranscoServiceRequest" element="tns:envoiDIRGTranscoGDIServiceRequete"/>
+    </wsdl:message>
+    <wsdl:message name="envoiDIRGTranscoServiceResponse">
+        <wsdl:part name="envoiDIRGTranscoServiceResponse" element="tns:envoiDIRGTranscoGDIServiceReponse"/>
+    </wsdl:message>
+    <wsdl:message name="publicationOTTranscoServiceRequest">
+        <wsdl:part name="publicationOTTranscoServiceRequest" element="tns:publicationOTTranscoGDIServiceRequete"/>
+    </wsdl:message>
+    <wsdl:message name="publicationOTTranscoServiceResponse">
+        <wsdl:part name="publicationOTTranscoServiceResponse" element="tns:publicationOTTranscoGDIServiceReponse"/>
+    </wsdl:message>
+    <wsdl:portType name="serviceTranscoGDIServicePort_v1.0">
+        <wsdl:operation name="delegationOTTranscoService">
+            <wsdl:input message="tns:delegationOTTranscoServiceRequest"/>
+            <wsdl:output message="tns:delegationOTTranscoServiceResponse"/>
+        </wsdl:operation>
+        <wsdl:operation name="delegationBITranscoService">
+            <wsdl:input message="tns:delegationBITranscoServiceRequest"/>
+            <wsdl:output message="tns:delegationBITranscoServiceResponse"/>
+        </wsdl:operation>
+        <wsdl:operation name="envoiDIRGTranscoService">
+            <wsdl:input message="tns:envoiDIRGTranscoServiceRequest"/>
+            <wsdl:output message="tns:envoiDIRGTranscoServiceResponse"/>
+        </wsdl:operation>
+        <wsdl:operation name="publicationOTTranscoService">
+            <wsdl:input message="tns:publicationOTTranscoServiceRequest"/>
+            <wsdl:output message="tns:publicationOTTranscoServiceResponse"/>
+        </wsdl:operation>
+    </wsdl:portType>
+    <wsdl:binding name="TranscoGDIServiceBinding" type="tns:serviceTranscoGDIServicePort_v1.0">
+        <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+        <wsdl:operation name="delegationOTTranscoService">
+            <soap:operation soapAction="urn:#delegationOTTranscoService" style="document"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="delegationBITranscoService">
+            <soap:operation soapAction="urn:#delegationBITranscoService" style="document"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="envoiDIRGTranscoService">
+            <soap:operation soapAction="urn:#envoiDIRGTranscoService" style="document"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="publicationOTTranscoService">
+            <soap:operation soapAction="urn:#publicationOTTranscoService" style="document"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+    </wsdl:binding>
+    <wsdl:service name="TranscoGDIServiceServicePort_v1.0">
+        <wsdl:port name="IS_Integration" binding="tns:TranscoGDIServiceBinding">
+            <soap:address location="http://ines-r-dev-rct-app2.dr.gdf.fr:45320/ws/PivotAbonnementService.webservices:v1"/>
+        </wsdl:port>
+    </wsdl:service>
+</wsdl:definitions>
