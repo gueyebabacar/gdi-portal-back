@@ -6,3 +6,7 @@ portal:
 NelmioApiDocBundle:
     prefix:   /doc
     resource: "@NelmioApiDocBundle/Resources/config/routing.yml"
+
+aerialship_saml_sp_bundle:
+    resource: "@AerialShipSamlSPBundle/Resources/config/routing.yml"
+
