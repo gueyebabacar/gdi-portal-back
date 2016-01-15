@@ -23,7 +23,6 @@ class TranscoOpticRepository extends EntityRepository
     const CODE_OBJECT = "CodeObjet";
 
 
-
     public function findDelegationOT(array $data)
     {
         $qb = $this->createQueryBuilder('t');
@@ -47,7 +46,6 @@ class TranscoOpticRepository extends EntityRepository
         }
         return $qb->getQuery()->getArrayResult();
     }
-
 
     public function findDelegationBI(array $data)
     {
