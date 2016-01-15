@@ -2,6 +2,7 @@
 
 namespace TranscoBundle\Entity;
 
+
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -52,7 +53,7 @@ class TranscoDisco
      * TranscoOptic
      *
      * @var $optic
-     * @ORM\OneToOne(targetEntity="TranscoOptic")
+     * @ORM\OneToOne(targetEntity="TranscoOptic", mappedBy="TranscoDisco")
      */
     protected $optic;
 
