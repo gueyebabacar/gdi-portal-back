@@ -6,12 +6,12 @@ use Doctrine\ORM\Mapping as ORM;
 use JMS\Serializer\Annotation\Expose;
 
 /**
- * AgenceDestinataireCenterPr
+ * TranscoAgence
  *
- * @ORM\Table(name="agence_dest_center_pr")
- * @ORM\Entity(repositoryClass="TranscoBundle\Repository\AgenceDestinataireCenterPrRepository")
+ * @ORM\Table(name="transco_agence")
+ * @ORM\Entity(repositoryClass="TranscoBundle\Repository\TranscoAgenceRepository")
  */
-class AgenceDestinataireCenterPr
+class TranscoAgence
 {
     /**
      * @var int
@@ -25,7 +25,7 @@ class AgenceDestinataireCenterPr
     /**
      * Type de travail
      *
-     * @var $workType
+     * @var string
      * @ORM\Column(type="string", nullable=true)
      * @Expose
      */
@@ -34,7 +34,7 @@ class AgenceDestinataireCenterPr
     /**
      * code agence
      *
-     * @var $gammeGroup
+     * @var string
      * @ORM\Column(type="string", nullable=true)
      * @Expose
      */
@@ -43,8 +43,8 @@ class AgenceDestinataireCenterPr
     /**
      * Libelle agence
      *
-     * @var $agenceLabel
-     * @ORM\Column(type="integer", nullable=true)
+     * @var string
+     * @ORM\Column(type="string", nullable=true)
      * @Expose
      */
     protected $agenceLabel;
@@ -52,7 +52,7 @@ class AgenceDestinataireCenterPr
     /**
      * center
      *
-     * @var $center
+     * @var string
      * @ORM\Column(type="string", nullable=true)
      * @Expose
      */
@@ -61,7 +61,7 @@ class AgenceDestinataireCenterPr
     /**
      * destinataire
      *
-     * @var $destinataire
+     * @var string
      * @ORM\Column(type="string", nullable=true)
      * @Expose
      */
@@ -70,7 +70,7 @@ class AgenceDestinataireCenterPr
     /**
      * Pr
      *
-     * @var $pr
+     * @var string
      * @ORM\Column(type="string", nullable=true)
      * @Expose
      */
@@ -86,7 +86,7 @@ class AgenceDestinataireCenterPr
 
     /**
      * @param int $id
-     * @return AgenceDestinataireCenterPr
+     * @return TranscoAgence
      */
     public function setId($id)
     {
@@ -104,7 +104,7 @@ class AgenceDestinataireCenterPr
 
     /**
      * @param mixed $nni
-     * @return AgenceDestinataireCenterPr
+     * @return TranscoAgence
      */
     public function setNni($nni)
     {
@@ -122,7 +122,7 @@ class AgenceDestinataireCenterPr
 
     /**
      * @param mixed $codeAgence
-     * @return AgenceDestinataireCenterPr
+     * @return TranscoAgence
      */
     public function setCodeAgence($codeAgence)
     {
@@ -140,7 +140,7 @@ class AgenceDestinataireCenterPr
 
     /**
      * @param mixed $center
-     * @return AgenceDestinataireCenterPr
+     * @return TranscoAgence
      */
     public function setCenter($center)
     {
@@ -158,7 +158,7 @@ class AgenceDestinataireCenterPr
 
     /**
      * @param mixed $agenceLabel
-     * @return AgenceDestinataireCenterPr
+     * @return TranscoAgence
      */
     public function setAgenceLabel($agenceLabel)
     {
@@ -176,7 +176,7 @@ class AgenceDestinataireCenterPr
 
     /**
      * @param mixed $destinataire
-     * @return AgenceDestinataireCenterPr
+     * @return TranscoAgence
      */
     public function setDestinataire($destinataire)
     {
@@ -194,13 +194,12 @@ class AgenceDestinataireCenterPr
 
     /**
      * @param mixed $pr
-     * @return AgenceDestinataireCenterPr
+     * @return TranscoAgence
      */
     public function setPr($pr)
     {
         $this->pr = $pr;
         return $this;
     }
-
 }
 
