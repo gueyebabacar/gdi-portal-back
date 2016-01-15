@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * TranscoDestTerrSite
  *
  * @ORM\Table(name="transco_gmao")
- * @ORM\Entity(repositoryClass="TranscoBundle\Repository\TranscoGmaoRepository")
+ * @ORM\Entity(repositoryClass="TranscoBundle\Repository\TranscoRepository")
  */
 class TranscoGmao
 {
@@ -68,6 +68,14 @@ class TranscoGmao
     protected $counter;
 
     /**
+     * TranscoOptic
+     *
+     * @var $optic
+     * @ORM\OneToOne(targetEntity="TranscoOptic")
+     */
+    protected $optic;
+
+    /**
      * @return int
      */
     public function getId()
@@ -77,30 +85,11 @@ class TranscoGmao
 
     /**
      * @param int $id
-     * @return TranscoDiscOpticGmao
+     * @return TranscoGmao
      */
     public function setId($id)
     {
         $this->id = $id;
-        return $this;
-    }
-
-
-    /**
-     * @return mixed
-     */
-    public function getCounter()
-    {
-        return $this->counter;
-    }
-
-    /**
-     * @param mixed $counter
-     * @return TranscoDiscOpticGmao
-     */
-    public function setCounter($counter)
-    {
-        $this->counter = $counter;
         return $this;
     }
 
@@ -114,7 +103,7 @@ class TranscoGmao
 
     /**
      * @param mixed $groupGame
-     * @return TranscoDiscOpticGmao
+     * @return TranscoGmao
      */
     public function setGroupGame($groupGame)
     {
@@ -122,5 +111,40 @@ class TranscoGmao
         return $this;
     }
 
+    /**
+     * @return mixed
+     */
+    public function getCounter()
+    {
+        return $this->counter;
+    }
+
+    /**
+     * @param mixed $counter
+     * @return TranscoGmao
+     */
+    public function setCounter($counter)
+    {
+        $this->counter = $counter;
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getOptic()
+    {
+        return $this->optic;
+    }
+
+    /**
+     * @param mixed $optic
+     * @return TranscoGmao
+     */
+    public function setOptic($optic)
+    {
+        $this->optic = $optic;
+        return $this;
+    }
 }
 
