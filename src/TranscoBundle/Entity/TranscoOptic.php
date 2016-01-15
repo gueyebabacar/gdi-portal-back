@@ -12,6 +12,10 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class TranscoOptic
 {
+    const TYPE_DE_TRAVAIL = "TypeDeTravail";
+    const GROUPE_DE_GAMME = "GroupeDeGamme";
+    const COMPTEUR = "Compteur";
+
     /**
      * @var int
      * @ORM\Column(name="id", type="integer")
@@ -23,7 +27,7 @@ class TranscoOptic
     /**
      * code type optic
      *
-     * @var $codeTypeOptic
+     * @var string
      * @ORM\Column(type="string", nullable=true)
      */
     protected $codeTypeOptic;
@@ -31,7 +35,7 @@ class TranscoOptic
     /**
      * libellé optic
      *
-     * @var $opticLabel
+     * @var string
      * @ORM\Column(type="string", nullable=true)
      */
     protected $opticLabel;
@@ -39,7 +43,7 @@ class TranscoOptic
     /**
      * code nature intervention
      *
-     * @var $codeNatInter
+     * @var string
      * @ORM\Column(type="string", nullable=true)
      */
     protected $codeNatInter;
@@ -47,7 +51,7 @@ class TranscoOptic
     /**
      * code segmentation
      *
-     * @var $segmentationCode
+     * @var string
      * @ORM\Column(type="string", nullable=true)
      */
     protected $segmentationCode;
@@ -55,7 +59,7 @@ class TranscoOptic
     /**
      * labelle segmentation
      *
-     * @var $SegmentationLabel
+     * @var string
      * @ORM\Column(type="string", nullable=true)
      */
     protected $segmentationLabel;
@@ -63,7 +67,7 @@ class TranscoOptic
     /**
      * code finalite
      *
-     * @var $finalCode
+     * @var string
      * @ORM\Column(type="string", nullable=true)
      */
     protected $finalCode;
@@ -71,7 +75,7 @@ class TranscoOptic
     /**
      * labelle finalite
      *
-     * @var $finalLabel
+     * @var string
      * @ORM\Column(type="string", nullable=true)
      */
     protected $finalLabel;
@@ -79,7 +83,7 @@ class TranscoOptic
     /**
      * libelle court
      *
-     * @var $shortLabel
+     * @var string
      * @ORM\Column(type="string", nullable=true)
      */
     protected $shortLabel;
@@ -87,7 +91,7 @@ class TranscoOptic
     /**
      * mode de programmation
      *
-     * @var $programmingMode
+     * @var string
      * @ORM\Column(type="string", nullable=true)
      */
     protected $programmingMode;
@@ -95,24 +99,24 @@ class TranscoOptic
     /**
      * calibre
      *
-     * @var $calibre
+     * @var string
      * @ORM\Column(type="string", nullable=true)
      */
     protected $calibre;
 
     /**
-     * TranscoGmao
+     * $gmao
      *
-     * @var $gmao
-     * @ORM\OneToOne(targetEntity="TranscoGmao", mappedBy="TranscoOptic")
+     * @var TranscoGmao
+     * @ORM\OneToOne(targetEntity="TranscoGmao", mappedBy="optic")
      */
     protected $gmao;
 
     /**
-     * TranscoDisco
+     * $disco
      *
-     * @var $disco
-     * @ORM\OneToOne(targetEntity="TranscoDisco", mappedBy="TranscoOptic")
+     * @var TranscoDisco
+     * @ORM\OneToOne(targetEntity="TranscoDisco", mappedBy="optic")
      */
     protected $disco;
 

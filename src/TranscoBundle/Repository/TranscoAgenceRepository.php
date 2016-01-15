@@ -3,42 +3,47 @@
 namespace TranscoBundle\Repository;
 
 use Doctrine\ORM\EntityRepository;
+use JMS\DiExtraBundle\Annotation as DI;
+use TranscoBundle\Entity\TranscoAgence;
 
 /**
  * Class TranscoAgenceRepository
  * @package TranscoBundle\Repository
- * @DI\Service("service.transco.agence.repo", public=true)
  */
 class TranscoAgenceRepository extends EntityRepository
 {
     /**
-     * @param $codeAgence
+     * @param $criteria
      * @return array
      */
-    public function findPublicationOtRequest($codeAgence)
+    public function findPublicationOtRequest($criteria)
     {
         $qb = $this->createQueryBuilder('ta');
         $qb->select('ta.pr')
             ->where('ta.codeAgence = :codeAgence')
-            ->setParameter('codeAgence', $codeAgence);
+            ->setParameter('codeAgence', $criteria['value']);
 
         return $qb->getQuery()->getArrayResult();
     }
 
     /**
-     * @param $destinataire
-     * @param $center
+     * @param $criteria
      * @return array
      */
-    public function findEnvoiDirgAgenceRequest($destinataire, $center)
+    public function findEnvoiDirgAgenceRequest($criteria)
     {
         $qb = $this->createQueryBuilder('ta');
-        $qb->select('ta.codeAgence, ta.nni')
-            ->where('ta.destinataire = :destinataire')
-            ->andWhere('ta.center= :center')
-            ->setParameter('destinataire', $destinataire)
-            ->setParameter('center', $center);
-
+        $qb->select('ta.codeAgence, ta.nni');
+        foreach ($criteria as $item) {
+        if ($item['name'] === TranscoAgence::CODE_AGENCE) {
+                $qb->where('ta.destinataire = :destinataire')
+                    ->setParameter('destinataire', $criteria['value']);
+            }
+            if ($item['name'] === TranscoAgence::CENTRE) {
+                $qb->andWhere('ta.center= :center')
+                    ->setParameter('center', $criteria['value']);
+            }
+        }
         return $qb->getQuery()->getArrayResult();
     }
 }
