@@ -12,23 +12,24 @@ use TranscoBundle\Entity\TranscoOptic;
  */
 class TranscoOpticRepository extends EntityRepository
 {
-
     public function findDelegationOT(array $criteria)
     {
         $qb = $this->createQueryBuilder('t');
         $qb->select('t.codeNatInter, t.finalCode, t.segmentationCode, t.programmingMode');
+        $qb->leftJoin('t.gmao', 'gmao')
+            ->addSelect('gmao');
 
         foreach ($criteria as $item) {
             if ($item['name'] === TranscoOptic::TYPE_DE_TRAVAIL) {
-                $qb->andWhere('t.workType = :workType')
+                $qb->andWhere('gmao.workType = :workType')
                     ->setParameter('workType', $item['value']);
             }
             if ($item['name'] === TranscoOptic::GROUPE_DE_GAMME) {
-                $qb->andWhere('t.gammeGroup = :gammeGroup')
+                $qb->andWhere('gmao.gammeGroup = :gammeGroup')
                     ->setParameter('gammeGroup', $item['value']);
             }
             if ($item['name'] === TranscoOptic::COMPTEUR) {
-                $qb->andWhere('t.counter = :counter')
+                $qb->andWhere('gmao.counter = :counter')
                     ->setParameter('counter', $item['value']);
             }
         }
@@ -38,8 +39,22 @@ class TranscoOpticRepository extends EntityRepository
 
     public function findDelegationBI(array $data)
     {
+        $qb = $this->createQueryBuilder('t');
+        $qb->select('t.codeNatInter, t.finalCode, t.segmentationCode, t.programmingMode');
+        $qb->leftJoin('t.disco', 'disco')
+            ->addSelect('disco');
 
+        foreach ($data['criteria'] as $item) {
+            if ($item['name'] === TranscoOptic::CODE_NAT_Op) {
+                $qb->andWhere('disco.natOp = :natOp')
+                    ->setParameter('natOp', $item['value']);
+            }
+            if ($item['name'] === TranscoOptic::CODE_OBJECT) {
+                $qb->andWhere('disco.codeObject = :codeObject')
+                    ->setParameter('codeObject', $item['value']);
+            }
+        }
+        return $qb->getQuery()->getArrayResult();
     }
-
 
 }
