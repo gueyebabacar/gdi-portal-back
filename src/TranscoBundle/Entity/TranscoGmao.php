@@ -5,10 +5,10 @@ namespace TranscoBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * TranscoDestTerrSite
+ * TranscoGmao
  *
  * @ORM\Table(name="transco_gmao")
- * @ORM\Entity(repositoryClass="TranscoBundle\Repository\TranscoRepository")
+ * @ORM\Entity()
  */
 class TranscoGmao
 {
@@ -20,33 +20,10 @@ class TranscoGmao
      */
     protected $id;
 
-    /**
-     * @return mixed
-     */
-    public function getWorkType()
-    {
-        return $this->workType;
-    }
-
-    /**
-     * @param mixed $workType
-     * @return TranscoGmao
-     */
-    public function setWorkType($workType)
-    {
-        $this->workType = $workType;
-        return $this;
-    }
-
-
-    /**
-     *  Section GMAO
-     */
-
     /**how
      * type de travail
      *
-     * @var $workType
+     * @var string
      * @ORM\Column(type="string", nullable=true)
      */
     protected $workType;
@@ -54,7 +31,7 @@ class TranscoGmao
     /**
      * groupe de gamme
      *
-     * @var $groupGame
+     * @var string
      * @ORM\Column(type="string", nullable=true)
      */
     protected $groupGame;
@@ -62,16 +39,16 @@ class TranscoGmao
     /**
      * compteur
      *
-     * @var $counter
+     * @var string
      * @ORM\Column(type="string", nullable=true)
      */
     protected $counter;
 
     /**
-     * TranscoOptic
+     * $optic
      *
-     * @var $optic
-     * @ORM\OneToOne(targetEntity="TranscoOptic", mappedBy="TranscoOp")
+     * @var TranscoOptic
+     * @ORM\OneToOne(targetEntity="TranscoOptic", mappedBy="gmao")
      */
     protected $optic;
 
@@ -126,6 +103,24 @@ class TranscoGmao
     public function setCounter($counter)
     {
         $this->counter = $counter;
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getWorkType()
+    {
+        return $this->workType;
+    }
+
+    /**
+     * @param mixed $workType
+     * @return $this
+     */
+    public function setWorkType($workType)
+    {
+        $this->workType = $workType;
         return $this;
     }
 

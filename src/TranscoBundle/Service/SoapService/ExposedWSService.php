@@ -32,7 +32,7 @@ class ExposedWSService
 
     /**
      * @var TranscoService
-     *  @DI\Inject("service.transco.transco-service")
+     *  @DI\Inject("service.transco.transcoservice")
      */
     public $transcoService;
 
@@ -43,7 +43,7 @@ class ExposedWSService
 
     /**
      * @DI\InjectParams({
-     *     "transcoService" = @DI\Inject("service.transco.transco-service"),
+     *     "transcoService" = @DI\Inject("service.transco.transcoservice"),
      * })
      * @param $transcoService
      */
@@ -58,25 +58,24 @@ class ExposedWSService
      * @param \stdClass|Type $data
      * @return \stdClass
      */
-    public function delegationOTTranscoServiceAction(\stdClass $data)
+    public function delegationOTTranscoService(\stdClass $data)
     {
-        dump($data);exit;
         $response = new \stdClass();
         $response->codeReponse = new \stdClass();
-        $response->reponseTranscoGDIServiceOutput = new \stdClass();
+        $response->delegationOTTranscoGDIServiceOutput = new \stdClass();
 
-        $valeurRecherchee = $data->requeteTranscoGDIServiceInput->valeurRecherchee;
-        $query['values']['query'] = $valeurRecherchee;
+        $criteria = [];
 
-        foreach ($data->requeteTranscoGDIServiceInput->critere as $key => $item) {
-            $query['criteria'][$key]['name'] = $item->NomCritere;
-            $query['criteria'][$key]['value'] = $item->ValeurCritere;
+        foreach ($data->delegationOTTranscoGDIServiceInput->Critere as $key => $item) {
+            $criteria[$key]['name'] = $item->NomCritere;
+            $criteria[$key]['value'] = $item->ValeurCritere;
         }
 
         try {
 //            $this->return['result'] = appel fonction service;
+            $this->return['result'] = $this->transcoService->getDelegationOttResponse($criteria);
 
-            $this->validationQuery($query);
+            $this->validationQuery($criteria);
             $response->reponseTranscoGDIServiceOutput->valeurTrouvee = $this->return['result'];
             $response->codeReponse->codeRetour = $this->return['code'];
             $response->codeReponse->messageRetour = $this->return['message'];
@@ -94,24 +93,24 @@ class ExposedWSService
      * @param \stdClass|Type $data
      * @return \stdClass
      */
-    public function delegationBITranscoServiceAction(\stdClass $data)
+    public function delegationBITranscoService(\stdClass $data)
     {
         $response = new \stdClass();
         $response->codeReponse = new \stdClass();
         $response->reponseTranscoGDIServiceOutput = new \stdClass();
 
         $valeurRecherchee = $data->requeteTranscoGDIServiceInput->valeurRecherchee;
-        $query['values']['query'] = $valeurRecherchee;
+        $criteria['values']['query'] = $valeurRecherchee;
 
         foreach ($data->requeteTranscoGDIServiceInput->critere as $key => $item) {
-            $query['criteria'][$key]['name'] = $item->NomCritere;
-            $query['criteria'][$key]['value'] = $item->ValeurCritere;
+            $criteria['criteria'][$key]['name'] = $item->NomCritere;
+            $criteria['criteria'][$key]['value'] = $item->ValeurCritere;
         }
 
         try {
 //            $this->return['result'] = appel fonction service;
 
-            $this->validationQuery($query);
+            $this->validationQuery($criteria);
             $response->reponseTranscoGDIServiceOutput->valeurTrouvee = $this->return['result'];
             $response->codeReponse->codeRetour = $this->return['code'];
             $response->codeReponse->messageRetour = $this->return['message'];
@@ -136,17 +135,17 @@ class ExposedWSService
         $response->reponseTranscoGDIServiceOutput = new \stdClass();
 
         $valeurRecherchee = $data->requeteTranscoGDIServiceInput->valeurRecherchee;
-        $query['values']['query'] = $valeurRecherchee;
+        $criteria['values']['query'] = $valeurRecherchee;
 
         foreach ($data->requeteTranscoGDIServiceInput->critere as $key => $item) {
-            $query['criteria'][$key]['name'] = $item->NomCritere;
-            $query['criteria'][$key]['value'] = $item->ValeurCritere;
+            $criteria['criteria'][$key]['name'] = $item->NomCritere;
+            $criteria['criteria'][$key]['value'] = $item->ValeurCritere;
         }
 
         try {
 //            $this->return['result'] = appel fonction service;
 
-            $this->validationQuery($query);
+            $this->validationQuery($criteria);
             $response->reponseTranscoGDIServiceOutput->valeurTrouvee = $this->return['result'];
             $response->codeReponse->codeRetour = $this->return['code'];
             $response->codeReponse->messageRetour = $this->return['message'];
@@ -172,17 +171,17 @@ class ExposedWSService
         $response->reponseTranscoGDIServiceOutput = new \stdClass();
 
         $valeurRecherchee = $data->requeteTranscoGDIServiceInput->valeurRecherchee;
-        $query['values']['query'] = $valeurRecherchee;
+        $criteria['values']['query'] = $valeurRecherchee;
 
         foreach ($data->requeteTranscoGDIServiceInput->critere as $key => $item) {
-            $query['criteria'][$key]['name'] = $item->NomCritere;
-            $query['criteria'][$key]['value'] = $item->ValeurCritere;
+            $criteria['criteria'][$key]['name'] = $item->NomCritere;
+            $criteria['criteria'][$key]['value'] = $item->ValeurCritere;
         }
 
         try {
 //            $this->return['result'] = appel fonction service;
 
-            $this->validationQuery($query);
+            $this->validationQuery($criteria);
             $response->reponseTranscoGDIServiceOutput->valeurTrouvee = $this->return['result'];
             $response->codeReponse->codeRetour = $this->return['code'];
             $response->codeReponse->messageRetour = $this->return['message'];
@@ -195,11 +194,11 @@ class ExposedWSService
     }
 
     /**
-     * @param array $query
+     * @param array $criteria
      */
-    private function validationQuery(array $query)
+    private function validationQuery(array $criteria)
     {
-        $fields = $this->fieldIsNull($query);
+        $fields = $this->fieldIsNull($criteria);
         if (!empty($fields)) {
             $this->return['result'] = '';
             $this->return['message'] = "Les champs obligatoires ne sont pas remplis:" . implode($fields, ', ');
@@ -219,19 +218,16 @@ class ExposedWSService
     }
 
     /**
-     * @param $query
+     * @param $criteria
      * @return array
      */
-    private function fieldIsNull($query)
+    private function fieldIsNull($criteria)
     {
         $fields = [];
-        foreach ($query['criteria'] as $criteria) {
-            if ($criteria['value'] == null || $criteria['name'] == null) {
-                $fields[] = $criteria['name'];
+        foreach ($criteria as $crit) {
+            if ($crit['value'] == null || $crit['name'] == null) {
+                $fields[] = $crit['name'];
             }
-        }
-        if ($query['values']['query'] == null) {
-            $fields[] = 'ValeurRecherchee';
         }
         return $fields;
     }

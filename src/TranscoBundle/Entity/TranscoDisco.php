@@ -12,6 +12,10 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class TranscoDisco
 {
+    const CODE_NAT_INT = "CodeNatureIntervention";
+    const CODE_FINALITE  = "CodeFinalite";
+    const CODE_SEGMENTATION = "CodeSegmentation";
+
     /**
      * @var int
      * @ORM\Column(name="id", type="integer")
@@ -19,10 +23,6 @@ class TranscoDisco
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     protected $id;
-
-    /**
-     *  This section is for disco
-     */
 
     /**
      * disco code objet

@@ -13,6 +13,9 @@ use JMS\Serializer\Annotation\Expose;
  */
 class TranscoAgence
 {
+    const CODE_AGENCE = "CodeAgence";
+    const CENTRE = "Centre";
+
     /**
      * @var int
      * @ORM\Column(name="id", type="integer")
