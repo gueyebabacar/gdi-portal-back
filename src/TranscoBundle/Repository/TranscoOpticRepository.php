@@ -52,9 +52,9 @@ class TranscoOpticRepository extends EntityRepository
     public function findDelegationBI(array $data)
     {
         $qb = $this->createQueryBuilder('t');
+        $qb->select('t.codeNatInter, t.finalCode, t.segmentationCode, t.programmingMode');
         $qb->leftJoin('t.disco', 'disco')
             ->addSelect('disco');
-        $qb->select('t.codeNatInter, t.finalCode, t.segmentationCode, t.programmingMode');
 
         foreach ($data['criteria'] as $item) {
             if ($item['name'] === self::CODE_NAT_Op) {
