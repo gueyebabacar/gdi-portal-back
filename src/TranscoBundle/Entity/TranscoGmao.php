@@ -71,7 +71,7 @@ class TranscoGmao
      * TranscoOptic
      *
      * @var $optic
-     * @ORM\OneToOne(targetEntity="TranscoOptic")
+     * @ORM\OneToOne(targetEntity="TranscoOptic", mappedBy="TranscoOp")
      */
     protected $optic;
 

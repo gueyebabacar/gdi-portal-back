@@ -8,10 +8,10 @@ use JMS\Serializer\Annotation\Expose;
 /**
  * AgenceDestinataireCenterPr
  *
- * @ORM\Table(name="agence_dest_center_pr")
- * @ORM\Entity(repositoryClass="TranscoBundle\Repository\AgenceDestinataireCenterPrRepository")
+ * @ORM\Table(name="transco_agence")
+ * @ORM\Entity(repositoryClass="TranscoBundle\Repository\TranscoAgenceRepository")
  */
-class AgenceDestinataireCenterPr
+class TranscoAgence
 {
     /**
      * @var int
