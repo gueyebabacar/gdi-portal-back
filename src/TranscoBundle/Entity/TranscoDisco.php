@@ -2,7 +2,6 @@
 
 namespace TranscoBundle\Entity;
 
-
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -28,7 +27,7 @@ class TranscoDisco
     /**
      * disco code objet
      *
-     * @var $codeObject
+     * @var integer
      * @ORM\Column(type="integer", nullable=true)
      */
     protected $codeObject;
@@ -36,7 +35,7 @@ class TranscoDisco
     /**
      * disco nature operation
      *
-     * @var $natOp
+     * @var string
      * @ORM\Column(type="string", nullable=true)
      */
     protected $natOp;
@@ -44,7 +43,7 @@ class TranscoDisco
     /**
      * disco libelle nature operation
      *
-     * @var $natOpLabel
+     * @var string
      * @ORM\Column(type="string", nullable=true)
      */
     protected $natOpLabel;
@@ -53,7 +52,7 @@ class TranscoDisco
      * TranscoOptic
      *
      * @var $optic
-     * @ORM\OneToOne(targetEntity="TranscoOptic", mappedBy="TranscoDisco")
+     * @ORM\OneToOne(targetEntity="TranscoOptic", inversedBy="TranscoDisco")
      */
     protected $optic;
 

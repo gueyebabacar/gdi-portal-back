@@ -58,7 +58,7 @@ class TranscoOptic
      * @var $SegmentationLabel
      * @ORM\Column(type="string", nullable=true)
      */
-    protected $SegmentationLabel;
+    protected $segmentationLabel;
 
     /**
      * code finalite
@@ -103,15 +103,15 @@ class TranscoOptic
     /**
      * TranscoGmao
      *
-     * @var $gmao
-     * @ORM\OneToOne(targetEntity="TranscoGmao", mappedBy="TranscoOptic")
+     * @var string
+     * @ORM\OneToOne(targetEntity="TranscoGmao")
      */
     protected $gmao;
 
     /**
-     * TranscoDisco
+     * disco
      *
-     * @var $disco
+     * @var TranscoDisco
      * @ORM\OneToOne(targetEntity="TranscoDisco", mappedBy="TranscoOptic")
      */
     protected $disco;
@@ -211,16 +211,16 @@ class TranscoOptic
      */
     public function getSegmentationLabel()
     {
-        return $this->SegmentationLabel;
+        return $this->segmentationLabel;
     }
 
     /**
-     * @param mixed $SegmentationLabel
+     * @param $segmentationLabel
      * @return TranscoOptic
      */
-    public function setSegmentationLabel($SegmentationLabel)
+    public function setSegmentationLabel($segmentationLabel)
     {
-        $this->SegmentationLabel = $SegmentationLabel;
+        $this->segmentationLabel = $segmentationLabel;
         return $this;
     }
 

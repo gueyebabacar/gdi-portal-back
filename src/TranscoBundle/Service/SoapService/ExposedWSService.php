@@ -3,10 +3,8 @@
 namespace TranscoBundle\Service\SoapService;
 
 use JMS\DiExtraBundle\Annotation as DI;
-use TranscoBundle\Service\TranscoDestTerrSiteService;
-use TranscoBundle\Service\TranscoNatureOpeService;
-use TranscoBundle\Service\TranscoNatureInterService;
 use Symfony\Component\PropertyInfo\Type;
+use TranscoBundle\Service\TranscoService;
 
 /**
  * Class ExposedWSService
@@ -16,13 +14,15 @@ use Symfony\Component\PropertyInfo\Type;
  */
 class ExposedWSService
 {
-    //NatureOpe
-    const CODE_NAT_INTER3 = "CodeNatureIntervention3";
-    const MODE_PROGRAM = "ModeProgrammation";
+    //delegationOTTranscoGDIService
+    const WORK_TYPE = "TypeDeTravail";
+    const GAMME_GROUP = "GroupeDeGamme";
+    const COUNTER = "Compteur";
 
-    //NatureInter
-    const CODE_NAT_INTER = "CodeNatureIntervention";
+    //delegationBITranscoGDIService
     const CODE_NAT_OP = "CodeNatureOperation";
+    const CODE_OBJECT = "CodeObjet";
+    const SOURCE = "Source";
 
     //DestTerrSite
     const TERRITORY = "Territoire";
@@ -31,22 +31,10 @@ class ExposedWSService
     const ATG = "ATG";
 
     /**
-     * @var TranscoNatureInterService
-     * @DI\Inject("portal.service.transconatureinter")
+     * @var TranscoService
+     *  @DI\Inject("service.transco.transco-service")
      */
-    public $transcoNatureInterService;
-
-    /**
-     * @var TranscoNatureOpeService
-     * @DI\Inject("portal.service.transconatureope")
-     */
-    public $transcoNatureOpeService;
-
-    /**
-     * @var TranscoDestTerrSiteService
-     * @DI\Inject("portal.service.trans.dest.terr.site")
-     */
-    public $transcoDestTerrSiteService;
+    public $transcoService;
 
     /**
      * @var $return
@@ -55,34 +43,28 @@ class ExposedWSService
 
     /**
      * @DI\InjectParams({
-     *     "transcoNatureInterService" = @DI\Inject("portal.service.transconatureinter"),
-     *     "transcoNatureOpeService" = @DI\Inject("portal.service.transconatureope"),
-     *     "transcoDestTerrSiteService" = @DI\Inject("portal.service.trans.dest.terr.site"),
+     *     "transcoService" = @DI\Inject("service.transco.transco-service"),
      * })
-     * @param $transcoNatureInterService
-     * @param $transcoNatureOpeService
-     * @param $transcoDestTerrSiteService
+     * @param $transcoService
      */
-    public function __construct($transcoNatureInterService, $transcoNatureOpeService, $transcoDestTerrSiteService)
+    public function __construct($transcoService)
     {
-        $this->transcoNatureOpeService = $transcoNatureOpeService;
-        $this->transcoNatureInterService = $transcoNatureInterService;
-        $this->transcoDestTerrSiteService = $transcoDestTerrSiteService;
+        $this->transcoService = $transcoService;
     }
 
     /**
-     * diffuserCalendrierRessource
+     * delegationOTTranscoServiceAction
      *
      * @param \stdClass|Type $data
      * @return \stdClass
      */
-    public function transcoGdiService(\stdClass $data)
+    public function delegationOTTranscoServiceAction(\stdClass $data)
     {
+        dump($data);exit;
         $response = new \stdClass();
         $response->codeReponse = new \stdClass();
         $response->reponseTranscoGDIServiceOutput = new \stdClass();
 
-        dump($data);exit;
         $valeurRecherchee = $data->requeteTranscoGDIServiceInput->valeurRecherchee;
         $query['values']['query'] = $valeurRecherchee;
 
@@ -92,44 +74,8 @@ class ExposedWSService
         }
 
         try {
-            switch ($valeurRecherchee) {
-                //NatureInter
-                case $this::CODE_NAT_INTER:
-                    $this->return['result'] = $this->transcoNatureInterService->getCodeNatIntFromCodeNatOp($query);
-                    break;
+//            $this->return['result'] = appel fonction service;
 
-                case $this::CODE_NAT_OP:
-                    $this->return['result'] = $this->transcoNatureInterService->getCodeNatOpFromCodeNatInt($query);
-                    break;
-                //NatureOpe
-                case $this::CODE_NAT_INTER3:
-                    $this->return['result'] = $this->transcoNatureOpeService->getCodeNatureIntervention3($query);
-                    break;
-
-                case $this::MODE_PROGRAM:
-                    $this->return['result'] = $this->transcoNatureOpeService->getModeProgrammation($query);
-                    break;
-                //DestTerrSite
-                case $this::ADRESSEE:
-                    $this->return['result'] = $this->transcoDestTerrSiteService->getAdresseeFromAtg($query);
-                    break;
-
-                case $this::PR:
-                    $this->return['result'] = $this->transcoDestTerrSiteService->getPrFromAtg($query);
-                    break;
-
-                case $this::TERRITORY:
-                    $this->return['result'] = $this->transcoDestTerrSiteService->getTerritoryFromAtg($query);
-                    break;
-
-                case $this::ATG:
-                    $this->return['result'] = $this->transcoDestTerrSiteService->getAtgFromTerritoryOrAdressee($query);
-                    break;
-
-                default:
-                    $this->return['result'] = null;
-                    break;
-            }
             $this->validationQuery($query);
             $response->reponseTranscoGDIServiceOutput->valeurTrouvee = $this->return['result'];
             $response->codeReponse->codeRetour = $this->return['code'];
@@ -142,6 +88,115 @@ class ExposedWSService
         return $response;
     }
 
+    /**
+     * delegationBITranscoService
+     *
+     * @param \stdClass|Type $data
+     * @return \stdClass
+     */
+    public function delegationBITranscoServiceAction(\stdClass $data)
+    {
+        $response = new \stdClass();
+        $response->codeReponse = new \stdClass();
+        $response->reponseTranscoGDIServiceOutput = new \stdClass();
+
+        $valeurRecherchee = $data->requeteTranscoGDIServiceInput->valeurRecherchee;
+        $query['values']['query'] = $valeurRecherchee;
+
+        foreach ($data->requeteTranscoGDIServiceInput->critere as $key => $item) {
+            $query['criteria'][$key]['name'] = $item->NomCritere;
+            $query['criteria'][$key]['value'] = $item->ValeurCritere;
+        }
+
+        try {
+//            $this->return['result'] = appel fonction service;
+
+            $this->validationQuery($query);
+            $response->reponseTranscoGDIServiceOutput->valeurTrouvee = $this->return['result'];
+            $response->codeReponse->codeRetour = $this->return['code'];
+            $response->codeReponse->messageRetour = $this->return['message'];
+        } catch (\Exception $exception) {
+            $response->codeReponse->codeRetour = 'KO';
+            $response->codeReponse->messageRetour = $exception->getMessage();
+        }
+
+        return $response;
+    }
+
+    /**
+     * delegationBITranscoService
+     *
+     * @param \stdClass|Type $data
+     * @return \stdClass
+     */
+    public function envoiDIRGTranscoGDIService(\stdClass $data)
+    {
+        $response = new \stdClass();
+        $response->codeReponse = new \stdClass();
+        $response->reponseTranscoGDIServiceOutput = new \stdClass();
+
+        $valeurRecherchee = $data->requeteTranscoGDIServiceInput->valeurRecherchee;
+        $query['values']['query'] = $valeurRecherchee;
+
+        foreach ($data->requeteTranscoGDIServiceInput->critere as $key => $item) {
+            $query['criteria'][$key]['name'] = $item->NomCritere;
+            $query['criteria'][$key]['value'] = $item->ValeurCritere;
+        }
+
+        try {
+//            $this->return['result'] = appel fonction service;
+
+            $this->validationQuery($query);
+            $response->reponseTranscoGDIServiceOutput->valeurTrouvee = $this->return['result'];
+            $response->codeReponse->codeRetour = $this->return['code'];
+            $response->codeReponse->messageRetour = $this->return['message'];
+        } catch (\Exception $exception) {
+            $response->codeReponse->codeRetour = 'KO';
+            $response->codeReponse->messageRetour = $exception->getMessage();
+        }
+
+        return $response;
+    }
+
+    /**
+     * delegationBITranscoService
+     *
+     * @param \stdClass|Type $data
+     * @return \stdClass
+     */
+    public function publicationOTTranscoGDIService(\stdClass $data)
+    {
+//        dump($data);exit;
+        $response = new \stdClass();
+        $response->codeReponse = new \stdClass();
+        $response->reponseTranscoGDIServiceOutput = new \stdClass();
+
+        $valeurRecherchee = $data->requeteTranscoGDIServiceInput->valeurRecherchee;
+        $query['values']['query'] = $valeurRecherchee;
+
+        foreach ($data->requeteTranscoGDIServiceInput->critere as $key => $item) {
+            $query['criteria'][$key]['name'] = $item->NomCritere;
+            $query['criteria'][$key]['value'] = $item->ValeurCritere;
+        }
+
+        try {
+//            $this->return['result'] = appel fonction service;
+
+            $this->validationQuery($query);
+            $response->reponseTranscoGDIServiceOutput->valeurTrouvee = $this->return['result'];
+            $response->codeReponse->codeRetour = $this->return['code'];
+            $response->codeReponse->messageRetour = $this->return['message'];
+        } catch (\Exception $exception) {
+            $response->codeReponse->codeRetour = 'KO';
+            $response->codeReponse->messageRetour = $exception->getMessage();
+        }
+
+        return $response;
+    }
+
+    /**
+     * @param array $query
+     */
     private function validationQuery(array $query)
     {
         $fields = $this->fieldIsNull($query);
@@ -163,6 +218,10 @@ class ExposedWSService
         }
     }
 
+    /**
+     * @param $query
+     * @return array
+     */
     private function fieldIsNull($query)
     {
         $fields = [];
