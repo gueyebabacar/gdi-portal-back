@@ -103,15 +103,15 @@ class TranscoOptic
     /**
      * TranscoGmao
      *
-     * @var string
-     * @ORM\OneToOne(targetEntity="TranscoGmao")
+     * @var $gmao
+     * @ORM\OneToOne(targetEntity="TranscoGmao", mappedBy="TranscoOptic")
      */
     protected $gmao;
 
     /**
-     * disco
+     * TranscoDisco
      *
-     * @var TranscoDisco
+     * @var $disco
      * @ORM\OneToOne(targetEntity="TranscoDisco", mappedBy="TranscoOptic")
      */
     protected $disco;
