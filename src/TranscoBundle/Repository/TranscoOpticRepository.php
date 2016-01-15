@@ -4,6 +4,7 @@ namespace TranscoBundle\Repository;
 
 use Doctrine\ORM\EntityRepository;
 use JMS\DiExtraBundle\Annotation as DI;
+use TranscoBundle\Entity\TranscoDisco;
 use TranscoBundle\Entity\TranscoOptic;
 
 /**
@@ -45,16 +46,15 @@ class TranscoOpticRepository extends EntityRepository
             ->addSelect('disco');
 
         foreach ($data['criteria'] as $item) {
-            if ($item['name'] === TranscoOptic::CODE_NAT_Op) {
+            if ($item['name'] === TranscoDisco::CODE_NAT_OP) {
                 $qb->andWhere('disco.natOp = :natOp')
                     ->setParameter('natOp', $item['value']);
             }
-            if ($item['name'] === TranscoOptic::CODE_OBJECT) {
+            if ($item['name'] === TranscoDisco::CODE_OBJECT) {
                 $qb->andWhere('disco.codeObject = :codeObject')
                     ->setParameter('codeObject', $item['value']);
             }
         }
         return $qb->getQuery()->getArrayResult();
     }
-
 }
