@@ -3,45 +3,36 @@
 namespace TranscoBundle\Repository;
 
 use Doctrine\ORM\EntityRepository;
+use JMS\DiExtraBundle\Annotation as DI;
+use TranscoBundle\Entity\TranscoOptic;
 
 /**
- *
  * Class TranscoDiscoOpticRepository
  * @package TranscoBundle\Repository
- *
- * @DI\Service("service.optic.repository", public=true)
  */
 class TranscoOpticRepository extends EntityRepository
 {
-    // GMAO constant
-    const TYPE_DE_TRAVAIL = "TypeDeTravail";
-    const GROUPE_DE_GAMME = "GroupeDeGamme";
-    const COMPTEUR = "Compteur";
-
     // Disco Constant
     const CODE_NAT_Op = "CodeNatureOperation";
     const CODE_OBJECT = "CodeObjet";
 
-
-
-    public function findDelegationOT(array $data)
+    public function findDelegationOT(array $criteria)
     {
         $qb = $this->createQueryBuilder('t');
         $qb->select('t.codeNatInter, t.finalCode, t.segmentationCode, t.programmingMode');
-        $qb->leftJoin('t.gmao', 'gmao')
-            ->addSelect('gmao');
+        $qb->leftJoin('t.gmao', 'gmao');
 
-        foreach ($data['criteria'] as $item) {
-            if ($item['name'] === self::TYPE_DE_TRAVAIL) {
-                $qb->andWhere('gmao.workType = :workType')
+        foreach ($criteria as $item) {
+            if ($item['name'] === TranscoOptic::TYPE_DE_TRAVAIL) {
+                $qb->andWhere('t.workType = :workType')
                     ->setParameter('workType', $item['value']);
             }
-            if ($item['name'] === self::GROUPE_DE_GAMME) {
-                $qb->andWhere('gmao.gammeGroup = :gammeGroup')
+            if ($item['name'] === TranscoOptic::GROUPE_DE_GAMME) {
+                $qb->andWhere('t.gammeGroup = :gammeGroup')
                     ->setParameter('gammeGroup', $item['value']);
             }
-            if ($item['name'] === self::COMPTEUR) {
-                $qb->andWhere('gmao.counter = :counter')
+            if ($item['name'] === TranscoOptic::COMPTEUR) {
+                $qb->andWhere('t.counter = :counter')
                     ->setParameter('counter', $item['value']);
             }
         }
@@ -68,5 +59,6 @@ class TranscoOpticRepository extends EntityRepository
         }
         return $qb->getQuery()->getArrayResult();
     }
+
 
 }

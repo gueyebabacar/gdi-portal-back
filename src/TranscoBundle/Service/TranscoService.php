@@ -12,7 +12,7 @@ use TranscoBundle\Repository\TranscoOpticRepository;
  * Class TranscoService
  * @package TranscoBundle\Service
  *
- * @DI\Service("service.transco.transco-service", public=true)
+ * @DI\Service("service.transco.transcoservice", public=true)
  */
 class TranscoService
 {
@@ -23,19 +23,16 @@ class TranscoService
     public $em;
 
     /**
-     * @DI\Inject("service.transco.disco.repo")
      * @var TranscoDiscoRepository
      */
     public $transcoDiscoRepo;
 
     /**
-     * @DI\Inject("service.transco.optic.repo")
      * @var TranscoOpticRepository
      */
     public $transcoOpticRepo;
 
     /**
-     * @DI\Inject("service.transcoq.agence.repo")
      * @var TranscoAgenceRepository
      */
     public $transcoAgenceRepo;
@@ -44,42 +41,58 @@ class TranscoService
      * ControlService constructor.
      * @param EntityManager $em
      *
-     * @param $transcoDiscoRepo
-     * @param $transcoOpticRepo
-     * @param $transcoAgenceRepo
-     * @internal param $transcoGmaoRepo
      * @DI\InjectParams({
      *     "em" = @DI\Inject("doctrine.orm.entity_manager"),
-     *     "transcoDiscoRepo" = @DI\Inject("service.transco.disco.repo"),
-     *     "transcoAgenceRepo" = @DI\Inject("service.transco.agence.repo"),
      * })
      */
-    public function __construct($em, $transcoDiscoRepo, $transcoOpticRepo, $transcoAgenceRepo)
+    public function __construct($em)
     {
         $this->em = $em;
-        $this->transcoDiscoRepo = $transcoDiscoRepo;
-        $this->transcoOpticRepo = $transcoOpticRepo;
-        $this->transcoAgenceRepo = $transcoAgenceRepo;
+        $this->transcoDiscoRepo = $em->getRepository('TranscoBundle:TranscoDisco');
+        $this->transcoOpticRepo = $em->getRepository('TranscoBundle:TranscoOptic');
+        $this->transcoAgenceRepo = $em->getRepository('TranscoBundle:TranscoAgence');
     }
 
-    public function getDelegationBiResponse()
+    public function getDelegationBiResponse($criteria)
     {
-        
+        $response = $this->transcoOpticRepo->findDelegationBI($criteria);
+        if(sizeof($response) !== 1){
+            return $response;
+        }
+        return reset($response[0]);
     }
 
-    public function getDelegationOttResponse()
+    public function getDelegationOttResponse($criteria)
     {
-        
+        $response = $this->transcoOpticRepo->findDelegationOT($criteria);
+        if(sizeof($response) !== 1){
+            return $response;
+        }
+        return reset($response[0]);
     }
 
-    public function getEnvoiDirgtResponse()
+    public function getEnvoiDirgtResponse($criteria)
     {
-        
+        $response = [];
+        $discoResponse = $this->transcoDiscoRepo->findEnvoiDirgDiscoRequest($criteria);
+        if(sizeof($discoResponse) !== 1){
+            array_merge($response, $discoResponse);
+        }
+        $agenceResponse = $this->transcoAgenceRepo->findEnvoiDirgAgenceRequest($criteria);
+        if(sizeof($response) !== 1){
+            array_merge($response, $agenceResponse);
+        }
+        return reset($response[0]);
     }
 
-    public function getPublicationOttRespons()
+    public function getPublicationOttRespons($criteria)
     {
 
+        $response = $this->transcoAgenceRepo->findPublicationOtRequest($criteria);
+        if(sizeof($response) !== 1){
+            return $response;
+        }
+        return reset($response[0]);
     }
 }
 
