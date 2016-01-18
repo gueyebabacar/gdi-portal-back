@@ -53,6 +53,10 @@ class TranscoService
         $this->transcoAgenceRepo = $em->getRepository('TranscoBundle:TranscoAgence');
     }
 
+    /**
+     * @param $criteria
+     * @return array|mixed
+     */
     public function getDelegationBiResponse($criteria)
     {
         $response = $this->transcoOpticRepo->findDelegationBI($criteria);
@@ -62,6 +66,10 @@ class TranscoService
         return reset($response[0]);
     }
 
+    /**
+     * @param $criteria
+     * @return array|mixed
+     */
     public function getDelegationOttResponse($criteria)
     {
         $response = $this->transcoOpticRepo->findDelegationOT($criteria);
@@ -71,6 +79,10 @@ class TranscoService
         return reset($response[0]);
     }
 
+    /**
+     * @param $criteria
+     * @return mixed
+     */
     public function getEnvoiDirgtResponse($criteria)
     {
         $response = [];
@@ -85,9 +97,12 @@ class TranscoService
         return reset($response[0]);
     }
 
+    /**
+     * @param $criteria
+     * @return array|mixed
+     */
     public function getPublicationOttRespons($criteria)
     {
-
         $response = $this->transcoAgenceRepo->findPublicationOtRequest($criteria);
         if(sizeof($response) !== 1){
             return $response;
