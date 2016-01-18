@@ -2,6 +2,7 @@
 
 namespace TranscoBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -47,6 +48,14 @@ class TranscoOptic
      * @ORM\Column(type="string", nullable=true)
      */
     protected $codeNatInter;
+
+    /**
+     * label nature intervention
+     *
+     * @var string
+     * @ORM\Column(type="string", nullable=true)
+     */
+    protected $labelNatInter;
 
     /**
      * code segmentation
@@ -107,10 +116,10 @@ class TranscoOptic
     /**
      * $gmao
      *
-     * @var TranscoGmao
-     * @ORM\OneToOne(targetEntity="TranscoGmao", mappedBy="optic")
+     * @var ArrayCollection|TranscoGmao
+     * @ORM\OneToMany(targetEntity="TranscoGmao", mappedBy="optic")
      */
-    protected $gmao;
+    protected $gmaos;
 
     /**
      * $disco
@@ -119,6 +128,11 @@ class TranscoOptic
      * @ORM\OneToOne(targetEntity="TranscoDisco", mappedBy="optic")
      */
     protected $disco;
+
+    public function __construct()
+    {
+        $this->gmaos = new ArrayCollection();
+    }
 
     /**
      * @return int
@@ -321,18 +335,34 @@ class TranscoOptic
     /**
      * @return mixed
      */
-    public function getGmao()
+    public function getGmaos()
     {
-        return $this->gmao;
+        return $this->gmaos;
     }
 
     /**
-     * @param mixed $gmao
-     * @return TranscoOptic
+     * @param $gmao
+     * @return $this
      */
-    public function setGmao($gmao)
+    public function addGmao($gmao)
     {
-        $this->gmao = $gmao;
+        if (!$this->gmaos->contains($gmao)) {
+            $this->gmaos->add($gmao);
+            $gmao->setOptic($this);
+        }
+        return $this;
+    }
+
+    /**
+     * @param $gmao
+     * @return $this
+     */
+    public function removeGmao($gmao)
+    {
+        if ($this->gmaos->contains($gmao)) {
+            $this->gmaos->removeElement($gmao);
+            $gmao->setOptic(null);
+        }
         return $this;
     }
 
@@ -351,6 +381,24 @@ class TranscoOptic
     public function setDisco($disco)
     {
         $this->disco = $disco;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getLabelNatInter()
+    {
+        return $this->labelNatInter;
+    }
+
+    /**
+     * @param string $labelNatInter
+     * @return $this
+     */
+    public function setLabelNatInter($labelNatInter)
+    {
+        $this->labelNatInter = $labelNatInter;
         return $this;
     }
 }

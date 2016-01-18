@@ -5,10 +5,10 @@ namespace TranscoBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * TranscoGmao
+ * TranscoDestTerrSite
  *
  * @ORM\Table(name="transco_gmao")
- * @ORM\Entity()
+ * @ORM\Entity(repositoryClass="TranscoBundle\Repository\TranscoRepository")
  */
 class TranscoGmao
 {
@@ -20,7 +20,8 @@ class TranscoGmao
      */
     protected $id;
 
-    /**how
+
+    /**
      * type de travail
      *
      * @var string
@@ -45,10 +46,10 @@ class TranscoGmao
     protected $counter;
 
     /**
-     * $optic
+     * TranscoOptic
      *
      * @var TranscoOptic
-     * @ORM\OneToOne(targetEntity="TranscoOptic", mappedBy="gmao")
+     * @ORM\ManyToOne(targetEntity="TranscoOptic", inversedBy="gmaos")
      */
     protected $optic;
 
@@ -109,24 +110,6 @@ class TranscoGmao
     /**
      * @return mixed
      */
-    public function getWorkType()
-    {
-        return $this->workType;
-    }
-
-    /**
-     * @param mixed $workType
-     * @return $this
-     */
-    public function setWorkType($workType)
-    {
-        $this->workType = $workType;
-        return $this;
-    }
-
-    /**
-     * @return mixed
-     */
     public function getOptic()
     {
         return $this->optic;
@@ -139,6 +122,24 @@ class TranscoGmao
     public function setOptic($optic)
     {
         $this->optic = $optic;
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getWorkType()
+    {
+        return $this->workType;
+    }
+
+    /**
+     * @param mixed $workType
+     * @return TranscoGmao
+     */
+    public function setWorkType($workType)
+    {
+        $this->workType = $workType;
         return $this;
     }
 }

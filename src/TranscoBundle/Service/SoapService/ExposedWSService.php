@@ -63,6 +63,7 @@ class ExposedWSService
         $response = new \stdClass();
         $response->codeReponse = new \stdClass();
         $response->delegationOTTranscoGDIServiceOutput = new \stdClass();
+        $response->delegationOTTranscoGDIServiceOutput->Reponse = new \stdClass();
 
         $criteria = [];
 
@@ -76,7 +77,7 @@ class ExposedWSService
             $this->return['result'] = $this->transcoService->getDelegationOttResponse($criteria);
 
             $this->validationQuery($criteria);
-            $response->reponseTranscoGDIServiceOutput->valeurTrouvee = $this->return['result'];
+            $response->delegationOTTranscoGDIServiceOutput->Reponse  = $this->return['result'];
             $response->codeReponse->codeRetour = $this->return['code'];
             $response->codeReponse->messageRetour = $this->return['message'];
         } catch (\Exception $exception) {
