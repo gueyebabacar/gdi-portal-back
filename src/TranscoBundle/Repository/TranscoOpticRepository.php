@@ -8,7 +8,7 @@ use TranscoBundle\Entity\TranscoDisco;
 use TranscoBundle\Entity\TranscoOptic;
 
 /**
- * Class TranscoDiscoOpticRepository
+ * Class TranscoOpticRepository
  * @package TranscoBundle\Repository
  */
 class TranscoOpticRepository extends EntityRepository
@@ -17,8 +17,7 @@ class TranscoOpticRepository extends EntityRepository
     {
         $qb = $this->createQueryBuilder('t');
         $qb->select('t.codeNatInter, t.finalCode, t.segmentationCode, t.programmingMode');
-        $qb->leftJoin('t.gmao', 'gmao')
-            ->addSelect('gmao');
+        $qb->leftJoin('t.gmao', 'gmao');
 
         foreach ($criteria as $item) {
             if ($item['name'] === TranscoOptic::TYPE_DE_TRAVAIL) {

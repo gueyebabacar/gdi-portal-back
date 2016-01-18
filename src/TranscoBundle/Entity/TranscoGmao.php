@@ -20,33 +20,11 @@ class TranscoGmao
      */
     protected $id;
 
-    /**
-     * @return mixed
-     */
-    public function getWorkType()
-    {
-        return $this->workType;
-    }
 
     /**
-     * @param mixed $workType
-     * @return TranscoGmao
-     */
-    public function setWorkType($workType)
-    {
-        $this->workType = $workType;
-        return $this;
-    }
-
-
-    /**
-     *  Section GMAO
-     */
-
-    /**how
      * type de travail
      *
-     * @var $workType
+     * @var string
      * @ORM\Column(type="string", nullable=true)
      */
     protected $workType;
@@ -54,7 +32,7 @@ class TranscoGmao
     /**
      * groupe de gamme
      *
-     * @var $groupGame
+     * @var string
      * @ORM\Column(type="string", nullable=true)
      */
     protected $groupGame;
@@ -62,7 +40,7 @@ class TranscoGmao
     /**
      * compteur
      *
-     * @var $counter
+     * @var string
      * @ORM\Column(type="string", nullable=true)
      */
     protected $counter;
@@ -70,8 +48,8 @@ class TranscoGmao
     /**
      * TranscoOptic
      *
-     * @var $optic
-     * @ORM\OneToOne(targetEntity="TranscoOptic", mappedBy="TranscoGmao")
+     * @var TranscoOptic
+     * @ORM\ManyToOne(targetEntity="TranscoOptic", inversedBy="gmaos")
      */
     protected $optic;
 
@@ -144,6 +122,24 @@ class TranscoGmao
     public function setOptic($optic)
     {
         $this->optic = $optic;
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getWorkType()
+    {
+        return $this->workType;
+    }
+
+    /**
+     * @param mixed $workType
+     * @return TranscoGmao
+     */
+    public function setWorkType($workType)
+    {
+        $this->workType = $workType;
         return $this;
     }
 }
