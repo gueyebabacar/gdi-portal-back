@@ -8,10 +8,10 @@ class TranscoAgenceTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * @test
-     * @group pop
+     * @group gdi
      * @group entity
      */
-    public function testTranscoDestTerrSiteSettersGetters()
+    public function testTranscoAgenceSettersGetters()
     {
         $data = array(
             'id' => 1,
