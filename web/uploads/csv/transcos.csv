@@ -1,0 +1,76 @@
+Code objet;NatOp;Libellé Nature Opération;CODE TYPE OPTIC;Libellé OPTIC;Code Nature d'intervention;Nature d'intervention OPTIC;Code Segmentation;Libellé Segmentation;Code Finalité;Libellé Finalité;Libellé court <20 caractères;Mode de programmation;Calibre;Type de Travail;Groupe de gamme;Compteur
+9;AA;Inspection ROB Res;OP78;Inspection ROB;INS;INSPECTION;S7;ROB;F30;Maintenance préventive;Inspection ROB;AUTO_PANIER;25;INS;ROBI;11, 12, 13
+9;AG;Inspection OCG BRC;OP65;Inspection OCG;INS;INSPECTION;S11;OCG;F30;Maintenance préventive;Inspection OCG;AUTO_PANIER;15;INS;BRCI;O2
+9;AB;Inspection CICM;OP64;Inspection CICM;INS;INSPECTION;S8;CICM;F30;Maintenance préventive;Inspection CICM;AUTO_PANIER;45;INS;BRCI;1,3
+9;AH;Inspection RDBP/DDMP;OP67;Inspection RDBP/DDMP;INS;INSPECTION;S16;RDBP/DDMP;F30;Maintenance préventive;Inspection RDBP/DDMP;AUTO_PANIER;15;INS;BRCO;5
+9;AF;Inspection OCG BRI;OP69;Inspection OCG BRI;INS;INSPECTION;S12;OCG + BRI;F30;Maintenance préventive;Inspection OCG BRI;AUTO_PANIER;15;INS;BRII;11
+9;AE;Inspection Bornes;OP61;Inspection bornes;INS;INSPECTION;S9;Borne;F30;Maintenance préventive;Inspection bornes;AUTO_PANIER;60;INS;BORI;11
+9;AJ;Inspection PDL MP;OP73;Inspection PDL;INS;INSPECTION;S15;PDL + MP;F30;Maintenance préventive;Inspection PDL;AUTO_PANIER;15;INS;PDLI;11,21,54,64
+9;AI;Inspection PDL BP;OP74;Inspection PDL;INS;INSPECTION;S14;PDL + BP;F30;Maintenance préventive;Inspection PDL;AUTO_PANIER;15;INS;PDLI;33,43
+9;BB;Revision CICM;OP68;Révision CICM;REV;REVISION;S8;CICM;F30;Maintenance préventive;Révision CICM;AUTO_PANIER;60;REV;BRCR;1,3
+9;BC;Revision BRI;OP70;Révision BRI;REV;REVISION;S10;BRI;F30;Maintenance préventive;Révision BRI;AUTO_PANIER;30;REV;BRIR;12
+9;BJ;Revision PDL MP;OP76;Révision PDL;REV;REVISION;S15;PDL + MP;F30;Maintenance préventive;Révision PDL;AUTO_PANIER;15;REV;PDLR;11,12,21, 35,45
+9;BI;Revision PDL BP;OP77;Révision PDL;REV;REVISION;S14;PDL + BP;F30;Maintenance préventive;Révision PDL;AUTO_PANIER;15;REV;PDLR;55,65
+9;CK;DPCI Cptr Soufflet;OP71;DPCI Cptr Soufflet;CAP;CHANGEMENT APPAREIL;S5;Compteur soufflet;F29;Dépose/Pose;DPCI Cptr Soufflet;AUTO_PANIER;50;VPE;PDLC;20
+9;ED;MHS PDL;OP72;Mise hors service PDL;MHS;MISE HORS SERVICE;S13;PDL;F32;Mise hors service;Mise hors service PDL;AUTO_PANIER;30;MHS;PDLH;10
+9;DD;MES PDL;OP75;Mise en Service PDL;MES;MISE EN SERVICE;S13;PDL;F31;Mise en service;Mise en Service PDL;AUTO_PANIER;60;MES;PDLM;10
+1;1;RELEVE D INDEX;OP1;Relève d'index;REL;RELEVE INDEX;S1;compteur<=16m3;F3;co1 Mise en service;Relève d'index;AUTO_RDV;8;;;
+2;1;RELEVE D INDEX;OP2;Relève d'index;REL;RELEVE INDEX;S1;compteur<=16m3;F5;co2 Sans interruption;Relève d'index;AUTO_RDV;8;;;
+3;1;RELEVE D INDEX;OP3;Relève d'index;REL;RELEVE INDEX;S1;compteur<=16m3;F9;co3 Réouverture;Relève d'index;AUTO_RDV;8;;;
+4;1;RELEVE D INDEX;OP4;Relève d'index;REL;RELEVE INDEX;S1;compteur<=16m3;F12;co4 Résiliation totale;Relève d'index;AUTO_RDV;8;;;
+5;1;RELEVE D INDEX;OP5;Relève d'index;REL;RELEVE INDEX;S1;compteur<=16m3;F15;co5 Résiliation partielle;Relève d'index;AUTO_RDV;8;;;
+6;1;RELEVE D INDEX;OP6;Relève d'index;REL;RELEVE INDEX;S1;compteur<=16m3;F16;co6 Modification contractuelle;Relève d'index;AUTO_RDV;8;;;
+7;1;RELEVE D INDEX;OP7;Relève d'index;REL;RELEVE INDEX;S1;compteur<=16m3;F18;co7 Contrôle;Relève d'index;AUTO_RDV;8;;;
+8;1;RELEVE D INDEX;OP8;Relève d'index;REL;RELEVE INDEX;S1;compteur<=16m3;F20;co8 Gestion;Relève d'index;AUTO_RDV;8;;;
+9;1;RELEVE D INDEX;OP9;Relève d'index;REL;RELEVE INDEX;S1;compteur<=16m3;F21;co9 Divers;Relève d'index;AUTO_RDV;8;;;
+4;3;MISE HORS SERVICE;OP10;Mise hors Service Clientèle;MHS;MISE HORS SERVICE;S1;compteur<=16m3;F12;co4 Résiliation totale;Mise hors Service Clientèle;AUTO_RDV;10;;;
+5;3;MISE HORS SERVICE;OP11;Mise hors Service Clientèle;MHS;MISE HORS SERVICE;S1;compteur<=16m3;F15;co5 Résiliation partielle;Mise hors Service Clientèle;AUTO_RDV;10;;;
+9;3;MISE HORS SERVICE;OP12;Mise hors Service Clientèle;MHS;MISE HORS SERVICE;S1;compteur<=16m3;F21;co9 Divers;Mise hors Service Clientèle;AUTO_RDV;10;;;
+1;4;RETABLISSEMENT     ;OP13;Rétablissement;RET;RETABLISSEMENT     ;S1;compteur<=16m3;F3;co1 Mise en service;Rétablissement;AUTO_RDV;15;;;
+2;4;RETABLISSEMENT     ;OP14;Rétablissement;RET;RETABLISSEMENT     ;S1;compteur<=16m3;F5;co2 Sans interruption;Rétablissement;AUTO_RDV;15;;;
+3;4;RETABLISSEMENT     ;OP15;Rétablissement;RET;RETABLISSEMENT     ;S1;compteur<=16m3;F9;co3 Réouverture;Rétablissement;AUTO_RDV;15;;;
+9;4;RETABLISSEMENT     ;OP16;Rétablissement;RET;RETABLISSEMENT     ;S1;compteur<=16m3;F21;co9 Divers;Rétablissement;AUTO_RDV;15;;;
+2C;4;RETABLISSEMENT     ;OP17;Rétablissement;RET;RETABLISSEMENT     ;S1;compteur<=16m3;F8;co2C;Rétablissement;AUTO_RDV;15;;;
+2C;4;RETABLISSEMENT     ;OP18;Rétablissement;RET;RETABLISSEMENT     ;S1;compteur<=16m3;F8;co2C;Rétablissement;AUTO_RDV;15;;;
+2;5;RETABLISSEMENT     ;OP19;Rétablissement;RET;RETABLISSEMENT     ;S2;coupure>XXXj + compteur<=16m3;F5;co2 Sans interruption;Rétablissement;AUTO_RDV;15;;;
+3;5;RETABLISSEMENT     ;OP20;Rétablissement;RET;RETABLISSEMENT     ;S2;coupure>XXXj + compteur<=16m3;F9;co3 Réouverture;Rétablissement;AUTO_RDV;15;;;
+2C;5;RETABLISSEMENT     ;OP21;Rétablissement;RET;RETABLISSEMENT     ;S2;coupure>XXXj + compteur<=16m3;F8;co2C;Rétablissement;AUTO_RDV;15;;;
+2C;5;RETABLISSEMENT     ;OP22;Rétablissement;RET;RETABLISSEMENT     ;S2;coupure>XXXj + compteur<=16m3;F8;co2C;Rétablissement;AUTO_RDV;15;;;
+9;12;MISE GAZ POUR ESSAI;OP23;Mise en gaz pour essai;DIV;DIVERS;S1;compteur<=16m3;F26;co9 Divers + MEGPE;Mise en gaz pour essai;AUTO_RDV;15;;;
+0;30;POSE CPTR GAZ=<16M/H;OP24;Pose compteur;PAP;POSE APPAREIL;S1;compteur<=16m3;F2;co0 Construction de branchement;Pose compteur;AUTO_RDV;22;;;
+1;30;POSE CPTR GAZ=<16M/H;OP25;Pose compteur;PAP;POSE APPAREIL;S1;compteur<=16m3;F3;co1 Mise en service;Pose compteur;AUTO_RDV;22;;;
+3;30;POSE CPTR GAZ=<16M/H;OP26;Pose compteur;PAP;POSE APPAREIL;S1;compteur<=16m3;F9;co3 Réouverture;Pose compteur;AUTO_RDV;22;;;
+9;30;POSE CPTR GAZ=<16M/H;OP27;Pose compteur;PAP;POSE APPAREIL;S1;compteur<=16m3;F21;co9 Divers;Pose compteur;AUTO_RDV;22;;;
+0;32;POSE CPT=<16 +DETEND;OP28;Pose compteur et détendeur;PAP;POSE APPAREIL;S3;compteur<=16m3 + Détendeur;F2;co0 Construction de branchement;Pose compteur et détendeur;AUTO_RDV;26;;;
+1;32;POSE CPT=<16 +DETEND;OP29;Pose compteur et détendeur;PAP;POSE APPAREIL;S3;compteur<=16m3 + Détendeur;F3;co1 Mise en service;Pose compteur et détendeur;AUTO_RDV;26;;;
+3;32;POSE CPT=<16 +DETEND;OP30;Pose compteur et détendeur;PAP;POSE APPAREIL;S3;compteur<=16m3 + Détendeur;F9;co3 Réouverture;Pose compteur et détendeur;AUTO_RDV;26;;;
+9;32;POSE CPT=<16 +DETEND;OP31;Pose compteur et détendeur;PAP;POSE APPAREIL;S3;compteur<=16m3 + Détendeur;F21;co9 Divers;Pose compteur et détendeur;AUTO_RDV;26;;;
+4;36;DEPOSE CPTR GAZ;OP32;Dépose compteur;DPA;DEPOSE APPAREIL;S1;compteur<=16m3;F12;co4 Résiliation totale;Dépose compteur;AUTO_RDV;20;;;
+5;36;DEPOSE CPTR GAZ;OP33;Dépose compteur;DPA;DEPOSE APPAREIL;S1;compteur<=16m3;F15;co5 Résiliation partielle;Dépose compteur;AUTO_RDV;20;;;
+7;36;DEPOSE CPTR GAZ;OP34;Dépose compteur;DPA;DEPOSE APPAREIL;S1;compteur<=16m3;F18;co7 Contrôle;Dépose compteur;AUTO_RDV;20;;;
+9;36;DEPOSE CPTR GAZ;OP35;Dépose compteur;DPA;DEPOSE APPAREIL;S1;compteur<=16m3;F21;co9 Divers;Dépose compteur;AUTO_RDV;20;;;
+4;37;DEPOSE CPTR + DETEND;OP36;Dépose compteur;DPA;DEPOSE APPAREIL;S3;compteur<=16m3 + détendeur;F12;co4 Résiliation totale;Dépose compteur;AUTO_RDV;20;;;
+5;37;DEPOSE CPTR + DETEND;OP37;Dépose compteur + détendeur;DPA;DEPOSE APPAREIL;S3;compteur<=16m3 + détendeur;F15;co5 Résiliation partielle;Dépose compteur + détendeur;AUTO_RDV;20;;;
+7;37;DEPOSE CPTR + DETEND;OP38;Dépose compteur + détendeur;DPA;DEPOSE APPAREIL;S3;compteur<=16m3 + détendeur;F18;co7 Contrôle;Dépose compteur + détendeur;AUTO_RDV;20;;;
+9;37;DEPOSE CPTR + DETEND;OP39;Dépose compteur + détendeur;DPA;DEPOSE APPAREIL;S3;compteur<=16m3 + détendeur;F21;co9 Divers;Dépose compteur + détendeur;AUTO_RDV;20;;;
+4;N4;RESIL DEMANDE FOUR;OP40;Résiliation demande fournisseur;MHS;MISE HORS SERVICE;S1;compteur<=16m3;F13;co4 Résiliation totale + Demande Commercialisateur;Résiliation demande fournisseur;AUTO_RDV;12;;;
+9;P9;CHGT PORTE COFFRET;OP41;Changement porte de coffret;CAP;CHANGEMENT APPAREIL;S6;Porte de coffret;F21;co9 Divers;Changement porte de coffret;AUTO_RDV;11;;;
+9;W5;RTABL AP COUP IMPAYE;OP42;Rétablissement après impayé;RET;RETABLISSEMENT     ;S4;compteur<=16m3 + coupé impayé;F21;co9 Divers;Rétablissement après impayé;AUTO_RDV;15;;;
+2C;W5;RTABL AP COUP IMPAYE;OP43;Rétablissement après impayé;RET;RETABLISSEMENT     ;S4;compteur<=16m3 + coupé impayé;F8;co2C;Rétablissement après impayé;AUTO_RDV;15;;;
+2C;W5;RTABL AP COUP IMPAYE;OP44;Rétablissement après impayé;RET;RETABLISSEMENT     ;S4;compteur<=16m3 + coupé impayé;F8;co2C;Rétablissement après impayé;AUTO_RDV;15;;;
+9;W6;INTERV ENERGIE IMMED;OP45;Fin de Maintien d'Alimentation;COU;COUPURE;S1;compteur<=16m3;F23;co9 Divers + FMA;Fin de Maintien d'Alimentation;AUTO_RDV;10;;;
+2;Y6;CHGT CPTR GAZ VPE;OP46;Changement de compteur;CAP;CHANGEMENT APPAREIL;S1;compteur<=16m3;F7;co2 Sans interruption + VPE;Changement de compteur;AUTO_RDV;26;;;
+3;Y6;CHGT CPTR GAZ VPE;OP47;Changement de compteur;CAP;CHANGEMENT APPAREIL;S1;compteur<=16m3;F11;co3 Réouverture + VPE;Changement de compteur;AUTO_RDV;26;;;
+9;Y6;CHGT CPTR GAZ VPE;OP48;Changement de compteur;CAP;CHANGEMENT APPAREIL;S1;compteur<=16m3;F28;co9 Gestion + VPE;Changement de compteur;AUTO_RDV;26;;;
+8;Z4;COUP IMP OU PAY COM;OP49;Déplacement pour impayé;COU;COUPURE;S1;compteur<=16m3;F1;co 8 Gestion + Impayé recouvrable;Déplacement pour impayé;AUTO_RDV;0;;;
+9;Z4;COUP IMP OU PAY COM;OP50;Déplacement pour impayé;COU;COUPURE;S1;compteur<=16m3;F25;co9 Divers + Impayé recouvrable;Déplacement pour impayé;AUTO_RDV;0;;;
+4;Z5;COUP IMP FERME COM;OP51;Déplacement pour impayé;COU;COUPURE;S1;compteur<=16m3;F14;co4 Résiliation totale + Impayé non-recouvrable;Déplacement pour impayé;AUTO_RDV;0;;;
+8;Z5;COUP IMP FERME COM;OP52;Déplacement pour impayé;COU;COUPURE;S1;compteur<=16m3;F27;co9 Gestion + Impayé non-recouvrable;Déplacement pour impayé;AUTO_RDV;0;;;
+9;Z5;COUP IMP FERME COM;OP53;Déplacement pour impayé;COU;COUPURE;S1;compteur<=16m3;F24;co9 Divers + Impayé non-recouvrable;Déplacement pour impayé;AUTO_RDV;0;;;
+1;Z8;RELEVE SPE DEMAN COM;OP54;Relève d'index;REL;RELEVE INDEX;S1;compteur<=16m3;F4;co1 Mise en service + Demande Commercialisateur;Relève d'index;AUTO_RDV;8;;;
+2;Z8;RELEVE SPE DEMAN COM;OP55;Relève d'index;REL;RELEVE INDEX;S1;compteur<=16m3;F6;co2 Sans interruption + Demande Commercialisateur;Relève d'index;AUTO_RDV;8;;;
+3;Z8;RELEVE SPE DEMAN COM;OP56;Relève d'index;REL;RELEVE INDEX;S1;compteur<=16m3;F10;co3 Réouverture + Demande Commercialisateur;Relève d'index;AUTO_RDV;8;;;
+4;Z8;RELEVE SPE DEMAN COM;OP57;Relève d'index;REL;RELEVE INDEX;S1;compteur<=16m3;F13;co4 Résiliation totale + Demande Commercialisateur;Relève d'index;AUTO_RDV;8;;;
+6;Z8;RELEVE SPE DEMAN COM;OP58;Relève d'index;REL;RELEVE INDEX;S1;compteur<=16m3;F17;co6 Modification contractuelle + Demande Commercialisateur;Relève d'index;AUTO_RDV;8;;;
+7;Z8;RELEVE SPE DEMAN COM;OP59;Relève d'index;REL;RELEVE INDEX;S1;compteur<=16m3;F19;co7 Contrôle + Demande Commercialisateur;Relève d'index;AUTO_RDV;8;;;
+9;Z8;RELEVE SPE DEMAN COM;OP60;Relève d'index;REL;RELEVE INDEX;S1;compteur<=16m3;F22;co9 Divers + Demande Commercialisateur;Relève d'index;AUTO_RDV;8;;;
