@@ -32,7 +32,7 @@ class TranscoAgence
      * @ORM\Column(type="string", nullable=true)
      * @Expose
      */
-    protected $nni;
+    protected $inseeCode;
 
     /**
      * code agence
@@ -98,20 +98,20 @@ class TranscoAgence
     }
 
     /**
-     * @return mixed
+     * @return string
      */
-    public function getNni()
+    public function getInseeCode()
     {
-        return $this->nni;
+        return $this->inseeCode;
     }
 
     /**
-     * @param mixed $nni
+     * @param string $inseeCode
      * @return TranscoAgence
      */
-    public function setNni($nni)
+    public function setInseeCode($inseeCode)
     {
-        $this->nni = $nni;
+        $this->inseeCode = $inseeCode;
         return $this;
     }
 
