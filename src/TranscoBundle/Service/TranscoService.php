@@ -4,9 +4,13 @@ namespace TranscoBundle\Service;
 
 use Doctrine\ORM\EntityManager;
 use JMS\DiExtraBundle\Annotation as DI;
+use TranscoBundle\Entity\TranscoAgence;
+use TranscoBundle\Entity\TranscoDisco;
+use TranscoBundle\Entity\TranscoOptic;
 use TranscoBundle\Repository\TranscoAgenceRepository;
 use TranscoBundle\Repository\TranscoDiscoRepository;
 use TranscoBundle\Repository\TranscoOpticRepository;
+use TranscoBundle\Service\SoapService\ExposedWSService;
 
 /**
  * Class TranscoService
@@ -59,24 +63,59 @@ class TranscoService
      */
     public function getDelegationBiResponse($criteria)
     {
-        $response = $this->transcoOpticRepo->findDelegationBI($criteria);
-        if(sizeof($response) !== 1){
-            return $response;
+        $return = [];
+        $result = $this->transcoOpticRepo->findDelegationBI($criteria);
+        if (empty($result)) {
+            return ExposedWSService::ERROR_NOT_FOUND;
+        } elseif (sizeof($result) !== 1 && sizeof($result[0]) != 4) {
+            return ExposedWSService::ERROR_IMPOSSIBLE_TRANSCODIFICATION;
         }
-        return reset($response[0]);
+        foreach ($result[0] as $key => $item) {
+            if ($key === "codeNatInter") {
+                $return[] = ['NomCritere' => TranscoOptic::CODE_NAT_INT, 'ValeurCritere' => $item];
+            }
+            if ($key === 'finalCode') {
+                $return[] = ['NomCritere' => TranscoOptic::CODE_FINALITE, 'ValeurCritere' => $item];
+            }
+            if ($key === 'segmentationCode') {
+                $return[] = ['NomCritere' => TranscoOptic::CODE_SEGMENTATION, 'ValeurCritere' => $item];
+            }
+            if ($key === 'programmingMode') {
+                $return[] = ['NomCritere' => TranscoOptic::PROGRAMMING_MODE, 'ValeurCritere' => $item];
+            }
+        }
+        return $return;
     }
 
     /**
      * @param $criteria
      * @return array|mixed
      */
-    public function getDelegationOttResponse($criteria)
+    public function getDelegationOtResponse($criteria)
     {
-        $response = $this->transcoOpticRepo->findDelegationOT($criteria);
-        if(sizeof($response) !== 1){
-            return $response;
+        $return = [];
+        $result = $this->transcoOpticRepo->findDelegationOT($criteria);
+        if (empty($result)) {
+            return ExposedWSService::ERROR_NOT_FOUND;
+        } elseif (sizeof($result) !== 1) {
+            return ExposedWSService::ERROR_IMPOSSIBLE_TRANSCODIFICATION;
         }
-        return reset($response[0]);
+        foreach ($result[0] as $key => $item) {
+            if ($key === "codeNatInter") {
+                $return[] = ['NomCritere' => TranscoOptic::CODE_NAT_INT, 'ValeurCritere' => $item];
+            }
+            if ($key === 'finalCode') {
+                $return[] = ['NomCritere' => TranscoOptic::CODE_FINALITE, 'ValeurCritere' => $item];
+            }
+            if ($key === 'segmentationCode') {
+                $return[] = ['NomCritere' => TranscoOptic::CODE_SEGMENTATION, 'ValeurCritere' => $item];
+            }
+            if ($key === 'programmingMode') {
+                $return[] = ['NomCritere' => TranscoOptic::PROGRAMMING_MODE, 'ValeurCritere' => $item];
+            }
+        }
+
+        return $return;
     }
 
     /**
@@ -85,29 +124,64 @@ class TranscoService
      */
     public function getEnvoiDirgtResponse($criteria)
     {
-        $response = [];
-        $discoResponse = $this->transcoDiscoRepo->findEnvoiDirgDiscoRequest($criteria);
-        if(sizeof($discoResponse) !== 1){
-            array_merge($response, $discoResponse);
+        $return = [];
+        $discoResult = $this->transcoDiscoRepo->findEnvoiDirgDiscoRequest($criteria);
+
+        if (empty($discoResult)) {
+            return ExposedWSService::ERROR_NOT_FOUND;
+        } elseif (sizeof($discoResult) !== 1 ) {
+            return ExposedWSService::ERROR_IMPOSSIBLE_TRANSCODIFICATION;
         }
-        $agenceResponse = $this->transcoAgenceRepo->findEnvoiDirgAgenceRequest($criteria);
-        if(sizeof($response) !== 1){
-            array_merge($response, $agenceResponse);
+        foreach ($discoResult[0] as $key => $item) {
+            if ($key === "natOp") {
+                $return[] = ['NomCritere' => TranscoDisco::CODE_NAT_OP, 'ValeurCritere' => $item];
+            }
+            if ($key === 'codeObject') {
+                $return[] = ['NomCritere' => TranscoDisco::CODE_OBJECT, 'ValeurCritere' => $item];
+            }
         }
-        return reset($response[0]);
+
+        $agenceResult = $this->transcoAgenceRepo->findEnvoiDirgAgenceRequest($criteria);
+        if (empty($agenceResult)) {
+            return ExposedWSService::ERROR_NOT_FOUND;
+        } elseif (sizeof($agenceResult) !== 1 ) {
+            return ExposedWSService::ERROR_IMPOSSIBLE_TRANSCODIFICATION;
+        }
+
+        foreach ($agenceResult[0] as $key => $item) {
+            if ($key === "destinataire") {
+                $return[] = ['NomCritere' => TranscoAgence::DESTINATAIRE, 'ValeurCritere' => $item];
+            }
+            if ($key === 'center') {
+                $return[] = ['NomCritere' => TranscoAgence::CENTRE, 'ValeurCritere' => $item];
+            }
+        }
+        if (sizeof($return) != 4) {
+            return ExposedWSService::ERROR_NOT_FOUND;
+        }
+        return $return;
     }
 
     /**
      * @param $criteria
      * @return array|mixed
      */
-    public function getPublicationOttRespons($criteria)
+    public function getPublicationOttResponse($criteria)
     {
-        $response = $this->transcoAgenceRepo->findPublicationOtRequest($criteria);
-        if(sizeof($response) !== 1){
-            return $response;
+        $return = [];
+        $result = $this->transcoAgenceRepo->findPublicationOtRequest($criteria);
+
+        if (empty($result)) {
+            return ExposedWSService::ERROR_NOT_FOUND;
+        } elseif (sizeof($result) !== 1) {
+            return ExposedWSService::ERROR_IMPOSSIBLE_TRANSCODIFICATION;
         }
-        return reset($response[0]);
+        foreach ($result[0] as $key => $item) {
+            if ($key === "pr") {
+                $return[] = ['NomCritere' => TranscoAgence::PR, 'ValeurCritere' => $item];
+            }
+        }
+        return $return;
     }
 }
 
