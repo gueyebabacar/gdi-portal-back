@@ -8,10 +8,14 @@ use Doctrine\ORM\Mapping as ORM;
  * TranscoDestTerrSite
  *
  * @ORM\Table(name="transco_gmao")
- * @ORM\Entity(repositoryClass="TranscoBundle\Repository\TranscoRepository")
+ * @ORM\Entity()
  */
 class TranscoGmao
 {
+    const TYPE_DE_TRAVAIL = "TypeDeTravail";
+    const GROUPE_DE_GAMME = "GroupeDeGamme";
+    const COMPTEUR = "Compteur";
+
     /**
      * @var int
      * @ORM\Column(name="id", type="integer")
@@ -19,7 +23,6 @@ class TranscoGmao
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     protected $id;
-
 
     /**
      * type de travail
