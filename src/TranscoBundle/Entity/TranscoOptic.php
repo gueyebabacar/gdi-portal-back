@@ -6,7 +6,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * TranscoDestTerrSite
+ * TranscoOptic
  *
  * @ORM\Table(name="transco_optic")
  * @ORM\Entity(repositoryClass="TranscoBundle\Repository\TranscoOpticRepository")
@@ -342,6 +342,15 @@ class TranscoOptic
     }
 
     /**
+     * @param $gmaos
+     * @return mixed
+     */
+    public function setGmaos($gmaos)
+    {
+        return $this->gmaos = $gmaos;
+    }
+
+    /**
      * @param $gmao
      * @return $this
      */
@@ -349,7 +358,6 @@ class TranscoOptic
     {
         if (!$this->gmaos->contains($gmao)) {
             $this->gmaos->add($gmao);
-            $gmao->setOptic($this);
         }
         return $this;
     }
@@ -362,7 +370,6 @@ class TranscoOptic
     {
         if ($this->gmaos->contains($gmao)) {
             $this->gmaos->removeElement($gmao);
-            $gmao->setOptic(null);
         }
         return $this;
     }
