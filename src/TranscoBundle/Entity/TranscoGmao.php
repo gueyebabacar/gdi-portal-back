@@ -44,7 +44,7 @@ class TranscoGmao
      * compteur
      *
      * @var string
-     * @ORM\Column(type="string", nullable=true)
+     * @ORM\Column(type="integer", nullable=true)
      */
     protected $counter;
 
