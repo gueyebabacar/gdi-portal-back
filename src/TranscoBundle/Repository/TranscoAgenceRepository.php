@@ -16,13 +16,20 @@ class TranscoAgenceRepository extends EntityRepository
      * @param $criteria
      * @return array
      */
-    public function findPublicationOtRequest($criteria)
+    public function findEnvoiDirgAgenceRequest($criteria)
     {
         $qb = $this->createQueryBuilder('ta');
-        $qb->select('ta.pr')
-            ->where('ta.codeAgence = :codeAgence')
-            ->setParameter('codeAgence', $criteria['value']);
-
+        $qb->select('ta.destinataire, ta.center');
+        foreach ($criteria as $item) {
+            if ($item['name'] === TranscoAgence::CODE_AGENCE) {
+                $qb->where('ta.codeAgence = :codeAgence')
+                    ->setParameter('codeAgence', $item['value']);
+            }
+            if ($item['name'] === TranscoAgence::CODE_INSEE) {
+                $qb->andWhere('ta.inseeCode = :inseeCode')
+                    ->setParameter('inseeCode', $item['value']);
+            }
+        }
         return $qb->getQuery()->getArrayResult();
     }
 
@@ -30,18 +37,15 @@ class TranscoAgenceRepository extends EntityRepository
      * @param $criteria
      * @return array
      */
-    public function findEnvoiDirgAgenceRequest($criteria)
+    public function findPublicationOtRequest($criteria)
     {
         $qb = $this->createQueryBuilder('ta');
-        $qb->select('ta.codeAgence, ta.nni');
+        $qb->select('ta.pr');
+
         foreach ($criteria as $item) {
-        if ($item['name'] === TranscoAgence::CODE_AGENCE) {
-                $qb->where('ta.destinataire = :destinataire')
-                    ->setParameter('destinataire', $criteria['value']);
-            }
-            if ($item['name'] === TranscoAgence::CENTRE) {
-                $qb->andWhere('ta.center= :center')
-                    ->setParameter('center', $criteria['value']);
+            if ($item['name'] === TranscoAgence::CODE_AGENCE) {
+                $qb->andWhere('ta.codeAgence = :codeAgence')
+                    ->setParameter('codeAgence', $item['value']);
             }
         }
         return $qb->getQuery()->getArrayResult();
