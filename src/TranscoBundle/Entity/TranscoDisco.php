@@ -12,11 +12,9 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class TranscoDisco
 {
-    const CODE_NAT_INT = "CodeNatureIntervention";
-    const CODE_FINALITE  = "CodeFinalite";
-    const CODE_SEGMENTATION = "CodeSegmentation";
     const CODE_NAT_OP = "CodeNatureOperation";
     const CODE_OBJECT = "CodeObjet";
+    const SOURCE = "Source";
 
     /**
      * @var int

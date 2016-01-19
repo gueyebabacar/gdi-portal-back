@@ -13,9 +13,10 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class TranscoOptic
 {
-    const TYPE_DE_TRAVAIL = "TypeDeTravail";
-    const GROUPE_DE_GAMME = "GroupeDeGamme";
-    const COMPTEUR = "Compteur";
+    const CODE_NAT_INT = "CodeNatureIntervention";
+    const CODE_SEGMENTATION = "CodeSegmentation";
+    const CODE_FINALITE  = "CodeFinalite";
+    const PROGRAMMING_MODE  = "ModeProgrammation";
 
     /**
      * @var int

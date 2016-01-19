@@ -14,7 +14,10 @@ use JMS\Serializer\Annotation\Expose;
 class TranscoAgence
 {
     const CODE_AGENCE = "CodeAgence";
+    const CODE_INSEE = "CodeInsee";
+    const DESTINATAIRE = "Destinataire";
     const CENTRE = "Centre";
+    const PR = "PR";
 
     /**
      * @var int
