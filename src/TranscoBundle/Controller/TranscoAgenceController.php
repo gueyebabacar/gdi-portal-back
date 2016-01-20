@@ -60,7 +60,7 @@ class TranscoAgenceController extends FOSRestController
 
     /**
      * Finds and displays a TranscoAgence entity.
-     * @Rest\Get("/transcoptic/{transcoAgenceId}")
+     * @Rest\Get("/transcagence/{transcoAgenceId}")
      * @Rest\View
      *
      * @ApiDoc(
