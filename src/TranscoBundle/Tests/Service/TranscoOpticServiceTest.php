@@ -70,6 +70,8 @@ class TranscoOpticServiceTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     *
+     * @test
      * @group transco
      */
     public function testGetAll()
@@ -90,6 +92,8 @@ class TranscoOpticServiceTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     *
+     * @test
      * @group transco
      */
     public function testCreate()
@@ -133,6 +137,8 @@ class TranscoOpticServiceTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     *
+     * @test
      * @group transco
      */
     public function testGet()
@@ -153,6 +159,8 @@ class TranscoOpticServiceTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     *
+     * @test
      * @group transco
      */
     public function testEdit()
@@ -206,10 +214,13 @@ class TranscoOpticServiceTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     *
+     * @test
      * @group transco
      */
     public function testDelete()
     {
+        $this->markTestSkipped();
         $transcoOptic = new TranscoOptic();
 
         $this->emProphecy
@@ -263,7 +274,7 @@ class TranscoOpticServiceTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @group transco
+     * tearDown
      */
     public function tearDown()
     {

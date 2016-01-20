@@ -6,7 +6,6 @@ use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityRepository;
 use TranscoBundle\Entity\TranscoAgence;
 use TranscoBundle\Form\TranscoAgenceType;
-use TranscoBundle\Repository\TranscoAgenceRepository;
 use TranscoBundle\Service\TranscoAgenceService;
 use Prophecy\Argument;
 use Prophecy\Prophecy\ObjectProphecy;
@@ -47,7 +46,7 @@ class TranscoAgenceServiceTest extends \PHPUnit_Framework_TestCase
     private $transcoService;
 
     /**
-     * @group transco
+     * setUp
      */
     public function setUp()
     {
@@ -69,6 +68,9 @@ class TranscoAgenceServiceTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * testGetAll
+     *
+     * @test
      * @group transco
      */
     public function testGetAll()
@@ -89,6 +91,9 @@ class TranscoAgenceServiceTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * testCreate
+     *
+     * @test
      * @group transco
      */
     public function testCreate()
@@ -132,6 +137,9 @@ class TranscoAgenceServiceTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * testGet
+     *
+     * @test
      * @group transco
      */
     public function testGet()
@@ -152,6 +160,9 @@ class TranscoAgenceServiceTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * testEdit
+     *
+     * @test
      * @group transco
      */
     public function testEdit()
@@ -205,6 +216,9 @@ class TranscoAgenceServiceTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * testDelete
+     *
+     * @test
      * @group transco
      */
     public function testDelete()
@@ -255,47 +269,7 @@ class TranscoAgenceServiceTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @group transco
-     */
-    public function testGetEnvoiDIRG()
-    {
-        $transcoRepositoryProphecy = $this->prophet->prophesize(TranscoAgenceRepository::class);
-
-        $this->emProphecy
-            ->getRepository(Argument::exact('TranscoBundle:TranscoAgence'))
-            ->willReturn($transcoRepositoryProphecy->reveal())
-            ->shouldBeCalled();
-
-        $transcoRepositoryProphecy
-            ->findEnvoiDirgAgenceRequest([])
-            ->willReturn([])
-            ->shouldBeCalled();
-
-        $this->assertEquals([], $this->transcoService->getEnvoiDIRG([]));
-    }
-
-     /**
-     * @group transco
-     */
-    public function testGetPublicationOt()
-    {
-        $transcoRepositoryProphecy = $this->prophet->prophesize(TranscoAgenceRepository::class);
-
-        $this->emProphecy
-            ->getRepository(Argument::exact('TranscoBundle:TranscoAgence'))
-            ->willReturn($transcoRepositoryProphecy->reveal())
-            ->shouldBeCalled();
-
-        $transcoRepositoryProphecy
-            ->findPublicationOtRequest([])
-            ->willReturn([])
-            ->shouldBeCalled();
-
-        $this->assertEquals([], $this->transcoService->getPublicationOt([]));
-    }
-
-    /**
-     * @group transco
+     * tearDown
      */
     public function tearDown()
     {

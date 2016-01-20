@@ -3,6 +3,7 @@
 namespace TranscoBundle\Service;
 
 use Doctrine\ORM\EntityManager;
+use TranscoBundle\Entity\TranscoDisco;
 use TranscoBundle\Entity\TranscoOptic;
 use TranscoBundle\Form\TranscoDiscoType;
 use Symfony\Component\Form\FormFactory;
@@ -46,11 +47,12 @@ class TranscoDiscoService
     }
 
     /**
-     * Lists all TranscoDisco entities.
+     * List TranscoDisco
+     * @return array|\TranscoBundle\Entity\TranscoDisco[]
      */
     public function getAll()
     {
-        return $this->em->getRepository('TranscoDisco')->findAll();
+        return $this->em->getRepository('TranscoBundle:TranscoDisco')->findAll();
     }
 
     /**
@@ -78,19 +80,19 @@ class TranscoDiscoService
      */
     public function get($transcoDisco)
     {
-        return $this->em->getRepository('TrancoDisco')->find($transcoDisco);
+        return $this->em->getRepository('TranscoBundle:TranscoDisco')->find($transcoDisco);
     }
 
     /**
      * Displays a form to edit an existing TranscoDisco entity.
      * @param Request $request
      * @param $transcoDiscoId
-     * @return \SvnLastRevisionTask
+     * @return null|object|TranscoOptic
      */
     public function edit(Request $request, $transcoDiscoId)
     {
         /** @var TranscoOptic $transcoOptic */
-        $transcoDisco = $this->em->getRepository('TranscoOptic')->find($transcoDiscoId);
+        $transcoDisco = $this->em->getRepository('TranscoBundle:TranscoDisco')->find($transcoDiscoId);
         $form = $this->formFactory->create(TranscoDiscoType::class, $transcoDisco);
         $form->handleRequest($request);
 
@@ -108,21 +110,8 @@ class TranscoDiscoService
     public function delete($transcoDiscoId)
     {
         /** @var TranscoOptic $transcoOptic */
-        $transcoDisco = $this->em->getRepository('TranscoDisco')->find($transcoDiscoId);
+        $transcoDisco = $this->em->getRepository('TranscoBundle:TranscoDisco')->find($transcoDiscoId);
         $this->em->remove($transcoDisco);
         $this->em->flush();
-    }
-
-    /**
-     * Return CodeOperation, CodeObjet from codeNatureIntervention, CodeFinalite, CodeSegmentation
-     * @param array $data
-     * @return mixed
-     */
-    public function getEnvoiDIRG(array $data){
-        $response =  $this->em->getRepository('TranscoDisco')->findEnvoiDirgAgenceRequest($data);
-        if(sizeof($response) !== 1){
-            return $response;
-        }
-        return reset($response[0]);
     }
 }

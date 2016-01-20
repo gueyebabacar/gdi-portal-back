@@ -61,7 +61,7 @@ class TranscoGmaoControllerTest extends BaseWebTestCase
             $this->headers
         );
         $response = json_decode($this->client->getResponse()->getContent(), true);
-        $this->assertEquals($transcoGmao->getId(), $response['id']);
+        $this->assertEquals($transcoGmao->getCounter(), $response['counter']);
     }
 
     /**

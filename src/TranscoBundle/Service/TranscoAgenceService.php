@@ -2,7 +2,6 @@
 
 namespace TranscoBundle\Service;
 
-
 use Doctrine\ORM\EntityManager;
 use TranscoBundle\Entity\TranscoAgence;
 use TranscoBundle\Form\TranscoAgenceType;
@@ -51,7 +50,7 @@ class TranscoAgenceService
      */
     public function getAll()
     {
-        return $this->em->getRepository('TranscoAgence')->findAll();
+        return $this->em->getRepository('TranscoBundle:TranscoAgence')->findAll();
     }
 
     /**
@@ -79,7 +78,7 @@ class TranscoAgenceService
      */
     public function get($transcoAgenceId)
     {
-        return $this->em->getRepository('TrancoAgence')->find($transcoAgenceId);
+        return $this->em->getRepository('TranscoBundle:TranscoAgence')->find($transcoAgenceId);
     }
 
     /**
@@ -112,31 +111,5 @@ class TranscoAgenceService
         $transcoAgence = $this->em->getRepository('TranscoBundle:TranscoAgence')->find($transcoAgenceId);
         $this->em->remove($transcoAgence);
         $this->em->flush();
-    }
-
-    /**
-     * Return destinataire, center from codeAgence, inseeCode
-     * @param array $data
-     * @return mixed
-     */
-    public function getEnvoiDIRG(array $data){
-        $response =  $this->em->getRepository('TranscoBundle:TranscoAgence')->findEnvoiDirgAgenceRequest($data);
-        if(sizeof($response) !== 1){
-            return $response;
-        }
-        return reset($response[0]);
-    }
-
-    /**
-     * Return pr from codeAgence
-     * @param array $data
-     * @return mixed
-     */
-    public function getPublicationOt(array $data){
-        $response =  $this->em->getRepository('TranscoBundle:TranscoAgence')->findPublicationOtRequest($data);
-        if(sizeof($response) !== 1){
-            return $response;
-        }
-        return reset($response[0]);
     }
 }

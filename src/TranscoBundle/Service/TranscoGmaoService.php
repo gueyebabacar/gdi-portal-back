@@ -2,7 +2,6 @@
 
 namespace TranscoBundle\Service;
 
-
 use Doctrine\ORM\EntityManager;
 use TranscoBundle\Entity\TranscoGmao;
 use TranscoBundle\Form\TranscoGmaoType;
@@ -51,7 +50,7 @@ class TranscoGmaoService
      */
     public function getAll()
     {
-        return $this->em->getRepository('TranscoGmao')->findAll();
+        return $this->em->getRepository('TranscoBundle:TranscoGmao')->findAll();
     }
 
     /**
@@ -79,7 +78,7 @@ class TranscoGmaoService
      */
     public function get($transcoGmaoId)
     {
-        return $this->em->getRepository('TrancoGmao')->find($transcoGmaoId);
+        return $this->em->getRepository('TranscoBundle:TranscoGmao')->find($transcoGmaoId);
     }
 
     /**
@@ -91,7 +90,7 @@ class TranscoGmaoService
     public function edit(Request $request, $transcoGmaoId)
     {
         /** @var TranscoGmao $transcoGmao */
-        $transcoGmao = $this->em->getRepository('TranscoGmao')->find($transcoGmaoId);
+        $transcoGmao = $this->em->getRepository('TranscoBundle:TranscoGmao')->find($transcoGmaoId);
         $form = $this->formFactory->create(TranscoGmaoType::class, $transcoGmao);
         $form->handleRequest($request);
 
@@ -109,7 +108,7 @@ class TranscoGmaoService
     public function delete($transcoGmaoId)
     {
         /** @var TranscoGmao $transcoGmao */
-        $transcoGmao = $this->em->getRepository('TranscoGmao')->find($transcoGmaoId);
+        $transcoGmao = $this->em->getRepository('TranscoBundle:TranscoGmao')->find($transcoGmaoId);
         $this->em->remove($transcoGmao);
         $this->em->flush();
     }

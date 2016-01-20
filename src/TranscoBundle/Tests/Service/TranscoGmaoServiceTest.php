@@ -46,7 +46,7 @@ class TranscoGmaoServiceTest extends \PHPUnit_Framework_TestCase
     private $transcoService;
 
     /**
-     * @group transco
+     * setUp
      */
     public function setUp()
     {
@@ -68,6 +68,8 @@ class TranscoGmaoServiceTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     *
+     * @test
      * @group transco
      */
     public function testGetAll()
@@ -88,6 +90,8 @@ class TranscoGmaoServiceTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     *
+     * @test
      * @group transco
      */
     public function testCreate()
@@ -131,6 +135,8 @@ class TranscoGmaoServiceTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     *
+     * @test
      * @group transco
      */
     public function testGet()
@@ -151,6 +157,8 @@ class TranscoGmaoServiceTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     *
+     * @test
      * @group transco
      */
     public function testEdit()
@@ -204,6 +212,8 @@ class TranscoGmaoServiceTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     *
+     * @test
      * @group transco
      */
     public function testDelete()
@@ -252,7 +262,7 @@ class TranscoGmaoServiceTest extends \PHPUnit_Framework_TestCase
     }
     
     /**
-     * @group transco
+     * tearDown
      */
     public function tearDown()
     {
