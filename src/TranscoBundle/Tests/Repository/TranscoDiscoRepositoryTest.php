@@ -3,92 +3,93 @@
 namespace TranscoBundle\Tests\Repository;
 
 use TranscoBundle\Entity\TranscoDestTerrSite;
+use TranscoBundle\Entity\TranscoDisco;
+use TranscoBundle\Entity\TranscoOptic;
 use TranscoBundle\Repository\TranscoDestTerrSiteRepository;
+use TranscoBundle\Repository\TranscoDiscoRepository;
 use TranscoBundle\Service\SoapService\ExposedWSService;
 use TranscoBundle\Tests\BaseWebTestCase;
 
-class TranscoDestTerrSiteRepositoryTest extends BaseWebTestCase
+class TranscoDiscoRepositoryTest extends BaseWebTestCase
 {
     /**
-     * @var TranscoDestTerrSiteRepository
+     * @var TranscoDiscoRepository
      */
-    private $transcoDestTerrSiteRepo;
+    private $transcoDiscoRepo;
 
+    /**
+     * setUp
+     */
     public function setUp()
     {
         parent::setUp();
-        $this->transcoDestTerrSiteRepo = $this->em->getRepository('TranscoBundle:TranscoDestTerrSite');
+        $this->transcoDiscoRepo = $this->em->getRepository('TranscoBundle:TranscoDisco');
     }
 
     /**
-     * testFindTerritoryFromAtg
+     * @test
+     * @group transco
+     * testFindEnvoiDirgDiscoRequest
      */
-    public function testFindTerritoryFromAtg()
+    public function testFindEnvoiDirgDiscoRequest()
     {
-        $data['criteria'][0]['value'] = 'ATG0';
-        $this->insertTranscoDestTerrSite();
-        $result = $this->transcoDestTerrSiteRepo->findTerritoryFromAtg($data);
-        $this->assertEquals("0", reset($result[0]));
+        $criteria = [
+            [
+                "name" => "CodeNatureIntervention",
+                "value" => "CodeNatInter"
+            ],
+            [
+                "name" => "CodeFinalite",
+                "value" => "FinalCode"
+            ],
+            [
+                "name" => "CodeSegmentation",
+                "value" => "SegmentationCode"
+            ],
+        ];
+        $this->insertTranscoDisco();
+        $result = $this->transcoDiscoRepo->findEnvoiDirgDiscoRequest($criteria);
+        $this->assertEquals('natOp', $result[0]['natOp']);
+        $this->assertEquals('codeObject', $result[0]['codeObject']);
     }
 
-    /**
-     * testFindAdresseeFromAtg
-     */
-    public function testFindAdresseeFromAtg()
-    {
-        $data['criteria'][0]['value'] = 'ATG0';
-        $this->insertTranscoDestTerrSite();
-        $result = $this->transcoDestTerrSiteRepo->findAdresseeFromAtg($data);
-        $this->assertEquals("adresse", reset($result[0]));
-    }
 
-    /**
-     * testFindPrFromAtg
-     */
-    public function testFindPrFromAtg()
-    {
-        $data['criteria'][0]['value'] = 'ATG0';
-        $this->insertTranscoDestTerrSite();
-        $result = $this->transcoDestTerrSiteRepo->findPrFromAtg($data);
-        $this->assertEquals("PR", reset($result[0]));
-    }
-
-    /**
-     * testTindAtgFromTerritoryOrAdressee
-     */
-    public function testFindAtgFromTerritoryOrAdressee()
-    {
-        $data['criteria'][0]['value'] = '0';
-        $data['criteria'][0]['name'] = ExposedWSService::ATG;
-        $this->insertTranscoDestTerrSite();
-        $result = $this->transcoDestTerrSiteRepo->findAtgFromTerritoryOrAdressee($data);
-        $this->assertEquals('ATG0', reset($result[0]));
-
-        $data['criteria'][0]['value'] = 'adresse';
-        $data['criteria'][0]['name'] = ExposedWSService::ADRESSEE;
-        $this->insertTranscoDestTerrSite();
-        $result = $this->transcoDestTerrSiteRepo->findAtgFromTerritoryOrAdressee($data);
-        $this->assertEquals('ATG0', reset($result[0]));
-    }
 
     /**
      *insertTranscoDestTerrSite
      */
-    private function insertTranscoDestTerrSite()
+    private function insertTranscoDisco()
     {
-        $transcoDestTerrSite = new TranscoDestTerrSite();
+        $transcoOptic = new TranscoOptic();
 
-        $transcoDestTerrSite->setIdRefStructureOp('ATG0');
-        $transcoDestTerrSite->setAdressee('adresse');
-        $transcoDestTerrSite->setSite('site');
-        $transcoDestTerrSite->setPr('PR');
-        $transcoDestTerrSite->setTerritory('0');
+        $transcoOptic->setCodeNatInter('CodeNatInter');
+        $transcoOptic->setProgrammingMode('ProgrammingMode');
+        $transcoOptic->setCalibre('Calibre');
+        $transcoOptic->setShortLabel('ShortLabel');
+        $transcoOptic->setCodeTypeOptic('CodeTypeOptic');
+        $transcoOptic->setFinalCode('FinalCode');
+        $transcoOptic->setLabelNatInter('LabelNatInter');
+        $transcoOptic->setSegmentationCode('SegmentationCode');
+        $transcoOptic->setSegmentationLabel('SegmentationLabel');
+        $transcoOptic->setOpticLabel('OpticLabel');
+        $transcoOptic->setFinalLabel('FinalLabel');
 
-        $this->em->persist($transcoDestTerrSite);
+        $transcoDisco = new TranscoDisco();
+
+        $transcoDisco->setCodeObject('codeObject');
+        $transcoDisco->setNatOp('natOp');
+        $transcoDisco->setNatOpLabel('natOpLabel');
+        $transcoDisco->setOptic($transcoOptic);
+
+        $this->em->persist($transcoDisco);
+        $this->em->persist($transcoOptic);
         $this->em->flush();
     }
 
-    protected function tearDown()
+    /**
+     * tearDown
+     */
+    public function tearDown()
     {
         parent::tearDown();
     }

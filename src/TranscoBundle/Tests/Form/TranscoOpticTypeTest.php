@@ -9,6 +9,20 @@ use Symfony\Component\Form\Test\TypeTestCase;
 
 class TranscoOpticTest extends TypeTestCase
 {
+    /**
+     * setUp
+     */
+    public function setUp()
+    {
+        parent::setUp();
+    }
+
+    /**
+     * testSubmitValidData
+     *
+     * @test
+     * @group transco
+     */
     public function testSubmitValidData()
     {
         $formData = array(

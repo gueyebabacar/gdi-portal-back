@@ -2,92 +2,127 @@
 
 namespace TranscoBundle\Tests\Repository;
 
-use TranscoBundle\Entity\TranscoDestTerrSite;
-use TranscoBundle\Repository\TranscoDestTerrSiteRepository;
-use TranscoBundle\Service\SoapService\ExposedWSService;
+use TranscoBundle\Entity\TranscoDisco;
+use TranscoBundle\Entity\TranscoGmao;
+use TranscoBundle\Entity\TranscoOptic;
+use TranscoBundle\Repository\TranscoOpticRepository;
 use TranscoBundle\Tests\BaseWebTestCase;
 
-class TranscoDestTerrSiteRepositoryTest extends BaseWebTestCase
+class TranscoOpticRepositoryTest extends BaseWebTestCase
 {
     /**
-     * @var TranscoDestTerrSiteRepository
+     * @var TranscoOpticRepository
      */
-    private $transcoDestTerrSiteRepo;
+    private $transcoOpticRepo;
 
+    /**
+     * setUp
+     */
     public function setUp()
     {
         parent::setUp();
-        $this->transcoDestTerrSiteRepo = $this->em->getRepository('TranscoBundle:TranscoDestTerrSite');
+        $this->transcoOpticRepo = $this->em->getRepository('TranscoBundle:TranscoOptic');
     }
 
     /**
-     * testFindTerritoryFromAtg
-     */
-    public function testFindTerritoryFromAtg()
-    {
-        $data['criteria'][0]['value'] = 'ATG0';
-        $this->insertTranscoDestTerrSite();
-        $result = $this->transcoDestTerrSiteRepo->findTerritoryFromAtg($data);
-        $this->assertEquals("0", reset($result[0]));
-    }
-
-    /**
-     * testFindAdresseeFromAtg
-     */
-    public function testFindAdresseeFromAtg()
-    {
-        $data['criteria'][0]['value'] = 'ATG0';
-        $this->insertTranscoDestTerrSite();
-        $result = $this->transcoDestTerrSiteRepo->findAdresseeFromAtg($data);
-        $this->assertEquals("adresse", reset($result[0]));
-    }
-
-    /**
-     * testFindPrFromAtg
-     */
-    public function testFindPrFromAtg()
-    {
-        $data['criteria'][0]['value'] = 'ATG0';
-        $this->insertTranscoDestTerrSite();
-        $result = $this->transcoDestTerrSiteRepo->findPrFromAtg($data);
-        $this->assertEquals("PR", reset($result[0]));
-    }
-
-    /**
+     * @test
+     * @group transco
      * testTindAtgFromTerritoryOrAdressee
      */
-    public function testFindAtgFromTerritoryOrAdressee()
+    public function testFindDelegationOT()
     {
-        $data['criteria'][0]['value'] = '0';
-        $data['criteria'][0]['name'] = ExposedWSService::ATG;
-        $this->insertTranscoDestTerrSite();
-        $result = $this->transcoDestTerrSiteRepo->findAtgFromTerritoryOrAdressee($data);
-        $this->assertEquals('ATG0', reset($result[0]));
-
-        $data['criteria'][0]['value'] = 'adresse';
-        $data['criteria'][0]['name'] = ExposedWSService::ADRESSEE;
-        $this->insertTranscoDestTerrSite();
-        $result = $this->transcoDestTerrSiteRepo->findAtgFromTerritoryOrAdressee($data);
-        $this->assertEquals('ATG0', reset($result[0]));
+        $criteria = [
+            [
+                "name" => "TypeDeTravail",
+                "value" => "WorkType"
+            ],
+            [
+                "name" => "GroupDeGamme",
+                "value" => "GroupeDeGamme"
+            ],
+            [
+                "name" => "Compteur",
+                "value" => "Counter"
+            ],
+        ];
+        $this->insertTranscoOptic();
+        $result = $this->transcoOpticRepo->findDelegationOT($criteria);
+        $this->assertEquals('CodeNatInter', $result[0]['codeNatInter']);
+        $this->assertEquals('FinalCode', $result[0]['finalCode']);
+        $this->assertEquals('SegmentationCode', $result[0]['segmentationCode']);
+        $this->assertEquals('ProgrammingMode', $result[0]['programmingMode']);
     }
 
     /**
-     *insertTranscoDestTerrSite
+     * @test
+     * @group transco
+     * testTindAtgFromTerritoryOrAdressee
      */
-    private function insertTranscoDestTerrSite()
+    public function testFindDelegationBI()
     {
-        $transcoDestTerrSite = new TranscoDestTerrSite();
+        $criteria = [
+            [
+                "name" => "CodeNatureOperation",
+                "value" => "natOp"
+            ],
+            [
+                "name" => "CodeObjet",
+                "value" => "codeObject"
+            ]
+        ];
+        $this->insertTranscoOptic();
+        $result = $this->transcoOpticRepo->findDelegationOT($criteria);
+        $this->assertEquals('CodeNatInter', $result[0]['codeNatInter']);
+        $this->assertEquals('FinalCode', $result[0]['finalCode']);
+        $this->assertEquals('SegmentationCode', $result[0]['segmentationCode']);
+        $this->assertEquals('ProgrammingMode', $result[0]['programmingMode']);
+    }
 
-        $transcoDestTerrSite->setIdRefStructureOp('ATG0');
-        $transcoDestTerrSite->setAdressee('adresse');
-        $transcoDestTerrSite->setSite('site');
-        $transcoDestTerrSite->setPr('PR');
-        $transcoDestTerrSite->setTerritory('0');
+    /**
+     *insertTranscoOptic
+     */
+    private function insertTranscoOptic()
+    {
+        $transcoOptic = new TranscoOptic();
 
-        $this->em->persist($transcoDestTerrSite);
+        $transcoOptic->setCodeNatInter('CodeNatInter');
+        $transcoOptic->setProgrammingMode('ProgrammingMode');
+        $transcoOptic->setCalibre('Calibre');
+        $transcoOptic->setShortLabel('ShortLabel');
+        $transcoOptic->setCodeTypeOptic('CodeTypeOptic');
+        $transcoOptic->setFinalCode('FinalCode');
+        $transcoOptic->setLabelNatInter('LabelNatInter');
+        $transcoOptic->setSegmentationCode('SegmentationCode');
+        $transcoOptic->setSegmentationLabel('SegmentationLabel');
+        $transcoOptic->setOpticLabel('OpticLabel');
+        $transcoOptic->setFinalLabel('FinalLabel');
+
+        $transcoGmao = new TranscoGmao();
+        $transcoGmao->setWorkType('WorkType');
+        $transcoGmao->setGroupGame('GroupeDeGamme');
+        $transcoGmao->setCounter('Counter');
+        $transcoGmao->setOptic($transcoOptic);
+
+        $transcoDisco = new TranscoDisco();
+
+        $transcoDisco->setCodeObject('codeObject');
+        $transcoDisco->setNatOp('natOp');
+        $transcoDisco->setNatOpLabel('natOpLabel');
+        $transcoDisco->setOptic($transcoOptic);
+
+        $transcoOptic->addGmao($transcoGmao);
+        $transcoOptic->setDisco($transcoDisco);
+
+        $this->em->persist($transcoDisco);
+        $this->em->persist($transcoGmao);
+        $this->em->persist($transcoOptic);
+
         $this->em->flush();
     }
 
+    /**
+     * tearDown
+     */
     protected function tearDown()
     {
         parent::tearDown();

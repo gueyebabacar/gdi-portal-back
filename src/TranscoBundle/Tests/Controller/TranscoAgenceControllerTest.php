@@ -23,7 +23,10 @@ class TranscoAgenceControllerTest extends BaseWebTestCase
     }
 
     /**
+     * testGetAllAction
      *
+     * @test
+     * @group transco
      */
     public function testGetAllAction()
     {
@@ -39,7 +42,10 @@ class TranscoAgenceControllerTest extends BaseWebTestCase
     }
 
     /**
+     * testGetAction
      *
+     * @test
+     * @group transco
      */
     public function testGetAction()
     {
@@ -59,7 +65,10 @@ class TranscoAgenceControllerTest extends BaseWebTestCase
     }
 
     /**
-     *testCreateAction
+     * testCreateAction
+     *
+     * @test
+     * @group transco
      */
     public function testCreateAction()
     {
@@ -94,7 +103,10 @@ class TranscoAgenceControllerTest extends BaseWebTestCase
     }
 
     /**
-     *testNewAction
+     * testNewAction
+     *
+     * @test
+     * @group transco
      */
     public function testEditAction()
     {
@@ -120,7 +132,10 @@ class TranscoAgenceControllerTest extends BaseWebTestCase
     }
 
     /**
-     *testDeleteAction
+     * testDeleteAction
+     *
+     * @test
+     * @group transco
      */
     public function testDeleteAction()
     {
@@ -141,7 +156,10 @@ class TranscoAgenceControllerTest extends BaseWebTestCase
     }
 
     /**
+     * insertTranscoAgence
      *
+     * @test
+     * @group transco
      */
     public function insertTranscoAgence()
     {
@@ -161,6 +179,9 @@ class TranscoAgenceControllerTest extends BaseWebTestCase
         $this->em->flush();
     }
 
+    /**
+     * tearDown
+     */
     public function tearDown()
     {
         parent::tearDown();

@@ -7,6 +7,20 @@ use Symfony\Component\Form\Test\TypeTestCase;
 
 class TranscoDiscoTypeTest extends TypeTestCase
 {
+    /**
+     * setUp
+     */
+    public function setUp()
+    {
+        parent::setUp();
+    }
+
+    /**
+     * testSubmitValidData
+     *
+     * @test
+     * @group transco
+     */
     public function testSubmitValidData()
     {
         $formData = array(

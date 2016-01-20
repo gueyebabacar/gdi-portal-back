@@ -7,9 +7,10 @@ use TranscoBundle\Entity\TranscoDisco;
 class TranscoDiscoTest extends \PHPUnit_Framework_TestCase
 {
     /**
+     * testTranscoDiscoSettersGetters
+     *
      * @test
-     * @group gdi
-     * @group entity
+     * @group transco
      */
     public function testTranscoDiscoSettersGetters()
     {

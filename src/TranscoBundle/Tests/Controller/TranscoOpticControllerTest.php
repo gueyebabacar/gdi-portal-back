@@ -19,11 +19,14 @@ class TranscoOpticControllerTest extends BaseWebTestCase
     {
         parent::setUp();
 
-        $this->headers = ['HTTP_gaiaId' => 'AO4620', 'Content-Type' => 'multipart/form-data'];
+        $this->headers = ['Content-Type' => 'multipart/form-data'];
     }
 
     /**
+     * testGetAllAction
      *
+     * @test
+     * @group transco
      */
     public function testGetAllAction()
     {
@@ -39,7 +42,10 @@ class TranscoOpticControllerTest extends BaseWebTestCase
     }
 
     /**
+     * testGetAction
      *
+     * @test
+     * @group transco
      */
     public function testGetAction()
     {
@@ -59,7 +65,10 @@ class TranscoOpticControllerTest extends BaseWebTestCase
     }
 
     /**
-     *testCreateAction
+     * testCreateAction
+     *
+     * @test
+     * @group transco
      */
     public function testCreateAction()
     {
@@ -105,7 +114,10 @@ class TranscoOpticControllerTest extends BaseWebTestCase
     }
 
     /**
-     *testNewAction
+     * testEditAction
+     *
+     * @test
+     * @group transco
      */
     public function testEditAction()
     {
@@ -131,7 +143,10 @@ class TranscoOpticControllerTest extends BaseWebTestCase
     }
 
     /**
-     *testDeleteAction
+     * testDeleteAction
+     *
+     * @test
+     * @group transco
      */
     public function testDeleteAction()
     {
@@ -152,7 +167,7 @@ class TranscoOpticControllerTest extends BaseWebTestCase
     }
 
     /**
-     *
+     * insertTranscoOptic
      */
     public function insertTranscoOptic()
     {
@@ -177,6 +192,9 @@ class TranscoOpticControllerTest extends BaseWebTestCase
         $this->em->flush();
     }
 
+    /**
+     * tearDown
+     */
     public function tearDown()
     {
         parent::tearDown();

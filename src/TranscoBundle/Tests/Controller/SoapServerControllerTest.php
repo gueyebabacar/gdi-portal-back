@@ -2,7 +2,11 @@
 
 namespace TranscoBundle\Tests\Controller;
 
+use TranscoBundle\Entity\TranscoAgence;
 use TranscoBundle\Entity\TranscoDestTerrSite;
+use TranscoBundle\Entity\TranscoDisco;
+use TranscoBundle\Entity\TranscoGmao;
+use TranscoBundle\Entity\TranscoOptic;
 use TranscoBundle\Tests\BaseWebTestCase;
 use Symfony\Component\PropertyInfo\Type;
 
@@ -28,14 +32,15 @@ class SoapServerControllerTest extends BaseWebTestCase
     }
 
     /**
+     * testInterfaceServiceTranscoActionSuccess
+     *
      * @test
-     * @group functional
-     * @group SoapServerController
+     * @group transco
      */
     public function testInterfaceServiceTranscoActionSuccess()
     {
         $this->markTestSkipped();
-        $this->insertTranscoDestTerrSite();
+        $this->insertData();
 
         $wsdl = $this->wsdls['serviceTransco']['filePath'];
         $location = $this->wsdls['serviceTransco']['location'];
@@ -69,19 +74,54 @@ class SoapServerControllerTest extends BaseWebTestCase
     }
 
     /**
-     *insertTranscoDestTerrSite
+     * insertData
      */
-    private function insertTranscoDestTerrSite()
+    private function insertData()
     {
-        $transcoDestTerrSite = new TranscoDestTerrSite();
+        $transcoOptic = new TranscoOptic();
 
-        $transcoDestTerrSite->setIdRefStructureOp('ATG0');
-        $transcoDestTerrSite->setAdressee('adresse');
-        $transcoDestTerrSite->setSite('site');
-        $transcoDestTerrSite->setPr('PR');
-        $transcoDestTerrSite->setTerritory('0');
+        $transcoOptic->setCodeNatInter('CodeNatInter');
+        $transcoOptic->setProgrammingMode('ProgrammingMode');
+        $transcoOptic->setCalibre('Calibre');
+        $transcoOptic->setShortLabel('ShortLabel');
+        $transcoOptic->setCodeTypeOptic('CodeTypeOptic');
+        $transcoOptic->setFinalCode('FinalCode');
+        $transcoOptic->setLabelNatInter('LabelNatInter');
+        $transcoOptic->setSegmentationCode('SegmentationCode');
+        $transcoOptic->setSegmentationLabel('SegmentationLabel');
+        $transcoOptic->setOpticLabel('OpticLabel');
+        $transcoOptic->setFinalLabel('FinalLabel');
 
-        $this->em->persist($transcoDestTerrSite);
+        $transcoGmao = new TranscoGmao();
+        $transcoGmao->setWorkType('WorkType');
+        $transcoGmao->setGroupGame('GroupeDeGamme');
+        $transcoGmao->setCounter('Counter');
+        $transcoGmao->setOptic($transcoOptic);
+
+        $transcoDisco = new TranscoDisco();
+
+        $transcoDisco->setCodeObject('codeObject');
+        $transcoDisco->setNatOp('natOp');
+        $transcoDisco->setNatOpLabel('natOpLabel');
+        $transcoDisco->setOptic($transcoOptic);
+
+        $transcoOptic->addGmao($transcoGmao);
+        $transcoOptic->setDisco($transcoDisco);
+
+        $transcoAgence = new TranscoAgence();
+
+        $transcoAgence->setInseeCode('CodeInsee');
+        $transcoAgence->setCodeAgence('CodeAgence');
+        $transcoAgence->setAgenceLabel('AgenceLabel');
+        $transcoAgence->setCenter('Center');
+        $transcoAgence->setDestinataire('Dest');
+        $transcoAgence->setPr('Pr');
+
+        $this->em->persist($transcoAgence);
+        $this->em->persist($transcoDisco);
+        $this->em->persist($transcoGmao);
+        $this->em->persist($transcoOptic);
+
         $this->em->flush();
     }
 }
