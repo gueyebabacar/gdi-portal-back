@@ -60,7 +60,7 @@ class TranscoGmaoController extends FOSRestController
 
     /**
      * Finds and displays a TranscoGmao entity.
-     * @Rest\Get("/transcoGmao/{transcoGmaoId}")
+     * @Rest\Get("/transcogmao/{transcoGmaoId}")
      * @Rest\View
      *
      * @ApiDoc(
@@ -103,7 +103,7 @@ class TranscoGmaoController extends FOSRestController
 
     /**
      * Deletes a TranscoGmao entity.
-     * @Rest\Get("/transcoGmao/{transcoGmaoId}/delete")
+     * @Rest\Get("/transcogmao/{transcoGmaoId}/delete")
      * @Rest\View
      *
      * @ApiDoc(

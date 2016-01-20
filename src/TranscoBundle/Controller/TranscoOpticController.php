@@ -26,7 +26,7 @@ class TranscoOpticController extends FOSRestController
 
     /**
      * Lists all TranscoOptic entities.
-     * @Rest\Get("/transcoptic/all")
+     * @Rest\Get("/transcooptic/all")
      * @Rest\View
      *
      * @ApiDoc(
@@ -42,7 +42,7 @@ class TranscoOpticController extends FOSRestController
 
     /**
      * Creates a new TranscoOptic entity.
-     * @Rest\Post("/transcoptic/create")
+     * @Rest\Post("/transcooptic/create")
      * @Rest\View
      *
      * @ApiDoc(
@@ -60,7 +60,7 @@ class TranscoOpticController extends FOSRestController
 
     /**
      * Finds and displays a TranscoOptic entity.
-     * @Rest\Get("/transcoptic/{transcoOpticId}")
+     * @Rest\Get("/transcooptic/{transcoOpticId}")
      * @Rest\View
      *
      * @ApiDoc(
@@ -81,7 +81,7 @@ class TranscoOpticController extends FOSRestController
 
     /**
      * Displays a form to edit an existing TranscoOptic entity.
-     * @Rest\Post("/transconatureinter/{transcoOpticId}/update")
+     * @Rest\Post("/transcooptic/{transcoOpticId}/update")
      * @Rest\View
      *
      * @ApiDoc(
@@ -103,7 +103,7 @@ class TranscoOpticController extends FOSRestController
 
     /**
      * Deletes a TranscoOptic entity.
-     * @Rest\Get("/transcoptic/{transcoOpticId}/delete")
+     * @Rest\Get("/transcooptic/{transcoOpticId}/delete")
      * @Rest\View
      *
      * @ApiDoc(
