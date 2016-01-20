@@ -1,14 +1,18 @@
-transcodestersite:
+transcoagence:
     type: rest
-    resource: @TranscoBundle/Controller/TranscoDestTerrSiteController.php
+    resource: @TranscoBundle/Controller/TranscoAgenceController.php
 
-transconatureope:
+transcodisco:
     type: rest
-    resource: @TranscoBundle/Controller/TranscoNatureOpeController.php
+    resource: @TranscoBundle/Controller/TranscoDiscoController.php
 
-transconatureinter:
+transcogmao:
     type: rest
-    resource: @TranscoBundle/Controller/TranscoNatureInterController.php
+    resource: @TranscoBundle/Controller/TranscoGmaoController.php
+
+transcoOptic:
+    type: rest
+    resource: @TranscoBundle/Controller/TranscoOpticController.php
 
 soap:
     resource: TranscoBundle\Controller\SoapServerController
