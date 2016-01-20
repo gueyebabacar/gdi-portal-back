@@ -6,7 +6,7 @@ use FOS\RestBundle\Controller\Annotations\RouteResource;
 use FOS\RestBundle\Controller\FOSRestController;
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 use TranscoBundle\Entity\TranscoDisco;
-use TranscoBundle\Service\TranscoOpticService;
+use TranscoBundle\Service\TranscoDiscoService;
 use Symfony\Component\HttpFoundation\Request;
 use JMS\DiExtraBundle\Annotation as DI;
 use FOS\RestBundle\Controller\Annotations as Rest;
@@ -19,7 +19,7 @@ class TranscoDiscoController extends FOSRestController
 {
 
     /**
-     * @var TranscoOpticService
+     * @var TranscoDiscoService
      * @DI\Inject("portal.service.transcoDisco")
      */
     protected $transcoDiscoService;
@@ -60,7 +60,7 @@ class TranscoDiscoController extends FOSRestController
 
     /**
      * Finds and displays a TranscoDisco entity.
-     * @Rest\Get("/transcoDisco/{transcoDiscoId}")
+     * @Rest\Get("/transcodisco/{transcoDiscoId}")
      * @Rest\View
      *
      * @ApiDoc(
@@ -80,7 +80,7 @@ class TranscoDiscoController extends FOSRestController
     }
 
     /**
-     * Displays a form to edit an existing TranscoOptic entity.
+     * Displays a form to edit an existing TranscoDisco entity.
      * @Rest\Post("/transcodisco/{transcoDiscoId}/update")
      * @Rest\View
      *
@@ -103,7 +103,7 @@ class TranscoDiscoController extends FOSRestController
 
     /**
      * Deletes a TranscoDisco entity.
-     * @Rest\Get("/transcoDisco/{transcoDiscoId}/delete")
+     * @Rest\Get("/transcodisco/{transcoDiscoId}/delete")
      * @Rest\View
      *
      * @ApiDoc(
