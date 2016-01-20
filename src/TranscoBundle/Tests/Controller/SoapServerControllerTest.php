@@ -3,7 +3,6 @@
 namespace TranscoBundle\Tests\Controller;
 
 use TranscoBundle\Entity\TranscoAgence;
-use TranscoBundle\Entity\TranscoDestTerrSite;
 use TranscoBundle\Entity\TranscoDisco;
 use TranscoBundle\Entity\TranscoGmao;
 use TranscoBundle\Entity\TranscoOptic;
@@ -28,7 +27,7 @@ class SoapServerControllerTest extends BaseWebTestCase
         parent::setUp();
         $this->wsdls = $this->container->getParameter('exposed_wsdls');
         $this->client = static::createClient();
-        $this->em->beginTransaction();
+//        $this->em->beginTransaction();
     }
 
     /**
@@ -49,28 +48,34 @@ class SoapServerControllerTest extends BaseWebTestCase
             'wsdl_cache' => 0,
             'trace' => 1,
             'location' => $location,
-            'features' => SOAP_SINGLE_ELEMENT_ARRAYS);
+            'features' => SOAP_SINGLE_ELEMENT_ARRAYS
+        );
 
         $this->soapClient = new \SoapClient($wsdl, $soapOptions);
 
         $options = [
-            'requeteTranscoGDIServiceInput' => [
-                'valeurRecherchee' => 'ATG',
-                'critere' => [
-                    'NomCritere' => 'Destinataire',
-                    'ValeurCritere' => 'DIAM'
+            'delegationOTTranscoGDIServiceInput' => [
+                'Critere' => [
+                    [
+                        'NomCritere' => 'TypeDeTravail',
+                        'ValeurCritere' => 'WorkType'
+                    ],
+                    [
+                        'NomCritere' => 'GroupeDeGamme',
+                        'ValeurCritere' => 'GroupeDeGamme'
+                    ],
+                    [
+                        'NomCritere' => 'Compteur',
+                        'ValeurCritere' => 'Counter'
+                    ]
                 ]
-            ],
-            'env' => [
-                'projet' => 'GDI',
-                'echange' => 'TranscoGDIService',
-                'source' => 'BURIN'
             ]
         ];
-        $response = $this->soapClient->__soapCall('TranscoGDIService', array($options));
+        $response = $this->soapClient->__soapCall('delegationOTTranscoService', array($options));
         $this->assertEquals('0000000000', $response->codeReponse->codeRetour);
-        $this->assertEquals('Succes', $response->codeReponse->messageRetour);
-        $this->assertEquals('ATG74', $response->reponseTranscoGDIServiceOutput->valeurTrouvee);
+
+//        $this->assertEquals('Succes', $response->codeReponse->messageRetour);
+//        $this->assertEquals('ATG74', $response->reponseTranscoGDIServiceOutput->valeurTrouvee);
     }
 
     /**
