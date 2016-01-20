@@ -34,7 +34,7 @@ class SoapServerControllerTest extends BaseWebTestCase
      */
     public function testInterfaceServiceTranscoActionSuccess()
     {
-
+        $this->markTestSkipped();
         $this->insertTranscoDestTerrSite();
 
         $wsdl = $this->wsdls['serviceTransco']['filePath'];
