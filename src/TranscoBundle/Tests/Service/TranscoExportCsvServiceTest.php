@@ -9,8 +9,7 @@ use Prophecy\Prophecy\ObjectProphecy;
 use Prophecy\Prophet;
 use Symfony\Component\DependencyInjection\Container;
 use Symfony\Component\HttpKernel\Kernel;
-use TranscoBundle\Entity\TranscoDestTerrSite;
-use TranscoBundle\Service\CsvService\TranscoExportCsvService;
+use TranscoBundle\Service\CsvService\TranscoImportCsvService;
 
 class TranscoExportCsvServiceTest extends \PHPUnit_Framework_TestCase
 {
@@ -31,7 +30,7 @@ class TranscoExportCsvServiceTest extends \PHPUnit_Framework_TestCase
     private $emProphecy;
 
     /**
-     * @var TranscoExportCsvService
+     * @var TranscoImportCsvService
      */
     private $transcoExportCsvService;
 
@@ -45,7 +44,7 @@ class TranscoExportCsvServiceTest extends \PHPUnit_Framework_TestCase
 
         $this->emProphecy = $this->prophet->prophesize(EntityManager::class);
 
-        $this->transcoExportCsvService = new TranscoExportCsvService($this->emProphecy->reveal(), $this->containerProphecy->reveal());
+        $this->transcoExportCsvService = new TranscoImportCsvService($this->emProphecy->reveal(), $this->containerProphecy->reveal());
 
     }
 
@@ -70,7 +69,6 @@ class TranscoExportCsvServiceTest extends \PHPUnit_Framework_TestCase
             ->method('getRootDir')
             ->willReturn($expected);
 
-        //var_dump($stub);exit;
 
         $this->assertEquals($expected, $this->transcoExportCsvService->getPath());
     }

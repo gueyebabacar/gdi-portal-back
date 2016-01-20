@@ -47,7 +47,7 @@ class TranscoDiscoServiceTest extends \PHPUnit_Framework_TestCase
     private $transcoService;
 
     /**
-     * @group transco
+     * setUp
      */
     public function setUp()
     {
@@ -69,6 +69,8 @@ class TranscoDiscoServiceTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     *
+     * @test
      * @group transco
      */
     public function testGetAll()
@@ -89,6 +91,8 @@ class TranscoDiscoServiceTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     *
+     * @test
      * @group transco
      */
     public function testCreate()
@@ -132,6 +136,8 @@ class TranscoDiscoServiceTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     *
+     * @test
      * @group transco
      */
     public function testGet()
@@ -152,6 +158,8 @@ class TranscoDiscoServiceTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     *
+     * @test
      * @group transco
      */
     public function testEdit()
@@ -205,6 +213,8 @@ class TranscoDiscoServiceTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     *
+     * @test
      * @group transco
      */
     public function testDelete()
@@ -253,27 +263,7 @@ class TranscoDiscoServiceTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @group transco
-     */
-    public function testGetEnvoiDIRG()
-    {
-        $transcoRepositoryProphecy = $this->prophet->prophesize(TranscoDiscoRepository::class);
-
-        $this->emProphecy
-            ->getRepository(Argument::exact('TranscoBundle:TranscoDisco'))
-            ->willReturn($transcoRepositoryProphecy->reveal())
-            ->shouldBeCalled();
-
-        $transcoRepositoryProphecy
-            ->findEnvoiDirgDiscoRequest([])
-            ->willReturn([])
-            ->shouldBeCalled();
-
-        $this->assertEquals([], $this->transcoService->getEnvoiDIRG([]));
-    }
-
-    /**
-     * @group transco
+     * tearDown
      */
     public function tearDown()
     {

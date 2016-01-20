@@ -36,7 +36,6 @@ class TranscoDiscoControllerTest extends BaseWebTestCase
 
         $this->client->request('GET', "/transcodisco/all", [], [], $this->headers);
         $response = json_decode($this->client->getResponse()->getContent(), true);
-
         $this->assertEquals(sizeof($transcoDisco), sizeof($response));
         $this->assertEquals($transcoDisco[0]->getId(), $response[0]['id']);
     }

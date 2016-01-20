@@ -17,7 +17,6 @@ use FOS\RestBundle\Controller\Annotations as Rest;
  */
 class TranscoAgenceController extends FOSRestController
 {
-
     /**
      * @var TranscoAgenceService
      * @DI\Inject("portal.service.transcoAgence")
@@ -60,7 +59,7 @@ class TranscoAgenceController extends FOSRestController
 
     /**
      * Finds and displays a TranscoAgence entity.
-     * @Rest\Get("/transcagence/{transcoAgenceId}")
+     * @Rest\Get("/transcoagence/{transcoAgenceId}")
      * @Rest\View
      *
      * @ApiDoc(
@@ -68,7 +67,7 @@ class TranscoAgenceController extends FOSRestController
      *      resource = true,
      *      description = "Afficher une ligne de la table TranscoAgence",
      *      parameters={
- *          {"name"="transcoOpticId", "dataType"="Integer", "required"=true, "description"="Id TranscoAgence"},
+     *          {"name"="transcoOpticId", "dataType"="Integer", "required"=true, "description"="Id TranscoAgence"},
      *      }
      * )
      * @param $transcoAgenceId

@@ -2,7 +2,6 @@
 
 namespace TranscoBundle\Service;
 
-
 use Doctrine\ORM\EntityManager;
 use TranscoBundle\Entity\TranscoOptic;
 use TranscoBundle\Form\TranscoOpticType;
@@ -51,7 +50,7 @@ class TranscoOpticService
      */
     public function getAll()
     {
-        return $this->em->getRepository('TranscoOptic')->findAll();
+        return $this->em->getRepository('TranscoBundle:TranscoOptic')->findAll();
     }
 
     /**
@@ -79,7 +78,7 @@ class TranscoOpticService
      */
     public function get($transcoOpticId)
     {
-        return $this->em->getRepository('TrancoOptic')->find($transcoOpticId);
+        return $this->em->getRepository('TranscoBundle:TranscoOptic')->find($transcoOpticId);
     }
 
     /**
@@ -91,7 +90,7 @@ class TranscoOpticService
     public function edit(Request $request, $transcoOpticId)
     {
         /** @var TranscoOptic $transcoOptic */
-        $transcoOptic = $this->em->getRepository('TranscoOptic')->find($transcoOpticId);
+        $transcoOptic = $this->em->getRepository('TranscoBundle:TranscoOptic')->find($transcoOpticId);
         $form = $this->formFactory->create(TranscoOpticType::class, $transcoOptic);
         $form->handleRequest($request);
 
@@ -109,35 +108,8 @@ class TranscoOpticService
     public function delete($transcoOpticId)
     {
         /** @var TranscoOptic $transcoOptic */
-        $transcoOptic = $this->em->getRepository('TranscoOptic')->find($transcoOpticId);
+        $transcoOptic = $this->em->getRepository('TranscoBundle:TranscoOptic')->find($transcoOpticId);
         $this->em->remove($transcoOptic);
         $this->em->flush();
-    }
-
-    /**
-     * Return CodeNatureIntervention, CodeFinalite, CodeSegementation, ModeProgrammation
-     * from  TypeDeTravail, GroupDeGamme, Compteur
-     * @param array $data
-     * @return mixed
-     */
-    public function getDelegationOt(array $data){
-        $response = $this->em->getRepository('TranscoBundle:TranscoOptic')->findDelegationOT($data);
-        if(sizeof($response) !== 1){
-            return $response;
-        }
-        return reset($response[0]);
-    }
-
-    /**
-     * Return NatOpCode from NatIntCode
-     * @param array $data
-     * @return mixed
-     */
-    public function getDelegationBi(array $data){
-        $response =  $this->em->getRepository('TranscoBundle:TranscoOptic')->findDelegationBI($data);
-        if(sizeof($response) !== 1){
-            return $response;
-        }
-        return reset($response[0]);
     }
 }

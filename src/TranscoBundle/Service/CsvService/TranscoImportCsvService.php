@@ -92,6 +92,7 @@ class TranscoImportCsvService
                         $transcoGmao->setWorkType($fields[14]);
                         $transcoGmao->setGroupGame($fields[15]);
                         $transcoGmao->setCounter(trim($counter));
+                        $transcoGmao->setOptic($transcoOptic);
                         $transcoOptic->addGmao($transcoGmao);
                         $this->em->persist($transcoGmao);
                     }
