@@ -7,9 +7,10 @@ use TranscoBundle\Entity\TranscoAgence;
 class TranscoAgenceTest extends \PHPUnit_Framework_TestCase
 {
     /**
+     * testTranscoAgenceSettersGetters
+     *
      * @test
-     * @group gdi
-     * @group entity
+     * @group transco
      */
     public function testTranscoAgenceSettersGetters()
     {

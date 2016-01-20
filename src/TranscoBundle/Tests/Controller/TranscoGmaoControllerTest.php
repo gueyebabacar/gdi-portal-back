@@ -23,7 +23,10 @@ class TranscoGmaoControllerTest extends BaseWebTestCase
     }
 
     /**
+     * testGetAllAction
      *
+     * @test
+     * @group transco
      */
     public function testGetAllAction()
     {
@@ -39,7 +42,10 @@ class TranscoGmaoControllerTest extends BaseWebTestCase
     }
 
     /**
+     * testGetAction
      *
+     * @test
+     * @group transco
      */
     public function testGetAction()
     {
@@ -59,7 +65,10 @@ class TranscoGmaoControllerTest extends BaseWebTestCase
     }
 
     /**
-     *testCreateAction
+     * testCreateAction
+     *
+     * @test
+     * @group transco
      */
     public function testCreateAction()
     {
@@ -89,7 +98,10 @@ class TranscoGmaoControllerTest extends BaseWebTestCase
     }
 
     /**
-     *testNewAction
+     * testNewAction
+     *
+     * @test
+     * @group transco
      */
     public function testEditAction()
     {
@@ -115,7 +127,10 @@ class TranscoGmaoControllerTest extends BaseWebTestCase
     }
 
     /**
-     *testDeleteAction
+     * testDeleteAction
+     *
+     * @test
+     * @group transco
      */
     public function testDeleteAction()
     {
@@ -136,7 +151,7 @@ class TranscoGmaoControllerTest extends BaseWebTestCase
     }
 
     /**
-     *
+     * insertTranscoGmao
      */
     public function insertTranscoGmao()
     {
@@ -153,6 +168,9 @@ class TranscoGmaoControllerTest extends BaseWebTestCase
         $this->em->flush();
     }
 
+    /**
+     * tearDown
+     */
     public function tearDown()
     {
         parent::tearDown();

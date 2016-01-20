@@ -7,9 +7,10 @@ use TranscoBundle\Entity\TranscoGmao;
 class TranscoGmaoTest extends \PHPUnit_Framework_TestCase
 {
     /**
+     * testTranscoGmaoSettersGetters
+     *
      * @test
-     * @group gdi
-     * @group entity
+     * @group transco
      */
     public function testTranscoGmaoSettersGetters()
     {

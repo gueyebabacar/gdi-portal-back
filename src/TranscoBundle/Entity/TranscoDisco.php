@@ -27,8 +27,8 @@ class TranscoDisco
     /**
      * disco code objet
      *
-     * @var integer
-     * @ORM\Column(type="integer", nullable=true)
+     * @var string
+     * @ORM\Column(type="string", nullable=true)
      */
     protected $codeObject;
 

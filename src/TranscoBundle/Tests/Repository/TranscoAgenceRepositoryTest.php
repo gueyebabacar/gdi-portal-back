@@ -2,72 +2,97 @@
 
 namespace TranscoBundle\Tests\Repository;
 
-use TranscoBundle\Entity\TranscoNatureInter;
-use TranscoBundle\Entity\TranscoNatureOpe;
-use TranscoBundle\Repository\TranscoNatureInterRepository;
-use TranscoBundle\Repository\TranscoNatureOpeRepository;
-use TranscoBundle\Service\SoapService\ExposedWSService;
+use TranscoBundle\Entity\TranscoAgence;
+use TranscoBundle\Repository\TranscoAgenceRepository;
 use TranscoBundle\Tests\BaseWebTestCase;
 
-class TranscoNatureOpeRepositoryTest extends BaseWebTestCase
+class TranscoAgenceRepositoryTest extends BaseWebTestCase
 {
     /**
-     * @var TranscoNatureOpeRepository
+     * @var TranscoAgenceRepository
      */
-    protected $transcoNatureOpeRepo;
+    protected $transcoAgenceRepository;
 
+    /**
+     * setUp
+     */
     public function setUp()
     {
         parent::setUp();
-        $this->transcoNatureOpeRepo = $this->em->getRepository('TranscoBundle:TranscoNatureOpe');
+        $this->transcoAgenceRepository = $this->em->getRepository('TranscoBundle:TranscoAgence');
     }
 
-    public function testFindCodeNatureIntervention3()
+    /**
+     * @test
+     * @group transco
+     * testFindEnvoiDirgAgenceRequest
+     */
+    public function testFindEnvoiDirgAgenceRequest()
     {
-        $data['criteria'][0]['value'] = "Work Type";
-        $data['criteria'][0]['name'] = TranscoNatureOpeRepository::TYPE_DE_TRAVAIL;
-        $data['criteria'][1]['value'] = 1;
-        $data['criteria'][1]['name'] = TranscoNatureOpeRepository::COMPTEUR;
-        $data['criteria'][2]['value'] = "Gamme group";
-        $data['criteria'][2]['name'] = TranscoNatureOpeRepository::GROUPE_DE_GAMME;
-        $this->insertTranscoNatureOpe();
-        $result = $this->transcoNatureOpeRepo->findCodeNatureIntervention3($data);
-        $this->assertEquals('NatIntCode', reset($result[0]));
+        $criteria = [
+            [
+                "name" => "CodeAgence",
+                "value" => "Ck14"
+            ],
+            [
+                "name" => "CodeInsee",
+                "value" => "XO7A"
+            ],
+        ];
+        $this->insertTranscoAgence();
+        $result = $this->transcoAgenceRepository->findEnvoiDirgAgenceRequest($criteria);
+        $this->assertEquals('NEUILLY', $result[0]['destinataire']);
+        $this->assertEquals('ATG254', $result[0]['center']);
     }
 
-    public function testFindModeProgrammation()
+    /**
+     * @test
+     * @group transco
+     * testFindPublicationOtRequest
+     */
+    public function testFindPublicationOtRequest()
     {
-        $data['criteria'][0]['value'] = "Work Type";
-        $data['criteria'][0]['name'] = TranscoNatureOpeRepository::TYPE_DE_TRAVAIL;
-        $data['criteria'][1]['value'] = 1;
-        $data['criteria'][1]['name'] = TranscoNatureOpeRepository::COMPTEUR;
-        $data['criteria'][2]['value'] = "Gamme group";
-        $data['criteria'][2]['name'] = TranscoNatureOpeRepository::GROUPE_DE_GAMME;
-        $this->insertTranscoNatureOpe();
-        $result = $this->transcoNatureOpeRepo->findModeProgrammation($data);
-        $this->assertEquals('Prog Mode', reset($result[0]));
+        $criteria = [
+            [
+                "name" => "CodeAgence",
+                "value" => "Ck14"
+            ]
+        ];
+        $this->insertTranscoAgence();
+        $result = $this->transcoAgenceRepository->findPublicationOtRequest($criteria);
+        $this->assertEquals('X', $result[0]['pr']);
     }
 
     /**
      *insertTranscoNatureInter
      */
-    private function insertTranscoNatureOpe()
+    private function insertTranscoAgence()
     {
-        $transcoNatureOpe = new TranscoNatureOpe();
+        $data = array(
+            'inseeCode' => 'XO7A',
+            'codeAgence' => 'Ck14',
+            'agenceLabel' => 'CONDORCET',
+            'center' => 'ATG254',
+            'destinataire' => 'NEUILLY',
+            'pr' => 'X',
+        );
 
-        $transcoNatureOpe->setWorkType('Work Type');
-        $transcoNatureOpe->setGammeGroup('Gamme group');
-        $transcoNatureOpe->setPurpose('Purpose');
-        $transcoNatureOpe->setCounter(1);
-        $transcoNatureOpe->setSegmentationValue('Seg Value');
-        $transcoNatureOpe->setSegmentationName('Seg Name');
-        $transcoNatureOpe->setProgrammingMode('Prog Mode');
-        $transcoNatureOpe->setNatureInterCode('NatIntCode');
+        $transcoAgence = new TranscoAgence();
 
-        $this->em->persist($transcoNatureOpe);
+        $transcoAgence->setInseeCode($data['inseeCode']);
+        $transcoAgence->setCodeAgence($data['codeAgence']);
+        $transcoAgence->setAgenceLabel($data['agenceLabel']);
+        $transcoAgence->setCenter($data['center']);
+        $transcoAgence->setDestinataire($data['destinataire']);
+        $transcoAgence->setPr($data['pr']);
+
+        $this->em->persist($transcoAgence);
         $this->em->flush();
     }
 
+    /**
+     * tearDown
+     */
     public function tearDown()
     {
         parent::tearDown();
