@@ -18,6 +18,12 @@ use TranscoBundle\Service\TranscoService;
  */
 class ExposedWSService
 {
+    //Request input names
+    const DELEGATION_OT = "delegationOTTranscoGDIServiceInput";
+    const DELEGATION_BI = "delegationBITranscoGDIServiceInput";
+    const ENVOI_DIRG = "envoiDIRGTranscoGDIServiceInput";
+    const PUBLICATION_OT = "publicationOTTranscoGDIServiceInput";
+
     //Error codes
     const ERROR_MISSING_FIELDS = '0000000001';
     const ERROR_IMPOSSIBLE_TRANSCODIFICATION = '0000000002';
@@ -66,11 +72,8 @@ class ExposedWSService
             TranscoGmao::COMPTEUR
         ];
 
-        foreach ($data->delegationOTTranscoGDIServiceInput->Critere as $key => $item) {
-            if ($item->NomCritere !== '' && $item->ValeurCritere !== '') {
-                $criteria[$key]['name'] = $item->NomCritere;
-                $criteria[$key]['value'] = $item->ValeurCritere;
-            }
+        if (key($data) === $this::DELEGATION_OT) {
+            $criteria = $this->extractCriteria($data);
         }
 
         try {
@@ -108,24 +111,19 @@ class ExposedWSService
             TranscoDisco::SOURCE,
         ];
 
-        foreach ($data->delegationBITranscoGDIServiceInput->Critere as $key => $item) {
-            if ($item->NomCritere !== '' && $item->ValeurCritere !== '') {
-                $criteria[$key]['name'] = $item->NomCritere;
-                $criteria[$key]['value'] = $item->ValeurCritere;
-            }
-            if ($item->NomCritere == 'Source' && ($item->ValeurCritere != 'Disco' && $item->ValeurCritere != 'Pictrel')) {
+        if (key($data) === $this::DELEGATION_BI) {
+            $criteria = $this->extractCriteria($data);
+        }
+
+        foreach ($criteria as $item) {
+            if ($item['name'] == 'Source' && ($item['value'] != 'Disco' && $item['value'] != 'Pictrel')) {
                 $sourceCorrect = false;
             }
         }
 
         try {
             $this->return['result'] = $this->transcoService->getDelegationBiResponse($criteria);
-            $this->validationQuery($criteria, $expectedFields);
-            if (!$sourceCorrect) {
-                $this->return['result'] = '';
-                $this->return['code'] = $this::ERROR_SOURCE_INCORRECT;
-                $this->return['message'] = "Valeur du critere 'Source' incorrecte";
-            }
+            $this->validationQuery($criteria, $expectedFields, $sourceCorrect);
             $response->delegationBITranscoGDIServiceOutput->Reponse = $this->return['result'];
             $response->codeReponse->codeRetour = $this->return['code'];
             $response->codeReponse->messageRetour = $this->return['message'];
@@ -159,11 +157,8 @@ class ExposedWSService
             TranscoAgence::CODE_INSEE,
         ];
 
-        foreach ($data->envoiDIRGTranscoGDIServiceInput->Critere as $key => $item) {
-            if ($item->NomCritere !== '' && $item->ValeurCritere !== '') {
-                $criteria[$key]['name'] = $item->NomCritere;
-                $criteria[$key]['value'] = $item->ValeurCritere;
-            }
+        if (key($data) === $this::ENVOI_DIRG) {
+            $criteria = $this->extractCriteria($data);
         }
 
         try {
@@ -198,11 +193,8 @@ class ExposedWSService
             TranscoAgence::CODE_AGENCE,
         ];
 
-        foreach ($data->publicationOTTranscoGDIServiceInput->Critere as $key => $item) {
-            if ($item->NomCritere !== '' && $item->ValeurCritere !== '') {
-                $criteria[$key]['name'] = $item->NomCritere;
-                $criteria[$key]['value'] = $item->ValeurCritere;
-            }
+        if (key($data) === $this::PUBLICATION_OT) {
+            $criteria = $this->extractCriteria($data);
         }
 
         try {
@@ -220,10 +212,28 @@ class ExposedWSService
     }
 
     /**
+     * @param \stdClass $data
+     * @return mixed
+     * @internal param $criteria
+     */
+    private function extractCriteria(\stdClass $data)
+    {
+        $criteria = [];
+        foreach (reset($data)->Critere as $key => $item) {
+            if ($item->NomCritere !== '' && $item->ValeurCritere !== '') {
+                $criteria[$key]['name'] = $item->NomCritere;
+                $criteria[$key]['value'] = $item->ValeurCritere;
+            }
+        }
+        return $criteria;
+    }
+
+    /**
      * @param array $criteria
      * @param $fields
+     * @param null $sourceCorrect
      */
-    private function validationQuery(array $criteria, $fields)
+    private function validationQuery(array $criteria, $fields, $sourceCorrect = null)
     {
         $fields = $this->fieldIsNull($criteria, $fields);
         if (!empty($fields)) {
@@ -238,6 +248,10 @@ class ExposedWSService
             $this->return['result'] = '';
             $this->return['message'] = "ValeurRecherchee non reconnue";
             $this->return['code'] = $this::ERROR_NOT_FOUND;
+        } elseif ($sourceCorrect != null && !$sourceCorrect) {
+            $this->return['result'] = '';
+            $this->return['code'] = $this::ERROR_SOURCE_INCORRECT;
+            $this->return['message'] = "Valeur du critere 'Source' incorrecte";
         } else {
             $this->return['message'] = "Succes";
             $this->return['code'] = "0000000000";
