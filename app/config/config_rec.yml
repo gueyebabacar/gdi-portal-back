@@ -1,6 +1,6 @@
 imports:
     - { resource: config.yml }
-    - { resource: parameters_recette.yml }
+    - { resource: parameters_rec.yml }
 
 framework:
     router:
