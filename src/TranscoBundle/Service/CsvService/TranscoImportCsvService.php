@@ -59,50 +59,57 @@ class TranscoImportCsvService
         $csv_file = $this->getPath() . "/" . "transcos.csv"; // Name of your CSV file
         $header = true;
 
-        if (($handle = fopen($csv_file, "r")) !== false) {
-            while (($fields = fgetcsv($handle, 1000, ";")) !== false) {
-                if ($header) {
-                    $header = false;
-                    continue;
-                }
-                $transcoDisco = new TranscoDisco();
-                $transcoDisco->setCodeObject($fields[0]);
-                $transcoDisco->setNatOp($fields[1]);
-                $transcoDisco->setNatOpLabel($fields[2]);
-
-                $transcoOptic = new TranscoOptic();
-                $transcoOptic->setCodeTypeOptic($fields[3]);
-                $transcoOptic->setOpticLabel($fields[4]);
-                $transcoOptic->setCodeNatInter($fields[5]);
-                $transcoOptic->setLabelNatInter($fields[6]);
-                $transcoOptic->setSegmentationCode($fields[7]);
-                $transcoOptic->setSegmentationLabel($fields[8]);
-                $transcoOptic->setFinalCode($fields[9]);
-                $transcoOptic->setFinalLabel($fields[10]);
-                $transcoOptic->setShortLabel($fields[11]);
-                $transcoOptic->setProgrammingMode($fields[12]);
-                $transcoOptic->setCalibre($fields[13]);
-                $transcoOptic->setDisco($transcoDisco);
-
-                $gmaoCounters = $fields[16];
-
-                if ($fields[14] != null && $fields[15] != null && $fields[16] != null) {
-                    foreach (explode(',', $gmaoCounters) as $counter) {
-                        $transcoGmao = new TranscoGmao();
-                        $transcoGmao->setWorkType($fields[14]);
-                        $transcoGmao->setGroupGame($fields[15]);
-                        $transcoGmao->setCounter(trim($counter));
-                        $transcoGmao->setOptic($transcoOptic);
-                        $transcoOptic->addGmao($transcoGmao);
-                        $this->em->persist($transcoGmao);
+        try {
+            if (($handle = fopen($csv_file, "r")) !== false) {
+                $counter = 0;
+                while (($fields = fgetcsv($handle, 1000, ";")) !== false) {
+                    if ($header) {
+                        $header = false;
+                        continue;
                     }
-                }
+                    $transcoDisco = new TranscoDisco();
+                    $transcoDisco->setCodeObject($fields[0]);
+                    $transcoDisco->setNatOp($fields[1]);
+                    $transcoDisco->setNatOpLabel($fields[2]);
 
-                $transcoDisco->setOptic($transcoOptic);
-                $this->em->persist($transcoOptic);
-                $this->em->persist($transcoDisco);
-                $this->em->flush();
+                    $transcoOptic = new TranscoOptic();
+                    $transcoOptic->setCodeTypeOptic($fields[3]);
+                    $transcoOptic->setOpticLabel($fields[4]);
+                    $transcoOptic->setCodeNatInter($fields[5]);
+                    $transcoOptic->setLabelNatInter($fields[6]);
+                    $transcoOptic->setSegmentationCode($fields[7]);
+                    $transcoOptic->setSegmentationLabel($fields[8]);
+                    $transcoOptic->setFinalCode($fields[9]);
+                    $transcoOptic->setFinalLabel($fields[10]);
+                    $transcoOptic->setShortLabel($fields[11]);
+                    $transcoOptic->setProgrammingMode($fields[12]);
+                    $transcoOptic->setCalibre($fields[13]);
+                    $transcoOptic->setDisco($transcoDisco);
+
+                    $gmaoCounters = $fields[16];
+
+                    if ($fields[14] != null && $fields[15] != null && $fields[16] != null) {
+                        foreach (explode(',', $gmaoCounters) as $counter) {
+                            $transcoGmao = new TranscoGmao();
+                            $transcoGmao->setWorkType($fields[14]);
+                            $transcoGmao->setGroupGame($fields[15]);
+                            $transcoGmao->setCounter(trim($counter));
+                            $transcoGmao->setOptic($transcoOptic);
+                            $transcoOptic->addGmao($transcoGmao);
+                            $this->em->persist($transcoGmao);
+                        }
+                    }
+
+                    $transcoDisco->setOptic($transcoOptic);
+                    $this->em->persist($transcoOptic);
+                    $this->em->persist($transcoDisco);
+                    $this->em->flush();
+                    $counter++;
+                    echo "Line " . $counter . "succesfully added\n";
+                }
             }
+        } catch (\Exception $exception) {
+            echo $exception->getMessage();
         }
     }
 }
