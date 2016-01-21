@@ -107,6 +107,22 @@ class TranscoOptic
     protected $programmingMode;
 
     /**
+     * SLA
+     *
+     * @var string
+     * @ORM\Column(type="string", nullable=true)
+     */
+    protected $sla;
+
+    /**
+     * créneau
+     *
+     * @var string
+     * @ORM\Column(type="string", nullable=true)
+     */
+    protected $slot;
+
+    /**
      * calibre
      *
      * @var string
@@ -312,6 +328,42 @@ class TranscoOptic
     public function setProgrammingMode($programmingMode)
     {
         $this->programmingMode = $programmingMode;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getSla()
+    {
+        return $this->sla;
+    }
+
+    /**
+     * @param string $sla
+     * @return $this
+     */
+    public function setSla($sla)
+    {
+        $this->sla = $sla;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getSlot()
+    {
+        return $this->slot;
+    }
+
+    /**
+     * @param string $slot
+     * @return $this
+     */
+    public function setSlot($slot)
+    {
+        $this->slot = $slot;
         return $this;
     }
 
