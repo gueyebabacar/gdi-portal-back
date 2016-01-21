@@ -248,12 +248,12 @@ class ExposedWSService
             $this->return['result'] = '';
             $this->return['message'] = "ValeurRecherchee non reconnue";
             $this->return['code'] = $this::ERROR_NOT_FOUND;
-        } elseif ($sourceCorrect != null && !$sourceCorrect) {
+        } elseif ($sourceCorrect !== null && !$sourceCorrect) {
             $this->return['result'] = '';
             $this->return['code'] = $this::ERROR_SOURCE_INCORRECT;
             $this->return['message'] = "Valeur du critere 'Source' incorrecte";
         } else {
-            $this->return['message'] = "Succes";
+            $this->return['message'] = "Success";
             $this->return['code'] = "0000000000";
         }
     }

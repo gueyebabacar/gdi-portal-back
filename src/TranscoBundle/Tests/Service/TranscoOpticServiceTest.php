@@ -265,6 +265,8 @@ class TranscoOpticServiceTest extends \PHPUnit_Framework_TestCase
             $transcoOptic->setShortLabel('055');
             $transcoOptic->setProgrammingMode('055');
             $transcoOptic->setCalibre('055');
+            $transcoOptic->setSlot('055');
+            $transcoOptic->setSla('055');
             $transcoOptic->addGmao(new TranscoGmao());
             $transcoOptic->setDisco('disco');
 

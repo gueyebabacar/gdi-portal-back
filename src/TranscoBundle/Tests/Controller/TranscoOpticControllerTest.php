@@ -185,6 +185,8 @@ class TranscoOpticControllerTest extends BaseWebTestCase
             $transcoOptic->setSegmentationLabel('Lorem ipsum');
             $transcoOptic->setOpticLabel('Lorem ipsum');
             $transcoOptic->setFinalLabel('Lorem ipsum');
+            $transcoOptic->setSlot('Lorem ipsum');
+            $transcoOptic->setSla('Lorem ipsum');
 
             $this->em->persist($transcoOptic);
         }

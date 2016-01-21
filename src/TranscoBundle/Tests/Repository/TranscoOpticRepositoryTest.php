@@ -96,6 +96,8 @@ class TranscoOpticRepositoryTest extends BaseWebTestCase
         $transcoOptic->setSegmentationLabel('SegmentationLabel');
         $transcoOptic->setOpticLabel('OpticLabel');
         $transcoOptic->setFinalLabel('FinalLabel');
+        $transcoOptic->setSlot('Slot');
+        $transcoOptic->setSla('Sla');
 
         $transcoGmao = new TranscoGmao();
         $transcoGmao->setWorkType('WorkType');

@@ -2,9 +2,9 @@
 
 namespace TranscoBundle\Tests\Entity;
 
-use TranscoBundle\Entity\TranscoGmao;
+use TranscoBundle\Entity\TranscoOptic;
 
-class TranscoGmaoTest extends \PHPUnit_Framework_TestCase
+class TranscoOpticTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * testTranscoGmaoSettersGetters
@@ -15,25 +15,49 @@ class TranscoGmaoTest extends \PHPUnit_Framework_TestCase
     public function testTranscoGmaoSettersGetters()
     {
         $data = array(
-            'id' => 1,
-            'workType' => 'worktype',
-            'groupGame' => 'groupe de gamme',
-            'counter' => 10,
-            'optic' => 'optic',
+            'codeNatInt' => 'codeNatInt',
+            'progMod' => 'progMod',
+            'shortLabel' => 'shortLabel',
+            'codeTypeOptoc' => 'codeTypeOptoc',
+            'finalCode' => 'finalCode',
+            'labelNatInter' => 'labelNatInter',
+            'calibre' => 'calibre',
+            'segCode' => 'segCode',
+            'segValue' => 'segValue',
+            'opticLabel' => 'opticLabel',
+            'finalLabel' => 'finalLabel',
+            'slot' => 'slot',
+            'sla' => 'sla',
         );
 
-        $transcoGmao = new TranscoGmao();
+        $transcoOptic = new TranscoOptic();
 
-        $transcoGmao->setId($data['id']);
-        $transcoGmao->setWorkType($data['workType']);
-        $transcoGmao->setGroupGame($data['groupGame']);
-        $transcoGmao->setCounter($data['counter']);
-        $transcoGmao->setOptic($data['optic']);
+        $transcoOptic->setCodeNatInter($data['codeNatInt']);
+        $transcoOptic->setProgrammingMode($data['progMod']);
+        $transcoOptic->setCalibre($data['calibre']);
+        $transcoOptic->setShortLabel($data['shortLabel']);
+        $transcoOptic->setCodeTypeOptic($data['codeTypeOptoc']);
+        $transcoOptic->setFinalCode($data['finalCode']);
+        $transcoOptic->setLabelNatInter($data['labelNatInter']);
+        $transcoOptic->setSegmentationCode($data['segCode']);
+        $transcoOptic->setSegmentationLabel($data['segValue']);
+        $transcoOptic->setOpticLabel($data['opticLabel']);
+        $transcoOptic->setFinalLabel($data['finalLabel']);
+        $transcoOptic->setSlot($data['slot']);
+        $transcoOptic->setSla($data['sla']);
 
-        $this->assertEquals($data['id'],  $transcoGmao->getId());
-        $this->assertEquals($data['workType'], $transcoGmao->getWorkType());
-        $this->assertEquals($data['groupGame'], $transcoGmao->getGroupGame());
-        $this->assertEquals($data['counter'], $transcoGmao->getCounter());
-        $this->assertEquals($data['optic'], $transcoGmao->getOptic());
+        $this->assertEquals($data['codeNatInt'],$transcoOptic->getCodeNatInter());
+        $this->assertEquals($data['progMod'],$transcoOptic->getProgrammingMode());
+        $this->assertEquals($data['calibre'],$transcoOptic->getCalibre());
+        $this->assertEquals($data['shortLabel'],$transcoOptic->getShortLabel());
+        $this->assertEquals($data['codeTypeOptoc'],$transcoOptic->getCodeTypeOptic());
+        $this->assertEquals($data['finalCode'],$transcoOptic->getFinalCode());
+        $this->assertEquals($data['labelNatInter'],$transcoOptic->getLabelNatInter());
+        $this->assertEquals($data['segCode'],$transcoOptic->getSegmentationCode());
+        $this->assertEquals($data['segValue'],$transcoOptic->getSegmentationLabel());
+        $this->assertEquals($data['opticLabel'],$transcoOptic->getOpticLabel());
+        $this->assertEquals($data['finalLabel'],$transcoOptic->getFinalLabel());
+        $this->assertEquals($data['slot'],$transcoOptic->getSlot());
+        $this->assertEquals($data['sla'],$transcoOptic->getSla());
     }
 }
