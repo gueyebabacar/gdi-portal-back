@@ -149,7 +149,6 @@ class TranscoOpticControllerTest extends BaseWebTestCase
      */
     public function testDeleteAction()
     {
-        $this->markTestSkipped();
         $this->insertTranscoOptic();
 
         $transcoOptic = $this->em->getRepository('TranscoBundle:TranscoOptic')->findAll()[0];
