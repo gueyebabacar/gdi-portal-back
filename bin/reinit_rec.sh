@@ -16,7 +16,6 @@ php app/console doctrine:schema:create -e rec
 php app/console cache:clear -e rec
 php app/console assets:install web --symlink -e rec
 
-php app/console doctrine:fixtures:load -n --fixtures= src/TranscoBundle/DataFixtures/ORM -e rec --append
-php app/console doctrine:fixtures:load -n --fixtures= src/PortalBundle/DataFixtures/ORM -e rec --append
+php app/console doctrine:fixtures:load -n -e rec --append
 
 echo "--- Fin reinit ---"
