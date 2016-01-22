@@ -220,7 +220,6 @@ class TranscoOpticServiceTest extends \PHPUnit_Framework_TestCase
      */
     public function testDelete()
     {
-        $this->markTestSkipped();
         $transcoOptic = new TranscoOptic();
 
         $this->emProphecy
