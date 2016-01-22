@@ -9,9 +9,10 @@ use Prophecy\Prophecy\ObjectProphecy;
 use Prophecy\Prophet;
 use Symfony\Component\DependencyInjection\Container;
 use Symfony\Component\HttpKernel\Kernel;
+use TranscoBundle\Entity\TranscoOptic;
 use TranscoBundle\Service\CsvService\TranscoImportCsvService;
 
-class TranscoExportCsvServiceTest extends \PHPUnit_Framework_TestCase
+class TranscoImportCsvServiceTest extends \PHPUnit_Framework_TestCase
 {
 
     /**
@@ -73,19 +74,22 @@ class TranscoExportCsvServiceTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $this->transcoExportCsvService->getPath());
     }
 
-
-
-
     public function testExportTranscoDestTerrSiteCvs()
     {
         $this->markTestSkipped();
-        $transcoCsvServiceProphecy = $this->prophet->prophesize(TranscoExportCsvService::class);
+        $transcoCsvServiceProphecy = $this->prophet->prophesize(TranscoImportCsvService::class);
+
+        $transcoOptic = new TranscoOptic();
 
         $kernelProphecy = $this->prophet->prophesize(Kernel::class);
-
+        $filePath = 'transco.csv';
         $this->containerProphecy
             ->get("kernel")
             ->willReturn($kernelProphecy)
+            ->shouldBeCalled();
+
+        $transcoCsvServiceProphecy
+            ->emptyTables()
             ->shouldBeCalled();
 
         $transcoCsvServiceProphecy
@@ -93,13 +97,8 @@ class TranscoExportCsvServiceTest extends \PHPUnit_Framework_TestCase
             ->willReturn(StringType::class)
             ->shouldBeCalled();
 
-        $kernelProphecy
-            ->getRootDir()
-            ->willReturn(StringType::class)
-            ->shouldBeCalled();
-
         $this->emProphecy
-            ->persist(Argument::type(TranscoDestTerrSite::class))
+            ->persist($transcoOptic)
             ->shouldBeCalled();
 
         $this->emProphecy
@@ -107,7 +106,7 @@ class TranscoExportCsvServiceTest extends \PHPUnit_Framework_TestCase
             ->shouldBeCalled();
 
 
-        $this->transcoExportCsvService->exportTranscoDestTerrSiteCvs();
+        $this->transcoExportCsvService->importCsvTranscoTables($filePath);
     }
 
 }
