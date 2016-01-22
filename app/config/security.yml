@@ -28,7 +28,7 @@ security:
                             file: "@PortalBundle/Resources/FedId/dev/GIDPD_FederationMetaData_20151028.xml"
                         sp:
                             config:
-                                entity_id: https://portail-gdi-rec.carma.grdf.fr//
+                                entity_id: https://portail-gdi-rec.carma.grdf.fr
             logout:
                 path: /logout
 
