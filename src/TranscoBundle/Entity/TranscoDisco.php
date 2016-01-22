@@ -52,7 +52,7 @@ class TranscoDisco
      * TranscoOptic
      *
      * @var $optic
-     * @ORM\OneToOne(targetEntity="TranscoOptic", inversedBy="disco")
+     * @ORM\OneToOne(targetEntity="TranscoOptic", inversedBy="disco", cascade={"remove"})
      */
     protected $optic;
 

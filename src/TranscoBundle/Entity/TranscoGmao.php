@@ -52,7 +52,7 @@ class TranscoGmao
      * TranscoOptic
      *
      * @var TranscoOptic
-     * @ORM\ManyToOne(targetEntity="TranscoOptic", inversedBy="gmaos")
+     * @ORM\ManyToOne(targetEntity="TranscoOptic", inversedBy="gmaos", cascade={"remove"})
      */
     protected $optic;
 

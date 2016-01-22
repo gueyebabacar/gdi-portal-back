@@ -134,7 +134,7 @@ class TranscoOptic
      * $gmao
      *
      * @var ArrayCollection|TranscoGmao
-     * @ORM\OneToMany(targetEntity="TranscoGmao", mappedBy="optic")
+     * @ORM\OneToMany(targetEntity="TranscoGmao", mappedBy="optic", cascade={"remove"})
      */
     protected $gmaos;
 
@@ -142,7 +142,7 @@ class TranscoOptic
      * $disco
      *
      * @var TranscoDisco
-     * @ORM\OneToOne(targetEntity="TranscoDisco", mappedBy="optic")
+     * @ORM\OneToOne(targetEntity="TranscoDisco", mappedBy="optic", cascade={"remove"})
      */
     protected $disco;
 
