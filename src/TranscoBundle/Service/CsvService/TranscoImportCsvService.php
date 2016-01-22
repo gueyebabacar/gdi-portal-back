@@ -50,15 +50,18 @@ class TranscoImportCsvService
 
     /**
      * parse a csv file and store it on db
+     * @param $filePath
      */
-    public function importCsvTranscoTables()
+    public function importCsvTranscoTables($filePath)
     {
-        $this->em->createQuery('DELETE FROM  TranscoBundle:TranscoGmao')->execute();
-        $this->em->createQuery('DELETE FROM  TranscoBundle:TranscoDisco')->execute();
-        $this->em->createQuery('DELETE FROM  TranscoBundle:TranscoOptic')->execute();
-        $csv_file = $this->getPath() . "/" . "transcos.csv"; // Name of your CSV file
-        $header = true;
+        $this->emptyTables();
+        if ($filePath !== null) {
+            $csv_file = $filePath;
+        } else {
+            $csv_file = $this->getPath() . "/" . "transcos.csv"; // Name of your CSV file
+        }
 
+        $header = true;
         try {
             if (($handle = fopen($csv_file, "r")) !== false) {
                 $counterLine = 0;
@@ -67,7 +70,7 @@ class TranscoImportCsvService
                         $header = false;
                         continue;
                     }
-                    if(strlen(implode($fields)) != 0) {
+                    if (strlen(implode($fields)) != 0) {
                         $transcoDisco = new TranscoDisco();
                         $transcoDisco->setCodeObject($fields[0]);
                         $transcoDisco->setNatOp($fields[1]);
@@ -114,6 +117,17 @@ class TranscoImportCsvService
             }
         } catch (\Exception $exception) {
             echo $exception->getMessage();
+        }
+    }
+
+    /**
+     * emptyTables
+     */
+    public function emptyTables()
+    {
+        foreach ($this->em->getRepository('TranscoBundle:TranscoOptic')->findAll() as $item) {
+            $this->em->remove($item);
+            $this->em->flush();
         }
     }
 }
