@@ -91,6 +91,6 @@ fos_user:
     firewall_name: main
     user_class: PortalBundle\Entity\User
 
-aerial_ship_saml_sp:
-    driver: orm
-    sso_state_entity_class: PortalBundle\Entity\SSOState
+#aerial_ship_saml_sp:
+#    driver: orm
+#    sso_state_entity_class: PortalBundle\Entity\SSOState

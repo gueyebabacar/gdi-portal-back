@@ -24,10 +24,10 @@ class AppKernel extends Kernel
             new Apoutchika\LoremIpsumBundle\ApoutchikaLoremIpsumBundle(),
             new PortalBundle\PortalBundle(),
             new FOS\UserBundle\FOSUserBundle(),
-            new AerialShip\SamlSPBundle\AerialShipSamlSPBundle(),
+//            new AerialShip\SamlSPBundle\AerialShipSamlSPBundle(),
         );
 
-        if (in_array($this->getEnvironment(), array('dev', 'rec', 'test'), true)) {
+        if (in_array($this->getEnvironment(), array('dev', 'recette', 'test'), true)) {
             $bundles[] = new Symfony\Bundle\DebugBundle\DebugBundle();
             $bundles[] = new Symfony\Bundle\WebProfilerBundle\WebProfilerBundle();
             $bundles[] = new Sensio\Bundle\DistributionBundle\SensioDistributionBundle();
