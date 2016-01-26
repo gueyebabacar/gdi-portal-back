@@ -34,7 +34,7 @@ class UserTest extends \PHPUnit_Framework_TestCase
         $user->setLastName($data['lastName']);
         $user->setEmail($data['email']);
         $user->setEntity($data['email']);
-        $user->setGaia($data['gaia']);
+        $user->setUsername($data['gaia']);
         $user->setNni($data['nni']);
         $user->setPhone1($data['phone1']);
         $user->setPhone2($data['phone2']);
@@ -45,7 +45,7 @@ class UserTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($user->getFirstName(),$data['firstName']);
         $this->assertEquals($user->getLastName(),$data['lastName']);
         $this->assertEquals($user->getEmail(),$data['email']);
-        $this->assertEquals($user->getGaia(),$data['gaia']);
+        $this->assertEquals($user->getUsername(),$data['gaia']);
         $this->assertEquals($user->getNni(),$data['nni']);
         $this->assertEquals($user->getPhone1(),$data['phone1']);
         $this->assertEquals($user->getPhone2(),$data['phone2']);

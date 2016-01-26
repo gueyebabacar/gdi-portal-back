@@ -20,7 +20,7 @@ class User extends BaseUser
     const VISITOR_ENTITY = 'Visiteur';
 
     /**
-     * @var $id
+     * @var string
      *
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
@@ -29,78 +29,76 @@ class User extends BaseUser
     protected $id;
 
     /**
-     * @var $firstName
+     * @var string
      *
-     * @ORM\Column(name="prenom", type="string")
+     * @ORM\Column(name="first_name", type="string")
      */
     protected $firstName;
 
     /**
-     * @var $lastName
+     * @var string
      *
-     * @ORM\Column(name="nom", type="string")
+     * @ORM\Column(name="last_name", type="string")
      */
     protected $lastName;
 
     /**
-     * @var $email
+     * @var string
      *
      * @ORM\Column(type="string", nullable=true)
      */
     protected $email;
 
     /**
-     * @var $email
+     * @var string
      *
      * @ORM\Column(type="string")
      */
     protected $entity;
 
     /**
-     * @var $gaia
+     * @var string
      *
      * @ORM\Column(type="string")
      */
-    protected $gaia;
+    protected $username;
 
     /**
-     * @var $nni
+     * @var string
      *
      * @ORM\Column(type="string", nullable=true)
      */
     protected $nni;
 
     /**
-     * @var $phone1
+     * @var string
      *
      * @ORM\Column(type="string", nullable=true)
      */
     protected $phone1;
 
     /**
-     * @var $phone2
+     * @var string
      *
      * @ORM\Column(type="string", nullable=true)
      */
     protected $phone2;
 
     /**
-     * Role
-     * @var $role
+     * @var Role
      * @ORM\ManyToOne(targetEntity="Role")
      */
     protected $role;
 
     /**
-     * Agency
-     * @var $agency
+     * @var Agency
      * @ORM\ManyToOne(targetEntity="Agency")
      */
     protected $agency;
 
     /**
      * Region
-     * @var $region
+     * @var Region
      * @ORM\ManyToOne(targetEntity="Region")
      */
     protected $region;
@@ -208,20 +206,20 @@ class User extends BaseUser
     }
 
     /**
-     * @return mixed
+     * @return string
      */
-    public function getGaia()
+    public function getUsername()
     {
-        return $this->gaia;
+        return $this->username;
     }
 
     /**
-     * @param mixed $gaia
+     * @param string $username
      * @return $this
      */
-    public function setGaia($gaia)
+    public function setUsername($username)
     {
-        $this->gaia = $gaia;
+        $this->username = $username;
         return $this;
     }
 

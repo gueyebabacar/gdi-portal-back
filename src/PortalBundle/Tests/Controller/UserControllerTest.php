@@ -190,7 +190,7 @@ class UserControllerTest extends BaseWebTestCase
         $user->setLastName($data['lastName']);
         $user->setEmail($data['email']);
         $user->setEntity($data['entity']);
-        $user->setGaia($data['gaia']);
+        $user->setUsername($data['gaia']);
         $user->setNni($data['nni']);
         $user->setPhone1($data['phone1']);
         $user->setPhone2($data['phone2']);
