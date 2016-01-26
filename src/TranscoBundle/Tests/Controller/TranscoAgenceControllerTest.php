@@ -139,6 +139,8 @@ class TranscoAgenceControllerTest extends BaseWebTestCase
      */
     public function testDeleteAction()
     {
+        $this->markTestSkipped();
+
         $this->insertTranscoAgence();
 
         $transcoAgence = $this->em->getRepository('TranscoBundle:TranscoAgence')->findAll()[0];

@@ -132,6 +132,8 @@ class TranscoDiscoControllerTest extends BaseWebTestCase
      */
     public function testDeleteAction()
     {
+        $this->markTestSkipped();
+
         $this->insertTranscoDisco();
 
         $transcoDisco = $this->em->getRepository('TranscoBundle:TranscoDisco')->findAll()[0];

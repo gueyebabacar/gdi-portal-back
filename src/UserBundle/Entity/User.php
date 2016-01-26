@@ -9,7 +9,7 @@ use PortalBundle\Entity\Region;
 use PortalBundle\Entity\Role;
 
 /**
- * @ORM\Entity(repositoryClass="PortalBundle\Repository\UserRepository")
+ * @ORM\Entity(repositoryClass="UserBundle\Repository\UserRepository")
  * @ORM\Table(name="users")
  */
 class User extends BaseUser
