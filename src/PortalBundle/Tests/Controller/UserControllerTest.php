@@ -5,7 +5,7 @@ namespace PortalBundle\Tests\Controller;
 use PortalBundle\Entity\Agency;
 use PortalBundle\Entity\Region;
 use PortalBundle\Entity\Role;
-use PortalBundle\Entity\User;
+use UserBundle\Entity\User;
 use TranscoBundle\Tests\BaseWebTestCase;
 
 class UserControllerTest extends BaseWebTestCase
