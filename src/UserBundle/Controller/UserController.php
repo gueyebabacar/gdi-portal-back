@@ -1,11 +1,11 @@
 <?php
 
-namespace PortalBundle\Controller;
+namespace UserBundle\Controller;
 
 use FOS\RestBundle\Controller\Annotations\RouteResource;
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
-use PortalBundle\Entity\User;
-use PortalBundle\Service\UserService;
+use UserBundle\Entity\User;
+use UserBundle\Service\UserService;
 use Symfony\Component\HttpFoundation\Request;
 use JMS\DiExtraBundle\Annotation as DI;
 use FOS\RestBundle\Controller\Annotations as Rest;

@@ -3,6 +3,7 @@ imports:
     - { resource: security.yml }
     - { resource: services.yml }
     - { resource: "@PortalBundle/Resources/config/services.yml" }
+    - { resource: "@UserBundle/Resources/config/services.yml" }
 
 # Put parameters here that don't need to change on each machine where the app is deployed
 # http://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
@@ -89,8 +90,8 @@ nelmio_api_doc:
 fos_user:
     db_driver: orm
     firewall_name: main
-    user_class: PortalBundle\Entity\User
+    user_class: UserBundle\Entity\User
 
 aerial_ship_saml_sp:
     driver: orm
-    sso_state_entity_class: PortalBundle\Entity\SSOState
+    sso_state_entity_class: UserBundle\Entity\SSOState

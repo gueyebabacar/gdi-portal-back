@@ -1,0 +1,74 @@
+<VirtualHost *:80>
+        ServerName 163.84.224.132
+        UseCanonicalName Off
+        RewriteEngine on
+        RewriteRule ^/(.*) https://portaildistributeur.grdf.fr/$1 [L,R]
+</VirtualHost>
+
+<VirtualHost *:80>
+        ServerName portaildistributeur.grdf.fr
+        UseCanonicalName Off
+        RewriteEngine on
+        RewriteCond %{HTTPS} off
+        RewriteRule (.*) https://%{HTTP_HOST}%{REQUEST_URI}
+</VirtualHost>
+
+
+<VirtualHost *:443>
+                     ServerName portaildistributeur.grdf.fr
+                     ServerAdmin webmaster@localhost
+                     SSLProxyEngine On
+
+                     RewriteEngine on
+                     RewriteCond %{REQUEST_URI} ^/(omega.PortailDistributeur.grdf.fr)
+                     RewriteRule (.*) https://%{HTTP_HOST}
+                     ProxyPreserveHost On
+                     ProxyRequests off
+                     ProxyPass /saml/sp/failure https://127.0.0.1/usernotfound.html
+                     ProxyPass /saml https://127.0.0.1:8089/saml
+                     ProxyPass /back https://127.0.0.1:8089/back
+                     ProxyPass /api https://127.0.0.1:8089
+                     ProxyPassReverse /api https://127.0.0.1:8089
+                     ProxyPassReverse /saml https://127.0.0.1:8089/saml
+                     ProxyPassReverse /back https://127.0.0.1:8089/back
+		     SSLEngine on
+                     SSLCertificateFile    /etc/ssl/cert-portaildistributeur.grdf.fr.cer
+                     SSLCertificateChainFile /etc/ssl/portaildistributeur.grdf.fr.csr
+                     SSLCertificateKeyFile /etc/ssl/portaildistributeur.grdf.fr.key
+
+
+                     DocumentRoot /var/www/portail_distributeur/Front/dist
+                     <Directory /var/www/portail_distributeur/Front/dist>
+                             Options -Indexes FollowSymLinks MultiViews
+                             AllowOverride All
+                             Order allow,deny
+                             allow from all
+                     </Directory>
+
+
+                     ErrorLog /var/log/apache2/error_angular.log
+
+                     #LogLevel warn
+                     LogLevel error
+
+                     CustomLog /var/log/apache2/access_angular.log combined
+     <IfModule mod_headers.c>
+        Header set X-UA-Compatible "IE=edge,chrome=1"
+        <FilesMatch "\.(appcache|crx|css|eot|gif|htc|ico|jpe?g|js|m4a|m4v|manifest|mp4|oex|oga|ogg|ogv|otf|pdf|png|safariextz|svg|svgz|ttf|vcf|webapp|webm|webp|woff|xml|xpi)$">
+            Header unset X-UA-Compatible
+        </FilesMatch>
+    </IfModule>
+</VirtualHost>
+<VirtualHost *:8089>
+
+                     SSLEngine on
+                     SSLCertificateFile    /etc/ssl/cert-portaildistributeur.grdf.fr.cer
+                     SSLCertificateChainFile /etc/ssl/portaildistributeur.grdf.fr.csr
+                     SSLCertificateKeyFile /etc/ssl/portaildistributeur.grdf.fr.key
+                 DocumentRoot /var/www/portail_distributeur/Back/web
+                 <Directory />
+                     Options FollowSymLinks -Indexes -MultiViews
+                 </Directory>
+                 ErrorLog /var/log/apache2/error_sf2.log
+                 CustomLog /var/log/apache2/access_sf2.log combined
+</VirtualHost>

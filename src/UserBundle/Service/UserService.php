@@ -1,10 +1,10 @@
 <?php
 
-namespace PortalBundle\Service;
+namespace UserBundle\Service;
 
 
 use Doctrine\ORM\EntityManager;
-use PortalBundle\Entity\User;
+use UserBundle\Entity\User;
 use PortalBundle\Form\UserType;
 use Symfony\Component\Form\FormFactory;
 use Symfony\Component\HttpFoundation\Request;
