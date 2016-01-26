@@ -1,9 +1,12 @@
 <?php
 
-namespace PortalBundle\Entity;
+namespace UserBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use FOS\UserBundle\Model\User as BaseUser;
+use PortalBundle\Entity\Agency;
+use PortalBundle\Entity\Region;
+use PortalBundle\Entity\Role;
 
 /**
  * @ORM\Entity(repositoryClass="PortalBundle\Repository\UserRepository")
@@ -86,20 +89,20 @@ class User extends BaseUser
 
     /**
      * @var Role
-     * @ORM\ManyToOne(targetEntity="Role")
+     * @ORM\ManyToOne(targetEntity="PortalBundle\Entity\Role")
      */
     protected $role;
 
     /**
      * @var Agency
-     * @ORM\ManyToOne(targetEntity="Agency")
+     * @ORM\ManyToOne(targetEntity="PortalBundle\Entity\Agency")
      */
     protected $agency;
 
     /**
      * Region
      * @var Region
-     * @ORM\ManyToOne(targetEntity="Region")
+     * @ORM\ManyToOne(targetEntity="PortalBundle\Entity\Region")
      */
     protected $region;
 
@@ -125,7 +128,7 @@ class User extends BaseUser
 
     /**
      * @param mixed $id
-     * @return $this
+     * @return BaseUser
      */
     public function setId($id)
     {
@@ -143,7 +146,7 @@ class User extends BaseUser
 
     /**
      * @param mixed $firstName
-     * @return $this
+     * @return BaseUser
      */
     public function setFirstName($firstName)
     {
@@ -161,7 +164,7 @@ class User extends BaseUser
 
     /**
      * @param mixed $lastName
-     * @return $this
+     * @return BaseUser
      */
     public function setLastName($lastName)
     {
@@ -179,7 +182,7 @@ class User extends BaseUser
 
     /**
      * @param mixed $email
-     * @return $this
+     * @return BaseUser
      */
     public function setEmail($email)
     {
@@ -197,7 +200,7 @@ class User extends BaseUser
 
     /**
      * @param mixed $entity
-     * @return $this
+     * @return BaseUser
      */
     public function setEntity($entity)
     {
@@ -215,7 +218,7 @@ class User extends BaseUser
 
     /**
      * @param string $username
-     * @return $this
+     * @return BaseUser
      */
     public function setUsername($username)
     {
@@ -233,7 +236,7 @@ class User extends BaseUser
 
     /**
      * @param mixed $nni
-     * @return $this
+     * @return BaseUser
      */
     public function setNni($nni)
     {
@@ -251,7 +254,7 @@ class User extends BaseUser
 
     /**
      * @param mixed $phone1
-     * @return $this
+     * @return BaseUser
      */
     public function setPhone1($phone1)
     {
@@ -269,7 +272,7 @@ class User extends BaseUser
 
     /**
      * @param mixed $phone2
-     * @return $this
+     * @return BaseUser
      */
     public function setPhone2($phone2)
     {
@@ -287,7 +290,7 @@ class User extends BaseUser
 
     /**
      * @param mixed $agency
-     * @return $this
+     * @return BaseUser
      */
     public function setAgency($agency)
     {
@@ -307,7 +310,7 @@ class User extends BaseUser
 
     /**
      * @param mixed $region
-     * @return $this
+     * @return BaseUser
      */
     public function setRegion($region)
     {
@@ -327,7 +330,7 @@ class User extends BaseUser
 
     /**
      * @param mixed $territorialContext
-     * @return $this
+     * @return BaseUser
      */
     public function setTerritorialContext($territorialContext)
     {
@@ -345,7 +348,7 @@ class User extends BaseUser
 
     /**
      * @param mixed $role
-     * @return $this
+     * @return BaseUser
      */
     public function setRole($role)
     {

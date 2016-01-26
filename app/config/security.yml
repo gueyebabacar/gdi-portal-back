@@ -3,7 +3,7 @@
 security:
 
     encoders:
-      PortalBundle\Entity\User: sha512
+      UserBundle\Entity\User: sha2
 
     providers:
         fos_userbundle:
@@ -24,11 +24,11 @@ security:
                 services:
                     saml:
                         idp:
-                            file: "@PortalBundle/Resources/FedId/dev/GIDPD_FederationMetaData_20151028.xml"
+                            file: "@UserBundle/Resources/FedId/dev/GIDPD_FederationMetaData_20151028.xml"
                         sp:
                             config:
-                                base_url: https://portail-gdi-rec.carma.grdf.fr
-                                entity_id: https://portail-gdi-rec.carma.grdf.fr
+                                base_url: https://portail-gdi-rec.carma.grdf.fr/api/portal
+                                entity_id: https://portail-gdi-rec.carma.grdf.fr/api/portal
             logout:
                 path: /logout
 
