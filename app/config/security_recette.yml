@@ -3,7 +3,7 @@
 security:
 
     encoders:
-      PortalBundle\Entity\User: sha512
+      PortalBundle\Entity\User: sha2
 
     providers:
         fos_userbundle:
