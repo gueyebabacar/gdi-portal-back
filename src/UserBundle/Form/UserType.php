@@ -1,6 +1,6 @@
 <?php
 
-namespace PortalBundle\Form;
+namespace UserBundle\Form;
 
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
@@ -40,7 +40,7 @@ class UserType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'PortalBundle\Entity\User',
+            'data_class' => 'UserBundle\Entity\User',
             'csrf_protection' => false
         ));
     }

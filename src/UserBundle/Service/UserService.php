@@ -5,10 +5,10 @@ namespace UserBundle\Service;
 
 use Doctrine\ORM\EntityManager;
 use UserBundle\Entity\User;
-use PortalBundle\Form\UserType;
 use Symfony\Component\Form\FormFactory;
 use Symfony\Component\HttpFoundation\Request;
 use JMS\DiExtraBundle\Annotation as DI;
+use UserBundle\Form\UserType;
 
 /**
  * Class UserService
@@ -51,7 +51,7 @@ class UserService
      */
     public function getAll()
     {
-        return $this->em->getRepository('PortalBundle:User')->findAll();
+        return $this->em->getRepository('UserBundle:User')->findAll();
     }
 
     /**
@@ -79,7 +79,7 @@ class UserService
      */
     public function get($idRefStructureOp)
     {
-        return $this->em->getRepository('PortalBundle:User')->find($idRefStructureOp);
+        return $this->em->getRepository('UserBundle:User')->find($idRefStructureOp);
     }
 
     /**
@@ -91,7 +91,7 @@ class UserService
     public function edit(Request $request, $idRefStructureOp)
     {
         /** @var  $user */
-        $user = $this->em->getRepository('PortalBundle:User')->find($idRefStructureOp);
+        $user = $this->em->getRepository('UserBundle:User')->find($idRefStructureOp);
         $form = $this->formFactory->create(UserType::class, $user);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
@@ -108,7 +108,7 @@ class UserService
     public function delete($idRefStructureOp)
     {
         /** @var  $user */
-        $user = $this->em->getRepository('PortalBundle:User')->find($idRefStructureOp);
+        $user = $this->em->getRepository('UserBundle:User')->find($idRefStructureOp);
         $this->em->remove($user);
         $this->em->flush();
     }

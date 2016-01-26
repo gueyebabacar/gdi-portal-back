@@ -1,6 +1,6 @@
 <?php
 
-namespace PortalBundle\Tests\Controller;
+namespace UserBundle\Tests\Controller;
 
 use PortalBundle\Entity\Agency;
 use PortalBundle\Entity\Region;
@@ -32,7 +32,7 @@ class UserControllerTest extends BaseWebTestCase
     {
         $this->insertUser();
 
-        $user = $this->em->getRepository('PortalBundle:User')->findAll();
+        $user = $this->em->getRepository('UserBundle:User')->findAll();
 
         $this->client->request('GET', "/users/all", [], [], $this->headers);
 
@@ -49,7 +49,7 @@ class UserControllerTest extends BaseWebTestCase
     {
         $this->insertUser();
 
-        $transcoDestTerrSite = $this->em->getRepository('PortalBundle:User')->findAll()[0];
+        $transcoDestTerrSite = $this->em->getRepository('UserBundle:User')->findAll()[0];
         $this->client->request(
             'GET',
             "/users/" . $transcoDestTerrSite->getId(),
@@ -101,7 +101,6 @@ class UserControllerTest extends BaseWebTestCase
             $this->headers
         );
         $response = json_decode($this->client->getResponse()->getContent(), true);
-
         $this->assertEquals($user->getEntity(), $response['entity']);
         $this->assertEquals($user->getFirstName(), $response['first_name']);
     }
@@ -117,7 +116,7 @@ class UserControllerTest extends BaseWebTestCase
             'firstName' => 'firstName-3'
         );
 
-        $user = $this->em->getRepository('PortalBundle:User')->findAll()[0];
+        $user = $this->em->getRepository('UserBundle:User')->findAll()[0];
         $user->setFirstName($data['firstName']);
 
         $this->client->request(
@@ -128,7 +127,6 @@ class UserControllerTest extends BaseWebTestCase
             $this->headers
         );
         $response = json_decode($this->client->getResponse()->getContent(), true);
-
         $this->assertEquals($user->getFirstName(), $response['first_name']);
     }
 
@@ -139,7 +137,7 @@ class UserControllerTest extends BaseWebTestCase
     {
         $this->insertUser();
 
-        $transcoNatureInter = $this->em->getRepository('PortalBundle:User')->findAll()[0];
+        $transcoNatureInter = $this->em->getRepository('UserBundle:User')->findAll()[0];
         $id = $transcoNatureInter->getId();
         $this->client->request(
             'GET',
@@ -148,7 +146,7 @@ class UserControllerTest extends BaseWebTestCase
             [],
             $this->headers
         );
-        $transcoNatureInter = $this->em->getRepository('PortalBundle:User')->find($id);
+        $transcoNatureInter = $this->em->getRepository('UserBundle:User')->find($id);
 
         $this->assertNull($transcoNatureInter);
     }

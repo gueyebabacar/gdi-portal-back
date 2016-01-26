@@ -1,6 +1,6 @@
 <?php
 
-namespace PortalBundle\Tests\Service;
+namespace UserBundle\Tests\Service;
 
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityRepository;
@@ -8,8 +8,8 @@ use PortalBundle\Entity\Agency;
 use PortalBundle\Entity\Region;
 use PortalBundle\Entity\Role;
 use UserBundle\Entity\User;
-use PortalBundle\Form\UserType;
-use PortalBundle\Service\UserService;
+use UserBundle\Form\UserType;
+use UserBundle\Service\UserService;
 use Prophecy\Argument;
 use Prophecy\Prophecy\ObjectProphecy;
 use Prophecy\Prophet;
@@ -75,7 +75,7 @@ class UserServiceTest extends \PHPUnit_Framework_TestCase
         $users = $this->createUser();
 
         $this->emProphecy
-            ->getRepository("PortalBundle:User")
+            ->getRepository("UserBundle:User")
             ->willReturn($this->repositoryProphecy)
             ->shouldBeCalled();
 
@@ -139,7 +139,7 @@ class UserServiceTest extends \PHPUnit_Framework_TestCase
         $user = new User();
 
         $this->emProphecy
-            ->getRepository(Argument::exact('PortalBundle:User'))
+            ->getRepository(Argument::exact('UserBundle:User'))
             ->willReturn($this->repositoryProphecy)
             ->shouldBeCalled();
 
@@ -168,7 +168,7 @@ class UserServiceTest extends \PHPUnit_Framework_TestCase
         $formProphecy = $this->prophet->prophesize(Form::class);
 
         $this->emProphecy
-            ->getRepository(Argument::exact('PortalBundle:User'))
+            ->getRepository(Argument::exact('UserBundle:User'))
             ->willReturn($this->repositoryProphecy)
             ->shouldBeCalled();
 
@@ -212,7 +212,7 @@ class UserServiceTest extends \PHPUnit_Framework_TestCase
         $user = new User();
 
         $this->emProphecy
-            ->getRepository(Argument::exact('PortalBundle:User'))
+            ->getRepository(Argument::exact('UserBundle:User'))
             ->willReturn($this->repositoryProphecy)
             ->shouldBeCalled();
 

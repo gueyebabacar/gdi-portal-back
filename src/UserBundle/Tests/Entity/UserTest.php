@@ -1,6 +1,6 @@
 <?php
 
-namespace PortalBundle\Tests\Entity;
+namespace UserBundle\Tests\Entity;
 
 use PortalBundle\Entity\Agency;
 use PortalBundle\Entity\Role;
