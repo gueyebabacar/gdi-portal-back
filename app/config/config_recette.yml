@@ -1,6 +1,5 @@
 imports:
     - { resource: config.yml }
-    - { resource: wsdls_recette.yml }
     - { resource: parameters_recette.yml }
     - { resource: security_recette.yml }
 
