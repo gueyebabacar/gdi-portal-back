@@ -29,10 +29,10 @@ target:
       phpunit:
         bin: php vendor/phpunit/phpunit/phpunit
         directories:
-          - src/TranscoBundle/Tests/Entity/
-          - src/TranscoBundle/Tests/Form/
-          - src/TranscoBundle/Tests/Repository/
-          - src/TranscoBundle/Tests/Service/
+          - src/PortalBundle/Tests/Entity/
+          - src/PortalBundle/Tests/Form/
+          - src/PortalBundle/Tests/Repository/
+          - src/PortalBundle/Tests/Service/
       end: php-unit
     jenkins-php-functional:
       dir: .
@@ -46,7 +46,7 @@ target:
       phpunit:
         bin: php vendor/phpunit/phpunit/phpunit
         directories:
-          - src/TranscoBundle/Tests/Controller/
+          - src/PortalBundle/Tests/Controller/
     jenkins-js-unit:
       dir: . # by default => .
       vagrant: # Optional
