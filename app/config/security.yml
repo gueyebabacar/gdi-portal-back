@@ -14,23 +14,23 @@ security:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
 
-#        saml:
-#            pattern: ^/
-#            aerial_ship_saml_sp:
-#                local_logout_path: /logout
-#                default_target_path: /
-#                create_user_if_not_exists: false
-#                provider: fos_userbundle
-#                services:
-#                    saml:
-#                        idp:
-#                            file: "@UserBundle/Resources/FedId/dev/GIDPD_FederationMetaData_20151028.xml"
-#                        sp:
-#                            config:
-#                                base_url: https://portail-gdi-rec.carma.grdf.fr/api/portal
-#                                entity_id: https://portail-gdi-rec.carma.grdf.fr/api/portal
-#            logout:
-#                path: /logout
+        saml:
+            pattern: ^/
+            aerial_ship_saml_sp:
+                local_logout_path: /logout
+                default_target_path: /
+                create_user_if_not_exists: false
+                provider: fos_userbundle
+                services:
+                    saml:
+                        idp:
+                            file: "@UserBundle/Resources/FedId/dev/GIDPD_FederationMetaData_20151028.xml"
+                        sp:
+                            config:
+                                base_url: https://portail-gdi-rec.carma.grdf.fr/api/portal
+                                entity_id: https://portail-gdi-rec.carma.grdf.fr/api/portal
+            logout:
+                path: /logout
 
         main:
             anonymous: ~
