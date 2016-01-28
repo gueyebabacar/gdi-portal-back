@@ -35,6 +35,7 @@ class LoadUserData extends AbstractFixture implements FixtureInterface, Containe
             $user->setLastName(ucfirst($loremIpsum->getWords(1)));
             $user->setEmail(lcfirst($user->getFirstName()) . '.' . lcfirst($user->getLastName()) . '@grdf.fr');
             $user->setUsername('GAIA' . $i);
+            $user->setPassword('test');
             $user->setNni('NNI' . $i);
             $user->setPhone1('+33111111' . $i);
             $user->setPhone2('+33111112' . $i);

@@ -3,7 +3,7 @@
 namespace UserBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use FOS\UserBundle\Model\User as BaseUser;
+use FOS\UserBundle\Entity\User as BaseUser;
 use PortalBundle\Entity\Agency;
 use PortalBundle\Entity\Region;
 use PortalBundle\Entity\Role;
@@ -48,23 +48,9 @@ class User extends BaseUser
     /**
      * @var string
      *
-     * @ORM\Column(type="string", nullable=true)
-     */
-    protected $email;
-
-    /**
-     * @var string
-     *
      * @ORM\Column(type="string")
      */
     protected $entity;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(type="string")
-     */
-    protected $username;
 
     /**
      * @var string
@@ -175,24 +161,6 @@ class User extends BaseUser
     /**
      * @return mixed
      */
-    public function getEmail()
-    {
-        return $this->email;
-    }
-
-    /**
-     * @param mixed $email
-     * @return BaseUser
-     */
-    public function setEmail($email)
-    {
-        $this->email = $email;
-        return $this;
-    }
-
-    /**
-     * @return mixed
-     */
     public function getEntity()
     {
         return $this->entity;
@@ -205,24 +173,6 @@ class User extends BaseUser
     public function setEntity($entity)
     {
         $this->entity = $entity;
-        return $this;
-    }
-
-    /**
-     * @return string
-     */
-    public function getUsername()
-    {
-        return $this->username;
-    }
-
-    /**
-     * @param string $username
-     * @return BaseUser
-     */
-    public function setUsername($username)
-    {
-        $this->username = $username;
         return $this;
     }
 
