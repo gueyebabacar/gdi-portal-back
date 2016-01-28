@@ -61,7 +61,7 @@ security:
         saml:
             pattern: ^/
             aerial_ship_saml_sp:
-                local_logout_path: /api/portal/logout
+                local_logout_path: /logout
                 default_target_path: /api/portal/users/all
                 create_user_if_not_exists: false
                 provider: fos_userbundle
@@ -71,10 +71,10 @@ security:
                             file: "@UserBundle/Resources/FedId/dev/GIDPD_FederationMetaData_20151028.xml"
                         sp:
                             config:
-                                base_url: https://portail-gdi-rec.carma.grdf.fr/api/portal
-                                entity_id: https://portail-gdi-rec.carma.grdf.fr/api/portal
+                                base_url: https://portail-gdi-rec.carma.grdf.fr
+                                entity_id: https://portail-gdi-rec.carma.grdf.fr
             logout:
-                path: /api/portal/logout
+                path: /logout
 
         main:
             anonymous: ~
