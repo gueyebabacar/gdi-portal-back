@@ -1,3 +1,7 @@
 role:
     type: rest
     resource: @PortalBundle/Controller/RoleController.php
+
+home:
+    type: rest
+    resource: @PortalBundle/Controller/RoleController.php
