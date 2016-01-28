@@ -44,23 +44,10 @@ monolog:
 
 #swiftmailer:
 #    delivery_address: me@example.com
-security:
-
-    encoders:
-      UserBundle\Entity\User: sha2
-
-    providers:
-        fos_userbundle:
-            id: fos_user.user_provider.username
-
-    firewalls:
-        dev:
-            pattern: ^/(_(profiler|wdt)|css|images|js)/
-            security: false
-
-        saml:
+saml:
             pattern: ^/
             aerial_ship_saml_sp:
+                login_path: /api/portal/saml/sp/login
                 local_logout_path: /logout
                 default_target_path: /api/portal/users/all
                 create_user_if_not_exists: false
@@ -71,10 +58,7 @@ security:
                             file: "@UserBundle/Resources/FedId/dev/GIDPD_FederationMetaData_20151028.xml"
                         sp:
                             config:
-                                base_url: https://portail-gdi-rec.carma.grdf.fr
-                                entity_id: https://portail-gdi-rec.carma.grdf.fr
+                                base_url: https://portail-gdi-rec.carma.grdf.fr/api/portal
+                                entity_id: https://portail-gdi-rec.carma.grdf.fr/api/portal
             logout:
                 path: /logout
-
-        main:
-            anonymous: ~
