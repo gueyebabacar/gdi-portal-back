@@ -18,7 +18,7 @@ security:
             pattern: ^/
             aerial_ship_saml_sp:
                 local_logout_path: /logout
-                default_target_path: /
+                default_target_path: /api/portal/
                 create_user_if_not_exists: false
                 provider: fos_userbundle
                 services:
