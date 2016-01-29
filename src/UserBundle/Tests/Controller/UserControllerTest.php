@@ -175,6 +175,7 @@ class UserControllerTest extends BaseWebTestCase
             'gaia' => 'gaia',
             'email' => 'email',
             'entity' => 'entity',
+            'password' => 'password',
             'nni' => 'nni',
             'phone1' => 'phone1',
             'phone2' => 'phone2',
@@ -189,6 +190,7 @@ class UserControllerTest extends BaseWebTestCase
         $user->setEmail($data['email']);
         $user->setEntity($data['entity']);
         $user->setUsername($data['gaia']);
+        $user->setPassword($data['password']);
         $user->setNni($data['nni']);
         $user->setPhone1($data['phone1']);
         $user->setPhone2($data['phone2']);
