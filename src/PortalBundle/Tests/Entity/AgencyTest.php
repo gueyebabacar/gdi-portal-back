@@ -19,7 +19,11 @@ class AgencyTest extends \PHPUnit_Framework_TestCase
         $agency = new Agency();
 
         $agency->setRegion($region);
+        $agency->setLabel('agency');
+        $agency->setCode('AGE0');
 
         $this->assertEquals($region, $agency->getRegion());
+        $this->assertEquals('agency', $agency->getLabel());
+        $this->assertEquals('AGE0', $agency->getCode());
     }
 }
