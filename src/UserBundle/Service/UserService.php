@@ -2,7 +2,6 @@
 
 namespace UserBundle\Service;
 
-
 use Doctrine\ORM\EntityManager;
 use UserBundle\Entity\User;
 use Symfony\Component\Form\FormFactory;
