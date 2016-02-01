@@ -2,13 +2,14 @@
 
 namespace UserBundle\Entity;
 
-use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 use FOS\UserBundle\Entity\User as BaseUser;
-use PortalBundle\Entity\Agency;
-use PortalBundle\Entity\Region;
-use PortalBundle\Entity\Role;
 use UserBundle\Enum\ContextEnum;
+use Doctrine\ORM\Mapping as ORM;
 use UserBundle\Enum\EntityEnum;
+use PortalBundle\Entity\Region;
+use PortalBundle\Entity\Agency;
+use PortalBundle\Entity\Role;
 
 /**
  * @ORM\Entity(repositoryClass="UserBundle\Repository\UserRepository")
@@ -28,6 +29,8 @@ class User extends BaseUser
     /**
      * @var string
      *
+     * @Assert\NotBlank()
+     *
      * @ORM\Column(name="first_name", type="string")
      */
     protected $firstName;
@@ -35,12 +38,16 @@ class User extends BaseUser
     /**
      * @var string
      *
+     * @Assert\NotBlank(message="ce champs ne peut pas être vide")
+     *
      * @ORM\Column(name="last_name", type="string")
      */
     protected $lastName;
 
     /**
      * @var string
+     *
+     * @Assert\NotBlank()
      *
      * @ORM\Column(type="string")
      */
