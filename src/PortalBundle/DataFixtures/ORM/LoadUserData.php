@@ -8,6 +8,7 @@ use Doctrine\Common\DataFixtures\FixtureInterface;
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 use UserBundle\Entity\User;
+use UserBundle\Enum\EntityEnum;
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
@@ -39,29 +40,30 @@ class LoadUserData extends AbstractFixture implements FixtureInterface, Containe
             $user->setNni('NNI' . $i);
             $user->setPhone1('+33111111' . $i);
             $user->setPhone2('+33111112' . $i);
+            $user->setRole('role' . $i);
 
             switch($i){
                 case 0:
-                    $user->setEntity(User::APPO_ENTITY);
+                    $user->setEntity(EntityEnum::APPO_ENTITY);
                     $user->setRole($this->getReference('role-admin-nat'));
                     break;
                 case 1:
-                    $user->setEntity(User::ATG_ENTITY);
+                    $user->setEntity(EntityEnum::ATG_ENTITY);
                     $user->setAgency($this->getReference('agency-1'));
                     $user->setRole($this->getReference('role-manager-atg'));
                     break;
                 case 2:
-                    $user->setEntity(User::APPO_ENTITY);
+                    $user->setEntity(EntityEnum::APPO_ENTITY);
                     $user->setRegion($this->getReference('region-4'));
                     $user->setRole($this->getReference('role-programmateur'));
                     break;
                 case 3:
-                    $user->setEntity(User::ATG_ENTITY);
+                    $user->setEntity(EntityEnum::ATG_ENTITY);
                     $user->setAgency($this->getReference('agency-4'));
                     $user->setRole($this->getReference('role-referent-equipe'));
                     break;
                 case 4:
-                    $user->setEntity(User::APPO_ENTITY);
+                    $user->setEntity(EntityEnum::APPO_ENTITY);
                     $user->setRegion($this->getReference('region-3'));
                     $user->setRole($this->getReference('role-programmateur'));
                     break;
