@@ -38,7 +38,7 @@ class User extends BaseUser
     /**
      * @var string
      *
-     * @Assert\NotBlank(message="ce champs ne peut pas être vide")
+     * @Assert\NotBlank()
      *
      * @ORM\Column(name="last_name", type="string")
      */
