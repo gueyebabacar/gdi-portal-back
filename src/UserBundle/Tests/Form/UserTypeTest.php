@@ -1,18 +1,26 @@
 <?php
 namespace UserBundle\Tests\Form;
 
+use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 use UserBundle\Entity\User;
 use UserBundle\Form\UserType;
 use Symfony\Component\Form\Test\TypeTestCase;
 
-class UserTypeTest extends TypeTestCase
+class UserTypeTest extends KernelTestCase
 {
+    protected $factory;
     /**
      * setUp
      */
     public function setUp()
     {
         parent::setUp();
+
+        self::bootKernel();
+        $container = self::$kernel->getContainer();
+        $this->factory = $container->get("form.factory");
+
+
     }
 
     /**
@@ -34,9 +42,9 @@ class UserTypeTest extends TypeTestCase
 //            'role' => 'role114',
 //        );
 
+        //$factory = $this->builder->getFormFactory();
         $userType = new UserType();
-        var_dump(get_class($userType));
-        $form = $this->factory->create($userType);
+        $form = $this->factory->create(UserType::class, new User());
 
 //        $user = new User();
 //        $user->setFirstName($formData['firstName']);
