@@ -4,7 +4,6 @@ namespace UserBundle\Tests\Form;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 use UserBundle\Entity\User;
 use UserBundle\Form\UserType;
-use Symfony\Component\Form\Test\TypeTestCase;
 
 class UserTypeTest extends KernelTestCase
 {
@@ -31,7 +30,6 @@ class UserTypeTest extends KernelTestCase
      */
     public function testSubmitValidData()
     {
-        //$this->markTestSkipped();
         $formData = array(
             'firstName' => 'babacar',
             'lastName' => 'babacartest',
@@ -43,8 +41,6 @@ class UserTypeTest extends KernelTestCase
             'role' => 'role114',
         );
 
-        //$factory = $this->builder->getFormFactory();
-        $userType = new UserType();
         $form = $this->factory->create(UserType::class, new User());
 
         $user = new User();
