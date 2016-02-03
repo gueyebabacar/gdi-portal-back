@@ -1,0 +1,92 @@
+{% extends 'WebProfilerBundle:Profiler:layout.html.twig' %}
+
+{% block toolbar %}
+    {% set icon %}
+        <img width="22" height="28" alt="Guzzle" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABYAAAAcCAYAAABlL09dAAAAAXNSR0IArs4c6QAAAAZiS0dEAEQAQQBCvbqCvQAAAAlwSFlzAAALEwAACxMBAJqcGAAAAAd0SU1FB94DFBccLLH96awAAAAZdEVYdENvbW1lbnQAQ3JlYXRlZCB3aXRoIEdJTVBXgQ4XAAACS0lEQVRIx+2WzW8SQRjGn9llye6WNRzAsLGlTaUH9cCXDXCw1qRqSbySlJCelfqB9W6qxmi81z/Ag9HgSb1oS/+BaoUaCD2sN7Cn1uKyQBB2vcgmCzRBlmOfZA7PZOY3b9555wM40T8RANRyfHm+Kv8KtlS1ZQamAeSUIDTZsbFXllgsZj+qHGwoSo0mhJiOtKbUMD4xTlNer1cACE0Iwaiay+UKW1iWPXZ1lmVx+co8vF4v3G43bIKAdrsNWZZROTqCJEnYK+7hy/a2cR7H05bjoP6AHzeTSQiCYOhnGAYsy8LpdMIzM4PFaBSJpbhhjKqpWl/wxdlZ3H+wik7OZVnGu3QaO1938LtSAcdxEEUR5y6cRzgS6RtYD9hms+HWSlKHNptNPH38BKVSSR+jKAokSYIkSfj4/kNfMNXdsXDtKjiO0/3Gp88G6KDqAft8PoPv3pihwS5RNPhyuTwUuCfHPM8bfKPRMPjXb9/0BXVXBtV7cpSeWh5JKn7u7xu82JWaxFK8J7qBwLlvWYMPBIOjiTizuQmlWtX99egiHA6HeXCtVsPL9XWoqqpv5sNHawhHwuB5HgzD4KzH8/9VAQC7uV28ePYcyTu3Ybfb4XA4cDeVMlduHeXzeazeS+HS3Bz8AT8mp6YgCAIoikKjXsfB4SHKpTJ+SBJy2ezg4M49sZXJYCuTGfaAaNA0bSRvnaZpIIRQltPT0/UFqxXFQgE0RZuDQgNjYRAKhYoknU5bz0xOrHEcf4MQ0jT5MpOWqv75ni8kTv4puv4CUfC7AZPA+OUAAAAASUVORK5CYII=" />
+        <span class="sf-toolbar-status{% if 5 < collector.callcount %} sf-toolbar-status-yellow{% endif %}">{{ collector.callcount }}</span>
+        {% if collector.callcount > 0 %}
+            <span class="sf-toolbar-info-piece-additional-detail">in {{ '%0.2f'|format(collector.time * 1000) }} ms</span>
+        {% endif %}
+        {% if collector.returnedErrorCount > 0 %}
+            <span class="sf-toolbar-info-piece-additional sf-toolbar-status sf-toolbar-status-red"> </span>
+        {% endif %}
+    {% endset %}
+    {% set text %}
+        <div class="sf-toolbar-info-piece">
+            <b>API Calls</b>
+            <span>{{ collector.callcount }}</span>
+        </div>
+        <div class="sf-toolbar-info-piece">
+            <b>Total time</b>
+            <span>{{ '%0.2f'|format(collector.time * 1000) }} ms</span>
+        </div>
+        <div class="sf-toolbar-info-piece">
+            <b>Errors</b>
+            <span class="sf-toolbar-status sf-toolbar-status-{{ collector.returnedErrorCount > 0 ? 'red' : 'green' }}">{{ collector.returnedErrorCount }}</span>
+        </div>
+    {% endset %}
+    {% include 'WebProfilerBundle:Profiler:toolbar_item.html.twig' with { 'link': profiler_url } %}
+{% endblock %}
+
+{% block menu %}
+<span class="label">
+    <span class="icon">
+      <img width="32" height="33" alt="Guzzle" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAhCAYAAAC4JqlRAAAAAXNSR0IArs4c6QAAAAZiS0dEAEQAQQBCvbqCvQAAAAlwSFlzAAALEwAACxMBAJqcGAAAAAd0SU1FB94DFBcYLaKWHD4AAAAZdEVYdENvbW1lbnQAQ3JlYXRlZCB3aXRoIEdJTVBXgQ4XAAAC4ElEQVRYw8VXy08TcRD+FtgAZfuiCwQxxR5gaU2A0F4skghRLy3RSEw0HnzcUHr1EYwR8ew/gODJaMpFQDjBAUt8pEDUZFsTDqVLKxikW+jCLo92PRhO3UpbaTvHyczO95v5dvIN4XK5+laWl1/s7x+QBEEgX0YQgE6rnSKuXuk5iEQixSiQlSTi8eK/iIiCAChCga3gAEoyTWhobIDZYgHDMKiuqQFFUVCpVEgkEpAkCTzP49faGoLLQfzw+7G0tIR4PJ6ajD2XLsvRzc0jOXC2owMOpwPG+vqMAAuCgM8fP+HVyEh2HdBotei924vmlpasWkxRFM5fvJAdAJ1ej4HBZ6BpOv8cKC0txf2HD1IWD4fCmJmeht/nw8bGBkRRhEqlgk6nwymTCU1mM2w2K9QaTXYAHN1O1CvMO5FIYNTtxsTYOGRZTpq3IAgIhUKY83gwPETAarPB2e3MDABFUXA4lZNG3W6MvxtLq72yLGPe68W815vZHmiztqGsrCzJ/zMcTrv4fy2i5pZWxeCZ6Zn8bEKj0agY7Pf78/MXaDRqxeDf6+uK/tdv36RV7Ma16+l1QFVRofgBURTzM4Kd7W3FYCVi5gTA1lZMMdiQg42oyAGO41B3si7JzzAMVjjuyNmmy4mUHfj+7ati8LmuzvyMYHFhUZFwJpMJnV1duQcgCAKmJicVE27evgV7e3vuJdnkxHtwwWCSnyRJ3HP14VF/P+ztdtA0DZIkQZIkKg2VOGO3ZybP/6WI9Ho9Bp4PwmAwHMtr015Eh8bzPJ70PwbLsjkTJMWWpqan0u5uSk0oSRLmPB7wfAS1tSegVqszKhCLxfBhdhYjQy8RjUazF6WHx4vZYoHltAWNDIMqmkYFRaG8vBx7e3sQRRF8JILV1VVwQQ4+lkUgEEgSLlnLclmW4WNZ+I5xJIW/jAp1Ex52tKjVZpULAUKWZdA0DeLLwsJwdVXVnXwDIAiAj0Z3/gAdjQlOvQRNAgAAAABJRU5ErkJggg==" />
+    </span>
+    <strong>GUZZLE</strong>
+    <span class="count">
+        <span>{{ collector.callcount }}</span>
+        <span>{{ '%0.0f'|format(collector.time * 1000) }} ms</span>
+    </span>
+</span>
+{% endblock %}
+
+{% block panel %}
+    <h2>API Calls</h2>
+
+    {% if not collector.callcount %}
+        <p>
+            <em>No calls.</em>
+        </p>
+    {% else %}
+        <ul class="alt">
+            {% for i, call in collector.calls %}
+                <li class="{{ i is odd ? 'odd' : 'even' }}">
+                    <div>
+                        <strong>Status</strong>: {{ call.status }}<br />
+                        <strong>URL</strong>: {{ call.url }}<br />
+                        <strong>Raw</strong>:
+                          <a href="data:text/plain;,{{ call.requestRaw|url_encode(true) }}">request</a> ({{ call.requestRaw|length}} bytes)
+                          <a href="data:text/plain;,{{ call.responseRaw|url_encode(true) }}">response</a> ({{ call.responseRaw|length}} bytes)
+                          <br />
+                        <strong>Description</strong>:
+                          <code>
+                          {% if call.parameterCount>0 %}
+							{{ call.clientName }}-&gt;{{ call.operationName }}(<a href="data:text/plain;,{{ call.requestDescription|url_encode(true) }}">{{ call.parameterCount }} parameters</a>)  
+                          {% elseif call.parameterCount==0 %}
+                            {{ call.clientName }}-&gt;{{ call.operationName }}()
+                          {% else %}
+                            {{ call.clientName }}-&gt;{{ call.operationName }}(...)
+                          {% endif %}
+                          </code>
+                          <br />
+                        {% if call.requestDescription %}
+                        <strong>Parsed</strong>:
+                          {% if call.parameterCount %}
+							<a href="data:text/plain;,{{ call.requestParameters|url_encode(true) }}">parameters</a>
+                          {% endif %}
+                          {% if call.responseType %}
+						 	<a href="data:{{ call.responseType }};,{{ call.responseObject|url_encode(true) }}">output</a>
+                          {% endif %}
+                          <br />
+                        {% endif %}
+                    </div>
+                    <small>
+                        <strong>Time</strong>: {{ '%0.2f'|format(call.time * 1000) }} ms
+                    </small>
+                </li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+
+{% endblock %}

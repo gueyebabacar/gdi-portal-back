@@ -1,0 +1,14 @@
+parameters:
+    lsw_guzzle.command_history_plugin.class: Lsw\GuzzleBundle\Plugin\CommandHistoryPlugin
+    lsw_guzzle.data_collector.class: Lsw\GuzzleBundle\DataCollector\GuzzleDataCollector
+    lsw_guzzle.data_collector.template: LswGuzzleBundle:Collector:guzzle
+
+services:
+    lsw_guzzle.command_history_plugin:
+        class: %lsw_guzzle.command_history_plugin.class%
+            
+    lsw_guzzle.data_collector:
+        class: %lsw_guzzle.data_collector.class%
+        arguments: [@lsw_guzzle.command_history_plugin]
+        tags:
+            - { name: data_collector, template: %lsw_guzzle.data_collector.template%, id:"guzzle"}
