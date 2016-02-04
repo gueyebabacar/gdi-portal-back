@@ -30,7 +30,7 @@ class RoleControllerTest extends BaseWebTestCase
         $this->insertRole();
 
         $roles= $this->em->getRepository('PortalBundle:Role')->findAll();
-        $this->client->request('GET', "/role/all", [], [], $this->headers);
+        $this->client->request('GET', "/roles", [], [], $this->headers);
         $response = json_decode($this->client->getResponse()->getContent(), true);
 
         $this->assertEquals(sizeof($roles), sizeof($response));
@@ -47,7 +47,7 @@ class RoleControllerTest extends BaseWebTestCase
         $role = $this->em->getRepository('PortalBundle:Role')->findAll()[0];
         $this->client->request(
             'GET',
-            "/role/".$role->getId(),
+            "/roles/".$role->getId(),
             [],
             [],
             $this->headers
@@ -75,7 +75,7 @@ class RoleControllerTest extends BaseWebTestCase
 
         $this->client->request(
             'POST',
-            "/role/create",
+            "/roles",
             $data,
             [],
             $this->headers
@@ -100,8 +100,8 @@ class RoleControllerTest extends BaseWebTestCase
         $role->setLabel($data['label']);
 
         $this->client->request(
-            'POST',
-            "/role/".$role->getId()."/update",
+            'PATCH',
+            "/roles/".$role->getId(),
             $data,
             [],
             $this->headers
@@ -121,8 +121,8 @@ class RoleControllerTest extends BaseWebTestCase
         $role = $this->em->getRepository('PortalBundle:Role')->findAll()[0];
         $id = $role->getId();
         $this->client->request(
-            'GET',
-            "/role/".$id."/delete",
+            'DELETE',
+            "/roles/".$id,
             [],
             [],
             $this->headers

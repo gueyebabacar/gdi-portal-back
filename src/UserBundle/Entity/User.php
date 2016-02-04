@@ -2,10 +2,13 @@
 
 namespace UserBundle\Entity;
 
-use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 use FOS\UserBundle\Entity\User as BaseUser;
-use PortalBundle\Entity\Agency;
+use UserBundle\Enum\ContextEnum;
+use Doctrine\ORM\Mapping as ORM;
+use UserBundle\Enum\EntityEnum;
 use PortalBundle\Entity\Region;
+use PortalBundle\Entity\Agency;
 use PortalBundle\Entity\Role;
 
 /**
@@ -14,14 +17,6 @@ use PortalBundle\Entity\Role;
  */
 class User extends BaseUser
 {
-    const REGION_CONTEXT = 'reg';
-    const AGENCY_CONTEXT = 'age';
-    const NATIONAL_CONTEXT = 'nat';
-
-    const APPO_ENTITY = 'APPO';
-    const ATG_ENTITY = 'ATG';
-    const VISITOR_ENTITY = 'Visiteur';
-
     /**
      * @var string
      *
@@ -34,6 +29,8 @@ class User extends BaseUser
     /**
      * @var string
      *
+     * @Assert\NotBlank()
+     *
      * @ORM\Column(name="first_name", type="string")
      */
     protected $firstName;
@@ -41,12 +38,16 @@ class User extends BaseUser
     /**
      * @var string
      *
+     * @Assert\NotBlank()
+     *
      * @ORM\Column(name="last_name", type="string")
      */
     protected $lastName;
 
     /**
      * @var string
+     *
+     * @Assert\NotBlank()
      *
      * @ORM\Column(type="string")
      */
@@ -101,7 +102,7 @@ class User extends BaseUser
     public function __construct()
     {
         parent::__construct();
-        $this->setTerritorialContext($this::NATIONAL_CONTEXT);
+        $this->setTerritorialContext(ContextEnum::NATIONAL_CONTEXT);
     }
 
     /**
@@ -246,7 +247,7 @@ class User extends BaseUser
     {
         $this->agency = $agency;
         $this->region = null;
-        $this->setTerritorialContext($this::AGENCY_CONTEXT);
+        $this->setTerritorialContext(ContextEnum::AGENCY_CONTEXT);
         return $this;
     }
 
@@ -266,7 +267,7 @@ class User extends BaseUser
     {
         $this->region = $region;
         $this->agency = null;
-        $this->setTerritorialContext($this::REGION_CONTEXT);
+        $this->setTerritorialContext(ContextEnum::REGION_CONTEXT);
         return $this;
     }
 
@@ -313,9 +314,9 @@ class User extends BaseUser
     {
         $maille = $this->getTerritorialContext();;
         $code_maille = null;
-        if ($this->territorialContext === $this::AGENCY_CONTEXT) {
+        if ($this->territorialContext === ContextEnum::AGENCY_CONTEXT) {
             $code_maille = $this->getAgency()->getCode();
-        } elseif ($this->territorialContext === $this::REGION_CONTEXT){
+        } elseif ($this->territorialContext === ContextEnum::REGION_CONTEXT){
             $code_maille = $this->getRegion()->getCode();
         }
         return [
@@ -327,24 +328,24 @@ class User extends BaseUser
     /**
      * @return array
      */
-    public function getContexts()
+    public static function getContexts()
     {
         return [
-            $this::REGION_CONTEXT,
-            $this::AGENCY_CONTEXT,
-            $this::NATIONAL_CONTEXT
+            ContextEnum::REGION_CONTEXT,
+            ContextEnum::AGENCY_CONTEXT,
+            ContextEnum::NATIONAL_CONTEXT
         ];
     }
 
     /**
      * @return array
      */
-    public function getEntities()
+    public static function getEntities()
     {
         return [
-            $this::APPO_ENTITY,
-            $this::ATG_ENTITY,
-            $this::VISITOR_ENTITY
+            EntityEnum::APPO_ENTITY,
+            EntityEnum::ATG_ENTITY,
+            EntityEnum::VISITOR_ENTITY
         ];
     }
 }

@@ -24,7 +24,7 @@ class UserController
 
     /**
      * Lists all User entities.
-     * @Rest\Get("/users/all")
+     * @Rest\Get("/users")
      * @Rest\View
      *
      * @ApiDoc(
@@ -40,7 +40,7 @@ class UserController
 
     /**
      * Creates a new User entity.
-     * @Rest\Post("/users/create")
+     * @Rest\Post("/users")
      * @Rest\View
      *
      * @ApiDoc(
@@ -79,7 +79,7 @@ class UserController
 
     /**
      * Displays a form to edit an existing User entity.
-     * @Rest\Post("/users/{userId}/update")
+     * @Rest\Patch("/users/{userId}")
      * @Rest\View
      *
      * @ApiDoc(
@@ -101,7 +101,7 @@ class UserController
 
     /**
      * Deletes a User entity.
-     * @Rest\Get("/users/{userId}/delete")
+     * @Rest\Delete("/users/{userId}")
      * @Rest\View
      *
      * @ApiDoc(
