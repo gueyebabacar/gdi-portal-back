@@ -34,7 +34,7 @@ class UserControllerTest extends BaseWebTestCase
 
         $user = $this->em->getRepository('UserBundle:User')->findAll();
 
-        $this->client->request('GET', "/users/all", [], [], $this->headers);
+        $this->client->request('GET', "/users", [], [], $this->headers);
 
         $response = json_decode($this->client->getResponse()->getContent(), true);
 
@@ -95,7 +95,7 @@ class UserControllerTest extends BaseWebTestCase
 
         $this->client->request(
             'POST',
-            "/users/create",
+            "/users",
             $data,
             [],
             $this->headers
@@ -119,8 +119,8 @@ class UserControllerTest extends BaseWebTestCase
         $user->setFirstName($data['firstName']);
 
         $this->client->request(
-            'POST',
-            "/users/" . $user->getId() . "/update",
+            'PATCH',
+            "/users/" . $user->getId(),
             $data,
             [],
             $this->headers
@@ -139,8 +139,8 @@ class UserControllerTest extends BaseWebTestCase
         $transcoNatureInter = $this->em->getRepository('UserBundle:User')->findAll()[0];
         $id = $transcoNatureInter->getId();
         $this->client->request(
-            'GET',
-            "/users/" . $id . "/delete",
+            'DELETE',
+            "/users/" . $id,
             [],
             [],
             $this->headers

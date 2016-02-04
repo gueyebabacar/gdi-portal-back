@@ -26,7 +26,7 @@ class RoleController extends FOSRestController
 
     /**
      * Lists all Role.
-     * @Rest\Get("/role/all")
+     * @Rest\Get("/roles")
      * @Rest\View
      *
      * @ApiDoc(
@@ -42,7 +42,7 @@ class RoleController extends FOSRestController
 
     /**
      * Creates a new Role".
-     * @Rest\Post("/role/create")
+     * @Rest\Post("/roles")
      * @Rest\View
      *
      * @ApiDoc(
@@ -60,7 +60,7 @@ class RoleController extends FOSRestController
 
     /**
      * Finds and displays a Role.
-     * @Rest\Get("/role/{id}")
+     * @Rest\Get("/roles/{id}")
      * @Rest\View
      *
      * @ApiDoc(
@@ -81,7 +81,7 @@ class RoleController extends FOSRestController
 
     /**
      * Displays a form to edit an existing Role.
-     * @Rest\Post("/role/{id}/update")
+     * @Rest\Patch("/roles/{id}")
      * @Rest\View
      *
      * @ApiDoc(
@@ -103,7 +103,7 @@ class RoleController extends FOSRestController
 
     /**
      * Deletes a Role.
-     * @Rest\Get("/role/{id}/delete")
+     * @Rest\Delete("/roles/{id}")
      * @Rest\View
      *
      * @ApiDoc(
