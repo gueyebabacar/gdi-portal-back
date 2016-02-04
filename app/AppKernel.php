@@ -27,6 +27,7 @@ class AppKernel extends Kernel
             new AerialShip\SamlSPBundle\AerialShipSamlSPBundle(),
             new UserBundle\UserBundle(),
             new Lsw\GuzzleBundle\LswGuzzleBundle(),
+            new Lsw\ApiCallerBundle\LswApiCallerBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'recette', 'test'), true)) {
