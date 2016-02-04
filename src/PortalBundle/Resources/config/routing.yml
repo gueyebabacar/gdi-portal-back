@@ -6,6 +6,10 @@ role:
     type: rest
     resource: @PortalBundle/Controller/RoleController.php
 
+proxy:
+    type: rest
+    resource: @PortalBundle/Controller/ProxyController.php
+
 agency:
     type: rest
     resource: @PortalBundle/Controller/AgencyController.php
