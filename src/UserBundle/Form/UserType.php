@@ -8,6 +8,7 @@ use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use UserBundle\Entity\User;
 use UserBundle\Enum\EntityEnum;
 
 class UserType extends AbstractType
@@ -28,11 +29,7 @@ class UserType extends AbstractType
             ->add('phone1', TextType::class)
             ->add('phone2', TextType::class)
             ->add('entity', ChoiceType::class, [
-                'choices' => array(
-                    EntityEnum::APPO_ENTITY => 'APPO',
-                    EntityEnum::ATG_ENTITY => 'ATG',
-                    EntityEnum::VISITOR_ENTITY => 'VISITEUR',
-                ),
+                'choices' => User::getEntities(),
                 'choices_as_values' => true,
             ])
             ->add('agency', EntityType::class,

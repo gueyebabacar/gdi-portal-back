@@ -5,7 +5,7 @@ namespace UserBundle\Enum;
 /**
  * @package UserBundle\Enum
  */
-class ContextEnum extends BaseEnum
+class ContextEnum
 {
     const REGION_CONTEXT = 'REGION';
     const AGENCY_CONTEXT = 'AGENCE';

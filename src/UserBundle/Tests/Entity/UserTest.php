@@ -24,7 +24,7 @@ class UserTest extends \PHPUnit_Framework_TestCase
             'entity' => 'entity',
             'phone2' => 'phone2',
             'role' => $role,
-            'territorialContext' => 'age',
+            'territorialContext' => 'AGENCE',
             'agency' => $agency,
         ];
 

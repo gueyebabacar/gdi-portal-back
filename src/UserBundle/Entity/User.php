@@ -328,7 +328,7 @@ class User extends BaseUser
     /**
      * @return array
      */
-    public function getContexts()
+    public static function getContexts()
     {
         return [
             ContextEnum::REGION_CONTEXT,
@@ -340,7 +340,7 @@ class User extends BaseUser
     /**
      * @return array
      */
-    public function getEntities()
+    public static function getEntities()
     {
         return [
             EntityEnum::APPO_ENTITY,
