@@ -26,8 +26,6 @@ class AppKernel extends Kernel
             new FOS\UserBundle\FOSUserBundle(),
             new AerialShip\SamlSPBundle\AerialShipSamlSPBundle(),
             new UserBundle\UserBundle(),
-            new Lsw\GuzzleBundle\LswGuzzleBundle(),
-            new Lsw\ApiCallerBundle\LswApiCallerBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'recette', 'test'), true)) {
