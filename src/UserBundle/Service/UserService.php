@@ -42,6 +42,7 @@ class UserService
     public function __construct($em, $formFactory)
     {
         $this->em = $em;
+        $this->userRepo = $this->em->getRepository('UserBundle:User');
         $this->formFactory = $formFactory;
     }
 
@@ -50,7 +51,7 @@ class UserService
      */
     public function getAll()
     {
-        return $this->em->getRepository('UserBundle:User')->findAll();
+        return $this->userRepo->getUserAttributes();
     }
 
     /**
