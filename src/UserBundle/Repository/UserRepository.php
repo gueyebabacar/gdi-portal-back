@@ -10,19 +10,25 @@ use Doctrine\ORM\EntityRepository;
  */
 class UserRepository extends EntityRepository
 {
+    /**
+     * @return array
+     */
     public function getUserAttributes()
     {
         $qb = $this->createQueryBuilder('user');
         $qb
-            ->select('user.firstName, user.lastName, user.entity, user.username, user.roles, agency.label as userAgency, user.enabled, region.label as userRegion')
-            ->leftJoin('user.agency', 'agency')
-            ->leftJoin('user.region', 'region');
+            ->select('user.firstName, user.lastName, user.entity, user.username, role.label as userRole, agency.code as userAgency, user.enabled')
+            ->leftJoin('user.role', 'role')
+            ->leftJoin('user.agency', 'agency');
 
         $q = $qb->getQuery();
 
         return $q->getArrayResult();
     }
 
+    /**
+     * @return array
+     */
     public function getProfiles()
     {
         $qb = $this->createQueryBuilder('user');
