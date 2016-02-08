@@ -37,6 +37,11 @@ class UserService
     public $authorizationChecker;
 
     /**
+     * @var \UserBundle\Repository\UserRepository
+     */
+    public $userRepo;
+
+    /**
      * ControlService constructor.
      * @param EntityManager $em
      * @param FormFactory $formFactory
@@ -51,6 +56,7 @@ class UserService
     public function __construct($em, $formFactory, $authorizationChecker)
     {
         $this->em = $em;
+        $this->userRepo = $this->em->getRepository('UserBundle:User');
         $this->formFactory = $formFactory;
         $this->authorizationChecker = $authorizationChecker;
     }
@@ -61,7 +67,7 @@ class UserService
     public function getAll()
     {
         $usersSent = [];
-        $users = $this->em->getRepository('UserBundle:User')->findAll();
+        $users = $this->userRepo->getUserAttributes();;
         foreach ($users as $user) {
             if (false !== $this->authorizationChecker->isGranted('view', $user)) {
                 $usersSent[] = $user;
@@ -96,7 +102,7 @@ class UserService
     public function get($userId)
     {
         $userSent = null;
-        $user = $this->em->getRepository('UserBundle:User')->find($userId);
+        $user = $this->userRepo->find($userId);
         if (false !== $this->authorizationChecker->isGranted('view', $user)) {
             $userSent = $user;
         }
@@ -113,7 +119,7 @@ class UserService
     public function edit(Request $request, $userId)
     {
         /** @var  $user */
-        $user = $this->em->getRepository('UserBundle:User')->find($userId);
+        $user = $this->userRepo->find($userId);
         $form = $this->formFactory->create(UserType::class, $user);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
@@ -130,7 +136,7 @@ class UserService
     public function delete($userId)
     {
         /** @var  $user */
-        $user = $this->em->getRepository('UserBundle:User')->find($userId);
+        $user = $this->userRepo->find($userId);
         $this->em->remove($user);
         $this->em->flush();
     }
@@ -141,7 +147,7 @@ class UserService
      */
     public function getProfiles()
     {
-        return $this->em->getRepository('UserBundle:User')->getProfiles();
+        return $this->userRepo->getProfiles();
     }
 
 }
