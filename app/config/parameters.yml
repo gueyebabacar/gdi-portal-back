@@ -11,11 +11,3 @@ parameters:
     mailer_user: null
     mailer_password: null
     secret: ThisTokenIsNotSoSecretChangeIt
-
-    api_caller.options:
-        timeout: 10
-        ssl_verifypeer: false
-        useragent: "LeaseWeb API Caller"
-        followlocation: true
-        sslversion: 3
-        fresh_connect: false
