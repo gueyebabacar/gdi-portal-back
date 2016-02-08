@@ -1,5 +1,6 @@
 imports:
     - { resource: config.yml }
+    - { resource: gdi_urls_dev.yml }
 
 framework:
     router:
