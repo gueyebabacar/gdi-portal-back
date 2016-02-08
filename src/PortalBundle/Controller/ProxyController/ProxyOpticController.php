@@ -72,12 +72,20 @@ class ProxyOpticController extends FOSRestController
     public function redirectGetOpticAction(Request $request, $uri)
     {
         $user = $this->getCurrentUser();
+        $this->baseUrl = $this->getParameter('optic_url');
+        $queryParameters = $request->getQueryString();
+        $url = $this->baseUrl . $uri;
+        if($queryParameters != null){
+            $url.= '?'.$queryParameters;
+        }
 
-        $parameters['headers'] = ['profile' => json_encode($this->userService->getProfile($user))];;
-        $parameters['parameters'] = [];
+        $parameters['headers'] = [
+            'profile' => json_encode($this->userService->getProfile($user)),
+        ];
 
+        $parameters['parameters'] = '';
         if ($user !== null) {
-            return $this->curlService->sendRequest($this->baseUrl . $uri, $parameters);
+            return $this->curlService->sendRequest($url, $parameters);
         } else {
             return null;
         }
@@ -100,12 +108,19 @@ class ProxyOpticController extends FOSRestController
     {
         $user = $this->getCurrentUser();
         $this->baseUrl = $this->getParameter('optic_url');
+        $queryParameters = $request->getQueryString();
+        $url = $this->baseUrl . $uri;
+        if($queryParameters != null){
+            $url.= '?'.$queryParameters;
+        }
 
-        $parameters['headers'] = ['profile' => json_encode($this->userService->getProfile($user))];;
-        $parameters['parameters'] = [];
+        $parameters['headers'] = [
+            'profile' => json_encode($this->userService->getProfile($user)),
+        ];
 
+        $parameters['parameters'] = '';
         if ($user !== null) {
-            return $this->curlService->sendRequest($this->baseUrl . $uri, $parameters);
+            return $this->curlService->sendRequest($url, $parameters);
         } else {
             return null;
         }
@@ -128,12 +143,19 @@ class ProxyOpticController extends FOSRestController
     {
         $user = $this->getCurrentUser();
         $this->baseUrl = $this->getParameter('optic_url');
+        $queryParameters = $request->getQueryString();
+        $url = $this->baseUrl . $uri;
+        if($queryParameters != null){
+            $url.= '?'.$queryParameters;
+        }
 
-        $parameters['headers'] = ['profile' => json_encode($this->userService->getProfile($user))];;
-        $parameters['parameters'] = [];
+        $parameters['headers'] = [
+            'profile' => json_encode($this->userService->getProfile($user)),
+        ];
 
+        $parameters['parameters'] = '';
         if ($user !== null) {
-            return $this->curlService->sendRequest($this->baseUrl . $uri, $parameters);
+            return $this->curlService->sendRequest($url, $parameters);
         } else {
             return null;
         }
@@ -154,15 +176,21 @@ class ProxyOpticController extends FOSRestController
      */
     public function redirectDeleteOpticAction(Request $request, $uri)
     {
-
         $user = $this->getCurrentUser();
         $this->baseUrl = $this->getParameter('optic_url');
+        $queryParameters = $request->getQueryString();
+        $url = $this->baseUrl . $uri;
+        if($queryParameters != null){
+            $url.= '?'.$queryParameters;
+        }
 
-        $parameters['headers'] = ['profile' => json_encode($this->userService->getProfile($user))];;
-        $parameters['parameters'] = [];
+        $parameters['headers'] = [
+            'profile' => json_encode($this->userService->getProfile($user)),
+        ];
 
+        $parameters['parameters'] = '';
         if ($user !== null) {
-            return $this->curlService->sendRequest($this->baseUrl . $uri, $parameters);
+            return $this->curlService->sendRequest($url, $parameters);
         } else {
             return null;
         }
