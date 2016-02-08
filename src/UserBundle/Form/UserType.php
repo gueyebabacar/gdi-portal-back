@@ -27,6 +27,7 @@ class UserType extends AbstractType
             ->add('email', TextType::class)
             ->add('password', TextType::class)
             ->add('phone1', TextType::class)
+            ->add('nni', TextType::class)
             ->add('phone2', TextType::class)
             ->add('entity', ChoiceType::class, [
                 'choices' => User::getEntities(),
