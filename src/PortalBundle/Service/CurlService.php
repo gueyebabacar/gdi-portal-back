@@ -2,6 +2,8 @@
 
 namespace PortalBundle\Service;
 
+use GuzzleHttp\Exception\ClientException;
+use GuzzleHttp\Exception\RequestException;
 use JMS\DiExtraBundle\Annotation as DI;
 use Lsw\ApiCallerBundle\Call\HttpDeleteJson;
 use Lsw\ApiCallerBundle\Call\HttpGetJson;
@@ -9,6 +11,8 @@ use Lsw\ApiCallerBundle\Call\HttpPostJson;
 use Lsw\ApiCallerBundle\Call\HttpPutJson;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\Request;
+use GuzzleHttp\Client;
+use GuzzleHttp\Psr7\Request as CurlRequest;
 
 /**
  * Class CurlService
@@ -51,47 +55,57 @@ class CurlService
     }
 
     /**
-     * @param Request $request
      * @param $url
      * @param $parameters
      * @return mixed
      */
-    public function sendRequest(Request $request, $url, $parameters){
-//        $this->container->get('api_caller')->setOption(CURLOPT_HTTPHEADER);
-        $output = $this->container->get('api_caller')->call($this->requestDispatcher($url,[]));
-        dump(json_encode($output));exit;
-        $array = [];
-        foreach (reset($output) as $item) {
-            $array[] = $item;
+    public function sendRequest($url, $parameters)
+    {
+        $client = new Client();
+
+//        $curl = $this->container->get('api_caller');
+//        $output = $curl->call($this->requestDispatcher($url, $parameters['profile'], []));
+
+        try {
+            $response = $client->send($this->requestDispatcher($url, $parameters));
+
+            return $response->getBody()->getContents();
+        } catch (RequestException $e) {
+            dump($e->getRequest());
+            $error['code'] = $e->getCode();
+            $error['message'] = $e->getMessage();
+            return $error;
         }
-//        dump(reset($output)); exit;
-        dump(reset($output)[0]);
-        return reset($output)[0];
+
     }
 
     /**
      * @param $url
      * @param $parameters
-     * @return HttpDeleteJson|HttpGetJson|HttpPostJson|HttpPutJson|null
+     * @return CurlRequest
      */
     private function requestDispatcher($url, $parameters)
     {
-        switch($this->method){
-            case 'GET':
-                return new HttpGetJson($url, $parameters);
-                break;
-            case 'POST':
-                return new HttpPostJson($url, $parameters);
-                break;
-            case 'PUT':
-                return new HttpPutJson($url, $parameters);
-                break;
-            case 'DELETE':
-                return new HttpDeleteJson($url, $parameters);
-                break;
-            default:
-                return null;
-                break;
-        }
+        return new CurlRequest($this->method, $url, $parameters['headers'], $parameters['parameters']);
+//        switch($this->method){
+//            case 'GET':
+//                return new HtZtpGetJson($url,$headers,  $parameters);
+//                return new CurlRequest('GET', $url, $headers, '');
+//                break;
+//
+//                break;
+//            case 'POST':
+//                return new HttpPostJson($url, $parameters);
+//                break;
+//            case 'PUT':
+//                return new HttpPutJson($url, $parameters);
+//                break;
+//            case 'DELETE':
+//                return new HttpDeleteJson($url, $parameters);
+//                break;
+//            default:
+//                return null;
+//                break;
+//        }
     }
 }

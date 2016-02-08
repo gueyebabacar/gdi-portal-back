@@ -1,0 +1,210 @@
+<?php
+
+namespace PortalBundle\Controller\ProxyController;
+
+use FOS\RestBundle\Controller\FOSRestController;
+use Nelmio\ApiDocBundle\Annotation\ApiDoc;
+use FOS\RestBundle\Controller\Annotations as Rest;
+use PortalBundle\Service\CurlService;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorage;
+use UserBundle\Service\UserService;
+use JMS\DiExtraBundle\Annotation as DI;
+
+/**
+ * Class ProxyGdiiController
+ * @package PortalBundle\Controller\ProxyController
+ */
+class ProxyGdiiController extends FOSRestController
+{
+    /**
+     * @var UserService
+     * @DI\Inject("portal.service.user")
+     */
+    protected $userService;
+
+    /**
+     * @var CurlService
+     * @DI\Inject("portal.service.curl")
+     */
+
+    protected $curlService;
+
+    /**
+     * @var TokenStorage
+     * @DI\Inject("security.token_storage")
+     */
+    protected $security;
+
+    /**
+     * @var string
+     */
+    protected $baseUrl;
+
+    /**
+     * ProxyGdiiController constructor.
+     * @param $userService
+     * @param $curlService
+     * @param $security
+     *
+     * @DI\InjectParams({
+     *     "userService" = @DI\Inject("portal.service.user"),
+     *     "curlService" = @DI\Inject("portal.service.curl"),
+     *     "security" = @DI\Inject("security.token_storage"),
+     * })
+     */
+    public function __construct($userService, $curlService, $security)
+    {
+        $this->userService = $userService;
+        $this->curlService = $curlService;
+        $this->security = $security;
+    }
+
+    /**
+     * @Rest\Get("/api/gdii/{uri}", requirements={ "uri": "([a-z\.]{2,6})([\/\w \.-]*)*\/?$"})
+     * @Rest\View
+     *
+     * @ApiDoc(
+     *      section = "ProxyController",
+     *      resource = true,
+     *      description = "Redirection to Gdii"
+     * )
+     * @param Request $request
+     * @param $uri
+     * @return string
+     */
+    public function redirectGetGdiiAction(Request $request, $uri)
+    {
+        $user = $this->getCurrentUser();
+        $this->baseUrl = $this->getParameter('gdii_url');
+        $queryParameters = $request->getQueryString();
+        $url = $this->baseUrl . $uri;
+        if($queryParameters != null){
+            $url.= '?'.$queryParameters;
+        }
+
+        $parameters['headers'] = [
+            'profile' => json_encode($this->userService->getProfile($user)),
+        ];
+
+        $parameters['parameters'] = '';
+        if ($user !== null) {
+            return $this->curlService->sendRequest($url, $parameters);
+        } else {
+            return null;
+        }
+    }
+
+    /**
+     * @Rest\Post("/api/gdii/{uri}", requirements={ "uri": "([a-z\.]{2,6})([\/\w \.-]*)*\/?$"})
+     * @Rest\View
+     *
+     * @ApiDoc(
+     *      section = "ProxyController",
+     *      resource = true,
+     *      description = "Redirection to Gdii"
+     * )
+     * @param Request $request
+     * @param $uri
+     * @return string
+     */
+    public function redirectPostGdiiAction(Request $request, $uri)
+    {
+        $user = $this->getCurrentUser();
+        $this->baseUrl = $this->getParameter('gdii_url');
+        $queryParameters = $request->getQueryString();
+        $url = $this->baseUrl . $uri;
+        if($queryParameters != null){
+            $url.= '?'.$queryParameters;
+        }
+
+        $parameters['headers'] = [
+            'profile' => json_encode($this->userService->getProfile($user)),
+        ];
+
+        $parameters['parameters'] = '';
+        if ($user !== null) {
+            return $this->curlService->sendRequest($url, $parameters);
+        } else {
+            return null;
+        }
+    }
+
+    /**
+     * @Rest\Put("/api/gdii/{uri}", requirements={ "uri": "([a-z\.]{2,6})([\/\w \.-]*)*\/?$"})
+     * @Rest\View
+     *
+     * @ApiDoc(
+     *      section = "ProxyController",
+     *      resource = true,
+     *      description = "Redirection to Gdii"
+     * )
+     * @param Request $request
+     * @param $uri
+     * @return string
+     */
+    public function redirectPutGdiiAction(Request $request, $uri)
+    {
+        $user = $this->getCurrentUser();
+        $this->baseUrl = $this->getParameter('gdii_url');
+        $queryParameters = $request->getQueryString();
+        $url = $this->baseUrl . $uri;
+        if($queryParameters != null){
+            $url.= '?'.$queryParameters;
+        }
+
+        $parameters['headers'] = [
+            'profile' => json_encode($this->userService->getProfile($user)),
+        ];
+
+        $parameters['parameters'] = '';
+        if ($user !== null) {
+            return $this->curlService->sendRequest($url, $parameters);
+        } else {
+            return null;
+        }
+    }
+
+    /**
+     * @Rest\Delete("/api/gdii/{uri}", requirements={ "uri": "([a-z\.]{2,6})([\/\w \.-]*)*\/?$"})
+     * @Rest\View
+     *
+     * @ApiDoc(
+     *      section = "ProxyController",
+     *      resource = true,
+     *      description = "Redirection to Gdii"
+     * )
+     * @param Request $request
+     * @param $uri
+     * @return string
+     */
+    public function redirectDeleteGdiiAction(Request $request, $uri)
+    {
+        $user = $this->getCurrentUser();
+        $this->baseUrl = $this->getParameter('gdii_url');
+        $queryParameters = $request->getQueryString();
+        $url = $this->baseUrl . $uri;
+        if($queryParameters != null){
+            $url.= '?'.$queryParameters;
+        }
+
+        $parameters['headers'] = [
+            'profile' => json_encode($this->userService->getProfile($user)),
+        ];
+
+        $parameters['parameters'] = '';
+        if ($user !== null) {
+            return $this->curlService->sendRequest($url, $parameters);
+        } else {
+            return null;
+        }
+    }
+
+    private function getCurrentUser()
+    {
+//        $user = $this->security->getToken()->getUser();
+        $user = $this->get('doctrine.orm.entity_manager')->getRepository('UserBundle:User')->find(1);
+
+        return $user;
+    }
+}

@@ -6,9 +6,17 @@ role:
     type: rest
     resource: @PortalBundle/Controller/RoleController.php
 
-proxy:
+proxy_pop:
     type: rest
-    resource: @PortalBundle/Controller/ProxyController.php
+    resource: @PortalBundle/Controller/ProxyController/ProxyPopController.php
+
+proxy_gdii:
+    type: rest
+    resource: @PortalBundle/Controller/ProxyController/ProxyGdiiController.php
+
+proxy_optic:
+    type: rest
+    resource: @PortalBundle/Controller/ProxyController/ProxyOpticController.php
 
 agency:
     type: rest
