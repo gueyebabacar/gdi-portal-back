@@ -11,6 +11,7 @@ use UserBundle\Entity\User;
 use UserBundle\Enum\EntityEnum;
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
+use UserBundle\Enum\RolesEnum;
 
 class LoadUserData extends AbstractFixture implements FixtureInterface, ContainerAwareInterface, OrderedFixtureInterface
 {
@@ -40,32 +41,31 @@ class LoadUserData extends AbstractFixture implements FixtureInterface, Containe
             $user->setNni('NNI' . $i);
             $user->setPhone1('+33111111' . $i);
             $user->setPhone2('+33111112' . $i);
-            $user->setRole('role' . $i);
 
             switch($i){
                 case 0:
                     $user->setEntity(EntityEnum::APPO_ENTITY);
-                    $user->setRole($this->getReference('role-admin-nat'));
+                    $user->setRoles([RolesEnum::ROLE_ADMINISTRATEUR_NATIONAL]);
                     break;
                 case 1:
                     $user->setEntity(EntityEnum::ATG_ENTITY);
                     $user->setAgency($this->getReference('agency-1'));
-                    $user->setRole($this->getReference('role-manager-atg'));
+                    $user->setRoles([RolesEnum::ROLE_MANAGER_ATG]);
                     break;
                 case 2:
                     $user->setEntity(EntityEnum::APPO_ENTITY);
                     $user->setRegion($this->getReference('region-4'));
-                    $user->setRole($this->getReference('role-programmateur'));
+                    $user->setRoles([RolesEnum::ROLE_PROGRAMMATEUR]);
                     break;
                 case 3:
                     $user->setEntity(EntityEnum::ATG_ENTITY);
                     $user->setAgency($this->getReference('agency-4'));
-                    $user->setRole($this->getReference('role-referent-equipe'));
+                    $user->setRoles([RolesEnum::ROLE_REFERENT_EQUIPE]);
                     break;
                 case 4:
                     $user->setEntity(EntityEnum::APPO_ENTITY);
                     $user->setRegion($this->getReference('region-3'));
-                    $user->setRole($this->getReference('role-programmateur'));
+                    $user->setRoles([RolesEnum::ROLE_PROGRAMMATEUR]);
                     break;
             }
             $manager->persist($user);

@@ -75,12 +75,6 @@ class User extends BaseUser
     protected $phone2;
 
     /**
-     * @var Role
-     * @ORM\ManyToOne(targetEntity="PortalBundle\Entity\Role")
-     */
-    protected $role;
-
-    /**
      * @var Agency
      * @ORM\ManyToOne(targetEntity="PortalBundle\Entity\Agency")
      */
@@ -286,24 +280,6 @@ class User extends BaseUser
     public function setTerritorialContext($territorialContext)
     {
         $this->territorialContext = $territorialContext;
-        return $this;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getRole()
-    {
-        return $this->role;
-    }
-
-    /**
-     * @param mixed $role
-     * @return BaseUser
-     */
-    public function setRole($role)
-    {
-        $this->role = $role;
         return $this;
     }
 

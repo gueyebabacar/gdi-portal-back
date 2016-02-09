@@ -26,3 +26,16 @@ security:
 
             # form_login: ~
             # http://symfony.com/doc/current/cookbook/security/form_login_setup.html
+
+    role_hierarchy:
+        ROLE_VISITEUR                : ROLE_USER
+        ROLE_TECHNICIEN              : ROLE_USER
+        ROLE_PROGRAMMATEUR           : ROLE_USER
+        ROLE_PROGRAMMATEUR_AVANCE    : ROLE_USER
+        ROLE_MANAGER_APPO            : ROLE_USER
+        ROLE_REFERENT_EQUIPE         : ROLE_USER
+        ROLE_MANAGER_ATG             : ROLE_USER
+        ROLE_ADMINISTRATEUR_LOCAL    : ROLE_USER
+        ROLE_ADMINISTRATEUR_NATIONAL : [ROLE_USER, ROLE_ADMIN]
+        ROLE_ADMINISTRATEUR_SI       : [ROLE_ADMINISTRATEUR_NATIONAL, ROLE_ALLOWED_TO_SWITCH]
+
