@@ -9,7 +9,6 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use UserBundle\Entity\User;
-use UserBundle\Enum\EntityEnum;
 
 class UserType extends AbstractType
 {
@@ -36,10 +35,7 @@ class UserType extends AbstractType
                 [
                     'class' => 'PortalBundle:Agency'
                 ])
-            ->add('role', EntityType::class,
-                [
-                    'class' => 'PortalBundle:Role'
-                ])
+            ->add('roles', TextType::class)
         ;
     }
 

@@ -2,12 +2,19 @@
 namespace UserBundle\Tests\Form;
 
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
+use Symfony\Component\Form\Form;
+use Symfony\Component\Form\FormFactory;
 use UserBundle\Entity\User;
+use UserBundle\Enum\RolesEnum;
 use UserBundle\Form\UserType;
 
 class UserTypeTest extends KernelTestCase
 {
+    /**
+     * @var FormFactory
+     */
     protected $factory;
+
     /**
      * setUp
      */
@@ -18,8 +25,6 @@ class UserTypeTest extends KernelTestCase
         self::bootKernel();
         $container = self::$kernel->getContainer();
         $this->factory = $container->get("form.factory");
-
-
     }
 
     /**
@@ -38,9 +43,10 @@ class UserTypeTest extends KernelTestCase
             'password' => 'okookpasse',
             'entity' => 'ATG',
             'agency' => 'agency114',
-            'role' => 'role114',
+            'roles' => [RolesEnum::ROLE_ADMINISTRATEUR_NATIONAL],
         );
 
+        /** @var Form $form */
         $form = $this->factory->create(UserType::class, new User());
 
         $user = new User();
@@ -51,7 +57,7 @@ class UserTypeTest extends KernelTestCase
         $user->setPassword($formData['password']);
         $user->setEntity($formData['entity']);
         $user->setAgency($formData['agency']);
-        $user->setRole($formData['role']);
+        $user->setRoles($formData['roles']);
 
         $form->submit($formData);
 

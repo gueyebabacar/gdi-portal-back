@@ -4,9 +4,9 @@ namespace UserBundle\Tests\Controller;
 
 use PortalBundle\Entity\Agency;
 use PortalBundle\Entity\Region;
-use PortalBundle\Entity\Role;
 use PortalBundle\Tests\BaseWebTestCase;
 use UserBundle\Entity\User;
+use UserBundle\Enum\RolesEnum;
 
 class UserControllerTest extends BaseWebTestCase
 {
@@ -37,7 +37,6 @@ class UserControllerTest extends BaseWebTestCase
         $this->client->request('GET', "/users", [], [], $this->headers);
 
         $response = json_decode($this->client->getResponse()->getContent(), true);
-
         $this->assertEquals(sizeof($user), sizeof($response));
         $this->assertEquals($user[0]->getId(), $response[0]['id']);
     }
@@ -78,7 +77,7 @@ class UserControllerTest extends BaseWebTestCase
             'phone2' => 'phone2',
             'territorialContext' => 'age',
             'agency' => $agency,
-            'role' => new Role(),
+            'roles' => [RolesEnum::ROLE_ADMINISTRATEUR_NATIONAL],
         ];
 
         $user = new User();
@@ -91,7 +90,7 @@ class UserControllerTest extends BaseWebTestCase
         $user->setPhone2($data['phone2']);
         $user->setTerritorialContext($data['territorialContext']);
         $user->setAgency($data['agency']);
-        $user->setRole($data['role']);
+        $user->setRoles($data['roles']);
 
         $this->client->request(
             'POST',
@@ -164,10 +163,6 @@ class UserControllerTest extends BaseWebTestCase
         $agency->setcode('ATG0');
         $agency->setRegion($region);
 
-        $role = new Role();
-        $role->setLabel('Role');
-        $role->setCode('role');
-
         $data = [
             'firstName' => 'fistName',
             'lastName' => 'lastName',
@@ -178,7 +173,7 @@ class UserControllerTest extends BaseWebTestCase
             'nni' => 'nni',
             'phone1' => 'phone1',
             'phone2' => 'phone2',
-            'role' => $role,
+            'roles' => [RolesEnum::ROLE_ADMINISTRATEUR_NATIONAL],
             'agency' => $agency,
             'territorialContext' => 'age',
         ];
@@ -193,13 +188,12 @@ class UserControllerTest extends BaseWebTestCase
         $user->setNni($data['nni']);
         $user->setPhone1($data['phone1']);
         $user->setPhone2($data['phone2']);
-        $user->setRole($data['role']);
+        $user->setRoles($data['roles']);
         $user->setTerritorialContext($data['territorialContext']);
         $user->setAgency($data['agency']);
 
         $this->em->persist($region);
         $this->em->persist($agency);
-        $this->em->persist($role);
         $this->em->persist($user);
         $this->em->flush();
     }

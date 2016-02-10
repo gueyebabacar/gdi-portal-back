@@ -6,8 +6,8 @@ use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityRepository;
 use PortalBundle\Entity\Agency;
 use PortalBundle\Entity\Region;
-use PortalBundle\Entity\Role;
 use UserBundle\Entity\User;
+use UserBundle\Enum\RolesEnum;
 use UserBundle\Form\UserType;
 use UserBundle\Service\UserService;
 use Prophecy\Argument;
@@ -242,10 +242,6 @@ class UserServiceTest extends \PHPUnit_Framework_TestCase
         $agency->setcode('ATG0');
         $agency->setRegion($region);
 
-        $role = new Role();
-        $role->setLabel('Role');
-        $role->setCode('role');
-
         $data = [
             'firstName' => 'fistName',
             'lastName' => 'lastName',
@@ -255,7 +251,7 @@ class UserServiceTest extends \PHPUnit_Framework_TestCase
             'nni' => 'nni',
             'phone1' => 'phone1',
             'phone2' => 'phone2',
-            'role' => $role,
+            'roles' => [RolesEnum::ROLE_ADMINISTRATEUR_NATIONAL],
             'agency' => $agency,
             'territorialContext' => 'age',
         ];
@@ -269,7 +265,7 @@ class UserServiceTest extends \PHPUnit_Framework_TestCase
         $user->setNni($data['nni']);
         $user->setPhone1($data['phone1']);
         $user->setPhone2($data['phone2']);
-        $user->setRole($data['role']);
+        $user->setRoles($data['roles']);
         $user->setTerritorialContext($data['territorialContext']);
         $user->setAgency($data['agency']);
 

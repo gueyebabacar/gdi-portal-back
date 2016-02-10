@@ -9,7 +9,6 @@ use Doctrine\ORM\Mapping as ORM;
 use UserBundle\Enum\EntityEnum;
 use PortalBundle\Entity\Region;
 use PortalBundle\Entity\Agency;
-use PortalBundle\Entity\Role;
 
 /**
  * @ORM\Entity(repositoryClass="UserBundle\Repository\UserRepository")
