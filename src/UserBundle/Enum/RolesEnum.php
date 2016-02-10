@@ -36,4 +36,20 @@ class RolesEnum
 
     const ROLE_ADMINISTRATEUR_SI = 'ROLE_ADMINISTRATEUR_SI';
     const ROLE_ADMINISTRATEUR_SI_LABEL = 'Administrateur SI';
+
+    public function getRoles()
+    {
+        return [
+            $this::ROLE_VISITEUR => $this::ROLE_VISITEUR_LABEL,
+            $this::ROLE_TECHNICIEN => $this::ROLE_TECHNICIEN_LABEL,
+            $this::ROLE_PROGRAMMATEUR => $this::ROLE_PROGRAMMATEUR_LABEL,
+            $this::ROLE_PROGRAMMATEUR_AVANCE => $this::ROLE_PROGRAMMATEUR_AVANCE_LABEL,
+            $this::ROLE_MANAGER_APPO => $this::ROLE_MANAGER_APPO_LABEL,
+            $this::ROLE_MANAGER_ATG => $this::ROLE_MANAGER_ATG_LABEL,
+            $this::ROLE_REFERENT_EQUIPE => $this::ROLE_REFERENT_EQUIPE_LABEL,
+            $this::ROLE_ADMINISTRATEUR_NATIONAL => $this::ROLE_ADMINISTRATEUR_NATIONAL_LABEL,
+            $this::ROLE_ADMINISTRATEUR_REGIONAL => $this::ROLE_ADMINISTRATEUR_REGIONAL_LABEL,
+            $this::ROLE_ADMINISTRATEUR_SI => $this::ROLE_ADMINISTRATEUR_SI_LABEL,
+        ];
+    }
 }
