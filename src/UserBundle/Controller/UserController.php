@@ -4,6 +4,7 @@ namespace UserBundle\Controller;
 
 use FOS\RestBundle\Controller\Annotations\RouteResource;
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use UserBundle\Entity\User;
 use UserBundle\Service\UserService;
 use Symfony\Component\HttpFoundation\Request;
@@ -42,6 +43,8 @@ class UserController
      * Creates a new User entity.
      * @Rest\Post("/users")
      * @Rest\View
+     *
+     * @Security("has_role('ROLE_ADMINISTRATEUR_LOCAL')")
      *
      * @ApiDoc(
      *      section = "User",
@@ -103,6 +106,8 @@ class UserController
      * Deletes a User entity.
      * @Rest\Delete("/users/{userId}")
      * @Rest\View
+     *
+     * @Security("has_role('ROLE_ADMINISTRATEUR_LOCAL')")
      *
      * @ApiDoc(
      *      section = "User",

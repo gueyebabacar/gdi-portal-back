@@ -31,8 +31,8 @@ class DefaultController extends FOSRestController
         $em = $this->get('doctrine.orm.entity_manager');
 
         $user = $em->getRepository('UserBundle:User')->findAll();
-        $token = new UsernamePasswordToken($user[0], null, $firewall, array('ROLE_ADMIN'));
+        $token = new UsernamePasswordToken($user[2], null, $firewall, array('ROLE_VISITEUR'));
         $this->get('security.token_storage')->setToken($token);
-        return $user[0];
+        return $user[2];
     }
 }
