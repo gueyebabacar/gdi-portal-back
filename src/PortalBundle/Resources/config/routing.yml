@@ -4,4 +4,4 @@ role:
 
 home:
     type: rest
-    resource: @PortalBundle/Controller/RoleController.php
+    resource: @PortalBundle/Controller/DefaultController.php
