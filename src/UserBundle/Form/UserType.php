@@ -24,6 +24,7 @@ class UserType extends AbstractType
         $builder
             ->add('username', TextType::class, array('label' => 'GAIA'))
             ->add('firstName', TextType::class)
+            ->add('enabled', TextType::class)
             ->add('lastName', TextType::class)
             ->add('email', TextType::class)
             ->add('password', TextType::class)
