@@ -8,6 +8,8 @@ use PortalBundle\Form\RoleType;
 use Symfony\Component\Form\FormFactory;
 use Symfony\Component\HttpFoundation\Request;
 use JMS\DiExtraBundle\Annotation as DI;
+use UserBundle\Enum\RolesEnum;
+use UserBundle\Service\UserService;
 
 /**
  * Class RolService
@@ -17,6 +19,12 @@ use JMS\DiExtraBundle\Annotation as DI;
  */
 class RoleService
 {
+    /**
+     * @var UserService
+     * @DI\Inject("portal.service.user")
+     */
+    public $userService;
+
     /**
      * @DI\Inject("doctrine.orm.entity_manager")
      * @var \Doctrine\ORM\EntityManager
@@ -46,11 +54,11 @@ class RoleService
     }
 
     /**
-     * Lists all TranscoNatureInter entities.
+     * Lists all Roles.
      */
     public function getAll()
     {
-        return $this->em->getRepository('PortalBundle:Role')->findAll();
+        return RolesEnum::getRoles();
     }
 
     /**
@@ -109,7 +117,7 @@ class RoleService
     public function delete($id)
     {
         /** @var Role $role */
-        $role = $this->em->getRepository('PortalBundle:Role')->find($id);
+        $role = $this->em->gretRepository('PortalBundle:Role')->find($id);
         $this->em->remove($role);
         $this->em->flush();
     }
