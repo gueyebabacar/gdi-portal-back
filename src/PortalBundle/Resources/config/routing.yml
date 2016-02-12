@@ -1,3 +1,11 @@
 home:
     type: rest
     resource: @PortalBundle/Controller/DefaultController.php
+
+agency:
+    type: rest
+    resource: @PortalBundle/Controller/AgencyController.php
+
+region:
+    type: rest
+    resource: @PortalBundle/Controller/RegionController.php
