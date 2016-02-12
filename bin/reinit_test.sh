@@ -16,4 +16,5 @@ php app/console doctrine:schema:create -e test
 php app/console cache:clear -e test
 php app/console assets:install web --symlink -e test
 
+php app/console doctrine:fixtures:load -n -e test
 echo "--- Fin reinit ---"

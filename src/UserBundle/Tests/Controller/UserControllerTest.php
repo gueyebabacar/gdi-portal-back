@@ -11,18 +11,11 @@ use UserBundle\Enum\RolesEnum;
 class UserControllerTest extends BaseWebTestCase
 {
     /**
-     * @var array
-     */
-    private $headers;
-
-    /**
      * setUp
      */
     public function setUp()
     {
         parent::setUp();
-
-        $this->headers = ['HTTP_gaiaId' => 'AO4620', 'Content-Type' => 'multipart/form-data'];
     }
 
     /**
@@ -31,12 +24,14 @@ class UserControllerTest extends BaseWebTestCase
     public function testGetAllAction()
     {
         $this->insertUser();
+        $this->login();
 
         $user = $this->em->getRepository('UserBundle:User')->findAll();
 
-        $this->client->request('GET', "/users", [], [], $this->headers);
+        $this->client->request('GET', "/users", [], [], []);
 
         $response = json_decode($this->client->getResponse()->getContent(), true);
+
         $this->assertEquals(sizeof($user), sizeof($response));
         $this->assertEquals($user[0]->getId(), $response[0]['id']);
     }
@@ -54,9 +49,10 @@ class UserControllerTest extends BaseWebTestCase
             "/users/" . $transcoDestTerrSite->getId(),
             [],
             [],
-            $this->headers
+            []
         );
         $response = json_decode($this->client->getResponse()->getContent(), true);
+
         $this->assertEquals($transcoDestTerrSite->getId(), $response['id']);
     }
 
@@ -66,6 +62,7 @@ class UserControllerTest extends BaseWebTestCase
     public function testCreateAction()
     {
         $agency = new Agency();
+        $this->login();
 
         $data = [
             'firstName' => 'firstName',
@@ -97,7 +94,7 @@ class UserControllerTest extends BaseWebTestCase
             "/users",
             $data,
             [],
-            $this->headers
+            []
         );
         $response = json_decode($this->client->getResponse()->getContent(), true);
         $this->assertEquals($user->getFirstName(), $response['first_name']);
@@ -109,6 +106,7 @@ class UserControllerTest extends BaseWebTestCase
     public function testEditAction()
     {
         $this->insertUser();
+        $this->login();
 
         $data = array(
             'firstName' => 'firstName-3'
@@ -122,7 +120,7 @@ class UserControllerTest extends BaseWebTestCase
             "/users/" . $user->getId(),
             $data,
             [],
-            $this->headers
+            []
         );
         $response = json_decode($this->client->getResponse()->getContent(), true);
         $this->assertEquals($user->getFirstName(), $response['first_name']);
@@ -134,19 +132,21 @@ class UserControllerTest extends BaseWebTestCase
     public function testDeleteAction()
     {
         $this->insertUser();
+        $this->login();
 
-        $transcoNatureInter = $this->em->getRepository('UserBundle:User')->findAll()[0];
-        $id = $transcoNatureInter->getId();
+        $user = $this->em->getRepository('UserBundle:User')->findAll()[0];
+        $id = $user->getId();
         $this->client->request(
             'DELETE',
             "/users/" . $id,
             [],
             [],
-            $this->headers
+            []
         );
-        $transcoNatureInter = $this->em->getRepository('UserBundle:User')->find($id);
 
-        $this->assertNull($transcoNatureInter);
+        $user = $this->em->getRepository('UserBundle:User')->find($id);
+
+        $this->assertNull($user);
     }
 
     /**

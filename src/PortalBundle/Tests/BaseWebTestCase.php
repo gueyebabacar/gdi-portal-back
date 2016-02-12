@@ -4,6 +4,8 @@ namespace PortalBundle\Tests;
 
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\Process\Process;
+use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
+use Symfony\Component\BrowserKit\Cookie;
 
 /**
  * Class BaseWebTestCase
@@ -49,8 +51,9 @@ abstract class BaseWebTestCase extends WebTestCase
         $this->em        = $this->container->get('doctrine.orm.entity_manager');
         $this->em->beginTransaction();
 
+//        $this->container->get('security.token_storage')->setToken(new UsernamePasswordToken('admin', null, 'secured_area', ['ROLE_ADMINISTRATEUR_SI']));
         //Invalidate latest session
-        $this->container->get('session')->invalidate();
+//        $this->container->get('session')->invalidate();
     }
 
     /**
@@ -92,5 +95,23 @@ abstract class BaseWebTestCase extends WebTestCase
     {
         $this->em->persist($entity);
         $this->em->flush();
+    }
+
+    /**
+     *
+     */
+    protected function login()
+    {
+        $session = $this->client->getContainer()->get('session');
+
+        $firewall = 'main';
+
+        $token = new UsernamePasswordToken($this->em->getRepository('UserBundle:User')->findOneBy(['username' => 'GAIA9']), null, $firewall, array('ROLE_ADMINISTRATEUR_LOCAL'));
+        $session->set('_security_' . $firewall, serialize($token));
+        $session->save();
+
+        $cookie = new Cookie($session->getName(), $session->getId());
+        $this->client->getCookieJar()->set($cookie);
+
     }
 }

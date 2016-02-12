@@ -28,6 +28,7 @@ class RoleControllerTest extends BaseWebTestCase
     public function testGetAllAction()
     {
         $this->insertRole();
+        $this->login();
 
         $roles= $this->em->getRepository('PortalBundle:Role')->findAll();
         $this->client->request('GET', "/roles", [], [], $this->headers);
@@ -43,6 +44,7 @@ class RoleControllerTest extends BaseWebTestCase
     public function testGetAction()
     {
         $this->insertRole();
+        $this->login();
 
         $role = $this->em->getRepository('PortalBundle:Role')->findAll()[0];
         $this->client->request(
@@ -61,6 +63,8 @@ class RoleControllerTest extends BaseWebTestCase
      */
     public function testCreateAction()
     {
+        $this->login();
+
         $data = array(
             'id' => 1,
             'label' => 'Programmateur',
@@ -91,6 +95,7 @@ class RoleControllerTest extends BaseWebTestCase
     public function testUpdateAction()
     {
         $this->insertRole();
+        $this->login();
 
         $data = array(
             'label' => 'Technicien',
@@ -117,6 +122,7 @@ class RoleControllerTest extends BaseWebTestCase
     {
         $this->markTestSkipped();
         $this->insertRole();
+        $this->login();
 
         $role = $this->em->getRepository('PortalBundle:Role')->findAll()[0];
         $id = $role->getId();
