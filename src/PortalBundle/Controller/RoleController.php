@@ -41,6 +41,22 @@ class RoleController extends FOSRestController
     }
 
     /**
+     * Display Role Label.
+     * @Rest\Get("/roles/label")
+     * @Rest\View
+     *
+     * @ApiDoc(
+     *      section = "Role",
+     *      resource = true,
+     *      description = "Liste le label des roles"
+     * )
+     */
+    public function getRoleLabelAction()
+    {
+        return $this->roleService->getRoleLabel();
+    }
+
+    /**
      * Creates a new Role".
      * @Rest\Post("/roles")
      * @Rest\View
