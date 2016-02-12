@@ -15,9 +15,9 @@ class UserRepository extends EntityRepository
     {
         $qb = $this->createQueryBuilder('user');
         $qb
-            ->select('user.firstName, user.lastName, user.entity, user.username, user.roles, agency.label as userAgency, user.enabled, region.label as userRegion')
-            ->leftJoin('user.agency', 'agency')
-            ->leftJoin('user.region', 'region');
+            ->select('user.firstName, user.lastName, user.entity, user.username, user.roles, userAgency.label as agency, user.enabled, userRegion.label as region, user.id')
+            ->leftJoin('user.agency', 'userAgency')
+            ->leftJoin('user.region', 'userRegion');
 
         $q = $qb->getQuery();
 
