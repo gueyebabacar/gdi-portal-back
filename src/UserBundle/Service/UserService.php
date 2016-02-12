@@ -5,6 +5,8 @@ namespace UserBundle\Service;
 use Doctrine\ORM\EntityManager;
 use Symfony\Component\Security\Core\Authorization\AuthorizationChecker;
 use UserBundle\Entity\User;
+use PortalBundle\Entity\Agency;
+use PortalBundle\Entity\Region;
 use Symfony\Component\Form\FormFactory;
 use Symfony\Component\HttpFoundation\Request;
 use JMS\DiExtraBundle\Annotation as DI;
@@ -86,7 +88,6 @@ class UserService
         $user = new User();
         $form = $this->formFactory->create(UserType::class, $user);
         $form->handleRequest($request);
-
         if ($form->isSubmitted() && $form->isValid()) {
             $this->em->persist($user);
             $this->em->flush();
