@@ -123,4 +123,20 @@ class UserController
     {
         $this->userService->delete($userId);
     }
+
+    /**
+     * Lists all User profiles.
+     * @Rest\Get("/profiles")
+     * @Rest\View
+     *
+     * @ApiDoc(
+     *      section = "User",
+     *      resource = true,
+     *      description = "Lister les differents profiles"
+     * )
+     */
+    public function getProfilesAction()
+    {
+        return $this->userService->getProfiles();
+    }
 }

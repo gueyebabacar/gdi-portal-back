@@ -73,24 +73,24 @@ class UserService
 
     /**
      * Finds and displays a User entity.
-     * @param $idRefStructureOp
+     * @param $userId
      * @return null|object|User
      */
-    public function get($idRefStructureOp)
+    public function get($userId)
     {
-        return $this->em->getRepository('UserBundle:User')->find($idRefStructureOp);
+        return $this->em->getRepository('UserBundle:User')->find($userId);
     }
 
     /**
      * Displays a form to edit an existing User entity.
      * @param Request $request
-     * @param $idRefStructureOp
+     * @param $userId
      * @return User
      */
-    public function edit(Request $request, $idRefStructureOp)
+    public function edit(Request $request, $userId)
     {
         /** @var  $user */
-        $user = $this->em->getRepository('UserBundle:User')->find($idRefStructureOp);
+        $user = $this->em->getRepository('UserBundle:User')->find($userId);
         $form = $this->formFactory->create(UserType::class, $user);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
@@ -102,14 +102,23 @@ class UserService
 
     /**
      * Deletes a User entity.
-     * @param $idRefStructureOp
+     * @param $userId
      */
-    public function delete($idRefStructureOp)
+    public function delete($userId)
     {
         /** @var  $user */
-        $user = $this->em->getRepository('UserBundle:User')->find($idRefStructureOp);
+        $user = $this->em->getRepository('UserBundle:User')->find($userId);
         $this->em->remove($user);
         $this->em->flush();
+    }
+
+    /**
+     * Deletes a User entity.
+     * @internal param $userId
+     */
+    public function getProfiles()
+    {
+        return $this->em->getRepository('UserBundle:User')->getProfiles();
     }
 }
 
