@@ -40,6 +40,9 @@ security:
         ROLE_ADMINISTRATEUR_SI       : [ROLE_ADMINISTRATEUR_NATIONAL, ROLE_ALLOWED_TO_SWITCH]
 
     access_control:
+        - { path: ^/doc, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/users, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/fake/*, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/, roles: ROLE_VISITEUR }
 
 
