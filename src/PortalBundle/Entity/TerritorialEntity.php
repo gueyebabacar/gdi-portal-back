@@ -62,4 +62,12 @@ abstract class TerritorialEntity
         $this->code = $code;
         return $this;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
 }

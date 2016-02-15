@@ -13,10 +13,11 @@ class LoadRegionData extends AbstractFixture implements FixtureInterface, Ordere
     public function load(ObjectManager $manager)
     {
 
-        for ($i = 0; $i < 5; $i++) {
+        for ($i = 1; $i < 6; $i++) {
             $region = new Region();
             $region->setLabel('Region ' . $i);
             $region->setCode('REG' . $i);
+            $region->addAgency($this->getReference('agency-'.$i));
             $manager->persist($region);
             $this->addReference('region-' . $i, $region);
         }
@@ -31,6 +32,6 @@ class LoadRegionData extends AbstractFixture implements FixtureInterface, Ordere
      */
     public function getOrder()
     {
-        return 1;
+        return 2;
     }
 }

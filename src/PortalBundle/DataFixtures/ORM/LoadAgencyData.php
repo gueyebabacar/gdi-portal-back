@@ -16,11 +16,10 @@ class LoadAgencyData extends AbstractFixture implements FixtureInterface, Ordere
 {
     public function load(ObjectManager $manager)
     {
-        for ($i = 0; $i < 5; $i++) {
+        for ($i = 1; $i < 6; $i++) {
             $agency = new Agency();
             $agency->setLabel('Agence ' . $i);
             $agency->setCode('ATG' . $i);
-            $agency->setRegion($this->getReference('region-' . $i));
             $manager->persist($agency);
             $this->addReference('agency-' . $i, $agency);
         }
@@ -34,6 +33,6 @@ class LoadAgencyData extends AbstractFixture implements FixtureInterface, Ordere
      */
     public function getOrder()
     {
-        return 2;
+        return 1;
     }
 }

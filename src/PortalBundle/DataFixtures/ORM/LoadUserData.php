@@ -31,7 +31,7 @@ class LoadUserData extends AbstractFixture implements FixtureInterface, Containe
         /** @var LoremIpsum $loremIpsum */
         $loremIpsum = $this->container->get("apoutchika.lorem_ipsum");
 
-        for ($i = 0; $i < 10; $i++) {
+        for ($i = 1; $i < 11; $i++) {
             $user = new User();
             $user->setFirstName(ucfirst($loremIpsum->getWords(1)));
             $user->setLastName(ucfirst($loremIpsum->getWords(1)));
@@ -43,51 +43,51 @@ class LoadUserData extends AbstractFixture implements FixtureInterface, Containe
             $user->setPhone2('+33111112' . $i);
 
             switch($i){
-                case 0:
+                case 1:
                     $user->setEntity(EntityEnum::VISITOR_ENTITY);
                     $user->setAgency($this->getReference('agency-1'));
                     $user->setRoles([RolesEnum::ROLE_VISITEUR]);
                     break;
-                case 1:
+                case 2:
                     $user->setEntity(EntityEnum::ATG_ENTITY);
                     $user->setAgency($this->getReference('agency-1'));
                     $user->setRoles([RolesEnum::ROLE_TECHNICIEN]);
                     break;
-                case 2:
+                case 3:
                     $user->setEntity(EntityEnum::APPO_ENTITY);
                     $user->setRegion($this->getReference('region-4'));
                     $user->setRoles([RolesEnum::ROLE_PROGRAMMATEUR]);
                     break;
-                case 3:
+                case 4:
                     $user->setEntity(EntityEnum::ATG_ENTITY);
                     $user->setAgency($this->getReference('agency-4'));
                     $user->setRoles([RolesEnum::ROLE_PROGRAMMATEUR_AVANCE]);
                     break;
-                case 4:
+                case 5:
                     $user->setEntity(EntityEnum::APPO_ENTITY);
                     $user->setRegion($this->getReference('region-3'));
                     $user->setRoles([RolesEnum::ROLE_MANAGER_APPO]);
                     break;
-                case 5:
+                case 6:
                     $user->setEntity(EntityEnum::APPO_ENTITY);
                     $user->setRegion($this->getReference('region-3'));
                     $user->setRoles([RolesEnum::ROLE_REFERENT_EQUIPE]);
                     break;
-                case 6:
+                case 7:
                     $user->setEntity(EntityEnum::ATG_ENTITY);
                     $user->setAgency($this->getReference('agency-1'));
                     $user->setRoles([RolesEnum::ROLE_MANAGER_ATG]);
                     break;
-                case 7:
+                case 8:
                     $user->setEntity(EntityEnum::APPO_ENTITY);
                     $user->setRegion($this->getReference('region-4'));
                     $user->setRoles([RolesEnum::ROLE_ADMINISTRATEUR_LOCAL]);
                     break;
-                case 8:
+                case 9:
                     $user->setEntity(EntityEnum::ATG_ENTITY);
                     $user->setRoles([RolesEnum::ROLE_ADMINISTRATEUR_NATIONAL]);
                     break;
-                case 9:
+                case 10:
                     $user->setEntity(EntityEnum::APPO_ENTITY);
                     $user->setRoles([RolesEnum::ROLE_ADMINISTRATEUR_SI]);
                     break;

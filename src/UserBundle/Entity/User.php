@@ -245,7 +245,7 @@ class User extends BaseUser
     }
 
     /**
-     * @return mixed
+     * @return Region
      */
     public function getRegion()
     {
