@@ -1,4 +1,4 @@
 services:
-#    portal.example:
-#        class: PortalBundle\Example
-#        arguments: [@service_id, "plain_value", %parameter%]
+    portal_authenticator:
+        class:  PortalBundle\Security\PortalAuthenticator
+        public: false
