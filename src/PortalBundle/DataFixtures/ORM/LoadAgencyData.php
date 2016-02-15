@@ -2,27 +2,33 @@
 
 namespace PortalBundle\DataFixtures\ORM;
 
-use Apoutchika\LoremIpsumBundle\Services\LoremIpsum;
 use Doctrine\Common\DataFixtures\AbstractFixture;
 use Doctrine\Common\DataFixtures\FixtureInterface;
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 use PortalBundle\Entity\Agency;
-use UserBundle\Entity\User;
-use Symfony\Component\DependencyInjection\ContainerAwareInterface;
-use Symfony\Component\DependencyInjection\ContainerInterface;
 
 class LoadAgencyData extends AbstractFixture implements FixtureInterface, OrderedFixtureInterface
 {
     public function load(ObjectManager $manager)
     {
-        for ($i = 0; $i < 5; $i++) {
-            $agency = new Agency();
-            $agency->setLabel('Agence ' . $i);
-            $agency->setCode('ATG' . $i);
-            $agency->setRegion($this->getReference('region-' . $i));
-            $manager->persist($agency);
-            $this->addReference('agency-' . $i, $agency);
+        $idReferenceAgency = 0;
+
+        for ($x = 0; $x < 5; $x++) {
+            for ($i = 0; $i < 5; $i++) {
+                $agency = new Agency();
+                $agency->setLabel('Agence ' . $idReferenceAgency);
+                $agency->setCode('ATG' . $idReferenceAgency);
+                $agency->setRegion($this->getReference('region-' . $x));
+
+                $this->addReference('agency-' . $idReferenceAgency, $agency);
+                $region = $this->getReference('region-' . $x)->addAgency($agency);
+
+                $manager->persist($agency);
+                $manager->persist($region);
+
+                $idReferenceAgency += 1;
+            }
         }
         $manager->flush();
     }
