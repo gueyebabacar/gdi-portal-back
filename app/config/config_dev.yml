@@ -41,6 +41,22 @@ monolog:
         #chromephp:
         #    type:   chromephp
         #    level:  info
+security:
+    firewalls:
+        unsecured_area:
+            pattern: ^/(_(profiler|wdt)|css|images|js|doc)
+            security: false
 
-#swiftmailer:
-#    delivery_address: me@example.com
+        secured_area:
+            pattern: ^/
+            stateless: true
+            simple_preauth:
+                authenticator: portal_authenticator
+            provider: fos_userbundle
+
+        dev:
+            pattern: ^/(_(profiler|wdt)|css|images|js|doc)/
+            security: false
+
+        main:
+            anonymous: ~
