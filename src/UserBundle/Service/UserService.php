@@ -3,6 +3,8 @@
 namespace UserBundle\Service;
 
 use Doctrine\ORM\EntityManager;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorage;
+use Symfony\Component\Security\Core\Authorization\AuthorizationChecker;
 use UserBundle\Entity\User;
 use Symfony\Component\Form\FormFactory;
 use Symfony\Component\HttpFoundation\Request;
@@ -30,19 +32,37 @@ class UserService
     public $formFactory;
 
     /**
+     * @DI\Inject("security.authorization_checker")
+     * @var AuthorizationChecker
+     */
+    public $authorizationChecker;
+
+    /**
+     * @DI\Inject("security.token_storage")
+     * @var TokenStorage
+     */
+    public $tokenStorage;
+
+    /**
      * ControlService constructor.
      * @param EntityManager $em
      * @param FormFactory $formFactory
+     * @param AuthorizationChecker $authorizationChecker
+     * @param TokenStorage $tokenStorage
      *
      * @DI\InjectParams({
      *     "em" = @DI\Inject("doctrine.orm.entity_manager"),
-     *     "formFactory" = @DI\Inject("form.factory")
+     *     "formFactory" = @DI\Inject("form.factory"),
+     *     "authorizationChecker" = @DI\Inject("security.authorization_checker"),
+     *     "tokenStorage" = @DI\Inject("security.token_storage")
      * })
      */
-    public function __construct($em, $formFactory)
+    public function __construct($em, $formFactory, $authorizationChecker, $tokenStorage)
     {
         $this->em = $em;
         $this->formFactory = $formFactory;
+        $this->authorizationChecker = $authorizationChecker;
+        $this->tokenStorage = $tokenStorage;
     }
 
     /**
@@ -50,7 +70,14 @@ class UserService
      */
     public function getAll()
     {
-        return $this->em->getRepository('UserBundle:User')->findAll();
+        $usersSent = [];
+        $users = $this->em->getRepository('UserBundle:User')->findAll();
+        foreach ($users as $user) {
+            if (false !== $this->authorizationChecker->isGranted('view', $user)) {
+                $usersSent[] = $user;
+            }
+        }
+        return $usersSent;
     }
 
     /**
@@ -78,7 +105,13 @@ class UserService
      */
     public function get($userId)
     {
-        return $this->em->getRepository('UserBundle:User')->find($userId);
+        $userSent = null;
+        $user = $this->em->getRepository('UserBundle:User')->find($userId);
+        if (false !== $this->authorizationChecker->isGranted('view', $user)) {
+            $userSent = $user;
+        }
+
+        return $userSent;
     }
 
     /**
@@ -120,5 +153,5 @@ class UserService
     {
         return $this->em->getRepository('UserBundle:User')->getProfiles();
     }
-}
 
+}

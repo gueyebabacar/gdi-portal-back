@@ -28,6 +28,8 @@ class UserController
      * @Rest\Get("/users")
      * @Rest\View
      *
+     * @Security("has_role('ROLE_ADMINISTRATEUR_LOCAL')")
+     *
      * @ApiDoc(
      *      section = "User",
      *      resource = true,
