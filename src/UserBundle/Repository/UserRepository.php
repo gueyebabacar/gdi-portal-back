@@ -2,6 +2,7 @@
 
 namespace UserBundle\Repository;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityRepository;
 
 /**
@@ -16,10 +17,9 @@ class UserRepository extends EntityRepository
     public function getUserAttributes()
     {
         $qb = $this->createQueryBuilder('user');
-        $qb
-            ->select('user.firstName, user.lastName, user.entity, user.username, user.roles, agency.label as userAgency, user.enabled, region.label as userRegion')
-            ->leftJoin('user.agency', 'agency')
-            ->leftJoin('user.region', 'region');
+        $qb->select('user.id, user.firstName, user.lastName, user.entity, user.username, user.roles, user.territorialContext, user.enabled, userAgency.id as agencyId, userAgency.label as agency, userRegion.id as regionId, userRegion.label as region')
+            ->leftJoin('user.agency', 'userAgency')
+            ->leftJoin('user.region', 'userRegion');
 
         $q = $qb->getQuery();
 

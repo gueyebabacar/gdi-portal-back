@@ -2,6 +2,9 @@
 
 namespace UserBundle\Entity;
 
+use JMS\Serializer\Annotation\Exclude;
+use JMS\Serializer\Annotation\ExclusionPolicy;
+use JMS\Serializer\Annotation\Expose;
 use Symfony\Component\Validator\Constraints as Assert;
 use FOS\UserBundle\Entity\User as BaseUser;
 use Doctrine\ORM\Mapping\AttributeOverrides;
@@ -26,7 +29,6 @@ use PortalBundle\Entity\Agency;
  *     )
  * })
  */
-
 class User extends BaseUser
 {
     /**

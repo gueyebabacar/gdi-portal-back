@@ -2,15 +2,40 @@
 
 namespace UserBundle\Voter;
 
+use Doctrine\ORM\EntityManager;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 use UserBundle\Entity\User;
 use UserBundle\Enum\ContextEnum;
+use JMS\DiExtraBundle\Annotation as DI;
 
+/**
+ * Class UserVoter
+ * @package UserBundle\Voter
+ */
 class UserVoter extends Voter
 {
     const VIEW = 'view';
     const EDIT = 'edit';
+
+    /**
+     * @DI\Inject("doctrine.orm.entity_manager")
+     * @var EntityManager
+     */
+    protected $em;
+
+    /**
+     * UserVoter constructor.
+     * @param EntityManager $em
+     *
+     * @DI\InjectParams({
+     *     "em" = @DI\Inject("doctrine.orm.entity_manager"),
+     * })
+     */
+    public function __construct(EntityManager $em)
+    {
+        $this->em = $em;
+    }
 
     /**
      * Determines if the attribute and subject are supported by this voter.
@@ -26,7 +51,7 @@ class UserVoter extends Voter
             return false;
         }
 
-        if (!$subject instanceof User) {
+        if (!isset($subject['username'])) {
             return false;
         }
         return true;
@@ -43,14 +68,11 @@ class UserVoter extends Voter
      */
     protected function voteOnAttribute($attribute, $subject, TokenInterface $token)
     {
-
         $user = $token->getUser();
         if (!$user instanceof User) {
-            // the user must be logged in; if not, deny access
             return false;
         }
 
-        // you know $subject is a Post object, thanks to supports
         /** @var User $userViewed */
         $userViewed = $subject;
         switch ($attribute) {
@@ -64,11 +86,11 @@ class UserVoter extends Voter
     }
 
     /**
-     * @param User $userViewed
+     * @param array|User $userViewed
      * @param User $user
      * @return bool
      */
-    private function canView(User $userViewed, User $user)
+    private function canView(array $userViewed, User $user)
     {
         if (!$this->canEdit($userViewed, $user)) {
             return false;
@@ -77,32 +99,32 @@ class UserVoter extends Voter
     }
 
     /**
-     * @param User $userViewed
+     * @param array|User $userViewed
      * @param User $user
      * @return bool
      */
-    private function canEdit(User $userViewed, User $user)
+    private function canEdit(array $userViewed, User $user)
     {
         switch ($user->getTerritorialContext()) {
             case ContextEnum::AGENCY_CONTEXT:
-                if ($user->getAgency() !== $userViewed->getAgency()) {
+                if ($user->getAgency()->getId() !== $userViewed['agencyId']) {
                     return false;
-                } elseif ($userViewed->getTerritorialContext() === ContextEnum::NATIONAL_CONTEXT) {
+                } elseif ($userViewed['territorialContext'] === ContextEnum::NATIONAL_CONTEXT) {
                     return false;
                 }
                 return true;
                 break;
 
             case ContextEnum::REGION_CONTEXT:
-                if ($userViewed->getTerritorialContext() === ContextEnum::REGION_CONTEXT &&
-                    $user->getRegion()->getId() !== $userViewed->getRegion()->getId()
+                if ($userViewed['territorialContext'] === ContextEnum::REGION_CONTEXT &&
+                    $user->getRegion()->getId() !== $userViewed['regionId']
                 ) {
                     return false;
-                } elseif ($userViewed->getTerritorialContext() === ContextEnum::AGENCY_CONTEXT &&
-                    !$user->getRegion()->getAgencies()->contains($userViewed->getAgency())
+                } elseif ($userViewed['territorialContext'] === ContextEnum::AGENCY_CONTEXT &&
+                    !$user->getRegion()->getAgencies()->contains($this->em->getRepository('PortalBundle:Agency')->find($userViewed['agencyId']))
                 ) {
                     return false;
-                } elseif ($userViewed->getTerritorialContext() === ContextEnum::NATIONAL_CONTEXT) {
+                } elseif ($userViewed['territorialContext'] === ContextEnum::NATIONAL_CONTEXT) {
                     return false;
                 }
                 return true;

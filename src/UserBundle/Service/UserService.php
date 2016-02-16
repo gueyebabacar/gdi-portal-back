@@ -5,8 +5,6 @@ namespace UserBundle\Service;
 use Doctrine\ORM\EntityManager;
 use Symfony\Component\Security\Core\Authorization\AuthorizationChecker;
 use UserBundle\Entity\User;
-use PortalBundle\Entity\Agency;
-use PortalBundle\Entity\Region;
 use Symfony\Component\Form\FormFactory;
 use Symfony\Component\HttpFoundation\Request;
 use JMS\DiExtraBundle\Annotation as DI;
@@ -69,7 +67,7 @@ class UserService
     public function getAll()
     {
         $usersSent = [];
-        $users = $this->userRepo->getUserAttributes();;
+        $users = $this->userRepo->getUserAttributes();
         foreach ($users as $user) {
             if (false !== $this->authorizationChecker->isGranted('view', $user)) {
                 $usersSent[] = $user;
