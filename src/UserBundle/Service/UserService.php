@@ -142,7 +142,6 @@ class UserService
 
     /**
      * Deletes a User entity.
-     * @internal param $userId
      */
     public function getProfiles()
     {
