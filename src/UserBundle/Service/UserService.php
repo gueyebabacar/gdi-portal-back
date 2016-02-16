@@ -3,7 +3,6 @@
 namespace UserBundle\Service;
 
 use Doctrine\ORM\EntityManager;
-use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorage;
 use Symfony\Component\Security\Core\Authorization\AuthorizationChecker;
 use UserBundle\Entity\User;
 use Symfony\Component\Form\FormFactory;
@@ -38,31 +37,22 @@ class UserService
     public $authorizationChecker;
 
     /**
-     * @DI\Inject("security.token_storage")
-     * @var TokenStorage
-     */
-    public $tokenStorage;
-
-    /**
      * ControlService constructor.
      * @param EntityManager $em
      * @param FormFactory $formFactory
      * @param AuthorizationChecker $authorizationChecker
-     * @param TokenStorage $tokenStorage
      *
      * @DI\InjectParams({
      *     "em" = @DI\Inject("doctrine.orm.entity_manager"),
      *     "formFactory" = @DI\Inject("form.factory"),
-     *     "authorizationChecker" = @DI\Inject("security.authorization_checker"),
-     *     "tokenStorage" = @DI\Inject("security.token_storage")
+     *     "authorizationChecker" = @DI\Inject("security.authorization_checker")
      * })
      */
-    public function __construct($em, $formFactory, $authorizationChecker, $tokenStorage)
+    public function __construct($em, $formFactory, $authorizationChecker)
     {
         $this->em = $em;
         $this->formFactory = $formFactory;
         $this->authorizationChecker = $authorizationChecker;
-        $this->tokenStorage = $tokenStorage;
     }
 
     /**
