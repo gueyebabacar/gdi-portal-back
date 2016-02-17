@@ -4,6 +4,7 @@ namespace PortalBundle\Service;
 
 use Doctrine\ORM\EntityManager;
 use JMS\DiExtraBundle\Annotation as DI;
+use PortalBundle\Enum\VoterEnum;
 use Symfony\Component\Security\Core\Authorization\AuthorizationChecker;
 
 /**
@@ -29,6 +30,7 @@ class RegionService
     /**
      * ControlService constructor.
      * @param EntityManager $em
+     * @param $authorizationChecker
      *
      * @DI\InjectParams({
      *     "em" = @DI\Inject("doctrine.orm.entity_manager"),
@@ -42,15 +44,15 @@ class RegionService
     }
 
     /**
-     * Provide label from Region entity
+     * Return all regions (secured)
      * @return array
      */
-    public function getRegionsAccess()
+    public function getRegionsSecured()
     {
         $regionsSent = [];
         $regions = $this->em->getRepository('PortalBundle:Region')->findAll();
         foreach ($regions as $region) {
-            if (false !== $this->authorizationChecker->isGranted('view', $region)) {
+            if (false !== $this->authorizationChecker->isGranted(VoterEnum::VIEW, $region)) {
                 $regionsSent[] = $region;
             }
         }

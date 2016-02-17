@@ -19,19 +19,20 @@ class RegionController
      * @DI\Inject("portal.service.region")
      */
     protected $regionService;
+
     /**
      * Provide Region's label.
-     * @Rest\Get("/regions/access")
+     * @Rest\Get("/regions/secured")
      * @Rest\View
      *
      * @ApiDoc(
      *      section = "Region",
      *      resource = true,
-     *      description = "permet de récuperer le label dune region"
+     *      description = "Permet de récuperer les régions (sécurisé)"
      * )
      */
-    public function getAllAccessAction()
+    public function getAllRegionsSecuredAction()
     {
-        return $this->regionService->getRegionsAccess();
+        return $this->regionService->getRegionsSecured();
     }
 }

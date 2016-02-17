@@ -3,6 +3,7 @@
 namespace UserBundle\Service;
 
 use Doctrine\ORM\EntityManager;
+use PortalBundle\Enum\VoterEnum;
 use Symfony\Component\Security\Core\Authorization\AuthorizationChecker;
 use UserBundle\Entity\User;
 use Symfony\Component\Form\FormFactory;
@@ -85,7 +86,7 @@ class UserService
                 $u->setRegion($this->em->getRepository('PortalBundle:Region')->find($user['regionId']));
             }
 
-            if (false !== $this->authorizationChecker->isGranted('view', $u)) {
+            if (false !== $this->authorizationChecker->isGranted(VoterEnum::VIEW, $u)) {
                 $usersSent[] = $u;
             }
         }
@@ -118,7 +119,7 @@ class UserService
     {
         $userSent = null;
         $user = $this->userRepo->find($userId);
-        if (false !== $this->authorizationChecker->isGranted('view', $user)) {
+        if (false !== $this->authorizationChecker->isGranted(VoterEnum::VIEW, $user)) {
             $userSent = $user;
         }
 
