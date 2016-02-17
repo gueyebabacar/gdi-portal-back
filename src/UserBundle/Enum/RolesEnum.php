@@ -47,9 +47,13 @@ class RolesEnum
             self::ROLE_MANAGER_APPO => self::ROLE_MANAGER_APPO_LABEL,
             self::ROLE_MANAGER_ATG => self::ROLE_MANAGER_ATG_LABEL,
             self::ROLE_REFERENT_EQUIPE => self::ROLE_REFERENT_EQUIPE_LABEL,
-            self::ROLE_ADMINISTRATEUR_NATIONAL => self::ROLE_ADMINISTRATEUR_NATIONAL_LABEL,
             self::ROLE_ADMINISTRATEUR_LOCAL => self::ROLE_ADMINISTRATEUR_LOCAL_LABEL,
+            self::ROLE_ADMINISTRATEUR_NATIONAL => self::ROLE_ADMINISTRATEUR_NATIONAL_LABEL,
             self::ROLE_ADMINISTRATEUR_SI => self::ROLE_ADMINISTRATEUR_SI_LABEL,
         ];
+    }
+
+    public static function roleHierarchy($role){
+        return array_search($role ,array_keys(self::getRoles()));
     }
 }

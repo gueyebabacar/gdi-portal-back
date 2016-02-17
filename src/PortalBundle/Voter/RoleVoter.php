@@ -1,14 +1,15 @@
 <?php
 
-namespace UserBundle\Voter;
+namespace PortalBundle\Voter;
 
 use PortalBundle\Enum\VoterEnum;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 use UserBundle\Entity\User;
 use UserBundle\Enum\ContextEnum;
+use UserBundle\Enum\RolesEnum;
 
-class UserVoter extends Voter
+class RoleVoter extends Voter
 {
     /**
      * Determines if the attribute and subject are supported by this voter.
@@ -24,7 +25,9 @@ class UserVoter extends Voter
             return false;
         }
 
-        if (!$subject instanceof User) {
+        if (!is_string($subject)) {
+            return false;
+        } elseif (!preg_match('/ROLE_/',$subject)){
             return false;
         }
         return true;
@@ -48,86 +51,80 @@ class UserVoter extends Voter
         }
 
         // you know $subject is a Post object, thanks to supports
-        /** @var User $userViewed */
-        $userViewed = $subject;
+        /** @var $roleViewed */
+        $roleViewed = $subject;
         switch ($attribute) {
             case VoterEnum::VIEW:
-                return $this->canView($userViewed, $user);
+                return $this->canView($roleViewed, $user);
             case VoterEnum::EDIT:
-                return $this->canEdit($userViewed, $user);
+                return $this->canEdit($roleViewed, $user);
             case VoterEnum::DELETE:
-                return $this->canDelete($userViewed, $user);
+                return $this->canDelete($roleViewed, $user);
         }
 
         throw new \LogicException('This code should not be reached!');
     }
 
     /**
-     * @param User $userViewed
+     * @param $roleViewed
      * @param User $user
      * @return bool
      */
-    private function canView(User $userViewed, User $user)
+    private function canView($roleViewed, User $user)
     {
         // If the user can edit then he can view
-        if (!$this->canEdit($userViewed, $user)) {
+        if (!$this->canEdit($roleViewed, $user)) {
             return false;
         }
         return true;
     }
 
     /**
-     * @param User $userViewed
+     * @param $roleViewed
      * @param User $user
      * @return bool
      */
-    private function canDelete(User $userViewed, User $user)
+    private function canDelete($roleViewed, User $user)
     {
         // If the user can edit then he can delete
-        if (!$this->canEdit($userViewed, $user)) {
+        if (!$this->canEdit($roleViewed, $user)) {
             return false;
         }
         return true;
     }
 
     /**
-     * @param User $userViewed
+     * @param $roleViewed
      * @param User $user
      * @return bool
      */
-    private function canEdit(User $userViewed, User $user)
+    private function canEdit($roleViewed, User $user)
     {
-        switch ($user->getTerritorialContext()) {
-            case ContextEnum::AGENCY_CONTEXT:
-                if ($user->getAgency() !== $userViewed->getAgency()) {
-                    return false;
-                } elseif ($userViewed->getTerritorialContext() === ContextEnum::NATIONAL_CONTEXT) {
+        $userRole = $user->getRoles()[0];
+        switch ($userRole) {
+            case RolesEnum::ROLE_ADMINISTRATEUR_SI:
+                return true;
+                break;
+
+            case RolesEnum::ROLE_ADMINISTRATEUR_NATIONAL:
+                if(RolesEnum::roleHierarchy($userRole) < RolesEnum::roleHierarchy($roleViewed)) {
                     return false;
                 }
                 return true;
                 break;
 
-            case ContextEnum::REGION_CONTEXT:
-                if ($userViewed->getTerritorialContext() === ContextEnum::REGION_CONTEXT &&
-                    $user->getRegion()->getId() !== $userViewed->getRegion()->getId()
-                ) {
-                    return false;
-                } elseif ($userViewed->getTerritorialContext() === ContextEnum::AGENCY_CONTEXT &&
-                    !$user->getRegion()->getAgencies()->contains($userViewed->getAgency())
-                ) {
-                    return false;
-                } elseif ($userViewed->getTerritorialContext() === ContextEnum::NATIONAL_CONTEXT) {
+            case RolesEnum::ROLE_ADMINISTRATEUR_LOCAL:
+                if(RolesEnum::roleHierarchy($userRole) < RolesEnum::roleHierarchy($roleViewed)) {
                     return false;
                 }
-                return true;
-                break;
-
-            case ContextEnum::NATIONAL_CONTEXT:
                 return true;
                 break;
 
             default:
-                return false;
+                if(RolesEnum::roleHierarchy($userRole) <= RolesEnum::roleHierarchy($roleViewed)) {
+                    return false;
+                }
+                return true;
                 break;
         }
     }

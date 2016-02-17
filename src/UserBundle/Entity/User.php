@@ -2,8 +2,13 @@
 
 namespace UserBundle\Entity;
 
+use JMS\Serializer\Annotation\Exclude;
+use JMS\Serializer\Annotation\ExclusionPolicy;
+use JMS\Serializer\Annotation\Expose;
 use Symfony\Component\Validator\Constraints as Assert;
 use FOS\UserBundle\Entity\User as BaseUser;
+use Doctrine\ORM\Mapping\AttributeOverrides;
+use Doctrine\ORM\Mapping\AttributeOverride;
 use UserBundle\Enum\ContextEnum;
 use Doctrine\ORM\Mapping as ORM;
 use UserBundle\Enum\EntityEnum;
@@ -13,6 +18,16 @@ use PortalBundle\Entity\Agency;
 /**
  * @ORM\Entity(repositoryClass="UserBundle\Repository\UserRepository")
  * @ORM\Table(name="users")
+ *   @AttributeOverrides({
+ *     @AttributeOverride(name="password",
+ *         column=@ORM\Column(
+ *             name="password",
+ *             type="string",
+ *             length=255,
+ *             nullable=true
+ *        )
+ *     )
+ * })
  */
 class User extends BaseUser
 {

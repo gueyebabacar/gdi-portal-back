@@ -46,8 +46,6 @@ class UserController
      * @Rest\Post("/users")
      * @Rest\View
      *
-     * @Security("has_role('ROLE_ADMINISTRATEUR_LOCAL')")
-     *
      * @ApiDoc(
      *      section = "User",
      *      resource = true,
@@ -108,8 +106,6 @@ class UserController
      * Deletes a User entity.
      * @Rest\Delete("/users/{userId}")
      * @Rest\View
-     *
-     * @Security("has_role('ROLE_ADMINISTRATEUR_LOCAL')")
      *
      * @ApiDoc(
      *      section = "User",

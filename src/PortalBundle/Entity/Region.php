@@ -55,6 +55,4 @@ class Region extends TerritorialEntity
         }
         return $this;
     }
-
-
 }

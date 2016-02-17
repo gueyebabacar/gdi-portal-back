@@ -1,14 +1,15 @@
 <?php
 
-namespace UserBundle\Voter;
+namespace PortalBundle\Voter;
 
+use PortalBundle\Entity\Region;
 use PortalBundle\Enum\VoterEnum;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 use UserBundle\Entity\User;
 use UserBundle\Enum\ContextEnum;
 
-class UserVoter extends Voter
+class RegionVoter extends Voter
 {
     /**
      * Determines if the attribute and subject are supported by this voter.
@@ -24,7 +25,7 @@ class UserVoter extends Voter
             return false;
         }
 
-        if (!$subject instanceof User) {
+        if (!$subject instanceof Region) {
             return false;
         }
         return true;
@@ -48,75 +49,64 @@ class UserVoter extends Voter
         }
 
         // you know $subject is a Post object, thanks to supports
-        /** @var User $userViewed */
-        $userViewed = $subject;
+        /** @var Region $regionViewed */
+        $regionViewed = $subject;
         switch ($attribute) {
             case VoterEnum::VIEW:
-                return $this->canView($userViewed, $user);
+                return $this->canView($regionViewed, $user);
             case VoterEnum::EDIT:
-                return $this->canEdit($userViewed, $user);
+                return $this->canEdit($regionViewed, $user);
             case VoterEnum::DELETE:
-                return $this->canDelete($userViewed, $user);
+                return $this->canDelete($regionViewed, $user);
         }
 
         throw new \LogicException('This code should not be reached!');
     }
 
     /**
-     * @param User $userViewed
+     * @param Region $regionViewed
      * @param User $user
      * @return bool
      */
-    private function canView(User $userViewed, User $user)
+    private function canView(Region $regionViewed, User $user)
     {
-        // If the user can edit then he can view
-        if (!$this->canEdit($userViewed, $user)) {
+        if (!$this->canEdit($regionViewed, $user)) {
             return false;
         }
         return true;
     }
 
     /**
-     * @param User $userViewed
+     * @param Region $regionViewed
      * @param User $user
      * @return bool
      */
-    private function canDelete(User $userViewed, User $user)
+    private function canDelete(Region $regionViewed, User $user)
     {
         // If the user can edit then he can delete
-        if (!$this->canEdit($userViewed, $user)) {
+        if (!$this->canEdit($regionViewed, $user)) {
             return false;
         }
         return true;
     }
 
     /**
-     * @param User $userViewed
+     * @param Region $regionViewed
      * @param User $user
      * @return bool
      */
-    private function canEdit(User $userViewed, User $user)
+    private function canEdit(Region $regionViewed, User $user)
     {
         switch ($user->getTerritorialContext()) {
             case ContextEnum::AGENCY_CONTEXT:
-                if ($user->getAgency() !== $userViewed->getAgency()) {
-                    return false;
-                } elseif ($userViewed->getTerritorialContext() === ContextEnum::NATIONAL_CONTEXT) {
+                if ($user->getAgency()->getRegion() !== $regionViewed) {
                     return false;
                 }
                 return true;
                 break;
 
             case ContextEnum::REGION_CONTEXT:
-                if ($userViewed->getTerritorialContext() === ContextEnum::REGION_CONTEXT &&
-                    $user->getRegion()->getId() !== $userViewed->getRegion()->getId()
-                ) {
-                    return false;
-                } elseif ($userViewed->getTerritorialContext() === ContextEnum::AGENCY_CONTEXT &&
-                    !$user->getRegion()->getAgencies()->contains($userViewed->getAgency())
-                ) {
-                    return false;
-                } elseif ($userViewed->getTerritorialContext() === ContextEnum::NATIONAL_CONTEXT) {
+                if ($user->getRegion() !== $regionViewed) {
                     return false;
                 }
                 return true;
