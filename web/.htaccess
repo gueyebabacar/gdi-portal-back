@@ -55,12 +55,12 @@ DirectoryIndex app.php
 
     # Cond env dev
     RewriteCond %{REQUEST_FILENAME} !-f
-    RewriteCond %{HTTP_HOST} ^(10.0.55.2)$ [NC]
+    RewriteCond %{HTTP_HOST} ^(10.0.59.10)$ [NC]
     RewriteRule ^(.*)$ %{ENV:BASE}/app_dev.php [L]
 
     # Cond env dev serve
     RewriteCond %{REQUEST_FILENAME} !-f
-    RewriteCond %{HTTP_HOST} ^(10.0.55.2:8091)$ [NC]
+    RewriteCond %{HTTP_HOST} ^(10.0.59.10:16300)$ [NC]
     RewriteRule ^(.*)$ %{ENV:BASE}/app_dev.php [L]
 
     # Cond env recette

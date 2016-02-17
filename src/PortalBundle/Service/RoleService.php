@@ -51,7 +51,10 @@ class RoleService
         $roles = RolesEnum::getRoles();
         foreach ($roles as $role => $roleLabel) {
             if (false !== $this->authorizationChecker->isGranted(VoterEnum::VIEW, $role)) {
-                $rolesSent[] = [$role => $roleLabel];
+                $rolesSent[] = [
+                    'label' => $roleLabel,
+                    'role' => $role
+                ];
             }
         }
         return $rolesSent;

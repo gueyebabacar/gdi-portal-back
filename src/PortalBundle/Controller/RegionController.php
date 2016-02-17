@@ -22,7 +22,7 @@ class RegionController
 
     /**
      * Provide Region's label.
-     * @Rest\Get("/regions/secured")
+     * @Rest\Get("/regions_secured")
      * @Rest\View
      *
      * @ApiDoc(

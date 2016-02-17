@@ -25,7 +25,9 @@ class RoleVoter extends Voter
             return false;
         }
 
-        if (!is_string($subject) && !preg_match('/ROLE_/',$subject)) {
+        if (!is_string($subject)) {
+            return false;
+        } elseif (!preg_match('/ROLE_/',$subject)){
             return false;
         }
         return true;
@@ -101,6 +103,20 @@ class RoleVoter extends Voter
         $userRole = $user->getRoles()[0];
         switch ($userRole) {
             case RolesEnum::ROLE_ADMINISTRATEUR_SI:
+                return true;
+                break;
+
+            case RolesEnum::ROLE_ADMINISTRATEUR_NATIONAL:
+                if(RolesEnum::roleHierarchy($userRole) < RolesEnum::roleHierarchy($roleViewed)) {
+                    return false;
+                }
+                return true;
+                break;
+
+            case RolesEnum::ROLE_ADMINISTRATEUR_LOCAL:
+                if(RolesEnum::roleHierarchy($userRole) < RolesEnum::roleHierarchy($roleViewed)) {
+                    return false;
+                }
                 return true;
                 break;
 
