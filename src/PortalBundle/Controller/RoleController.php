@@ -26,7 +26,7 @@ class RoleController extends FOSRestController
 
     /**
      * Lists all Role.
-     * @Rest\Get("/roles")
+     * @Rest\Get("/roles/secured")
      * @Rest\View
      *
      * @ApiDoc(
@@ -35,8 +35,8 @@ class RoleController extends FOSRestController
      *      description = "Lister la table Role"
      * )
      */
-    public function getAllAction()
+    public function getAllRolesSecuredAction()
     {
-        return $this->roleService->getAll();
+        return $this->roleService->getRolesSecured();
     }
 }

@@ -1,7 +1,6 @@
 services:
     security.user_voter:
         class: UserBundle\Voter\UserVoter
-        arguments: [@doctrine.orm.entity_manager]
         tags:
             - { name: security.voter }
         public: false

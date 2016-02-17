@@ -5,7 +5,12 @@ services:
 
     security.region_voter:
             class: PortalBundle\Voter\RegionVoter
-            arguments: [@doctrine.orm.entity_manager]
+            tags:
+                - { name: security.voter }
+            public: false
+
+    security.role_voter:
+            class: PortalBundle\Voter\RoleVoter
             tags:
                 - { name: security.voter }
             public: false
