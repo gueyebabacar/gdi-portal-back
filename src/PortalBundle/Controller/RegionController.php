@@ -21,7 +21,7 @@ class RegionController
     protected $regionService;
     /**
      * Provide Region's label.
-     * @Rest\Get("/regions")
+     * @Rest\Get("/regions/access")
      * @Rest\View
      *
      * @ApiDoc(
@@ -30,8 +30,8 @@ class RegionController
      *      description = "permet de récuperer le label dune region"
      * )
      */
-    public function RegionLabelAction()
+    public function getAllAccessAction()
     {
-        return $this->regionService->getRegionLabel();
+        return $this->regionService->getRegionsAccess();
     }
 }

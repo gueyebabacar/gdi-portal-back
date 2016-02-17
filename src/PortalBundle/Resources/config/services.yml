@@ -2,3 +2,10 @@ services:
     portal_authenticator:
         class:  PortalBundle\Security\PortalAuthenticator
         public: false
+
+    security.region_voter:
+            class: PortalBundle\Voter\RegionVoter
+            arguments: [@doctrine.orm.entity_manager]
+            tags:
+                - { name: security.voter }
+            public: false

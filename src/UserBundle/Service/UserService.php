@@ -69,8 +69,24 @@ class UserService
         $usersSent = [];
         $users = $this->userRepo->getUserAttributes();
         foreach ($users as $user) {
-            if (false !== $this->authorizationChecker->isGranted('view', $user)) {
-                $usersSent[] = $user;
+            $u = new User;
+            $u->setId($user['id']);
+            $u->setFirstName($user['firstName']);
+            $u->setLastName($user['lastName']);
+            $u->setEntity($user['entity']);
+            $u->setUsername($user['username']);
+            $u->setRoles($user['roles']);
+            $u->setTerritorialContext($user['territorialContext']);
+            $u->setEnabled($user['enabled']);
+            if (isset($user['agencyId'])) {
+                $u->setAgency($this->em->getRepository('PortalBundle:Agency')->find($user['agencyId']));
+            }
+            if (isset($user['regionId'])) {
+                $u->setRegion($this->em->getRepository('PortalBundle:Region')->find($user['regionId']));
+            }
+
+            if (false !== $this->authorizationChecker->isGranted('view', $u)) {
+                $usersSent[] = $u;
             }
         }
         return $usersSent;
@@ -147,5 +163,4 @@ class UserService
     {
         return $this->userRepo->getProfiles();
     }
-
 }
