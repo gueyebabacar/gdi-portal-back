@@ -14,3 +14,9 @@ services:
             tags:
                 - { name: security.voter }
             public: false
+
+    security.agency_voter:
+            class: PortalBundle\Voter\AgencyVoter
+            tags:
+                - { name: security.voter }
+            public: false
