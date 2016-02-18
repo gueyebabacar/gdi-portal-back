@@ -22,7 +22,7 @@ class AgencyController
 
     /**
      * Provide Agency's label.
-     * @Rest\Get("/agencies")
+     * @Rest\Get("/regions/{regionId}/agencies_secured")
      * @Rest\View
      *
      * @ApiDoc(
@@ -30,9 +30,11 @@ class AgencyController
      *      resource = true,
      *      description = "permet de récuperer le label dune agence"
      * )
+     * @param $regionId
+     * @return array
      */
-    public function AgencyLabelAction()
+    public function getAgenciesFromRegionSecuredAction($regionId)
     {
-        return $this->agencyService->getAgencyLabel();
+        return $this->agencyService->getAgenciesFromRegionSecured($regionId);
     }
 }

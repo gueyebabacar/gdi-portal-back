@@ -2,9 +2,6 @@
 
 namespace UserBundle\Entity;
 
-use JMS\Serializer\Annotation\Exclude;
-use JMS\Serializer\Annotation\ExclusionPolicy;
-use JMS\Serializer\Annotation\Expose;
 use Symfony\Component\Validator\Constraints as Assert;
 use FOS\UserBundle\Entity\User as BaseUser;
 use Doctrine\ORM\Mapping\AttributeOverrides;
@@ -70,7 +67,7 @@ class User extends BaseUser
     /**
      * @var string
      *
-     * @ORM\Column(type="string", nullable=true)
+     * @ORM\Column(type="string", nullable=true, unique=true)
      */
     protected $nni;
 
