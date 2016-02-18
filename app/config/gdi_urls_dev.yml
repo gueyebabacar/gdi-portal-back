@@ -1,4 +1,4 @@
 parameters:
-    pop_url: "http://10.0.55.2:8090/"
-    gdii_url: "http://10.0.55.2:8089/"
+    pop_url: "http://10.0.59.10:16000/"
+    gdii_url: "http://10.0.59.10:16200/"
     optic_url: "http://10.0.55.2:8090/"
