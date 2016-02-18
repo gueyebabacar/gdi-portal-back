@@ -1,7 +1,7 @@
 user:
     type: rest
     resource: "@UserBundle/Resources/config/routing.yml"
-    prefix:   /
+    prefix:   /portal
 
 portal:
     type: rest

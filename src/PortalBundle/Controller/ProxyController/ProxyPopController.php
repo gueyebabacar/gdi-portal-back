@@ -59,7 +59,7 @@ class ProxyPopController extends FOSRestController
     }
 
     /**
-     * @Rest\Get("/api/pop/{uri}", requirements={ "uri": "([a-z\.]{2,6})([\/\w \.-]*)*\/?$"})
+     * @Rest\Get("/newppi/{uri}", requirements={ "uri": "([a-z\.]{2,6})([\/\w \.-]*)*\/?$"})
      * @Rest\View
      *
      * @ApiDoc(
@@ -95,7 +95,7 @@ class ProxyPopController extends FOSRestController
     }
 
     /**
-     * @Rest\Post("/api/pop/{uri}", requirements={ "uri": "([a-z\.]{2,6})([\/\w \.-]*)*\/?$"})
+     * @Rest\Post("/newppi/{uri}", requirements={ "uri": "([a-z\.]{2,6})([\/\w \.-]*)*\/?$"})
      * @Rest\View
      *
      * @ApiDoc(
@@ -131,7 +131,7 @@ class ProxyPopController extends FOSRestController
     }
 
     /**
-     * @Rest\Put("/api/pop/{uri}", requirements={ "uri": "([a-z\.]{2,6})([\/\w \.-]*)*\/?$"})
+     * @Rest\Put("/newppi/{uri}", requirements={ "uri": "([a-z\.]{2,6})([\/\w \.-]*)*\/?$"})
      * @Rest\View
      *
      * @ApiDoc(
@@ -167,7 +167,7 @@ class ProxyPopController extends FOSRestController
     }
 
     /**
-     * @Rest\Delete("/api/pop/{uri}", requirements={ "uri": "([a-z\.]{2,6})([\/\w \.-]*)*\/?$"})
+     * @Rest\Delete("/newppi/{uri}", requirements={ "uri": "([a-z\.]{2,6})([\/\w \.-]*)*\/?$"})
      * @Rest\View
      *
      * @ApiDoc(
@@ -202,11 +202,11 @@ class ProxyPopController extends FOSRestController
         }
     }
 
+    /**
+     * @return mixed
+     */
     private function getCurrentUser()
     {
-//        $user = $this->security->getToken()->getUser();
-        $user = $this->get('doctrine.orm.entity_manager')->getRepository('UserBundle:User')->find(1);
-
-        return $user;
+        return $this->getUser();
     }
 }
