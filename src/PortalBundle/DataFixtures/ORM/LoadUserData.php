@@ -41,6 +41,7 @@ class LoadUserData extends AbstractFixture implements FixtureInterface, Containe
             $user->setNni('NNI' . $i);
             $user->setPhone1('+33111111' . $i);
             $user->setPhone2('+33111112' . $i);
+            $user->setEnabled(true);
 
             switch($i){
                 case 1:
