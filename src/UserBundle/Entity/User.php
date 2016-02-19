@@ -15,12 +15,19 @@ use PortalBundle\Entity\Agency;
 /**
  * @ORM\Entity(repositoryClass="UserBundle\Repository\UserRepository")
  * @ORM\Table(name="users")
- *   @AttributeOverrides({
+ * @AttributeOverrides({
  *     @AttributeOverride(name="password",
  *         column=@ORM\Column(
- *             name="password",
- *             type="string",
- *             length=255,
+ *             nullable=true
+ *        )
+ *     ),
+ *     @AttributeOverride(name="email",
+ *         column=@ORM\Column(
+ *             nullable=true
+ *        )
+ *     ),
+ *     @AttributeOverride(name="emailCanonical",
+ *         column=@ORM\Column(
  *             nullable=true
  *        )
  *     )
@@ -40,16 +47,12 @@ class User extends BaseUser
     /**
      * @var string
      *
-     * @Assert\NotBlank()
-     *
      * @ORM\Column(name="first_name", type="string")
      */
     protected $firstName;
 
     /**
      * @var string
-     *
-     * @Assert\NotBlank()
      *
      * @ORM\Column(name="last_name", type="string")
      */
@@ -58,8 +61,6 @@ class User extends BaseUser
     /**
      * @var string
      *
-     * @Assert\NotBlank()
-     *
      * @ORM\Column(type="string")
      */
     protected $entity;
@@ -67,7 +68,7 @@ class User extends BaseUser
     /**
      * @var string
      *
-     * @ORM\Column(type="string", nullable=true, unique=true)
+     * @ORM\Column(type="string", nullable=true)
      */
     protected $nni;
 
@@ -87,22 +88,35 @@ class User extends BaseUser
 
     /**
      * @var Agency
+     *
      * @ORM\ManyToOne(targetEntity="PortalBundle\Entity\Agency")
      */
     protected $agency;
 
     /**
-     * Region
      * @var Region
+     *
      * @ORM\ManyToOne(targetEntity="PortalBundle\Entity\Region")
      */
     protected $region;
 
     /**
-     * @ORM\Column(type="string")
+     * Maille
+     *
      * @var $territorialContext
+     *
+     * @ORM\Column(type="string")
      */
     protected $territorialContext;
+
+    /**
+     * Code Maille
+     *
+     * @var $territorialContext
+     *
+     * @ORM\Column(type="string" , nullable=true)
+     */
+    protected $territorialCode;
 
     public function __construct()
     {
@@ -178,6 +192,9 @@ class User extends BaseUser
      */
     public function setEntity($entity)
     {
+        if (!in_array($entity, EntityEnum::getEntities())) {
+            throw new \InvalidArgumentException("Entité invalide");
+        }
         $this->entity = $entity;
         return $this;
     }
@@ -253,6 +270,7 @@ class User extends BaseUser
         $this->agency = $agency;
         $this->region = null;
         $this->setTerritorialContext(ContextEnum::AGENCY_CONTEXT);
+        $this->setTerritorialCode($this->agency->getCode());
         return $this;
     }
 
@@ -273,6 +291,7 @@ class User extends BaseUser
         $this->region = $region;
         $this->agency = null;
         $this->setTerritorialContext(ContextEnum::REGION_CONTEXT);
+        $this->setTerritorialCode($this->region->getCode());
         return $this;
     }
 
@@ -295,17 +314,30 @@ class User extends BaseUser
     }
 
     /**
+     * @return mixed
+     */
+    public function getTerritorialCode()
+    {
+        return $this->territorialCode;
+    }
+
+    /**
+     * @param mixed $territorialCode
+     * @return $this
+     */
+    public function setTerritorialCode($territorialCode = null)
+    {
+        $this->territorialCode = $territorialCode;
+        return $this;
+    }
+
+    /**
      * @return array
      */
     public function getArrayContext()
     {
-        $maille = $this->getTerritorialContext();;
-        $code_maille = null;
-        if ($this->territorialContext === ContextEnum::AGENCY_CONTEXT) {
-            $code_maille = $this->getAgency()->getCode();
-        } elseif ($this->territorialContext === ContextEnum::REGION_CONTEXT){
-            $code_maille = $this->getRegion()->getCode();
-        }
+        $maille = $this->getTerritorialContext();
+        $code_maille = $this->getTerritorialCode();
         return [
             'maille' => $maille,
             'code_maille' => $code_maille

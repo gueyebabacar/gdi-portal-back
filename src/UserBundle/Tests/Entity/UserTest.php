@@ -18,9 +18,12 @@ class UserTest extends \PHPUnit_Framework_TestCase
         $data = [
             'firstName' => 'fistName',
             'lastName' => 'lastName',
+            'gaia' => 'gaia',
+            'email' => 'email',
+            'entity' => 'APPO',
+            'password' => 'password',
             'nni' => 'nni',
             'phone1' => 'phone1',
-            'entity' => 'entity',
             'phone2' => 'phone2',
             'roles' => [RolesEnum::ROLE_ADMINISTRATEUR_NATIONAL],
             'territorialContext' => 'AGENCE',
