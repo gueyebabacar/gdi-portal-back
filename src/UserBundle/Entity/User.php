@@ -23,6 +23,22 @@ use PortalBundle\Entity\Agency;
  *             length=255,
  *             nullable=true
  *        )
+ *     ),
+ *     @AttributeOverride(name="email",
+ *         column=@ORM\Column(
+ *             name="email",
+ *             type="string",
+ *             length=255,
+ *             nullable=true
+ *        )
+ *     ),
+ *     @AttributeOverride(name="emailCanonical",
+ *         column=@ORM\Column(
+ *             name="emailCanonical",
+ *             type="string",
+ *             length=255,
+ *             nullable=true
+ *        )
  *     )
  * })
  */
