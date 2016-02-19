@@ -3,7 +3,10 @@
 namespace UserBundle\Service;
 
 use Doctrine\ORM\EntityManager;
+use PortalBundle\Enum\ErrorEnum;
+use PortalBundle\Enum\ErrorLevelEnum;
 use PortalBundle\Enum\VoterEnum;
+use PortalBundle\Service\ErrorService;
 use Symfony\Component\Security\Core\Authorization\AuthorizationChecker;
 use UserBundle\Entity\User;
 use Symfony\Component\Form\FormFactory;
@@ -20,19 +23,21 @@ use UserBundle\Form\UserType;
 class UserService
 {
     /**
-     * @DI\Inject("doctrine.orm.entity_manager")
      * @var \Doctrine\ORM\EntityManager
      */
     public $em;
 
     /**
-     * @DI\Inject("form.factory")
      * @var \Symfony\Component\Form\FormFactory
      */
     public $formFactory;
 
     /**
-     * @DI\Inject("security.authorization_checker")
+     * @var ErrorService
+     */
+    public $errorService;
+
+    /**
      * @var AuthorizationChecker
      */
     public $authorizationChecker;
@@ -47,19 +52,22 @@ class UserService
      * @param EntityManager $em
      * @param FormFactory $formFactory
      * @param AuthorizationChecker $authorizationChecker
+     * @param $errorService
      *
      * @DI\InjectParams({
      *     "em" = @DI\Inject("doctrine.orm.entity_manager"),
      *     "formFactory" = @DI\Inject("form.factory"),
-     *     "authorizationChecker" = @DI\Inject("security.authorization_checker")
+     *     "authorizationChecker" = @DI\Inject("security.authorization_checker"),
+     *     "errorService" = @DI\Inject("portal.service.error")
      * })
      */
-    public function __construct($em, $formFactory, $authorizationChecker)
+    public function __construct($em, $formFactory, $authorizationChecker, $errorService)
     {
         $this->em = $em;
         $this->userRepo = $this->em->getRepository('UserBundle:User');
         $this->formFactory = $formFactory;
         $this->authorizationChecker = $authorizationChecker;
+        $this->errorService = $errorService;
     }
 
     /**
@@ -77,13 +85,13 @@ class UserService
             $u->setEntity($user['entity']);
             $u->setUsername($user['username']);
             $u->setRoles($user['roles']);
-            $u->setTerritorialContext($user['territorialContext']);
             $u->setEnabled($user['enabled']);
             if (isset($user['agencyId'])) {
                 $u->setAgency($this->em->getRepository('PortalBundle:Agency')->find($user['agencyId']));
-            }
-            if (isset($user['regionId'])) {
+            } elseif (isset($user['regionId'])) {
                 $u->setRegion($this->em->getRepository('PortalBundle:Region')->find($user['regionId']));
+            } else {
+                $u->setTerritorialCode("");
             }
 
             if (false !== $this->authorizationChecker->isGranted(VoterEnum::VIEW, $u)) {
@@ -104,10 +112,19 @@ class UserService
         $form = $this->formFactory->create(UserType::class, $user);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
+            $user->setEnabled(true);
             $this->em->persist($user);
             $this->em->flush();
         }
-        return $user;
+
+        if ($form->getErrors(true) !== null) {
+            foreach ($form->getErrors(true) as $error) {
+                $this->errorService->addError(ErrorEnum::INTERNAL, ErrorLevelEnum::CRITIC, $error->getMessage());
+            }
+            return array_merge($this->errorService->getErrors(), ['result' => $user]);
+        } else {
+            return ['result' => $user];
+        }
     }
 
     /**
@@ -118,11 +135,26 @@ class UserService
     public function get($userId)
     {
         $userSent = null;
-        $user = $this->userRepo->find($userId);
-        if (false !== $this->authorizationChecker->isGranted(VoterEnum::VIEW, $user)) {
-            $userSent = $user;
-        }
+        $user = $this->userRepo->getUserAttributes($userId)[0];
 
+        $u = new User;
+        $u->setId($user['id']);
+        $u->setFirstName($user['firstName']);
+        $u->setLastName($user['lastName']);
+        $u->setEntity($user['entity']);
+        $u->setUsername($user['username']);
+        $u->setRoles($user['roles']);
+        $u->setEnabled($user['enabled']);
+        if (isset($user['agencyId'])) {
+            $u->setAgency($this->em->getRepository('PortalBundle:Agency')->find($user['agencyId']));
+        } elseif (isset($user['regionId'])) {
+            $u->setRegion($this->em->getRepository('PortalBundle:Region')->find($user['regionId']));
+        } else {
+            $u->setTerritorialCode("");
+        }
+        if (false !== $this->authorizationChecker->isGranted(VoterEnum::VIEW, $u)) {
+            $userSent = $u;
+        }
         return $userSent;
     }
 
@@ -142,7 +174,14 @@ class UserService
             $this->em->persist($user);
             $this->em->flush();
         }
-        return $user;
+        if ($form->getErrors(true) !== null) {
+            foreach ($form->getErrors(true) as $error) {
+                $this->errorService->addError(ErrorEnum::INTERNAL, ErrorLevelEnum::CRITIC, $error->getMessage());
+            }
+            return array_merge($this->errorService->getErrors(), ['result' => $user]);
+        } else {
+            return ['result' => $user];
+        }
     }
 
     /**

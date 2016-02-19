@@ -7,6 +7,7 @@ use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 use UserBundle\Entity\User;
 use UserBundle\Enum\ContextEnum;
+use UserBundle\Enum\RolesEnum;
 
 class UserVoter extends Voter
 {
@@ -97,38 +98,46 @@ class UserVoter extends Voter
      */
     private function canEdit(User $userViewed, User $user)
     {
-        switch ($user->getTerritorialContext()) {
-            case ContextEnum::AGENCY_CONTEXT:
-                if ($user->getAgency() !== $userViewed->getAgency()) {
-                    return false;
-                } elseif ($userViewed->getTerritorialContext() === ContextEnum::NATIONAL_CONTEXT) {
-                    return false;
-                }
-                return true;
-                break;
+        if (RolesEnum::roleHierarchy($user->getRoles()[0]) >= 7) {
+            switch ($user->getTerritorialContext()) {
+                case ContextEnum::AGENCY_CONTEXT:
+                    if ($user->getAgency() !== $userViewed->getAgency()) {
+                        return false;
+                    } elseif ($userViewed->getTerritorialContext() === ContextEnum::NATIONAL_CONTEXT) {
+                        return false;
+                    }
+                    return true;
+                    break;
 
-            case ContextEnum::REGION_CONTEXT:
-                if ($userViewed->getTerritorialContext() === ContextEnum::REGION_CONTEXT &&
-                    $user->getRegion()->getId() !== $userViewed->getRegion()->getId()
-                ) {
-                    return false;
-                } elseif ($userViewed->getTerritorialContext() === ContextEnum::AGENCY_CONTEXT &&
-                    !$user->getRegion()->getAgencies()->contains($userViewed->getAgency())
-                ) {
-                    return false;
-                } elseif ($userViewed->getTerritorialContext() === ContextEnum::NATIONAL_CONTEXT) {
-                    return false;
-                }
-                return true;
-                break;
+                case ContextEnum::REGION_CONTEXT:
+                    if ($userViewed->getTerritorialContext() === ContextEnum::REGION_CONTEXT &&
+                        $user->getRegion()->getId() !== $userViewed->getRegion()->getId()
+                    ) {
+                        return false;
+                    } elseif ($userViewed->getTerritorialContext() === ContextEnum::AGENCY_CONTEXT &&
+                        !$user->getRegion()->getAgencies()->contains($userViewed->getAgency())
+                    ) {
+                        return false;
+                    } elseif ($userViewed->getTerritorialContext() === ContextEnum::NATIONAL_CONTEXT) {
+                        return false;
+                    }
+                    return true;
+                    break;
 
-            case ContextEnum::NATIONAL_CONTEXT:
-                return true;
-                break;
+                case ContextEnum::NATIONAL_CONTEXT:
+                    return true;
+                    break;
 
-            default:
+                default:
+                    return false;
+                    break;
+            }
+        } else {
+            if ($user->getId() == $userViewed->getId()) {
+                return true;
+            } else {
                 return false;
-                break;
+            }
         }
     }
 }

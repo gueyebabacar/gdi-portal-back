@@ -1,6 +1,7 @@
 <?php
 namespace UserBundle\Tests\Form;
 
+use PortalBundle\Entity\Agency;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 use Symfony\Component\Form\Form;
 use Symfony\Component\Form\FormFactory;
@@ -42,7 +43,7 @@ class UserTypeTest extends KernelTestCase
             'phone2' => '1122252584',
             'password' => 'okookpasse',
             'entity' => 'ATG',
-            'agency' => 'agency114',
+            'agency' => new Agency(),
             'roles' => [RolesEnum::ROLE_ADMINISTRATEUR_NATIONAL],
         );
 
