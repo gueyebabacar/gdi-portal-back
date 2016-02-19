@@ -28,7 +28,7 @@ use PortalBundle\Entity\Agency;
  *         column=@ORM\Column(
  *             name="email",
  *             type="string",
- *             length=255,
+ *             length=90,
  *             nullable=true
  *        )
  *     ),
@@ -36,8 +36,14 @@ use PortalBundle\Entity\Agency;
  *         column=@ORM\Column(
  *             name="emailCanonical",
  *             type="string",
- *             length=255,
+ *             length=90,
  *             nullable=true
+ *        )
+ *     ),
+ *     @AttributeOverride(name="username",
+ *         column=@ORM\Column(
+ *             name="username",
+ *             length=6,
  *        )
  *     )
  * })
@@ -58,7 +64,7 @@ class User extends BaseUser
      *
      * @Assert\NotBlank()
      *
-     * @ORM\Column(name="first_name", type="string")
+     * @ORM\Column(name="first_name", type="string", length=40)
      */
     protected $firstName;
 
@@ -67,7 +73,7 @@ class User extends BaseUser
      *
      * @Assert\NotBlank()
      *
-     * @ORM\Column(name="last_name", type="string")
+     * @ORM\Column(name="last_name", type="string", length=40)
      */
     protected $lastName;
 
@@ -83,14 +89,14 @@ class User extends BaseUser
     /**
      * @var string
      *
-     * @ORM\Column(type="string", nullable=true, unique=true)
+     * @ORM\Column(type="string", nullable=true, unique=true, length=8)
      */
     protected $nni;
 
     /**
      * @var string
      *
-     * @ORM\Column(type="string", nullable=true)
+     * @ORM\Column(type="string", nullable=true, length=10)
      */
     protected $phone1;
 
