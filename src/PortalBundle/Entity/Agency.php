@@ -5,7 +5,7 @@ namespace PortalBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="PortalBundle\Repository\AgencyRepository")
  * @ORM\Table(name="agencies")
  */
 class Agency extends TerritorialEntity
