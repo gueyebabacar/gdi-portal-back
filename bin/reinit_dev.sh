@@ -16,3 +16,5 @@ php app/console cache:clear -e dev
 php app/console assets:install web --symlink -e dev
 
 php app/console doctrine:fixtures:load -n
+
+echo "--- Fin reinit ---"
