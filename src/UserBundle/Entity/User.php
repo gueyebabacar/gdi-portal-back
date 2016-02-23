@@ -331,6 +331,11 @@ class User extends BaseUser
         return $this;
     }
 
+    public function setSalt($salt){
+        $this->salt = $salt;
+        return $this;
+    }
+
     /**
      * @return array
      */
