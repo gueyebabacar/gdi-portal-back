@@ -43,11 +43,6 @@ class UserService
     public $authorizationChecker;
 
     /**
-     * @var \UserBundle\Repository\UserRepository
-     */
-    public $userRepo;
-
-    /**
      * ControlService constructor.
      * @param EntityManager $em
      * @param FormFactory $formFactory
@@ -64,7 +59,6 @@ class UserService
     public function __construct($em, $formFactory, $authorizationChecker, $errorService)
     {
         $this->em = $em;
-        $this->userRepo = $this->em->getRepository('UserBundle:User');
         $this->formFactory = $formFactory;
         $this->authorizationChecker = $authorizationChecker;
         $this->errorService = $errorService;
@@ -76,23 +70,9 @@ class UserService
     public function getAll()
     {
         $usersSent = [];
-        $users = $this->userRepo->getUserAttributes();
+        $users = $this->em->getRepository('UserBundle:User')->getUserAttributes();
         foreach ($users as $user) {
-            $u = new User;
-            $u->setId($user['id']);
-            $u->setFirstName($user['firstName']);
-            $u->setLastName($user['lastName']);
-            $u->setEntity($user['entity']);
-            $u->setUsername($user['username']);
-            $u->setRoles($user['roles']);
-            $u->setEnabled($user['enabled']);
-            if (isset($user['agencyId'])) {
-                $u->setAgency($this->em->getRepository('PortalBundle:Agency')->find($user['agencyId']));
-            } elseif (isset($user['regionId'])) {
-                $u->setRegion($this->em->getRepository('PortalBundle:Region')->find($user['regionId']));
-            } else {
-                $u->setTerritorialCode("");
-            }
+            $u = $this->formatUser($user);
 
             if (false !== $this->authorizationChecker->isGranted(VoterEnum::VIEW, $u)) {
                 $usersSent[] = $u;
@@ -135,23 +115,8 @@ class UserService
     public function get($userId)
     {
         $userSent = null;
-        $user = $this->userRepo->getUserAttributes($userId)[0];
-
-        $u = new User;
-        $u->setId($user['id']);
-        $u->setFirstName($user['firstName']);
-        $u->setLastName($user['lastName']);
-        $u->setEntity($user['entity']);
-        $u->setUsername($user['username']);
-        $u->setRoles($user['roles']);
-        $u->setEnabled($user['enabled']);
-        if (isset($user['agencyId'])) {
-            $u->setAgency($this->em->getRepository('PortalBundle:Agency')->find($user['agencyId']));
-        } elseif (isset($user['regionId'])) {
-            $u->setRegion($this->em->getRepository('PortalBundle:Region')->find($user['regionId']));
-        } else {
-            $u->setTerritorialCode("");
-        }
+        $user = $this->em->getRepository('UserBundle:User')->getUserAttributes($userId)[0];
+        $u = $this->formatUser($user);
         if (false !== $this->authorizationChecker->isGranted(VoterEnum::VIEW, $u)) {
             $userSent = $u;
         }
@@ -167,7 +132,7 @@ class UserService
     public function edit(Request $request, $userId)
     {
         /** @var  $user */
-        $user = $this->userRepo->find($userId);
+        $user = $this->em->getRepository('UserBundle:User')->find($userId);
         $form = $this->formFactory->create(UserType::class, $user);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
@@ -191,7 +156,7 @@ class UserService
     public function delete($userId)
     {
         /** @var  $user */
-        $user = $this->userRepo->find($userId);
+        $user = $this->em->getRepository('UserBundle:User')->find($userId);
         $this->em->remove($user);
         $this->em->flush();
     }
@@ -201,6 +166,33 @@ class UserService
      */
     public function getProfiles()
     {
-        return $this->userRepo->getProfiles();
+        return $this->em->getRepository('UserBundle:User')->getProfiles();
+    }
+
+    /**
+     * @param $userArray
+     * @return User
+     */
+    private function formatUser($userArray)
+    {
+        $u = new User;
+        $u->setId($userArray['id']);
+        $u->setFirstName($userArray['firstName']);
+        $u->setLastName($userArray['lastName']);
+        $u->setEntity($userArray['entity']);
+        $u->setUsername($userArray['username']);
+        $u->setRoles($userArray['roles']);
+        $u->setEnabled($userArray['enabled']);
+        $u->setSalt(null);
+        if (isset($userArray['agencyId'])) {
+            $u->setAgency($this->em->getRepository('PortalBundle:Agency')->find($userArray['agencyId']));
+            return $u;
+        } elseif (isset($userArray['regionId'])) {
+            $u->setRegion($this->em->getRepository('PortalBundle:Region')->find($userArray['regionId']));
+            return $u;
+        } else {
+            $u->setTerritorialCode("");
+            return $u;
+        }
     }
 }
