@@ -51,7 +51,8 @@ class AgencyService
     public function getAgenciesFromRegionSecured($regionId)
     {
         $agenciesSent = [];
-        $agencies = $this->em->getRepository('PortalBundle:Agency')->findBy(['region' => $regionId]);
+        $agencyRepo = $this->em->getRepository('PortalBundle:Agency');
+        $agencies = $agencyRepo->findBy(['region' => $regionId]);
         foreach ($agencies as $agency) {
             if (false !== $this->authorizationChecker->isGranted(VoterEnum::VIEW, $agency)) {
                 $agenciesSent[] = $agency;

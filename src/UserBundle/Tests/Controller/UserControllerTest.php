@@ -36,7 +36,6 @@ class UserControllerTest extends BaseWebTestCase
         $this->client->request('GET', "/users", [], [], $this->headers);
 
         $response = json_decode($this->client->getResponse()->getContent(), true);
-
         $this->assertEquals(sizeof($user), sizeof($response));
         $this->assertEquals($user[0]->getId(), $response[0]['id']);
     }
@@ -71,8 +70,9 @@ class UserControllerTest extends BaseWebTestCase
         $data = [
             'firstName' => 'firstName',
             'lastName' => 'lastName',
-            'entity' => 'entity',
-            'email' => 'email',
+            'entity' => 'APPO',
+            'email' => 'email@email.fr',
+            'username' => 'GAIA00',
             'nni' => 'nni',
             'phone1' => 'phone1',
             'phone2' => 'phone2',
@@ -101,7 +101,7 @@ class UserControllerTest extends BaseWebTestCase
             $this->headers
         );
         $response = json_decode($this->client->getResponse()->getContent(), true);
-        $this->assertEquals($user->getFirstName(), $response['first_name']);
+        $this->assertEquals($user->getFirstName(), $response['result']['first_name']);
     }
 
     /**
@@ -126,7 +126,7 @@ class UserControllerTest extends BaseWebTestCase
             $this->headers
         );
         $response = json_decode($this->client->getResponse()->getContent(), true);
-        $this->assertEquals($user->getFirstName(), $response['first_name']);
+        $this->assertEquals($user->getFirstName(), $response['result']['first_name']);
     }
 
     /**
@@ -170,7 +170,7 @@ class UserControllerTest extends BaseWebTestCase
             'lastName' => 'lastName',
             'gaia' => 'gaia',
             'email' => 'email',
-            'entity' => 'entity',
+            'entity' => 'APPO',
             'password' => 'password',
             'nni' => 'nni',
             'phone1' => 'phone1',
@@ -193,7 +193,6 @@ class UserControllerTest extends BaseWebTestCase
         $user->setRoles($data['roles']);
         $user->setTerritorialContext($data['territorialContext']);
         $user->setAgency($data['agency']);
-
         $this->em->persist($region);
         $this->em->persist($agency);
         $this->em->persist($user);

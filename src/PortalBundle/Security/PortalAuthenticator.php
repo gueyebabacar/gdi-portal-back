@@ -1,6 +1,5 @@
 <?php
 
-// src/GdiIntervenantBundle/Security/GdiAuthenticator.php
 namespace PortalBundle\Security;
 
 use FOS\UserBundle\Security\UserProvider;
@@ -16,9 +15,13 @@ use Symfony\Component\Security\Core\Exception\BadCredentialsException;
 
 class PortalAuthenticator implements SimplePreAuthenticatorInterface, AuthenticationFailureHandlerInterface
 {
+    /**
+     * @param Request $request
+     * @param $providerKey
+     * @return PreAuthenticatedToken
+     */
     public function createToken(Request $request, $providerKey)
     {
-
         $gaiaId = $request->headers->get('gaiaId');
 
         if (!$gaiaId) {
@@ -32,6 +35,12 @@ class PortalAuthenticator implements SimplePreAuthenticatorInterface, Authentica
         );
     }
 
+    /**
+     * @param TokenInterface $token
+     * @param UserProviderInterface $userProvider
+     * @param $providerKey
+     * @return PreAuthenticatedToken
+     */
     public function authenticateToken(TokenInterface $token, UserProviderInterface $userProvider, $providerKey)
     {
         if (!$userProvider instanceof UserProvider) {
@@ -60,11 +69,21 @@ class PortalAuthenticator implements SimplePreAuthenticatorInterface, Authentica
         );
     }
 
+    /**
+     * @param TokenInterface $token
+     * @param $providerKey
+     * @return bool
+     */
     public function supportsToken(TokenInterface $token, $providerKey)
     {
         return $token instanceof PreAuthenticatedToken && $token->getProviderKey() === $providerKey;
     }
 
+    /**
+     * @param Request $request
+     * @param AuthenticationException $exception
+     * @return Response
+     */
     public function onAuthenticationFailure(Request $request, AuthenticationException $exception)
     {
         return new Response("Authentication Failed.", 401);

@@ -42,6 +42,7 @@ class LoadUserData extends AbstractFixture implements FixtureInterface, Containe
             $user->setPhone1('+33111111' . $i);
             $user->setPhone2('+33111112' . $i);
             $user->setEnabled(true);
+            $user->setTerritorialCode();
 
             switch($i){
                 case 1:

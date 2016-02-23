@@ -6,6 +6,7 @@ use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityRepository;
 use PortalBundle\Entity\Agency;
 use PortalBundle\Entity\Region;
+use PortalBundle\Service\ErrorService;
 use Symfony\Component\Security\Core\Authorization\AuthorizationChecker;
 use UserBundle\Entity\User;
 use UserBundle\Enum\RolesEnum;
@@ -45,6 +46,10 @@ class UserServiceTest extends \PHPUnit_Framework_TestCase
      * @var ObjectProphecy
      */
     public $authorizationCheckerProphecy;
+    /**
+     * @var ObjectProphecy
+     */
+    public $errorServiceProphecy;
 
     /**
      * @var  UserService
@@ -72,9 +77,13 @@ class UserServiceTest extends \PHPUnit_Framework_TestCase
         /** @var AuthorizationChecker $authorizationChecker */
         $authorizationChecker = $this->authorizationCheckerProphecy->reveal();
 
+        $this->errorServiceProphecy = $this->prophet->prophesize(ErrorService::class);
+        /** @var AuthorizationChecker $authorizationChecker */
+        $errorService = $this->errorServiceProphecy->reveal();
+
         $this->repositoryProphecy = $this->prophet->prophesize(EntityRepository::class);
 
-        $this->userService = new UserService($em, $formFactory, $authorizationChecker);
+        $this->userService = new UserService($em, $formFactory, $authorizationChecker, $errorService);
     }
 
     /**
