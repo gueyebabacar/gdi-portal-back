@@ -12,6 +12,7 @@ use UserBundle\Entity\User;
 use Symfony\Component\Form\FormFactory;
 use Symfony\Component\HttpFoundation\Request;
 use JMS\DiExtraBundle\Annotation as DI;
+use UserBundle\Enum\ContextEnum;
 use UserBundle\Form\UserType;
 
 /**
@@ -167,6 +168,34 @@ class UserService
     public function getProfiles()
     {
         return $this->em->getRepository('UserBundle:User')->getProfiles();
+    }
+
+    /**
+     * @param User $user
+     * @return array
+     */
+    public function getProfile(User $user)
+    {
+        $maille = $user->getTerritorialContext();
+        $code_maille = null;
+        $nni = null;
+        if ($maille === ContextEnum::AGENCY_CONTEXT) {
+            $code_maille = $user->getAgency()->getCode();
+        } elseif ($maille === ContextEnum::REGION_CONTEXT) {
+            $code_maille = $user->getRegion()->getCode();
+        }
+
+        $profile = [
+            'gaia' => $user->getUsername(),
+            'nni' => $user->getNni(),
+            'nom' => $user->getLastName(),
+            'prenom' => $user->getFirstName(),
+            'role' => $user->getRoles()[0],
+            'maille' => $maille,
+            'code_maille' => $code_maille
+        ];
+
+        return $profile;
     }
 
     /**
