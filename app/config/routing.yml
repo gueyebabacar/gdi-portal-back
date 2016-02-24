@@ -1,12 +1,11 @@
 user:
     type: rest
+    prefix: /portal
     resource: "@UserBundle/Resources/config/routing.yml"
-    prefix:   /portal
 
 portal:
     type: rest
     resource: "@PortalBundle/Resources/config/routing.yml"
-    prefix:   /
 
 NelmioApiDocBundle:
     prefix:   /doc
