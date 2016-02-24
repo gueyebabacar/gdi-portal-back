@@ -61,7 +61,7 @@ class ProxyGdiiController extends FOSRestController
     }
 
     /**
-     * @Rest\Get("/api/gdii/{uri}", requirements={ "uri": "([a-z\.]{2,6})([\/\w \.-]*)*\/?$"})
+     * @Rest\Get("/gdii/{uri}", requirements={ "uri": "([a-z\.]{2,6})([\/\w \.-]*)*\/?$"})
      * @Rest\View
      *
      * @ApiDoc(
@@ -96,7 +96,7 @@ class ProxyGdiiController extends FOSRestController
     }
 
     /**
-     * @Rest\Post("/api/gdii/{uri}", requirements={ "uri": "([a-z\.]{2,6})([\/\w \.-]*)*\/?$"})
+     * @Rest\Post("/gdii/{uri}", requirements={ "uri": "([a-z\.]{2,6})([\/\w \.-]*)*\/?$"})
      * @Rest\View
      *
      * @ApiDoc(
@@ -131,7 +131,7 @@ class ProxyGdiiController extends FOSRestController
     }
 
     /**
-     * @Rest\Put("/api/gdii/{uri}", requirements={ "uri": "([a-z\.]{2,6})([\/\w \.-]*)*\/?$"})
+     * @Rest\Put("/gdii/{uri}", requirements={ "uri": "([a-z\.]{2,6})([\/\w \.-]*)*\/?$"})
      * @Rest\View
      *
      * @ApiDoc(
@@ -166,7 +166,7 @@ class ProxyGdiiController extends FOSRestController
     }
 
     /**
-     * @Rest\Delete("/api/gdii/{uri}", requirements={ "uri": "([a-z\.]{2,6})([\/\w \.-]*)*\/?$"})
+     * @Rest\Delete("/gdii/{uri}", requirements={ "uri": "([a-z\.]{2,6})([\/\w \.-]*)*\/?$"})
      * @Rest\View
      *
      * @ApiDoc(
