@@ -88,6 +88,7 @@ class ProxyPopController extends FOSRestController
 
         $parameters['parameters'] = '';
         if ($user !== null) {
+
             return $this->curlService->sendRequest($url, $parameters);
         } else {
             return null;

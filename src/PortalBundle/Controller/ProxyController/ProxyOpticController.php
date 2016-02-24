@@ -57,7 +57,7 @@ class ProxyOpticController extends FOSRestController
     }
 
     /**
-     * @Rest\Get("/api/optic/{uri}", requirements={ "uri": "([a-z\.]{2,6})([\/\w \.-]*)*\/?$"})
+     * @Rest\Get("/optic/{uri}", requirements={ "uri": "([a-z\.]{2,6})([\/\w \.-]*)*\/?$"})
      * @Rest\View
      *
      * @ApiDoc(
@@ -92,7 +92,7 @@ class ProxyOpticController extends FOSRestController
     }
 
     /**
-     * @Rest\Post("/api/optic/{uri}", requirements={ "uri": "([a-z\.]{2,6})([\/\w \.-]*)*\/?$"})
+     * @Rest\Post("/optic/{uri}", requirements={ "uri": "([a-z\.]{2,6})([\/\w \.-]*)*\/?$"})
      * @Rest\View
      *
      * @ApiDoc(
@@ -127,7 +127,7 @@ class ProxyOpticController extends FOSRestController
     }
 
     /**
-     * @Rest\Put("/api/optic/{uri}", requirements={ "uri": "([a-z\.]{2,6})([\/\w \.-]*)*\/?$"})
+     * @Rest\Put("/optic/{uri}", requirements={ "uri": "([a-z\.]{2,6})([\/\w \.-]*)*\/?$"})
      * @Rest\View
      *
      * @ApiDoc(
@@ -162,7 +162,7 @@ class ProxyOpticController extends FOSRestController
     }
 
     /**
-     * @Rest\Delete("/api/optic/{uri}", requirements={ "uri": "([a-z\.]{2,6})([\/\w \.-]*)*\/?$"})
+     * @Rest\Delete("/optic/{uri}", requirements={ "uri": "([a-z\.]{2,6})([\/\w \.-]*)*\/?$"})
      * @Rest\View
      *
      * @ApiDoc(
