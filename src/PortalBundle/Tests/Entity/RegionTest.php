@@ -10,6 +10,7 @@ class RegionTest extends \PHPUnit_Framework_TestCase
 
     /**
      * setUp
+     * @group entity
      */
     public function setUp()
     {
@@ -19,6 +20,7 @@ class RegionTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @test testGettersAndSetters
+     * @group entity
      */
     public function testGettersAndSetters()
     {
@@ -46,15 +48,15 @@ class RegionTest extends \PHPUnit_Framework_TestCase
             ->setLabel($label)
             ->setCode($code);
 
-        $this->assertNotNull($region->addAgency($agency));
-
+        $region->addAgency($agency);
+        $this->assertTrue($region->getAgencies()->contains($agency));
     }
 
     /**
      * @test
      * @group entity
      */
-    public function testRemov()
+    public function testRemove()
     {
         $label     = 'region0';
         $code      = 'REG0';
@@ -65,8 +67,7 @@ class RegionTest extends \PHPUnit_Framework_TestCase
         $agency
             ->setLabel($label)
             ->setCode($code);
-
-        $this->assertNotNull($region->removeAgency($agency));
-
+        $region->removeAgency($agency);
+        $this->assertFalse($region->getAgencies()->contains($agency));
     }
 }
