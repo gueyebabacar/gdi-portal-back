@@ -8,9 +8,11 @@ class TerritorialEntityTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * @test testGettersAndSetters
+     * @group entity
      */
     public function testGettersAndSetters()
     {
+        /** @var TerritorialEntity $stub */
         $stub = $this->getMockForAbstractClass(TerritorialEntity::class);
 
         $data = [
