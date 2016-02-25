@@ -122,6 +122,7 @@ class User extends BaseUser
     {
         parent::__construct();
         $this->setTerritorialContext(ContextEnum::NATIONAL_CONTEXT);
+        $this->setTerritorialCode(null);
     }
 
     /**

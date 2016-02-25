@@ -179,11 +179,7 @@ class UserService
         $maille = $user->getTerritorialContext();
         $code_maille = null;
         $nni = null;
-        if ($maille === ContextEnum::AGENCY_CONTEXT) {
-            $code_maille = $user->getAgency()->getCode();
-        } elseif ($maille === ContextEnum::REGION_CONTEXT) {
-            $code_maille = $user->getRegion()->getCode();
-        }
+        $code_maille = $user->getTerritorialCode();
 
         $profile = [
             'gaia' => $user->getUsername(),
