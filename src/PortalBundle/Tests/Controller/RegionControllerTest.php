@@ -26,7 +26,7 @@ class RegionControllerTest extends BaseWebTestCase
     public function testGetAllRegionsSecuredAction()
     {
         $regions = $this->em->getRepository('PortalBundle:Region')->findAll();
-        $this->client->request('GET', "/regions_secured", [], [], $this->headers);
+        $this->client->request('GET', "/portal/regions_secured", [], [], $this->headers);
 
         $response = json_decode($this->client->getResponse()->getContent(), true);
         $this->assertEquals($regions[0]->getCode(), $response[0]['code']);
