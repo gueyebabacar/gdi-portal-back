@@ -11,7 +11,7 @@ use Doctrine\ORM\Mapping as ORM;
 class Agency extends TerritorialEntity
 {
     /**
-     * @ORM\ManyToOne(targetEntity="Region")
+     * @ORM\ManyToOne(targetEntity="Region", inversedBy="agencies")
      */
     protected $region;
 
