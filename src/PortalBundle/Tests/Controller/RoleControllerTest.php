@@ -28,7 +28,7 @@ class RoleControllerTest extends BaseWebTestCase
     {
         $roles= RolesEnum::getRoles();
 
-        $this->client->request('GET', "/roles", [], [], $this->headers);
+        $this->client->request('GET', "/portal/roles", [], [], $this->headers);
 
         $response = json_decode($this->client->getResponse()->getContent(), true);
         $this->assertEquals($roles, $response);
@@ -38,7 +38,7 @@ class RoleControllerTest extends BaseWebTestCase
      */
     public function testGetRolesSecured()
     {
-        $this->client->request('GET', "/roles_secured", [], [], $this->headers);
+        $this->client->request('GET', "/portal/roles_secured", [], [], $this->headers);
         $response = json_decode($this->client->getResponse()->getContent(), true);
         $this->assertEquals(RolesEnum::ROLE_VISITEUR_LABEL, $response[0]['label']);
         $this->assertEquals(RolesEnum::ROLE_TECHNICIEN_LABEL, $response[1]['label']);
