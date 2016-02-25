@@ -313,6 +313,9 @@ class UserServiceTest extends \PHPUnit_Framework_TestCase
         $this->userService->delete(1);
     }
 
+    /**
+     * @return User
+     */
     private function createUser()
     {
         $region = new Region();
