@@ -13,6 +13,7 @@ use Symfony\Component\Form\FormFactory;
 use Symfony\Component\HttpFoundation\Request;
 use JMS\DiExtraBundle\Annotation as DI;
 use UserBundle\Form\UserType;
+use UserBundle\Form\EditUserType;
 
 /**
  * Class UserService
@@ -96,7 +97,6 @@ class UserService
             $this->em->persist($user);
             $this->em->flush();
         }
-
         if ($form->getErrors(true) !== null) {
             foreach ($form->getErrors(true) as $error) {
                 $this->errorService->addError(ErrorEnum::INTERNAL, ErrorLevelEnum::CRITIC, $error->getMessage());
@@ -131,10 +131,10 @@ class UserService
      */
     public function edit(Request $request, $userId)
     {
-        /** @var  $user */
+        /** @var User $user */
         $user = $this->em->getRepository('UserBundle:User')->find($userId);
-        $form = $this->formFactory->create(UserType::class, $user);
-        $form->handleRequest($request);
+        $form = $this->formFactory->create(EditUserType::class, $user, ['method'=> 'PATCH']);
+        $form->submit($request, false);
         if ($form->isSubmitted() && $form->isValid()) {
             $this->em->persist($user);
             $this->em->flush();
@@ -183,6 +183,10 @@ class UserService
         $u->setUsername($userArray['username']);
         $u->setRoles($userArray['roles']);
         $u->setEnabled($userArray['enabled']);
+        $u->setPhone1($userArray['phone1']);
+        $u->setPhone2($userArray['phone2']);
+        $u->setNni($userArray['nni']);
+        $u->setEmail($userArray['email']);
         $u->setSalt(null);
         if (isset($userArray['agencyId'])) {
             $u->setAgency($this->em->getRepository('PortalBundle:Agency')->find($userArray['agencyId']));
