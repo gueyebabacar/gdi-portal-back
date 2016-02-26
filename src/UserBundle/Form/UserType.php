@@ -5,12 +5,10 @@ namespace UserBundle\Form;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
-use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use UserBundle\Entity\User;
-use UserBundle\Enum\RolesEnum;
 
 class UserType extends AbstractType
 {
@@ -22,7 +20,7 @@ class UserType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('username', TextType::class, array('label' => 'GAIA'))
+            ->add('username', TextType::class)
             ->add('firstName', TextType::class)
             ->add('lastName', TextType::class)
             ->add('email', TextType::class)
