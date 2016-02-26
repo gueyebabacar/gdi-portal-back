@@ -17,7 +17,7 @@ class UserRepository extends EntityRepository
     public function getUserAttributes($userId = null)
     {
         $qb = $this->createQueryBuilder('user');
-        $qb->select('user.id, user.firstName, user.lastName, user.entity, user.username, user.roles, user.territorialContext, user.territorialCode, user.enabled, userAgency.id as agencyId, userAgency.label as agency, userRegion.id as regionId, userRegion.label as region')
+        $qb->select('user.id, user.firstName, user.lastName, user.entity, user.username, user.phone1, user.phone2, user.nni, user.email, user.roles, user.territorialContext, user.territorialCode, user.enabled, userAgency.id as agencyId, userAgency.label as agency, userRegion.id as regionId, userRegion.label as region')
             ->leftJoin('user.agency', 'userAgency')
             ->leftJoin('user.region', 'userRegion');
         if ($userId != null) {
@@ -28,7 +28,6 @@ class UserRepository extends EntityRepository
 
         return $q->getArrayResult();
     }
-
     /**
      * @return array
      */
