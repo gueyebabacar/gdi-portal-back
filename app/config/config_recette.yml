@@ -34,58 +34,47 @@ monolog:
                 VERBOSITY_VERY_VERBOSE: NOTICE
                 VERBOSITY_DEBUG: DEBUG
             channels: ["doctrine"]
-        # uncomment to get logging in your browser
-        # you may have to allow bigger header sizes in your Web server configuration
-        #firephp:
-        #    type:   firephp
-        #    level:  info
-        #chromephp:
-        #    type:   chromephp
-        #    level:  info
 
-#    security:
-#        firewalls:
-#            unsecured_area:
-#                pattern: ^/(_(profiler|wdt)|css|images|js|doc|profiles)
-#                security: false
-#
-#            secured_area:
-#                pattern: ^/
-#                stateless: true
-#                simple_preauth:
-#                    authenticator: portal_authenticator
-#                provider: fos_userbundle
-#
-#            dev:
-#                pattern: ^/(_(profiler|wdt)|css|images|js|doc)/
-#                security: false
-#
-#            main:
-#                anonymous: ~
-    security:
-        firewalls:
-            dev:
-                pattern: ^/(_(profiler|wdt)|css|images|js|api/saml/sp/login)/
-                security: false
-            saml:
-                pattern: ^/
-                aerial_ship_saml_sp:
-                    local_logout_path: /logout
-                    default_target_path: /api/
-                    create_user_if_not_exists: false
-                    provider: fos_userbundle
-                    services:
-                        saml:
-                            idp:
-                                file: "@UserBundle/Resources/FedId/dev/GIDPD_FederationMetaData_20151028.xml"
-                            sp:
-                                config:
-                                    base_url: https://portail-gdi-rec.carma.grdf.fr/api
-                                    entity_id: https://portail-gdi-rec.carma.grdf.fr/api
-                logout:
-                    path: /logout
+#security:
+#    firewalls:
+#        unsecured_area:
+#            pattern: ^/(_(profiler|wdt)|css|images|js|doc|profiles)
+#            security: false
+#        secured_area:
+#            pattern: ^/
+#            stateless: true
+#            simple_preauth:
+#                authenticator: portal_authenticator
+#            provider: fos_userbundle
+#        dev:
+#            pattern: ^/(_(profiler|wdt)|css|images|js|doc)/
+#            security: false
+#        main:
+#            anonymous: ~
 
-            main:
-                anonymous: ~
+security:
+    firewalls:
+        dev:
+            pattern: ^/(_(profiler|wdt)|css|images|js|api/saml/sp/login)/
+            security: false
+        saml:
+            pattern: ^/
+            aerial_ship_saml_sp:
+                local_logout_path: /logout
+                default_target_path: /api/
+                create_user_if_not_exists: false
+                provider: fos_userbundle
+                services:
+                    saml:
+                        idp:
+                            file: "@UserBundle/Resources/FedId/dev/GIDPD_FederationMetaData_20151028.xml"
+                        sp:
+                            config:
+                                base_url: https://portail-gdi-rec.carma.grdf.fr/api
+                                entity_id: https://portail-gdi-rec.carma.grdf.fr/api
+            logout:
+                path: /logout
+        main:
+            anonymous: ~
 
 
