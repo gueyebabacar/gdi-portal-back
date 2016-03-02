@@ -43,17 +43,18 @@ class LoadUserData extends AbstractFixture implements FixtureInterface, Containe
             $user->setPhone2('+33111112' . $i);
             $user->setEnabled(true);
             $user->setTerritorialCode();
-
             switch($i){
                 case 1:
                     $user->setEntity(EntityEnum::VISITOR_ENTITY);
                     $user->setAgency($this->getReference('agency-1'));
                     $user->setRoles([RolesEnum::ROLE_VISITEUR]);
+                    $user->setRegion($this->getReference('region-1'));
                     break;
                 case 2:
                     $user->setEntity(EntityEnum::ATG_ENTITY);
                     $user->setAgency($this->getReference('agency-1'));
                     $user->setRoles([RolesEnum::ROLE_TECHNICIEN]);
+                    $user->setRegion($this->getReference('region-1'));
                     break;
                 case 3:
                     $user->setEntity(EntityEnum::APPO_ENTITY);
@@ -64,6 +65,7 @@ class LoadUserData extends AbstractFixture implements FixtureInterface, Containe
                     $user->setEntity(EntityEnum::ATG_ENTITY);
                     $user->setAgency($this->getReference('agency-4'));
                     $user->setRoles([RolesEnum::ROLE_PROGRAMMATEUR_AVANCE]);
+                    $user->setRegion($this->getReference('region-4'));
                     break;
                 case 5:
                     $user->setEntity(EntityEnum::APPO_ENTITY);
@@ -79,6 +81,7 @@ class LoadUserData extends AbstractFixture implements FixtureInterface, Containe
                     $user->setEntity(EntityEnum::ATG_ENTITY);
                     $user->setAgency($this->getReference('agency-1'));
                     $user->setRoles([RolesEnum::ROLE_MANAGER_ATG]);
+                    $user->setRegion($this->getReference('region-1'));
                     break;
                 case 8:
                     $user->setEntity(EntityEnum::APPO_ENTITY);

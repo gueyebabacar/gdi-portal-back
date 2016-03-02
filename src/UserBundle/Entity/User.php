@@ -268,7 +268,6 @@ class User extends BaseUser
     public function setAgency($agency)
     {
         $this->agency = $agency;
-        $this->region = null;
         $this->setTerritorialContext(ContextEnum::AGENCY_CONTEXT);
         $this->setTerritorialCode($this->agency->getCode());
         return $this;
@@ -289,7 +288,6 @@ class User extends BaseUser
     public function setRegion($region)
     {
         $this->region = $region;
-        $this->agency = null;
         $this->setTerritorialContext(ContextEnum::REGION_CONTEXT);
         $this->setTerritorialCode($this->region->getCode());
         return $this;

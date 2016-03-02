@@ -79,7 +79,7 @@ class UserService
                 $usersSent[] = $u;
             }
         }
-        return $usersSent;
+        return $users;
     }
 
     /**
@@ -190,6 +190,7 @@ class UserService
         $u->setSalt(null);
         if (isset($userArray['agencyId'])) {
             $u->setAgency($this->em->getRepository('PortalBundle:Agency')->find($userArray['agencyId']));
+            $u->setRegion($u->getAgency()->getRegion());
             return $u;
         } elseif (isset($userArray['regionId'])) {
             $u->setRegion($this->em->getRepository('PortalBundle:Region')->find($userArray['regionId']));
