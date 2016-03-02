@@ -269,7 +269,11 @@ class User extends BaseUser
     {
         $this->agency = $agency;
         $this->setTerritorialContext(ContextEnum::AGENCY_CONTEXT);
-        $this->setTerritorialCode($this->agency->getCode());
+        if (is_null($this->agency )) {
+            return;
+        }else{
+            $this->setTerritorialCode($this->agency->getCode());
+        }
         return $this;
     }
 
@@ -289,7 +293,11 @@ class User extends BaseUser
     {
         $this->region = $region;
         $this->setTerritorialContext(ContextEnum::REGION_CONTEXT);
-        $this->setTerritorialCode($this->region->getCode());
+        if (is_null($this->region)) {
+            return;
+        }else{
+            $this->setTerritorialCode($this->region->getCode());
+        }
         return $this;
     }
 
