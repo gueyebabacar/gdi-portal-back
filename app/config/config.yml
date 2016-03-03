@@ -95,23 +95,3 @@ fos_user:
 aerial_ship_saml_sp:
     driver: orm
     sso_state_entity_class: UserBundle\Entity\SSOState
-
-security:
-    firewalls:
-        unsecured_area:
-            pattern: ^/(_(profiler|wdt)|css|images|js|doc|profiles)
-            security: false
-
-        secured_area:
-            pattern: ^/
-            stateless: true
-            simple_preauth:
-                authenticator: portal_authenticator
-            provider: fos_userbundle
-
-        dev:
-            pattern: ^/(_(profiler|wdt)|css|images|js|doc)/
-            security: false
-
-        main:
-            anonymous: ~
