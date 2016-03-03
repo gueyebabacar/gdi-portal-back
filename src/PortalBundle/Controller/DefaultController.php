@@ -37,11 +37,10 @@ class DefaultController extends FOSRestController
      */
     public function whoamiAction()
     {
-        $user = $this->tokenStorage->getToken()->getUser();
-        if($user == null){
+        if($this->tokenStorage->getToken() == null){
             return $this->redirectToRoute('is_logged');
         }
-        return $user;
+        return $this->tokenStorage->getToken()->getUser();
     }
 
     /**
