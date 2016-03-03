@@ -45,7 +45,7 @@ monolog:
 security:
     firewalls:
         unsecured_area:
-            pattern: ^/(_(profiler|wdt)|css|images|js|doc|profiles)
+            pattern: ^/(_(profiler|wdt)|css|images|js|doc|portal/profiles|portal/user/whoami)
             security: false
 
         secured_area:

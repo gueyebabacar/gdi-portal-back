@@ -55,13 +55,13 @@ monolog:
 security:
     firewalls:
         dev:
-            pattern: ^/(_(profiler|wdt)|css|images|js|api/saml/sp/login)/
+            pattern: ^/(_(profiler|wdt)|css|images|js|saml/sp/login)/
             security: false
         saml:
             pattern: ^/
             aerial_ship_saml_sp:
                 local_logout_path: /logout
-                default_target_path: /api/
+                default_target_path: /
                 create_user_if_not_exists: false
                 provider: fos_userbundle
                 services:

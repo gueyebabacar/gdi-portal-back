@@ -6,11 +6,9 @@ use FOS\RestBundle\Controller\FOSRestController;
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\Security\Core\Authentication\Token\AnonymousToken;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorage;
-use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
-use UserBundle\Service\UserService;
 use JMS\DiExtraBundle\Annotation as DI;
 
 /**
@@ -39,7 +37,11 @@ class DefaultController extends FOSRestController
      */
     public function whoamiAction()
     {
-        return $this->tokenStorage->getToken()->getUser();
+        $user = $this->tokenStorage->getToken()->getUser();
+        if($user == null){
+            return $this->redirectToRoute('is_logged');
+        }
+        return $user;
     }
 
     /**
@@ -52,15 +54,11 @@ class DefaultController extends FOSRestController
      *      resource = true,
      *      description = "Is logged"
      * )
-     * @param Request $request
-     * @return JsonResponse|\Symfony\Component\HttpFoundation\RedirectResponse
+     * @return JsonResponse|RedirectResponse
+     * @internal param Request $request
      */
-    public function isLoggedAction(Request $request)
+    public function isLoggedAction()
     {
-        if ($request->isXmlHttpRequest()) {
-            return new JsonResponse([], 200);
-        }
-
         return $this->redirect('/', 301);
     }
 }
