@@ -27,11 +27,7 @@ Debug::enable();
 $kernel = new AppKernel('recette', true);
 $kernel->loadClassCache();
 $request = Request::createFromGlobals();
-if ($_SERVER['REQUEST_URI'] == '/portal/user/logged' && !isset($_COOKIE['PHPSESSID']) && session_id() == '') {
-    $response = new \Symfony\Component\HttpFoundation\Response('', 204);
-    $response->send();
-} else {
-    $response = $kernel->handle($request);
-    $response->send();
-    $kernel->terminate($request, $response);
-}
+$response = $kernel->handle($request);
+$response->send();
+$kernel->terminate($request, $response);
+
