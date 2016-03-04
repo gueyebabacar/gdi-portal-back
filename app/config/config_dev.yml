@@ -65,7 +65,7 @@ monolog:
 security:
     firewalls:
         dev:
-            pattern: ^/(_(profiler|wdt)|css|images|js)
+            pattern: ^/(_(profiler|wdt)|css|images|js|portal/user/notlogged)
             security: false
         saml:
             pattern: ^/

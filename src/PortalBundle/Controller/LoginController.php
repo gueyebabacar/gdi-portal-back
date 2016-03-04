@@ -40,7 +40,7 @@ class LoginController extends FOSRestController
     }
 
     /**
-     * Who am I
+     * Logged
      * @Rest\Get("/user/logged")
      * @Rest\View
      *
@@ -55,5 +55,21 @@ class LoginController extends FOSRestController
     public function isLoggedAction()
     {
         return $this->redirect('/', 301);
+    }
+
+    /**
+     * Not Logged
+     * @Rest\Get("/user/notlogged")
+     * @Rest\View
+     *
+     * @ApiDoc(
+     *      section = "Login",
+     *      resource = true,
+     *      description = "Is not logged"
+     * )
+     */
+    public function isNotLoggedAction()
+    {
+        return new JsonResponse(['user' => null]);
     }
 }

@@ -5,9 +5,9 @@ services:
 
     portal.request_filter_listener:
         class: PortalBundle\Listener\RequestFilterListener
-        arguments: [ @security.token_storage ]
+        arguments: [ @security.token_storage, @router ]
         tags:
-            - { name: kernel.event_listener, event: kernel.request }
+            - { name: kernel.event_listener, event: kernel.request , priority: 9 }
 
     security.region_voter:
             class: PortalBundle\Voter\RegionVoter
