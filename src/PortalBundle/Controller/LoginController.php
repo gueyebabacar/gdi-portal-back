@@ -15,7 +15,7 @@ use JMS\DiExtraBundle\Annotation as DI;
  * Class DefaultController
  * @package PortalBundle\Controller
  */
-class DefaultController extends FOSRestController
+class LoginController extends FOSRestController
 {
     /**
      * @var TokenStorage
@@ -38,7 +38,8 @@ class DefaultController extends FOSRestController
     public function whoamiAction()
     {
         if($this->tokenStorage->getToken() == null){
-            return $this->redirectToRoute('is_logged');
+            return new JsonResponse('', '204');
+//            return $this->redirectToRoute('is_logged');
         }
         return $this->tokenStorage->getToken()->getUser();
     }
