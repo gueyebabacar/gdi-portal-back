@@ -1,7 +1,7 @@
 home:
     type: rest
     prefix: /portal
-    resource: @PortalBundle/Controller/DefaultController.php
+    resource: @PortalBundle/Controller/LoginController.php
 
 role:
     type: rest
