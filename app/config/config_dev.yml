@@ -42,22 +42,47 @@ monolog:
         #chromephp:
         #    type:   chromephp
         #    level:  info
+#security:
+#    firewalls:
+#        unsecured_area:
+#            pattern: ^/(_(profiler|wdt)|css|images|js|doc|portal/profiles)
+#            security: false
+#
+#        secured_area:
+#            pattern: ^/
+#            stateless: true
+#            simple_preauth:
+#                authenticator: portal_authenticator
+#            provider: fos_userbundle
+#
+#        dev:
+#            pattern: ^/(_(profiler|wdt)|css|images|js|doc)/
+#            security: false
+#
+#        main:
+#            anonymous: ~
+
 security:
     firewalls:
-        unsecured_area:
-            pattern: ^/(_(profiler|wdt)|css|images|js|doc|portal/profiles|portal/user/whoami)
-            security: false
-
-        secured_area:
-            pattern: ^/
-            stateless: true
-            simple_preauth:
-                authenticator: portal_authenticator
-            provider: fos_userbundle
-
         dev:
-            pattern: ^/(_(profiler|wdt)|css|images|js|doc)/
+            pattern: ^/(_(profiler|wdt)|css|images|js)
             security: false
-
+        saml:
+            pattern: ^/
+            aerial_ship_saml_sp:
+                local_logout_path: /logout
+                default_target_path: /
+                create_user_if_not_exists: false
+                provider: fos_userbundle
+                services:
+                    saml:
+                        idp:
+                            file: "@UserBundle/Resources/FedId/dev/GIDPD_FederationMetaData_20151028.xml"
+                        sp:
+                            config:
+                                base_url: https://portail-gdi-rec.carma.grdf.fr/api
+                                entity_id: https://portail-gdi-rec.carma.grdf.fr/api
+            logout:
+                path: /logout
         main:
             anonymous: ~

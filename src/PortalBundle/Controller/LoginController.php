@@ -7,7 +7,6 @@ use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorage;
 use JMS\DiExtraBundle\Annotation as DI;
 
@@ -37,9 +36,6 @@ class LoginController extends FOSRestController
      */
     public function whoAmIAction()
     {
-        if($this->tokenStorage->getToken() == null){
-            return new JsonResponse(['user' => null]);
-        }
         return ['user' => $this->tokenStorage->getToken()->getUser()];
     }
 
