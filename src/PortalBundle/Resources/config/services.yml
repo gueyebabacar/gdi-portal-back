@@ -3,6 +3,12 @@ services:
         class:  PortalBundle\Security\PortalAuthenticator
         public: false
 
+    portal.request_filter_listener:
+        class: PortalBundle\Listener\RequestFilterListener
+        arguments: [ @security.token_storage ]
+        tags:
+            - { name: kernel.event_listener, event: kernel.request }
+
     security.region_voter:
             class: PortalBundle\Voter\RegionVoter
             tags:

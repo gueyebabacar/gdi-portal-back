@@ -55,7 +55,7 @@ monolog:
 security:
     firewalls:
         dev:
-            pattern: ^/(_(profiler|wdt)|css|images|js|portal/user/whoami)
+            pattern: ^/(_(profiler|wdt)|css|images|js)
             security: false
         saml:
             pattern: ^/
