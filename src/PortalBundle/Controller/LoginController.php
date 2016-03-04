@@ -35,13 +35,12 @@ class LoginController extends FOSRestController
      * )
      * @return \UserBundle\Entity\User
      */
-    public function whoamiAction()
+    public function whoAmIAction()
     {
         if($this->tokenStorage->getToken() == null){
-            return new JsonResponse('', '204');
-//            return $this->redirectToRoute('is_logged');
+            return new JsonResponse(['user' => null]);
         }
-        return $this->tokenStorage->getToken()->getUser();
+        return ['user' => $this->tokenStorage->getToken()->getUser()];
     }
 
     /**
