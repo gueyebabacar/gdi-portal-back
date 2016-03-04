@@ -2,7 +2,7 @@
 
 namespace PortalBundle\Listener;
 
-use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpKernel\Event\GetResponseEvent;
 use Symfony\Component\Routing\Router;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorage;
@@ -31,11 +31,9 @@ class RequestFilterListener
     public function onKernelRequest(GetResponseEvent $event)
     {
         $request = $event->getRequest();
-        if($request->get('_route') === 'is_not_logged'){
-            return;
-        }
         if ($request->isXmlHttpRequest() && $this->tokenStorage->getToken() === null) {
-            $event->setResponse(new RedirectResponse('/api' . $this->router->generate('is_not_logged')));
+            $event->stopPropagation();
+            $event->setResponse(new JsonResponse(['user' => null]));
         }
         return;
     }
