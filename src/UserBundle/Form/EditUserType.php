@@ -31,6 +31,9 @@ class EditUserType extends AbstractType
             ->add('phone1', TextType::class, [
                 'required' => false
             ])
+            ->add('enabled',  TextType::class, [
+                'required' => false
+            ])
             ->add('nni', TextType::class, [
                 'required' => false
             ])
