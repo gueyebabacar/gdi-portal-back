@@ -1,6 +1,7 @@
 UserBundle\Entity\User:
     constraints:
         - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity: { fields: username, message: "Ce GAIA est déjà assigné à un utilisateur" }
+        - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity: { fields: nni, message: "Ce NNI est déjà assigné à un utilisateur" }
     properties:
           firstName:
               - NotNull:
