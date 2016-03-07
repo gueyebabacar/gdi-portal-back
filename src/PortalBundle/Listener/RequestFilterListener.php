@@ -4,8 +4,8 @@ namespace PortalBundle\Listener;
 
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpKernel\Event\GetResponseEvent;
-use Symfony\Component\Routing\Router;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorage;
+//use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 
 class RequestFilterListener
 {
@@ -14,15 +14,9 @@ class RequestFilterListener
      */
     protected $tokenStorage;
 
-    /**
-     * @var Router
-     */
-    protected $router;
-
-    public function __construct(TokenStorage $tokenStorage, Router $router)
+    public function __construct(TokenStorage $tokenStorage)
     {
         $this->tokenStorage = $tokenStorage;
-        $this->router = $router;
     }
 
     /**
