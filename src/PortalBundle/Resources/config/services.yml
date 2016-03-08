@@ -1,4 +1,8 @@
 services:
+    portal_authenticator:
+        class:  PortalBundle\Security\PortalAuthenticator
+        public: false
+
     security.region_voter:
             class: PortalBundle\Voter\RegionVoter
             tags:
