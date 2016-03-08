@@ -35,23 +35,6 @@ monolog:
                 VERBOSITY_DEBUG: DEBUG
             channels: ["doctrine"]
 
-#security:
-#    firewalls:
-#        unsecured_area:
-#            pattern: ^/(_(profiler|wdt)|css|images|js|doc|profiles)
-#            security: false
-#        secured_area:
-#            pattern: ^/
-#            stateless: true
-#            simple_preauth:
-#                authenticator: portal_authenticator
-#            provider: fos_userbundle
-#        dev:
-#            pattern: ^/(_(profiler|wdt)|css|images|js|doc)/
-#            security: false
-#        main:
-#            anonymous: ~
-
 security:
     firewalls:
         dev:
@@ -72,6 +55,9 @@ security:
                             config:
                                 base_url: https://portail-gdi-rec.carma.grdf.fr/api
                                 entity_id: https://portail-gdi-rec.carma.grdf.fr/api
+                            meta:
+                                binding:
+                                    authn_request: post
             logout:
                 path: /logout
         main:
