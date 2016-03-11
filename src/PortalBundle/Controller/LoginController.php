@@ -12,6 +12,7 @@ use JMS\DiExtraBundle\Annotation as DI;
 use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 use UserBundle\Entity\User;
 use UserBundle\Repository\UserRepository;
+use UserBundle\Service\UserService;
 
 /**
  * Class DefaultController
@@ -33,7 +34,11 @@ class LoginController extends FOSRestController
      */
     protected $userRepo;
 
-
+    /**
+     * @var UserService
+     * @DI\Inject("portal.service.user")
+     */
+    protected $userService;
 
     /**
      * Who am I
@@ -49,18 +54,8 @@ class LoginController extends FOSRestController
      */
     public function whoAmIAction()
     {
-        $user = null;
-        if (in_array($this->get('kernel')->getEnvironment(), array('recette'), true)) {
-            $user = ['user' => $this->tokenStorage->getToken()->getUser()];
-        } else {
-            /** @var User $user */
-            $user = $this->userRepo->findOneByUsername('GAIA10');
-            $token = new UsernamePasswordToken($user, $user->getPassword(), 'main', $user->getRoles());
-            $this->tokenStorage->setToken($token);
-            $user = ['user' => $this->tokenStorage->getToken()->getUser()];
-        }
-
-        return $user;
+        $user = $this->tokenStorage->getToken()->getUser();
+        return ['user' => $this->userService->getProfile($user)];
     }
 
     /**
