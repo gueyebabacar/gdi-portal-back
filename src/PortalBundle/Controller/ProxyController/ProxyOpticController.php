@@ -80,7 +80,7 @@ class ProxyOpticController extends FOSRestController
         }
 
         $parameters['headers'] = [
-            'profile' => json_encode($this->userService->getProfile($user)),
+            'x-profile' => json_encode($this->userService->getProfile($user)),
         ];
 
         $parameters['parameters'] = '';
@@ -115,7 +115,7 @@ class ProxyOpticController extends FOSRestController
         }
 
         $parameters['headers'] = [
-            'profile' => json_encode($this->userService->getProfile($user)),
+            'x-profile' => json_encode($this->userService->getProfile($user)),
         ];
 
         $parameters['parameters'] = '';
@@ -150,7 +150,7 @@ class ProxyOpticController extends FOSRestController
         }
 
         $parameters['headers'] = [
-            'profile' => json_encode($this->userService->getProfile($user)),
+            'x-profile' => json_encode($this->userService->getProfile($user)),
         ];
 
         $parameters['parameters'] = '';
@@ -185,7 +185,7 @@ class ProxyOpticController extends FOSRestController
         }
 
         $parameters['headers'] = [
-            'profile' => json_encode($this->userService->getProfile($user)),
+            'x-profile' => json_encode($this->userService->getProfile($user)),
         ];
 
         $parameters['parameters'] = '';
@@ -198,8 +198,7 @@ class ProxyOpticController extends FOSRestController
 
     private function getCurrentUser()
     {
-//        $user = $this->security->getToken()->getUser();
-        $user = $this->get('doctrine.orm.entity_manager')->getRepository('UserBundle:User')->find(1);
+        $user = $this->security->getToken()->getUser();
 
         return $user;
     }

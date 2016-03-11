@@ -83,7 +83,7 @@ class ProxyPopController extends FOSRestController
         }
 
         $parameters['headers'] = [
-            'profile' => json_encode($this->userService->getProfile($user)),
+            'x-profile' => json_encode($this->userService->getProfile($user)),
         ];
 
         $parameters['parameters'] = '';
@@ -120,7 +120,7 @@ class ProxyPopController extends FOSRestController
         }
 
         $parameters['headers'] = [
-            'profile' => json_encode($this->userService->getProfile($user)),
+            'x-profile' => json_encode($this->userService->getProfile($user)),
         ];
 
         $parameters['parameters'] = '';
@@ -156,7 +156,7 @@ class ProxyPopController extends FOSRestController
         }
 
         $parameters['headers'] = [
-            'profile' => json_encode($this->userService->getProfile($user)),
+            'x-profile' => json_encode($this->userService->getProfile($user)),
         ];
 
         $parameters['parameters'] = '';
@@ -192,7 +192,7 @@ class ProxyPopController extends FOSRestController
         }
 
         $parameters['headers'] = [
-            'profile' => json_encode($this->userService->getProfile($user)),
+            'x-profile' => json_encode($this->userService->getProfile($user)),
         ];
 
         $parameters['parameters'] = '';
