@@ -45,8 +45,6 @@ class CurlService
     public function __construct($container)
     {
         $this->container = $container;
-        $request = $this->container->get('request');
-        $this->method = $request->getMethod();
     }
 
     /**
@@ -56,6 +54,7 @@ class CurlService
      */
     public function sendRequest($url, $parameters)
     {
+        $this->method = $this->container->get('request')->getMethod();
         $client = new Client();
         try {
             $response = $client->send($this->request($url, $parameters));

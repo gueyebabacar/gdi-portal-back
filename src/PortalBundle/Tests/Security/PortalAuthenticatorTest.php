@@ -51,7 +51,7 @@ class PortalAuthenticatorTest extends BaseWebTestCase
      */
     public function testAuthenticationFail()
     {
-        $this->client->request('get', '/portal/users', [], [], []);
+        $this->client->request('get', '/portal/users', [], [], ['HTTP_gaiaId' => 'nogaia']);
         $this->assertEquals(401, $this->client->getResponse()->getStatusCode());
     }
 }
