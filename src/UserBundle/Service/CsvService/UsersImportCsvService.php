@@ -68,23 +68,28 @@ class UsersImportCsvService
                         $header = false;
                         continue;
                     }
+
                     if (strlen(implode($fields)) != 0) {
                         $user = new User();
                         $agency = $this->em->getRepository('PortalBundle:Agency')->findOneByCode($fields[8]);
                         $region = $this->em->getRepository('PortalBundle:Region')->findOneByCode($fields[9]);
-                        $user->setFirstName($fields[0]);
-                        $user->setLastName($fields[1]);
-                        $user->setUsername($fields[2]);
-                        $user->setNni($fields[3]);
-                        $user->setPhone1($fields[4]);
-                        $user->setPhone2($fields[5]);
-                        $user->setEmail($fields[6]);
-                        $user->setEntity($fields[7]);
-                        $user->setAgency($agency);
-                        $user->setRegion($region);
+                        $userByGaia = $this->em->getRepository('UserBundle:User')->findOneByUsername($fields[2]);
 
-                        $this->em->persist($user);
-                        $counterLine++;
+                        if ($userByGaia === null) {
+                            $user->setUsername($fields[2]);
+                            $user->setFirstName($fields[0]);
+                            $user->setLastName($fields[1]);
+                            $user->setNni($fields[3]);
+                            $user->setPhone1($fields[4]);
+                            $user->setPhone2($fields[5]);
+                            $user->setEmail($fields[6]);
+                            $user->setEntity($fields[7]);
+                            $user->setAgency($agency);
+                            $user->setRegion($region);
+
+                            $this->em->persist($user);
+                            $counterLine++;
+                        }
                     }
                 }
                 $this->em->flush();
