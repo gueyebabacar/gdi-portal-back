@@ -67,6 +67,8 @@ class RegionTest extends \PHPUnit_Framework_TestCase
         $agency
             ->setLabel($label)
             ->setCode($code);
+        $region->addAgency($agency);
+        $this->assertTrue($region->getAgencies()->contains($agency));
         $region->removeAgency($agency);
         $this->assertFalse($region->getAgencies()->contains($agency));
     }

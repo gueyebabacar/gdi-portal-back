@@ -64,6 +64,16 @@ abstract class TerritorialEntity
     }
 
     /**
+     * @param mixed $id
+     * @return $this
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
+        return $this;
+    }
+
+    /**
      * @return mixed
      */
     public function getId()

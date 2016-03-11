@@ -2,6 +2,7 @@
 
 namespace UserBundle\Tests\Controller;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use PortalBundle\Entity\Agency;
 use PortalBundle\Entity\Region;
 use PortalBundle\Tests\BaseWebTestCase;
@@ -149,6 +150,27 @@ class UserControllerTest extends BaseWebTestCase
         $user = $this->em->getRepository('UserBundle:User')->find($id);
 
         $this->assertNull($user);
+    }
+
+    /**
+     *testGetProfiles
+     */
+    public function testGetProfiles()
+    {
+        /** @var ArrayCollection|User $profiles */
+        $profiles =  $this->em->getRepository('UserBundle:User')->getProfiles();
+        $this->client->request(
+            'GET',
+            "/portal/profiles",
+            [],
+            [],
+            $this->headers
+        );
+        $response = json_decode($this->client->getResponse()->getContent(), true);
+        $this->assertEquals(sizeof($profiles), sizeof($response));
+        $this->assertEquals($profiles[0]['firstName'], $response[0]['firstName']);
+        $this->assertEquals($profiles[0]['lastName'], $response[0]['lastName']);
+        $this->assertEquals($profiles[0]['username'], $response[0]['username']);
     }
 
     /**
