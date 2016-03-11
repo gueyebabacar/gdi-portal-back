@@ -188,7 +188,7 @@ class UserService
             'prenom' => $user->getFirstName(),
             'role' => $user->getRoles()[0],
             'maille' => $maille,
-            'code_maille' => $code_maille
+            'code_maille' => ($code_maille === null) ? '' : $code_maille
         ];
 
         return $profile;
