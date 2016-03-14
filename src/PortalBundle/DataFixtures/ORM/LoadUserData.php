@@ -51,46 +51,46 @@ class LoadUserData extends AbstractFixture implements FixtureInterface, Containe
                     $user->setRoles([RolesEnum::ROLE_VISITEUR]);
                     break;
                 case 2:
-                    $user->setEntity(EntityEnum::ATG_ENTITY);
+                    $user->setEntity(EntityEnum::AI_ENTITY);
                     $user->setAgency($this->getReference('agency-1'));
                     $user->setRoles([RolesEnum::ROLE_TECHNICIEN]);
                     break;
                 case 3:
-                    $user->setEntity(EntityEnum::APPO_ENTITY);
+                    $user->setEntity(EntityEnum::APPI_ENTITY);
                     $user->setRegion($this->getReference('region-4'));
                     $user->setRoles([RolesEnum::ROLE_PROGRAMMATEUR]);
                     break;
                 case 4:
-                    $user->setEntity(EntityEnum::ATG_ENTITY);
+                    $user->setEntity(EntityEnum::AI_ENTITY);
                     $user->setAgency($this->getReference('agency-4'));
                     $user->setRoles([RolesEnum::ROLE_PROGRAMMATEUR_AVANCE]);
                     break;
                 case 5:
-                    $user->setEntity(EntityEnum::APPO_ENTITY);
+                    $user->setEntity(EntityEnum::APPI_ENTITY);
                     $user->setRegion($this->getReference('region-3'));
                     $user->setRoles([RolesEnum::ROLE_MANAGER_APPO]);
                     break;
                 case 6:
-                    $user->setEntity(EntityEnum::APPO_ENTITY);
+                    $user->setEntity(EntityEnum::APPI_ENTITY);
                     $user->setRegion($this->getReference('region-3'));
                     $user->setRoles([RolesEnum::ROLE_REFERENT_EQUIPE]);
                     break;
                 case 7:
-                    $user->setEntity(EntityEnum::ATG_ENTITY);
+                    $user->setEntity(EntityEnum::AI_ENTITY);
                     $user->setAgency($this->getReference('agency-1'));
                     $user->setRoles([RolesEnum::ROLE_MANAGER_ATG]);
                     break;
                 case 8:
-                    $user->setEntity(EntityEnum::APPO_ENTITY);
+                    $user->setEntity(EntityEnum::APPI_ENTITY);
                     $user->setRegion($this->getReference('region-4'));
                     $user->setRoles([RolesEnum::ROLE_ADMINISTRATEUR_LOCAL]);
                     break;
                 case 9:
-                    $user->setEntity(EntityEnum::ATG_ENTITY);
+                    $user->setEntity(EntityEnum::AI_ENTITY);
                     $user->setRoles([RolesEnum::ROLE_ADMINISTRATEUR_NATIONAL]);
                     break;
                 case 10:
-                    $user->setEntity(EntityEnum::APPO_ENTITY);
+                    $user->setEntity(EntityEnum::APPI_ENTITY);
                     $user->setRoles([RolesEnum::ROLE_ADMINISTRATEUR_SI]);
                     break;
             }
