@@ -22,7 +22,7 @@ class PortalAuthenticator implements SimplePreAuthenticatorInterface, Authentica
      */
     public function createToken(Request $request, $providerKey)
     {
-        $gaiaId = 'GAIA10';
+        $gaiaId = 'GAIA7';
         if($request->headers->get('gaiaId') !== null){
             $gaiaId = $request->headers->get('gaiaId');
         }

@@ -55,7 +55,7 @@ class LoginController extends FOSRestController
     public function whoAmIAction()
     {
         $user = $this->tokenStorage->getToken()->getUser();
-        return ['user' => $this->userService->getProfile($user)];
+        return ['user' => $this->userService->get($user->getId())];
     }
 
     /**
