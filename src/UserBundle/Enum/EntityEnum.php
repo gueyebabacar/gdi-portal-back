@@ -18,7 +18,7 @@ class EntityEnum
     {
         return [
             self::APPI_ENTITY,
-            self::ATI_ENTITY,
+            self::AI_ENTITY,
             self::VISITOR_ENTITY,
         ];
     }
