@@ -3,7 +3,6 @@
 namespace UserBundle\Tests\Service;
 
 use Doctrine\ORM\EntityManager;
-use Doctrine\ORM\EntityRepository;
 use PortalBundle\Entity\Agency;
 use PortalBundle\Entity\Region;
 use PortalBundle\Service\ErrorService;
@@ -183,7 +182,6 @@ class UserServiceTest extends \PHPUnit_Framework_TestCase
             ->flush()
             ->shouldBeCalled();
         $this->userService->create($request);
-//        $this->assertEquals($user, $this->userService->create($request));
     }
 
     /**
@@ -229,7 +227,6 @@ class UserServiceTest extends \PHPUnit_Framework_TestCase
             ->willReturn([$userArray])
             ->shouldBeCalled();
         $this->userService->get(1);
-//        $this->assertEquals($user, $this->userService->get(1));
     }
 
     /**
