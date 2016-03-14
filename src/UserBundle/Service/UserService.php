@@ -13,6 +13,7 @@ use Symfony\Component\Form\FormFactory;
 use Symfony\Component\HttpFoundation\Request;
 use JMS\DiExtraBundle\Annotation as DI;
 use UserBundle\Enum\ContextEnum;
+use UserBundle\Form\RightsUserType;
 use UserBundle\Form\UserType;
 
 /**
@@ -136,6 +137,32 @@ class UserService
         $user = $this->em->getRepository('UserBundle:User')->find($userId);
         $form = $this->formFactory->create(UserType::class, $user);
         $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $this->em->persist($user);
+            $this->em->flush();
+        }
+        if ($form->getErrors(true) !== null) {
+            foreach ($form->getErrors(true) as $error) {
+                $this->errorService->addError(ErrorEnum::INTERNAL, ErrorLevelEnum::CRITIC, $error->getMessage());
+            }
+            return array_merge($this->errorService->getErrors(), ['result' => $user]);
+        } else {
+            return ['result' => $user];
+        }
+    }
+
+    /**
+     * Displays a form to edit the rights of an existing User (recette ONLY).
+     * @param Request $request
+     * @param $userId
+     * @return User
+     */
+    public function updateRights(Request $request, $userId)
+    {
+        /** @var  $user */
+        $user = $this->em->getRepository('UserBundle:User')->find($userId);
+        $form = $this->formFactory->create(RightsUserType::class, $user, ['method'=> 'PATCH']);
+        $form->submit($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $this->em->persist($user);
             $this->em->flush();
