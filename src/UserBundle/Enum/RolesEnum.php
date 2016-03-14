@@ -37,7 +37,7 @@ class RolesEnum
     const ROLE_ADMINISTRATEUR_SI = 'ROLE_ADMINISTRATEUR_SI';
     const ROLE_ADMINISTRATEUR_SI_LABEL = 'Administrateur SI';
 
-    public static function getRoles()
+    public static function getRolesLabeled()
     {
         return [
             self::ROLE_VISITEUR => self::ROLE_VISITEUR_LABEL,
@@ -50,6 +50,22 @@ class RolesEnum
             self::ROLE_ADMINISTRATEUR_LOCAL => self::ROLE_ADMINISTRATEUR_LOCAL_LABEL,
             self::ROLE_ADMINISTRATEUR_NATIONAL => self::ROLE_ADMINISTRATEUR_NATIONAL_LABEL,
             self::ROLE_ADMINISTRATEUR_SI => self::ROLE_ADMINISTRATEUR_SI_LABEL,
+        ];
+    }
+
+    public static function getRoles()
+    {
+        return [
+            self::ROLE_VISITEUR,
+            self::ROLE_TECHNICIEN,
+            self::ROLE_PROGRAMMATEUR,
+            self::ROLE_PROGRAMMATEUR_AVANCE,
+            self::ROLE_MANAGER_APPO,
+            self::ROLE_MANAGER_ATG,
+            self::ROLE_REFERENT_EQUIPE,
+            self::ROLE_ADMINISTRATEUR_LOCAL,
+            self::ROLE_ADMINISTRATEUR_NATIONAL,
+            self::ROLE_ADMINISTRATEUR_SI,
         ];
     }
 
