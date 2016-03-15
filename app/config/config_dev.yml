@@ -1,5 +1,6 @@
 imports:
     - { resource: config.yml }
+    - { resource: gdi_urls_dev.yml }
 
 framework:
     router:
@@ -44,7 +45,7 @@ monolog:
 security:
     firewalls:
         unsecured_area:
-            pattern: ^/(_(profiler|wdt)|css|images|js|doc|profiles)
+            pattern: ^/(_(profiler|wdt)|css|images|js|doc|portal/profiles)
             security: false
 
         secured_area:

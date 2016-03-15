@@ -4,3 +4,10 @@ services:
         tags:
             - { name: security.voter }
         public: false
+
+    portal.user_repository:
+        class:  UserBundle\Repository\UserRepository
+        factory: ["@doctrine.orm.entity_manager", getRepository]
+        arguments:
+            - "UserBundle:User"
+        public: true

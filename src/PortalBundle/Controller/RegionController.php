@@ -35,4 +35,20 @@ class RegionController
     {
         return $this->regionService->getRegionsSecured();
     }
+
+    /**
+     * Provide Region's label.
+     * @Rest\Get("/regions")
+     * @Rest\View
+     *
+     * @ApiDoc(
+     *      section = "Region",
+     *      resource = true,
+     *      description = "Permet de récuperer les régions"
+     * )
+     */
+    public function getAllRegionsAction()
+    {
+        return $this->regionService->getRegions();
+    }
 }

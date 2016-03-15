@@ -26,7 +26,6 @@ class AppKernel extends Kernel
             new FOS\UserBundle\FOSUserBundle(),
             new AerialShip\SamlSPBundle\AerialShipSamlSPBundle(),
             new UserBundle\UserBundle(),
-            new Lsw\GuzzleBundle\LswGuzzleBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'recette', 'test'), true)) {
@@ -42,5 +41,23 @@ class AppKernel extends Kernel
     public function registerContainerConfiguration(LoaderInterface $loader)
     {
         $loader->load($this->getRootDir().'/config/config_'.$this->getEnvironment().'.yml');
+    }
+
+    public function getCacheDir()
+    {
+        if (in_array($this->getEnvironment(), ['dev', 'test'])) {
+            return '/var/tmp/portal-back/cache/' . $this->getEnvironment();
+        }
+
+        return parent::getCacheDir();
+    }
+
+    public function getLogDir()
+    {
+        if (in_array($this->getEnvironment(), ['dev', 'test'])) {
+            return '/var/tmp/portal-back/logs';
+        }
+
+        return parent::getLogDir();
     }
 }

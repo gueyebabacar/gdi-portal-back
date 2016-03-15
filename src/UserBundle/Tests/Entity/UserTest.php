@@ -15,6 +15,7 @@ class UserTest extends \PHPUnit_Framework_TestCase
     public function testGettersAndSetters()
     {
         $agency = new Agency();
+        $agency->setCode('codeAgence');
 
         $data = [
             'firstName' => 'fistName',
@@ -31,6 +32,17 @@ class UserTest extends \PHPUnit_Framework_TestCase
             'agency' => $agency,
         ];
 
+        $arrayContext = [
+            'maille' => 'AGENCE',
+            'code_maille' => $agency->getCode()
+        ];
+
+        $contexts = [
+            'REGION',
+            'AGENCE',
+            'NATIONAL',
+        ];
+
         $user = new User();
         $user->setFirstName($data['firstName']);
         $user->setLastName($data['lastName']);
@@ -41,13 +53,18 @@ class UserTest extends \PHPUnit_Framework_TestCase
         $user->setRoles($data['roles']);
         $user->setTerritorialContext($data['territorialContext']);
         $user->setAgency($data['agency']);
+        $user->setEntity($data['entity']);
 
-        $this->assertEquals($user->getFirstName(),$data['firstName']);
-        $this->assertEquals($user->getLastName(),$data['lastName']);
-        $this->assertEquals($user->getNni(),$data['nni']);
-        $this->assertEquals($user->getPhone1(),$data['phone1']);
-        $this->assertEquals($user->getPhone2(),$data['phone2']);
-        $this->assertEquals($user->getTerritorialContext(),$data['territorialContext']);
-        $this->assertEquals($user->getAgency(),$data['agency']);
+        $this->assertEquals($data['firstName'], $user->getFirstName());
+        $this->assertEquals($data['lastName'], $user->getLastName());
+        $this->assertEquals($data['nni'], $user->getNni());
+        $this->assertEquals($data['phone1'], $user->getPhone1());
+        $this->assertEquals($data['phone2'], $user->getPhone2());
+        $this->assertEquals($data['territorialContext'], $user->getTerritorialContext());
+        $this->assertEquals($data['agency'], $user->getAgency());
+        $this->assertEquals($data['entity'], $user->getEntity());
+
+        $this->assertEquals($arrayContext, $user->getArrayContext());
+        $this->assertEquals($contexts, User::getContexts());
     }
 }

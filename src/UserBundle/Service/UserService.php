@@ -12,6 +12,8 @@ use UserBundle\Entity\User;
 use Symfony\Component\Form\FormFactory;
 use Symfony\Component\HttpFoundation\Request;
 use JMS\DiExtraBundle\Annotation as DI;
+use UserBundle\Enum\ContextEnum;
+use UserBundle\Form\RightsUserType;
 use UserBundle\Form\UserType;
 use UserBundle\Form\EditUserType;
 
@@ -150,6 +152,32 @@ class UserService
     }
 
     /**
+     * Displays a form to edit the rights of an existing User (recette ONLY).
+     * @param Request $request
+     * @param $userId
+     * @return User
+     */
+    public function updateRights(Request $request, $userId)
+    {
+        /** @var  $user */
+        $user = $this->em->getRepository('UserBundle:User')->find($userId);
+        $form = $this->formFactory->create(RightsUserType::class, $user, ['method'=> 'PATCH']);
+        $form->submit($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $this->em->persist($user);
+            $this->em->flush();
+        }
+        if ($form->getErrors(true) !== null) {
+            foreach ($form->getErrors(true) as $error) {
+                $this->errorService->addError(ErrorEnum::INTERNAL, ErrorLevelEnum::CRITIC, $error->getMessage());
+            }
+            return array_merge($this->errorService->getErrors(), ['result' => $user]);
+        } else {
+            return ['result' => $user];
+        }
+    }
+
+    /**
      * Deletes a User entity.
      * @param $userId
      */
@@ -167,6 +195,30 @@ class UserService
     public function getProfiles()
     {
         return $this->em->getRepository('UserBundle:User')->getProfiles();
+    }
+
+    /**
+     * @param User $user
+     * @return array
+     */
+    public function getProfile(User $user)
+    {
+        $maille = $user->getTerritorialContext();
+        $code_maille = null;
+        $nni = null;
+        $code_maille = $user->getTerritorialCode();
+
+        $profile = [
+            'gaia' => $user->getUsername(),
+            'nni' => $user->getNni(),
+            'nom' => $user->getLastName(),
+            'prenom' => $user->getFirstName(),
+            'role' => $user->getRoles()[0],
+            'maille' => $maille,
+            'code_maille' => ($code_maille === null) ? '' : $code_maille
+        ];
+
+        return $profile;
     }
 
     /**

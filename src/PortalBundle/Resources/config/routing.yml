@@ -1,15 +1,31 @@
 home:
     type: rest
-    resource: @PortalBundle/Controller/DefaultController.php
+    prefix: /portal
+    resource: @PortalBundle/Controller/LoginController.php
 
 role:
     type: rest
+    prefix: /portal
     resource: @PortalBundle/Controller/RoleController.php
 
 agency:
     type: rest
+    prefix: /portal
     resource: @PortalBundle/Controller/AgencyController.php
 
 region:
     type: rest
+    prefix: /portal
     resource: @PortalBundle/Controller/RegionController.php
+
+proxy_pop:
+    type: rest
+    resource: @PortalBundle/Controller/ProxyController/ProxyPopController.php
+
+proxy_gdii:
+    type: rest
+    resource: @PortalBundle/Controller/ProxyController/ProxyGdiiController.php
+
+proxy_optic:
+    type: rest
+    resource: @PortalBundle/Controller/ProxyController/ProxyOpticController.php

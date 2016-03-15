@@ -15,6 +15,7 @@ php app/console doctrine:schema:create -e dev
 php app/console cache:clear -e dev
 php app/console assets:install web --symlink -e dev
 
-php app/console doctrine:fixtures:load -n
+#php app/console csv:import-portal
+php app/console doctrine:fixtures:load -n --fixtures= src/PortalBundle/DataFixtures/ORM/ -e dev
 
 echo "--- Fin reinit ---"

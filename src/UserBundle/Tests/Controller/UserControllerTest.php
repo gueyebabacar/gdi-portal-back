@@ -2,6 +2,7 @@
 
 namespace UserBundle\Tests\Controller;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use PortalBundle\Entity\Agency;
 use PortalBundle\Entity\Region;
 use PortalBundle\Tests\BaseWebTestCase;
@@ -33,7 +34,7 @@ class UserControllerTest extends BaseWebTestCase
 
         $user = $this->em->getRepository('UserBundle:User')->findAll();
 
-        $this->client->request('GET', "/users", [], [], $this->headers);
+        $this->client->request('GET', "/portal/users", [], [], $this->headers);
 
         $response = json_decode($this->client->getResponse()->getContent(), true);
         $this->assertEquals(sizeof($user), sizeof($response));
@@ -50,7 +51,7 @@ class UserControllerTest extends BaseWebTestCase
         $transcoDestTerrSite = $this->em->getRepository('UserBundle:User')->findAll()[0];
         $this->client->request(
             'GET',
-            "/users/" . $transcoDestTerrSite->getId(),
+            "/portal/users/" . $transcoDestTerrSite->getId(),
             [],
             [],
             $this->headers
@@ -95,7 +96,7 @@ class UserControllerTest extends BaseWebTestCase
 
         $this->client->request(
             'POST',
-            "/users",
+            "/portal/users",
             $data,
             [],
             $this->headers
@@ -120,7 +121,7 @@ class UserControllerTest extends BaseWebTestCase
 
         $this->client->request(
             'PATCH',
-            "/users/" . $user->getId(),
+            "/portal/users/" . $user->getId(),
             $data,
             [],
             $this->headers
@@ -140,7 +141,7 @@ class UserControllerTest extends BaseWebTestCase
         $id = $user->getId();
         $this->client->request(
             'DELETE',
-            "/users/" . $id,
+            "/portal/users/" . $id,
             [],
             [],
             $this->headers
@@ -149,6 +150,27 @@ class UserControllerTest extends BaseWebTestCase
         $user = $this->em->getRepository('UserBundle:User')->find($id);
 
         $this->assertNull($user);
+    }
+
+    /**
+     *testGetProfiles
+     */
+    public function testGetProfiles()
+    {
+        /** @var ArrayCollection|User $profiles */
+        $profiles =  $this->em->getRepository('UserBundle:User')->getProfiles();
+        $this->client->request(
+            'GET',
+            "/portal/profiles",
+            [],
+            [],
+            $this->headers
+        );
+        $response = json_decode($this->client->getResponse()->getContent(), true);
+        $this->assertEquals(sizeof($profiles), sizeof($response));
+        $this->assertEquals($profiles[0]['firstName'], $response[0]['firstName']);
+        $this->assertEquals($profiles[0]['lastName'], $response[0]['lastName']);
+        $this->assertEquals($profiles[0]['username'], $response[0]['username']);
     }
 
     /**

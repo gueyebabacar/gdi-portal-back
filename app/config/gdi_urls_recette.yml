@@ -1,0 +1,4 @@
+parameters:
+    pop_url: "http://172.17.8.34/api/newppi/"
+    gdii_url: "http://10.0.55.2:8089/"
+    optic_url: "http://10.0.55.2:8090/"
