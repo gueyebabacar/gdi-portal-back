@@ -7,8 +7,8 @@ namespace UserBundle\Enum;
  */
 class EntityEnum
 {
-    const APPO_ENTITY = 'APPO';
-    const ATG_ENTITY = 'ATG';
+    const APPI_ENTITY = 'APPI';
+    const AI_ENTITY = 'AI';
     const VISITOR_ENTITY = 'VISITEUR';
 
     /**
@@ -17,8 +17,8 @@ class EntityEnum
     public static function getEntities()
     {
         return [
-            self::APPO_ENTITY,
-            self::ATG_ENTITY,
+            self::APPI_ENTITY,
+            self::AI_ENTITY,
             self::VISITOR_ENTITY,
         ];
     }

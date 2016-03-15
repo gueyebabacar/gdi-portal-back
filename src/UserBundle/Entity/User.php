@@ -268,10 +268,10 @@ class User extends BaseUser
     public function setAgency($agency)
     {
         $this->agency = $agency;
-        $this->setTerritorialContext(ContextEnum::AGENCY_CONTEXT);
-        if (is_null($this->agency )) {
+        if ( $this->agency === null) {
             return;
-        }else{
+        } else {
+            $this->setTerritorialContext(ContextEnum::AGENCY_CONTEXT);
             $this->setTerritorialCode($this->agency->getCode());
         }
         return $this;
@@ -292,10 +292,10 @@ class User extends BaseUser
     public function setRegion($region)
     {
         $this->region = $region;
-        $this->setTerritorialContext(ContextEnum::REGION_CONTEXT);
-        if (is_null($this->region)) {
+        if ( $this->region === null) {
             return;
-        }else{
+        } else {
+            $this->setTerritorialContext(ContextEnum::REGION_CONTEXT);
             $this->setTerritorialCode($this->region->getCode());
         }
         return $this;
@@ -373,8 +373,8 @@ class User extends BaseUser
     public static function getEntities()
     {
         return [
-            EntityEnum::APPO_ENTITY,
-            EntityEnum::ATG_ENTITY,
+            EntityEnum::APPI_ENTITY,
+            EntityEnum::AI_ENTITY,
             EntityEnum::VISITOR_ENTITY
         ];
     }

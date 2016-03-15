@@ -70,7 +70,7 @@ class UserControllerTest extends BaseWebTestCase
         $data = [
             'firstName' => 'firstName',
             'lastName' => 'lastName',
-            'entity' => 'APPO',
+            'entity' => 'APPI',
             'email' => 'email@email.fr',
             'username' => 'GAIA00',
             'nni' => 'nni',
@@ -170,7 +170,7 @@ class UserControllerTest extends BaseWebTestCase
             'lastName' => 'lastName',
             'gaia' => 'gaia',
             'email' => 'email',
-            'entity' => 'APPO',
+            'entity' => 'APPI',
             'password' => 'password',
             'nni' => 'nni',
             'phone1' => 'phone1',

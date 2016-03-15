@@ -6,6 +6,7 @@ use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 use Symfony\Component\Form\Form;
 use Symfony\Component\Form\FormFactory;
 use UserBundle\Entity\User;
+use UserBundle\Enum\EntityEnum;
 use UserBundle\Enum\RolesEnum;
 use UserBundle\Form\UserType;
 
@@ -42,7 +43,7 @@ class UserTypeTest extends KernelTestCase
             'phone1' => '112222555',
             'phone2' => '1122252584',
             'password' => 'okookpasse',
-            'entity' => 'ATG',
+            'entity' => EntityEnum::AI_ENTITY,
             'agency' => new Agency(),
             'roles' => [RolesEnum::ROLE_ADMINISTRATEUR_NATIONAL],
         );

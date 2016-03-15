@@ -21,7 +21,7 @@ class UserTest extends \PHPUnit_Framework_TestCase
             'lastName' => 'lastName',
             'gaia' => 'gaia',
             'email' => 'email',
-            'entity' => 'APPO',
+            'entity' => 'APPI',
             'password' => 'password',
             'nni' => 'nni',
             'phone1' => 'phone1',
