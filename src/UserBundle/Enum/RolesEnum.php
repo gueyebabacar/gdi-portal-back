@@ -70,6 +70,6 @@ class RolesEnum
     }
 
     public static function roleHierarchy($role){
-        return array_search($role ,array_keys(self::getRoles()));
+        return array_search($role ,self::getRoles());
     }
 }

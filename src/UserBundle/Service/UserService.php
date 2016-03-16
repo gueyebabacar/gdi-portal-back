@@ -76,12 +76,11 @@ class UserService
         $users = $this->em->getRepository('UserBundle:User')->getUserAttributes();
         foreach ($users as $user) {
             $u = $this->formatUser($user);
-
             if (false !== $this->authorizationChecker->isGranted(VoterEnum::VIEW, $u)) {
                 $usersSent[] = $u;
             }
         }
-        return $users;
+        return $usersSent;
     }
 
     /**
@@ -135,7 +134,7 @@ class UserService
     {
         /** @var User $user */
         $user = $this->em->getRepository('UserBundle:User')->find($userId);
-        $form = $this->formFactory->create(EditUserType::class, $user, ['method'=> 'PATCH']);
+        $form = $this->formFactory->create(EditUserType::class, $user, ['method' => 'PATCH']);
         $form->submit($request, false);
         if ($form->isSubmitted() && $form->isValid()) {
             $this->em->persist($user);
@@ -161,7 +160,7 @@ class UserService
     {
         /** @var  $user */
         $user = $this->em->getRepository('UserBundle:User')->find($userId);
-        $form = $this->formFactory->create(RightsUserType::class, $user, ['method'=> 'PATCH']);
+        $form = $this->formFactory->create(RightsUserType::class, $user, ['method' => 'PATCH']);
         $form->submit($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $this->em->persist($user);
@@ -240,16 +239,12 @@ class UserService
         $u->setNni($userArray['nni']);
         $u->setEmail($userArray['email']);
         $u->setSalt(null);
-        if (isset($userArray['agencyId'])) {
-            $u->setAgency($this->em->getRepository('PortalBundle:Agency')->find($userArray['agencyId']));
-            $u->setRegion($u->getAgency()->getRegion());
-            return $u;
-        } elseif (isset($userArray['regionId'])) {
-            $u->setRegion($this->em->getRepository('PortalBundle:Region')->find($userArray['regionId']));
-            return $u;
-        } else {
-            $u->setTerritorialCode("");
-            return $u;
+        if (isset($userArray['region']['id'])) {
+            $u->setRegion($this->em->getRepository('PortalBundle:Region')->find($userArray['region']['id']));
         }
+        if (isset($userArray['agency']['id'])) {
+            $u->setAgency($this->em->getRepository('PortalBundle:Agency')->find($userArray['agency']['id']));
+        }
+        return $u;
     }
 }

@@ -24,11 +24,7 @@ class RightsUserType extends AbstractType
         $builder
             ->add('agency')
             ->add('roles')
-            ->add('region', EntityType::class,
-                [
-                    'class' => 'PortalBundle:Region',
-                    'choice_label' => 'label',
-                ])
+            ->add('region')
         ;
     }
 
@@ -39,7 +35,8 @@ class RightsUserType extends AbstractType
     {
         $resolver->setDefaults(array(
             'data_class' => 'UserBundle\Entity\User',
-            'csrf_protection' => false
+            'csrf_protection' => false,
+            'method'=> 'PATCH'
         ));
     }
 
