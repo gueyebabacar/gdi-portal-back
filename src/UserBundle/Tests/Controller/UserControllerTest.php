@@ -57,7 +57,6 @@ class UserControllerTest extends BaseWebTestCase
             $this->headers
         );
         $response = json_decode($this->client->getResponse()->getContent(), true);
-
         $this->assertEquals($transcoDestTerrSite->getId(), $response['id']);
     }
 

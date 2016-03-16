@@ -40,15 +40,15 @@ class RoleControllerTest extends BaseWebTestCase
     {
         $this->client->request('GET', "/portal/roles_secured", [], [], $this->headers);
         $response = json_decode($this->client->getResponse()->getContent(), true);
-        $this->assertEquals(RolesEnum::ROLE_VISITEUR, $response[0][0]);
-        $this->assertEquals(RolesEnum::ROLE_TECHNICIEN, $response[1][0]);
-        $this->assertEquals(RolesEnum::ROLE_PROGRAMMATEUR, $response[2][0]);
-        $this->assertEquals(RolesEnum::ROLE_PROGRAMMATEUR_AVANCE, $response[3][0]);
-        $this->assertEquals(RolesEnum::ROLE_MANAGER_APPO, $response[4][0]);
-        $this->assertEquals(RolesEnum::ROLE_MANAGER_ATG, $response[5][0]);
-        $this->assertEquals(RolesEnum::ROLE_REFERENT_EQUIPE, $response[6][0]);
-        $this->assertEquals(RolesEnum::ROLE_ADMINISTRATEUR_LOCAL, $response[7][0]);
-        $this->assertEquals(RolesEnum::ROLE_ADMINISTRATEUR_NATIONAL, $response[8][0]);
-        $this->assertEquals(RolesEnum::ROLE_ADMINISTRATEUR_SI, $response[9][0]);
+        $this->assertEquals(RolesEnum::ROLE_VISITEUR, $response[0]);
+        $this->assertEquals(RolesEnum::ROLE_TECHNICIEN, $response[1]);
+        $this->assertEquals(RolesEnum::ROLE_PROGRAMMATEUR, $response[2]);
+        $this->assertEquals(RolesEnum::ROLE_PROGRAMMATEUR_AVANCE, $response[3]);
+        $this->assertEquals(RolesEnum::ROLE_MANAGER_APPO, $response[4]);
+        $this->assertEquals(RolesEnum::ROLE_MANAGER_ATG, $response[5]);
+        $this->assertEquals(RolesEnum::ROLE_REFERENT_EQUIPE, $response[6]);
+        $this->assertEquals(RolesEnum::ROLE_ADMINISTRATEUR_LOCAL, $response[7]);
+        $this->assertEquals(RolesEnum::ROLE_ADMINISTRATEUR_NATIONAL, $response[8]);
+        $this->assertEquals(RolesEnum::ROLE_ADMINISTRATEUR_SI, $response[9]);
     }
 }
