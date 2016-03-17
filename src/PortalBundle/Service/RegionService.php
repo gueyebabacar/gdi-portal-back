@@ -60,7 +60,7 @@ class RegionService
     }
 
     /**
-     * Return all regions (secured)
+     * Return all regions
      * @return array
      */
     public function getRegions()

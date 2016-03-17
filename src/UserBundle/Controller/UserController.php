@@ -119,7 +119,7 @@ class UserController
      * @param $userId
      * @return User
      */
-    public function updatRightseAction(Request $request, $userId)
+    public function updateRightsAction(Request $request, $userId)
     {
         return $this->userService->updateRights($request, $userId);
     }

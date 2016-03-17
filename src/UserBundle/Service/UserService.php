@@ -163,6 +163,7 @@ class UserService
         $form = $this->formFactory->create(RightsUserType::class, $user, ['method' => 'PATCH']);
         $form->submit($request);
         if ($form->isSubmitted() && $form->isValid()) {
+            $user->setRoles([$user->getRoles()[0]]);
             $this->em->persist($user);
             $this->em->flush();
         }
