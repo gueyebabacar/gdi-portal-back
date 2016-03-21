@@ -12,7 +12,7 @@ class UsersImportCsvCommand extends ContainerAwareCommand
     protected function configure()
     {
         $this
-            ->setName('users:import')
+            ->setName('csv:import:users')
             ->setDescription('This will export csv file content on database');
     }
 

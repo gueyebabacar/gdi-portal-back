@@ -12,7 +12,7 @@ class ImportCsvCommand extends ContainerAwareCommand
     protected function configure()
     {
         $this
-            ->setName('csv:import-portal')
+            ->setName('csv:import:portal')
             ->setDescription('This will import csv file content into database');
     }
 
