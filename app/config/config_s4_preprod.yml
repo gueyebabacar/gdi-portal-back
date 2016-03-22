@@ -2,6 +2,12 @@ imports:
     - { resource: config.yml }
     - { resource: parameters_s4_preprod.yml }
 
+framework:
+    router:
+        resource: "@AerialShipSamlSPBundle/Resources/config/routing.yml"
+        strict_requirements: true
+    profiler: { only_exceptions: false }
+
 monolog:
     handlers:
         main:
@@ -31,48 +37,22 @@ monolog:
         #chromephp:
         #    type:   chromephp
         #    level:  info
-
 security:
     firewalls:
-            unsecured_area:
-                pattern: ^/(_(profiler|wdt)|css|images|js|doc|profiles)
-                security: false
+        unsecured_area:
+            pattern: ^/(_(profiler|wdt)|css|images|js|doc|profiles)
+            security: false
 
-            secured_area:
-                pattern: ^/
-                stateless: true
-                simple_preauth:
-                    authenticator: portal_authenticator
-                provider: fos_userbundle
+        secured_area:
+            pattern: ^/
+            stateless: true
+            simple_preauth:
+                authenticator: portal_authenticator
+            provider: fos_userbundle
 
-            dev:
-                pattern: ^/(_(profiler|wdt)|css|images|js|doc)/
-                security: false
+        dev:
+            pattern: ^/(_(profiler|wdt)|css|images|js|doc)/
+            security: false
 
-            main:
-                anonymous: ~
-#        dev:
-#            pattern: ^/(_(profiler|wdt)|css|images|js)/
-#            security: false
-#
-#        saml:
-#            pattern: ^/
-#            aerial_ship_saml_sp:
-#                login_path: /saml/sp/login
-#                local_logout_path: /logout
-#                default_target_path: /
-#                create_user_if_not_exists: false
-#                provider: fos_userbundle
-#                services:
-#                    saml:
-#                        idp:
-#                            file: "@UserBundle/Resources/FedId/dev/GIDPD_FederationMetaData_20151028.xml"
-#                        sp:
-#                            config:
-#                                base_url: https://portail-gdi-rec.carma.grdf.fr
-#                                entity_id: https://portail-gdi-rec.carma.grdf.fr
-#            logout:
-#                path: /logout
-#
-#        main:
-#            anonymous: ~
+        main:
+            anonymous: ~
