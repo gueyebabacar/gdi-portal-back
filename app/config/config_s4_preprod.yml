@@ -1,6 +1,6 @@
 imports:
     - { resource: config.yml }
-    - { resource: parameters_preprod.yml }
+    - { resource: parameters_s4_preprod.yml }
 
 framework:
     router:
