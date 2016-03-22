@@ -1,0 +1,6 @@
+services:
+    security.user_voter:
+        class: UserBundle\Voter\UserVoter
+        tags:
+            - { name: security.voter }
+        public: false

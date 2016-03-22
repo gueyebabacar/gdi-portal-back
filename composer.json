@@ -24,7 +24,12 @@
         "twig/extensions": "~1.2",
         "beberlei/DoctrineExtensions": "^1.0",
         "nelmio/api-doc-bundle": "^2.9",
-        "apoutchika/loremipsum-bundle": "^1.0"
+        "apoutchika/loremipsum-bundle": "^1.0",
+        "aerialship/saml-sp-bundle": "^1.1",
+        "knpuniversity/guard-bundle": "^0.3.0",
+        "friendsofsymfony/user-bundle": "^1.3",
+        "symfony/assetic-bundle": "^2.7",
+        "leaseweb/guzzle-bundle": "^1.0"
     },
     "require-dev": {
         "sensio/generator-bundle": "~3.0",
@@ -36,7 +41,7 @@
         "sebastian/phpcpd": "@stable",
         "pdepend/pdepend": "@stable",
         "phpunit/phpcov": "@stable",
-        "phpspec/prophecy-phpunit": "~1.0"
+        "phpspec/prophecy": "~1.0"
     },
     "scripts": {
         "post-install-cmd": [

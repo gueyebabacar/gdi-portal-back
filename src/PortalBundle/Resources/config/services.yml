@@ -1,0 +1,22 @@
+services:
+    portal_authenticator:
+        class:  PortalBundle\Security\PortalAuthenticator
+        public: false
+
+    security.region_voter:
+            class: PortalBundle\Voter\RegionVoter
+            tags:
+                - { name: security.voter }
+            public: false
+
+    security.role_voter:
+            class: PortalBundle\Voter\RoleVoter
+            tags:
+                - { name: security.voter }
+            public: false
+
+    security.agency_voter:
+            class: PortalBundle\Voter\AgencyVoter
+            tags:
+                - { name: security.voter }
+            public: false

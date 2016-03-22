@@ -1,0 +1,15 @@
+home:
+    type: rest
+    resource: @PortalBundle/Controller/DefaultController.php
+
+role:
+    type: rest
+    resource: @PortalBundle/Controller/RoleController.php
+
+agency:
+    type: rest
+    resource: @PortalBundle/Controller/AgencyController.php
+
+region:
+    type: rest
+    resource: @PortalBundle/Controller/RegionController.php

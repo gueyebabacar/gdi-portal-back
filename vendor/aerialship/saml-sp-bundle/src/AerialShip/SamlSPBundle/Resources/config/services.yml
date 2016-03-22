@@ -1,0 +1,216 @@
+
+parameters:
+    # Meta Providers ----------------------------------------
+    aerial_ship_saml_sp.service_info_collection.class: AerialShip\SamlSPBundle\Config\ServiceInfoCollection
+    aerial_ship_saml_sp.service_info.class: AerialShip\SamlSPBundle\Config\ServiceInfo
+    aerial_ship_saml_sp.sp_entity_descriptor_builder.class: AerialShip\SamlSPBundle\Config\SpEntityDescriptorBuilder
+    aerial_ship_saml_sp.idp_entity_descriptor_provider.class: AerialShip\SamlSPBundle\Config\EntityDescriptorFileProvider
+    aerial_ship_saml_sp.sp_meta_provider.class: AerialShip\SamlSPBundle\Config\SpMetaConfigProvider
+    aerial_ship_saml_sp.sp_signing.file.class: AerialShip\SamlSPBundle\Config\SPSigningProviderFile
+    aerial_ship_saml_sp.sp_signing.null.class: AerialShip\SamlSPBundle\Config\SPSigningProviderNull
+
+    # relaying parties ---------------------------------------
+    aerial_ship_saml_sp.relying_party.discovery.class: AerialShip\SamlSPBundle\Bridge\Discovery
+    aerial_ship_saml_sp.relying_party.federation_metadata.class: AerialShip\SamlSPBundle\Bridge\FederationMetadata
+    aerial_ship_saml_sp.relying_party.authenticate.class: AerialShip\SamlSPBundle\Bridge\Authenticate
+    aerial_ship_saml_sp.relying_party.assertion_consumer.class: AerialShip\SamlSPBundle\Bridge\AssertionConsumer
+    aerial_ship_saml_sp.relying_party.sso_session_check.class: AerialShip\SamlSPBundle\Bridge\SSOSessionCheck
+    aerial_ship_saml_sp.relying_party.logout.class: AerialShip\SamlSPBundle\RelyingParty\RelyingPartyCollection
+    aerial_ship_saml_sp.relying_party.logout.send_request.class: AerialShip\SamlSPBundle\Bridge\LogoutSendRequest
+    aerial_ship_saml_sp.relying_party.logout.receive_response.class: AerialShip\SamlSPBundle\Bridge\LogoutReceiveResponse
+    aerial_ship_saml_sp.relying_party.logout.receive_request.class: AerialShip\SamlSPBundle\Bridge\LogoutReceiveRequest
+    aerial_ship_saml_sp.relying_party.logout.fallback.class: AerialShip\SamlSPBundle\Bridge\LogoutFallback
+    aerial_ship_saml_sp.relying_party.collection.class: AerialShip\SamlSPBundle\RelyingParty\RelyingPartyCollection
+
+    # Security -------------------------------------------------
+    security.authentication.provider.aerial_ship_saml_sp.class: AerialShip\SamlSPBundle\Security\Core\Authentication\Provider\SamlSpAuthenticationProvider
+    security.authentication.listener.aerial_ship_saml_sp.class: AerialShip\SamlSPBundle\Security\Http\Firewall\SamlSpAuthenticationListener
+
+    # var -----------------------------------------------
+    aerial_ship_saml_sp.state.store.request.class: AerialShip\SamlSPBundle\State\Request\SessionStore
+    aerial_ship_saml_sp.bridge.binding_manager.class: AerialShip\SamlSPBundle\Bridge\BindingManager
+    aerial_ship_saml_sp.user_provider_adapter.class: AerialShip\SamlSPBundle\Security\Core\User\UserProviderAdapter
+
+services:
+
+    # Meta Providers ----------------------------------------
+
+    aerial_ship_saml_sp.sp_signing.file:
+        class: %aerial_ship_saml_sp.sp_signing.file.class%
+        arguments: [@kernel, ~, ~, ~]
+        public: false
+        abstract: true
+
+    aerial_ship_saml_sp.sp_signing.null:
+        class: %aerial_ship_saml_sp.sp_signing.null.class%
+        arguments: []
+        public: false
+        abstract: true
+
+    aerial_ship_saml_sp.sp_entity_descriptor_builder:
+        class: %aerial_ship_saml_sp.sp_entity_descriptor_builder.class%
+        arguments: [~, @aerial_ship_saml_sp.sp_signing.null, ~, ~, ~, @security.http_utils]
+        public: false
+        abstract: true
+
+    aerial_ship_saml_sp.service_info_collection:
+        class: %aerial_ship_saml_sp.service_info_collection.class%
+        public: false
+        abstract: true
+
+    aerial_ship_saml_sp.service_info:
+        class: %aerial_ship_saml_sp.service_info.class%
+        arguments:
+            - providerID
+            - authenticateServiceID
+            - @aerial_ship_saml_sp.sp_entity_descriptor_builder
+            - @aerial_ship_saml_sp.idp_entity_descriptor_provider
+            - @aerial_ship_saml_sp.sp_meta_provider
+            - @aerial_ship_saml_sp.sp_signing.null
+        public: false
+        abstract: true
+
+    aerial_ship_saml_sp.idp_entity_descriptor_provider:
+        class: %aerial_ship_saml_sp.idp_entity_descriptor_provider.class%
+        arguments: [@kernel]
+        public: false
+        abstract: true
+
+    aerial_ship_saml_sp.sp_meta_provider:
+        class: %aerial_ship_saml_sp.sp_meta_provider.class%
+        arguments: [~]
+        public: false
+        abstract: true
+
+
+
+    # relaying parties ---------------------------------------
+
+    aerial_ship_saml_sp.relying_party.discovery:
+        class: %aerial_ship_saml_sp.relying_party.discovery.class%
+        arguments: [~, @aerial_ship_saml_sp.service_info_collection, @templating, @security.http_utils]
+        public: false
+        abstract: true
+
+    aerial_ship_saml_sp.relying_party.federation_metadata:
+        class: %aerial_ship_saml_sp.relying_party.federation_metadata.class%
+        arguments: [@aerial_ship_saml_sp.service_info_collection, @security.http_utils]
+        public: false
+        abstract: true
+
+    aerial_ship_saml_sp.relying_party.authenticate:
+        class: %aerial_ship_saml_sp.relying_party.authenticate.class%
+        arguments:
+            - @aerial_ship_saml_sp.service_info_collection
+            - @aerial_ship_saml_sp.state.store.request
+            - @security.http_utils
+            - @aerial_ship_saml_sp.bridge.binding_manager
+        public: false
+        abstract: true
+
+    aerial_ship_saml_sp.relying_party.assertion_consumer:
+        class: %aerial_ship_saml_sp.relying_party.assertion_consumer.class%
+        arguments:
+            - @aerial_ship_saml_sp.bridge.binding_manager
+            - @aerial_ship_saml_sp.service_info_collection
+            - @aerial_ship_saml_sp.state.store.request
+            - @aerial_ship_saml_sp.state.store.sso
+        public: false
+        abstract: true
+
+    aerial_ship_saml_sp.relying_party.logout:
+        class: %aerial_ship_saml_sp.relying_party.logout.class%
+        public: false
+        abstract: true
+
+    aerial_ship_saml_sp.relying_party.logout.receive_response:
+        class: %aerial_ship_saml_sp.relying_party.logout.receive_response.class%
+        arguments:
+            - @aerial_ship_saml_sp.bridge.binding_manager
+            - @aerial_ship_saml_sp.state.store.request
+            - @aerial_ship_saml_sp.service_info_collection
+            - @aerial_ship_saml_sp.state.store.sso
+            - @security.context
+            - @security.http_utils
+        public: false
+        abstract: true
+
+    aerial_ship_saml_sp.relying_party.logout.receive_request:
+        class: %aerial_ship_saml_sp.relying_party.logout.receive_request.class%
+        arguments:
+            - @aerial_ship_saml_sp.bridge.binding_manager
+            - @aerial_ship_saml_sp.state.store.sso
+            - @aerial_ship_saml_sp.service_info_collection
+            - @security.http_utils
+        public: false
+        abstract: true
+
+    aerial_ship_saml_sp.relying_party.logout.send_request:
+        class: %aerial_ship_saml_sp.relying_party.logout.send_request.class%
+        arguments:
+            - @security.context
+            - @aerial_ship_saml_sp.service_info_collection
+            - @aerial_ship_saml_sp.state.store.request
+        public: false
+        abstract: true
+
+    aerial_ship_saml_sp.relying_party.logout.fallback:
+        class: %aerial_ship_saml_sp.relying_party.logout.fallback.class%
+        arguments:
+            - @security.http_utils
+        public: false
+
+    aerial_ship_saml_sp.relying_party.sso_session_check:
+        class: %aerial_ship_saml_sp.relying_party.sso_session_check.class%
+        arguments: [~, @security.context, @aerial_ship_saml_sp.state.store.sso, @security.http_utils]
+        public: false
+        abstract: true
+
+
+    aerial_ship_saml_sp.relying_party.composite:
+        class: %aerial_ship_saml_sp.relying_party.collection.class%
+        public: false
+        abstract: true
+
+
+
+    # Security -------------------------------------------------
+
+    security.authentication.provider.aerial_ship_saml_sp:
+        class: %security.authentication.provider.aerial_ship_saml_sp.class%
+        arguments:
+            - ~ # providerID
+            - ~ # user provider
+            - ~ # user checker
+            - false # create_user_if_not_exists
+        public: false
+        abstract: true
+
+
+    security.authentication.listener.aerial_ship_saml_sp:
+        class: %security.authentication.listener.aerial_ship_saml_sp.class%
+        parent: security.authentication.listener.abstract
+        public: false
+        abstract: true
+
+
+    # var -----------------------------------------------
+
+    aerial_ship_saml_sp.state.store.request:
+        class: %aerial_ship_saml_sp.state.store.request.class%
+        arguments: [@session, ~]
+        public: false
+        abstract: true
+
+    aerial_ship_saml_sp.bridge.binding_manager:
+        class: %aerial_ship_saml_sp.bridge.binding_manager.class%
+
+
+    aerial_ship_saml_sp.user_provider_adapter:
+        class: %aerial_ship_saml_sp.user_provider_adapter.class%
+        arguments: [~]
+        public: false
+        abstract: true
+
+
+
