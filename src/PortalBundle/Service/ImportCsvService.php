@@ -38,6 +38,7 @@ class ImportCsvService
      * @DI\InjectParams({
      *     "em" = @DI\Inject("doctrine.orm.entity_manager"),
      *     "kernel" = @DI\Inject("kernel")
+     *
      * })
      * @param $em
      * @param  $kernel
@@ -46,8 +47,6 @@ class ImportCsvService
     {
         $this->em = $em;
         $this->kernel = $kernel;
-        $this->regionRepo = $this->em->getRepository('PortalBundle:Region');
-        $this->agencyRepo = $this->em->getRepository('PortalBundle:Agency');
     }
 
     /**
@@ -66,7 +65,8 @@ class ImportCsvService
      */
     public function importCsvRegions($filePath = null)
     {
-        foreach ($this->regionRepo->findAll() as $item) {
+        $regionRepo = $this->em->getRepository('PortalBundle:Region');
+        foreach ($regionRepo->findAll() as $item) {
             $this->em->remove($item);
         }
         $this->em->flush();
@@ -108,7 +108,8 @@ class ImportCsvService
      */
     public function importCsvAgences($filePath = null)
     {
-        foreach ($this->agencyRepo->findAll() as $item) {
+        $agencyRepo = $this->em->getRepository('PortalBundle:Agency');
+        foreach ($agencyRepo->findAll()  as $item) {
             $this->em->remove($item);
         }
         $this->em->flush();
