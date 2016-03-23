@@ -1,27 +1,24 @@
 PRENOM;NOM;GAIA;ROLE;NNI;TEL1;TEL2;EMAIL;ENTITE;REGION;AGENCE
-Adélaïde;Dupond;123456;ROLE_VISITEUR;654321;123456789;7894561231;;APPI;REG1;ATG1
+Adélaïde;Dupond;123456;ROLE_VISITEUR;654321;123456789;7894561231;;APPI;1;3153
 François;El Gringo;123457;ROLE_ADMINISTRATEUR_SI;789456;123456789;7894561231;f.e@toto.com;APPI;;
-Clark;KENT;14785;ROLE_ADMINISTRATEUR_LOCAL;;;;clark@cryptonite.com;AI;REG2;
-Benoit;Déjà;159357;ROLE_PROGRAMMATEUR;;;;ben@a.com;AI;REG3;ATG3
+Clark;KENT;14785;ROLE_ADMINISTRATEUR_LOCAL;;;;clark@cryptonite.com;AI;8;
+Benoit;Déjà;159357;ROLE_PROGRAMMATEUR;;;;ben@a.com;AI;3;4070
 Raza;Siddiqi;GV5276;ROLE_ADMINISTRATEUR_SI;;;;raza.siddiqi@external.grdf.fr;APPI;;
 Emmanuel;Ballereau;KN1218;ROLE_ADMINISTRATEUR_SI;;;;emmanuel.ballereau@external.grdf.fr;APPI;;
 Jean-Emmanuel;Priston;JQ5308;ROLE_ADMINISTRATEUR_SI;;;;jean-Emmanuel.priston@external.grdf.fr;APPI;;
 Sophie;Tirlot;JM1166;ROLE_ADMINISTRATEUR_SI;;;;sophie.tirlot@grdf.fr;APPI;;
-Fatme;El Bsat;MK5262;ROLE_ADMINISTRATEUR_SI;;;;fatme.elbsat@external.grdf.fr;APPI;;
+Fatme;El Bsat;MK5262;ROLE_ADMINISTRATEUR_SI;;;;fatme.elbsat@external.grdf.fr;APPI;1;7040
 Marielle;Langlois;JF1144;ROLE_ADMINISTRATEUR_SI;;;;marielle.langlois@grdf.fr;APPI;;
 Abdeslam;Benakli;FFD043;ROLE_ADMINISTRATEUR_SI;;;;abdeslam.benakli@grdf.fr;APPI;;
 Sadek;Smaili;RX1042;ROLE_ADMINISTRATEUR_SI;;;;sadek.smaili@grdf.fr;APPI;;
 Alexis;Bougeois;IN4116;ROLE_ADMINISTRATEUR_SI;;;;alexis.bougeois@grdf.fr;APPI;;
 Jérôme;Blanchard;JX1125;ROLE_ADMINISTRATEUR_SI;;;;jerome.blanchard@grdf.fr;APPI;;
-Chloe;Mechaly;JD1209;ROLE_ADMINISTRATEUR_SI;;;;chloe.mechaly@grdf.fr;APPI;;
+Chloe;Mechaly;JD1209;ROLE_ADMINISTRATEUR_SI;;;;chloe.mechaly@grdf.fr;APPI;2;2071
 Marilyn;Le Touze;BM5265;ROLE_ADMINISTRATEUR_SI;;;;marilyn.letouze@external.grdf.fr;APPI;;
 Vincent;Nicopolsky;JR5279;ROLE_ADMINISTRATEUR_SI;;;;vincent.nicopolsky@external.grdf.fr;APPI;;
 Zdravko;Ivanovic;NR5125;ROLE_ADMINISTRATEUR_SI;;;;zdravko.ivanovic@external.grdf.fr;APPI;;
-bat;man;123456;ROLE_VISITEUR;1111;123456789;7894561231;bat@toto.com;APPI;REG1;ATG1
-super;man;222222;ROLE_VISITEUR;1111;123456789;7894561231;superman@toto.com;APPI;REG1;ATG1
-spider;man;333333;ROLE_VISITEUR;2222;123456789;7894561231;superman@toto.com;APPI;REG1;ATG1
-spider2;man;3333;ROLE_VISITEUR;2222;123456789;7894561231;superman@toti.com;APPI;REG1;ATG1
-spider3;man;3332;ROLE_VISITEUR;2221;123456789;7894561231;superman@tota.com;APPI;REG1;ATG1
-spider4;man;3339;ROLE_VISITEUR;2221;123456789;7894561231;superman@totx.com;APPI;REG1;ATG1
-toto;man;3337;ROLE_VISITEUR;2229;123456789;7894561231;gueyeye@toto.fr;APPI;REG1;ATG1
-toto2;man;3331;ROLE_VISITEUR;2228;123456789;7894561231;;APPI;REG1;ATG1
+Babacar;Gueye;RJ5340;ROLE_ADMINISTRATEUR_SI;;;;babacar.gueye@external.grdf.fr;APPI;6;2695
+Michael;Benaim;VB5311;ROLE_ADMINISTRATEUR_SI;;;;michael.benaim@external.grdf.fr;APPI;6;2695
+Usman;mohammadghazanfar;AT4242;ROLE_ADMINISTRATEUR_SI;;;;usman.mohammadghazanfar@external.grdf.fr;APPI;6;2695
+Tanguy;Montfollet;OW2027;ROLE_ADMINISTRATEUR_SI;;;;tanguy.montfollet@grdf.fr;APPI;8;2695
+
