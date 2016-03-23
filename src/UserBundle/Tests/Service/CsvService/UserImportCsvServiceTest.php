@@ -64,19 +64,15 @@ class UserImportCsvServiceTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetPath()
     {
-        $data = [
-            'path' => '/var/www/web/uploads/csv'
-        ];
-
         $this->kernelProphecy
             ->getRootDir()
             ->willReturn(string::class)
             ->shouldBeCalled();
         $this->usersImportCsvService->getPath();
-//        $this->assertEquals($this->usersImportCsvService->getPath(), $data['path']);
-
     }
-
+    /**
+     * @test testImportCsvUsers
+     */
     public function testImportCsvUsers()
     {
         $user = new User();
@@ -92,8 +88,8 @@ class UserImportCsvServiceTest extends \PHPUnit_Framework_TestCase
             'phone1' => '123456789',
             'phone2' => '023456789',
             'agency' => $agency,
-            'region' => $agency,
-            'roles' => 'ROLE_TECHNICIEN',
+            'region' => $region,
+            'roles' => 'ROLE_TECHNICIEN'
         ];
 
         $user->setFirstName($data['firstName']);
@@ -138,6 +134,12 @@ class UserImportCsvServiceTest extends \PHPUnit_Framework_TestCase
         $this->emProphecy
             ->flush()
             ->shouldBeCalled();
+
+        $data = [
+            'path' => '/var/www/app/Resources/csv'
+        ];
+
+        $this->usersImportCsvService->importCsvUsers($data['path']);
     }
 
     public function tearDown()
