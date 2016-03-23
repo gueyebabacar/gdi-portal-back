@@ -70,7 +70,7 @@ DirectoryIndex app.php
 
     # Cond env preprod
     RewriteCond %{REQUEST_FILENAME} !-f
-    RewriteCond %{HTTP_HOST} ^(10.146.10.182:8091)$ [NC]
+    RewriteCond %{HTTP_HOST} ^(10.146.10.182)$ [NC]
     RewriteRule ^(.*)$ %{ENV:BASE}/app_s4_preprod.php [L]
 
     # Rewrite all other queries to the front controller.
