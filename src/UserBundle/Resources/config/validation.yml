@@ -9,13 +9,13 @@ UserBundle\Entity\User:
                   message: "Le prénom est obligatoire"
               - Length:
                   max: 40
-                  maxMessage: "Le prénom est trop long"
+                  maxMessage: "Le prénom doit comporter 40 caractères"
           lastName:
               - NotNull:
                   message: "Le nom est obligatoire"
               - Length:
                   max: 40
-                  maxMessage: "Le nom est trop long"
+                  maxMessage: "Le nom doit comporter 40 caractères"
           entity:
               - NotNull:
                   message: "L'entité est obligatoire"
@@ -24,22 +24,22 @@ UserBundle\Entity\User:
                   message: "Le GAIA est obligatoire"
               - Length:
                   max: 6
-                  maxMessage: "Le GAIA est trop long"
+                  maxMessage: "Le GAIA doit comporter 6 caractères"
           email:
               - Email:
                   message: "Le format de l'email n'est pas valide"
               - Length:
                   max: 90
-                  maxMessage: "L'email est trop long"
+                  maxMessage: "L'email doit comporter 90 caractères"
           nni:
               - Length:
                   max: 8
-                  maxMessage: "Le NNI est trop long"
+                  maxMessage: "Le NNI doit comporter 8 caractères"
           phone1:
               - Length:
                   max: 10
-                  maxMessage: "Le Téléphone 1 est trop long"
+                  maxMessage: "Le Téléphone 1 doit comporter 10 caractères"
           phone2:
               - Length:
                   max: 10
-                  maxMessage: "Le Téléphone 2 est trop long"
+                  maxMessage: "Le Téléphone 2 doit comporter 10 caractères"
