@@ -73,9 +73,19 @@ DirectoryIndex app.php
     RewriteCond %{HTTP_HOST} ^(10.146.10.48)$ [NC]
     RewriteRule ^(.*)$ %{ENV:BASE}/app_s4_integration.php [L]
 
+    # Cond env tisi
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{HTTP_HOST} ^(r2-gdi.grdf.fr)$ [NC]
+    RewriteRule ^(.*)$ %{ENV:BASE}/app_s4_integration.php [L]
+
     # Cond env preprod
     RewriteCond %{REQUEST_FILENAME} !-f
     RewriteCond %{HTTP_HOST} ^(10.146.10.182)$ [NC]
+    RewriteRule ^(.*)$ %{ENV:BASE}/app_s4_preprod.php [L]
+
+    # Cond env preprod
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{HTTP_HOST} ^(pp-gdi.grdf.fr)$ [NC]
     RewriteRule ^(.*)$ %{ENV:BASE}/app_s4_preprod.php [L]
 
     # Rewrite all other queries to the front controller.
