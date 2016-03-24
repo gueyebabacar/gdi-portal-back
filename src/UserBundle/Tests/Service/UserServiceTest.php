@@ -5,6 +5,8 @@ namespace UserBundle\Tests\Service;
 use Doctrine\ORM\EntityManager;
 use PortalBundle\Entity\Agency;
 use PortalBundle\Entity\Region;
+use PortalBundle\Repository\AgencyRepository;
+use PortalBundle\Repository\RegionRepository;
 use PortalBundle\Service\ErrorService;
 use Symfony\Component\Security\Core\Authorization\AuthorizationChecker;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
@@ -90,7 +92,6 @@ class UserServiceTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetAll()
     {
-        $this->markTestSkipped();
         $region = new Region();
         $region->setLabel('region');
         $region->setcode('REG0');
@@ -99,6 +100,8 @@ class UserServiceTest extends \PHPUnit_Framework_TestCase
         $agency->setLabel('agence');
         $agency->setcode('ATG0');
         $agency->setRegion($region);
+
+        $usersSent = [];
 
         $userArray = [
             'id' => 1,
@@ -112,11 +115,17 @@ class UserServiceTest extends \PHPUnit_Framework_TestCase
             'phone1' => 'phone1',
             'phone2' => 'phone2',
             'roles' => [RolesEnum::ROLE_ADMINISTRATEUR_NATIONAL],
-            'agency' => $agency,
+            'agency' => ['id' => 1],
+            'region' => ['id' => 1],
             'territorialContext' => 'age',
         ];
 
+        $userObject = $this->formatUser($userArray);
+
         $repositoryProphecy = $this->prophet->prophesize(UserRepository::class);
+        $regionRepositoryProphecy = $this->prophet->prophesize(RegionRepository::class);
+        $agencyRepositoryProphecy = $this->prophet->prophesize(AgencyRepository::class);
+        $userServiceProphecy = $this->prophet->prophesize(UserService::class);
 
         $this->emProphecy
             ->getRepository("UserBundle:User")
@@ -128,12 +137,32 @@ class UserServiceTest extends \PHPUnit_Framework_TestCase
             ->willReturn([$userArray])
             ->shouldBeCalled();
 
-        $this->authorizationCheckerProphecy
-            ->isGranted('view', $this->formatUser($userArray))
-            ->shouldBeCalled();
 
+        foreach ([$userArray] as $user) {
+            $this->emProphecy
+                ->getRepository("PortalBundle:Region")
+                ->willReturn($regionRepositoryProphecy)
+                ->shouldBeCalled();
+
+            $this->emProphecy
+                ->getRepository("PortalBundle:Agency")
+                ->willReturn($agencyRepositoryProphecy)
+                ->shouldBeCalled();
+
+            $userServiceProphecy
+                ->formatUser($user)
+                ->willReturn($userObject)
+                ->shouldBeCalled();
+
+            $this->authorizationCheckerProphecy
+                ->isGranted('view', $userObject)
+                ->willReturn(true)
+                ->shouldBeCalled();
+
+            $usersSent[] = $userObject;
+        }
         $usersResult = $this->userService->getAll();
-        $this->assertEquals($userArray['firstName'], $usersResult[0]->getFirstName());
+        $this->assertEquals($usersSent[0]->getFirstName(), $usersResult[0]->getFirstName());
     }
 
     /**
@@ -190,7 +219,6 @@ class UserServiceTest extends \PHPUnit_Framework_TestCase
      */
     public function testGet()
     {
-        $this->markTestSkipped();
         $region = new Region();
         $region->setLabel('region');
         $region->setcode('REG0');
@@ -200,9 +228,11 @@ class UserServiceTest extends \PHPUnit_Framework_TestCase
         $agency->setcode('ATG0');
         $agency->setRegion($region);
 
+        $usersSent = [];
+
         $userArray = [
             'id' => 1,
-            'firstName' => 'fistName',
+            'firstName' => 'firstName',
             'lastName' => 'lastName',
             'username' => 'username',
             'email' => 'email@email.fr',
@@ -212,22 +242,52 @@ class UserServiceTest extends \PHPUnit_Framework_TestCase
             'phone1' => 'phone1',
             'phone2' => 'phone2',
             'roles' => [RolesEnum::ROLE_ADMINISTRATEUR_NATIONAL],
-            'agency' => $agency,
+            'agency' => ['id' => 1],
+            'region' => ['id' => 1],
             'territorialContext' => 'age',
         ];
 
+        $userObject = $this->formatUser($userArray);
+
         $repositoryProphecy = $this->prophet->prophesize(UserRepository::class);
+        $regionRepositoryProphecy = $this->prophet->prophesize(RegionRepository::class);
+        $agencyRepositoryProphecy = $this->prophet->prophesize(AgencyRepository::class);
+        $userServiceProphecy = $this->prophet->prophesize(UserService::class);
 
         $this->emProphecy
             ->getRepository("UserBundle:User")
             ->willReturn($repositoryProphecy)
             ->shouldBeCalled();
 
-        $this->repositoryProphecy
+        $repositoryProphecy
             ->getUserAttributes(1)
             ->willReturn([$userArray])
             ->shouldBeCalled();
-        $this->userService->get(1);
+
+
+        $this->emProphecy
+            ->getRepository("PortalBundle:Region")
+            ->willReturn($regionRepositoryProphecy)
+            ->shouldBeCalled();
+
+        $this->emProphecy
+            ->getRepository("PortalBundle:Agency")
+            ->willReturn($agencyRepositoryProphecy)
+            ->shouldBeCalled();
+
+        $userServiceProphecy
+            ->formatUser([$userArray][0])
+            ->willReturn($userObject)
+            ->shouldBeCalled();
+
+        $this->authorizationCheckerProphecy
+            ->isGranted('view', $userObject)
+            ->willReturn(true)
+            ->shouldBeCalled();
+
+        $usersSent[] = $userObject;
+        $usersResult = $this->userService->get(1);
+        $this->assertEquals($usersSent[0]->getFirstName(), $usersResult->getFirstName());
     }
 
     /**
@@ -290,16 +350,14 @@ class UserServiceTest extends \PHPUnit_Framework_TestCase
      */
     public function testDelete()
     {
-        $this->markTestSkipped();
-
         $user = new User();
-
+        $repositoryProphecy = $this->prophet->prophesize(UserRepository::class);
         $this->emProphecy
-            ->getRepository(Argument::exact('UserBundle:User'))
-            ->willReturn($this->repositoryProphecy)
+            ->getRepository('UserBundle:User')
+            ->willReturn($repositoryProphecy)
             ->shouldBeCalled();
 
-        $this->repositoryProphecy
+        $repositoryProphecy
             ->find(1)
             ->willReturn($user)
             ->shouldBeCalled();
@@ -312,50 +370,6 @@ class UserServiceTest extends \PHPUnit_Framework_TestCase
             ->shouldBeCalled();
 
         $this->userService->delete(1);
-    }
-
-    /**
-     * @return User
-     */
-    private function createUser()
-    {
-        $region = new Region();
-        $region->setLabel('region');
-        $region->setcode('REG0');
-
-        $agency = new Agency();
-        $agency->setLabel('agence');
-        $agency->setcode('ATG0');
-        $agency->setRegion($region);
-
-        $data = [
-            'firstName' => 'fistName',
-            'lastName' => 'lastName',
-            'username' => 'gaia',
-            'email' => 'email@email.fr',
-            'entity' => 'APPI',
-            'nni' => 'nni',
-            'phone1' => 'phone1',
-            'phone2' => 'phone2',
-            'roles' => [RolesEnum::ROLE_ADMINISTRATEUR_NATIONAL],
-            'agency' => $agency,
-            'territorialContext' => 'age',
-        ];
-
-        $user = new User();
-        $user->setFirstName($data['firstName']);
-        $user->setLastName($data['lastName']);
-        $user->setEmail($data['email']);
-        $user->setEntity($data['entity']);
-        $user->setUsername($data['gaia']);
-        $user->setNni($data['nni']);
-        $user->setPhone1($data['phone1']);
-        $user->setPhone2($data['phone2']);
-        $user->setRoles($data['roles']);
-        $user->setTerritorialContext($data['territorialContext']);
-        $user->setAgency($data['agency']);
-
-        return $user;
     }
 
     /**
@@ -372,17 +386,12 @@ class UserServiceTest extends \PHPUnit_Framework_TestCase
         $u->setUsername($userArray['username']);
         $u->setRoles($userArray['roles']);
         $u->setEnabled($userArray['enabled']);
+        $u->setPhone1($userArray['phone1']);
+        $u->setPhone2($userArray['phone2']);
+        $u->setNni($userArray['nni']);
+        $u->setEmail($userArray['email']);
         $u->setSalt(null);
-        if (isset($userArray['agencyId'])) {
-            $u->setAgency($this->em->getRepository('PortalBundle:Agency')->find($userArray['agencyId']));
-            return $u;
-        } elseif (isset($userArray['regionId'])) {
-            $u->setRegion($this->em->getRepository('PortalBundle:Region')->find($userArray['regionId']));
-            return $u;
-        } else {
-            $u->setTerritorialCode("");
-            return $u;
-        }
+        return $u;
     }
 
     public function tearDown()
