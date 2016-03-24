@@ -73,26 +73,7 @@ class ProxyPopController extends FOSRestController
      */
     public function redirectGetPopAction(Request $request, $uri)
     {
-        $user = $this->getCurrentUser();
-
-        $this->baseUrl = $this->getParameter('pop_url');
-        $queryParameters = $request->getQueryString();
-        $url = $this->baseUrl . $uri;
-        if($queryParameters != null){
-            $url.= '?'.$queryParameters;
-        }
-
-        $parameters['headers'] = [
-            'x-profile' => json_encode($this->userService->getProfile($user)),
-        ];
-
-        $parameters['parameters'] = '';
-        if ($user !== null) {
-
-            return $this->curlService->sendRequest($url, $parameters);
-        } else {
-            return null;
-        }
+        return $this->forwardRequest($request, $uri);
     }
 
     /**
@@ -110,25 +91,7 @@ class ProxyPopController extends FOSRestController
      */
     public function redirectPostPopAction(Request $request, $uri)
     {
-        $user = $this->getCurrentUser();
-
-        $this->baseUrl = $this->getParameter('pop_url');
-        $queryParameters = $request->getQueryString();
-        $url = $this->baseUrl . $uri;
-        if($queryParameters != null){
-            $url.= '?'.$queryParameters;
-        }
-
-        $parameters['headers'] = [
-            'x-profile' => json_encode($this->userService->getProfile($user)),
-        ];
-
-        $parameters['parameters'] = '';
-        if ($user !== null) {
-            return $this->curlService->sendRequest($url, $parameters);
-        } else {
-            return null;
-        }
+        return $this->forwardRequest($request, $uri);
     }
 
     /**
@@ -146,25 +109,7 @@ class ProxyPopController extends FOSRestController
      */
     public function redirectPutPopAction(Request $request, $uri)
     {
-        $user = $this->getCurrentUser();
-
-        $this->baseUrl = $this->getParameter('pop_url');
-        $queryParameters = $request->getQueryString();
-        $url = $this->baseUrl . $uri;
-        if($queryParameters != null){
-            $url.= '?'.$queryParameters;
-        }
-
-        $parameters['headers'] = [
-            'x-profile' => json_encode($this->userService->getProfile($user)),
-        ];
-
-        $parameters['parameters'] = '';
-        if ($user !== null) {
-            return $this->curlService->sendRequest($url, $parameters);
-        } else {
-            return null;
-        }
+        return $this->forwardRequest($request, $uri);
     }
 
     /**
@@ -182,25 +127,7 @@ class ProxyPopController extends FOSRestController
      */
     public function redirectDeletePopAction(Request $request, $uri)
     {
-        $user = $this->getCurrentUser();
-
-        $this->baseUrl = $this->getParameter('pop_url');
-        $queryParameters = $request->getQueryString();
-        $url = $this->baseUrl . $uri;
-        if($queryParameters != null){
-            $url.= '?'.$queryParameters;
-        }
-
-        $parameters['headers'] = [
-            'x-profile' => json_encode($this->userService->getProfile($user)),
-        ];
-
-        $parameters['parameters'] = '';
-        if ($user !== null) {
-            return $this->curlService->sendRequest($url, $parameters);
-        } else {
-            return null;
-        }
+        return $this->forwardRequest($request, $uri);
     }
 
     /**
@@ -209,5 +136,34 @@ class ProxyPopController extends FOSRestController
     private function getCurrentUser()
     {
         return $this->getUser();
+    }
+
+    /**
+     * @param Request $request
+     * @param $uri
+     * @return mixed|null
+     */
+    private function forwardRequest(Request $request, $uri)
+    {
+        $user = $this->getCurrentUser();
+
+        $this->baseUrl = $this->getParameter('pop_url');
+        $queryParameters = $request->getQueryString();
+        $url = $this->baseUrl . $uri;
+        if ($queryParameters != null) {
+            $url .= '?' . $queryParameters;
+        }
+
+        $parameters['headers'] = [
+            'x-profil' => json_encode($this->userService->getProfile($user)),
+        ];
+
+        $parameters['parameters'] = '';
+        if ($user !== null) {
+
+            return $this->curlService->sendRequest($url, $parameters);
+        } else {
+            return null;
+        }
     }
 }
