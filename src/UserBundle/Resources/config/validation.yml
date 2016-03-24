@@ -4,42 +4,42 @@ UserBundle\Entity\User:
         - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity: { fields: nni, message: "Ce NNI est déjà attribué à un utilisateur" }
         - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity: { fields: email, message: "Cet EMAIL est déjà attribué à un utilisateur" }
     properties:
-          firstName:
-              - NotNull:
-                  message: "Le prénom est obligatoire"
-              - Length:
-                  max: 40
-                  maxMessage: "Le prénom doit comporter 40 caractères"
-          lastName:
-              - NotNull:
-                  message: "Le nom est obligatoire"
-              - Length:
-                  max: 40
-                  maxMessage: "Le nom doit comporter 40 caractères"
-          entity:
-              - NotNull:
-                  message: "L'entité est obligatoire"
-          username:
-              - NotNull:
-                  message: "Le GAIA est obligatoire"
-              - Length:
-                  max: 6
-                  maxMessage: "Le GAIA doit comporter 6 caractères"
-          email:
-              - Email:
-                  message: "Le format de l'email n'est pas valide"
-              - Length:
-                  max: 90
-                  maxMessage: "L'email doit comporter 90 caractères"
-          nni:
-              - Length:
-                  max: 8
-                  maxMessage: "Le NNI doit comporter 8 caractères"
-          phone1:
-              - Length:
-                  max: 10
-                  maxMessage: "Le Téléphone 1 doit comporter 10 caractères"
-          phone2:
-              - Length:
-                  max: 10
-                  maxMessage: "Le Téléphone 2 doit comporter 10 caractères"
+        firstName:
+            - NotNull:
+                message: "Le prénom est obligatoire"
+            - Length:
+                max: 40
+                maxMessage: "Le prénom doit comporter 40 caractères"
+        lastName:
+            - NotNull:
+                message: "Le nom est obligatoire"
+            - Length:
+                max: 40
+                maxMessage: "Le nom doit comporter 40 caractères"
+        entity:
+            - NotNull:
+                message: "L'entité est obligatoire"
+        username:
+            - NotNull:
+                message: "Le GAIA est obligatoire"
+            - Length:
+                max: 6
+                maxMessage: "Le GAIA doit comporter 6 caractères"
+        email:
+            - Email:
+                message: "Le format de l'email n'est pas valide"
+            - Length:
+                max: 90
+                maxMessage: "L'email doit comporter 90 caractères"
+        nni:
+            - Length:
+                max: 8
+                maxMessage: "Le NNI doit comporter 8 caractères"
+        phone1:
+            - Length:
+                max: 10
+                maxMessage: "Le Téléphone 1 doit comporter 10 caractères"
+        phone2:
+            - Length:
+                max: 10
+                maxMessage: "Le Téléphone 2 doit comporter 10 caractères"
