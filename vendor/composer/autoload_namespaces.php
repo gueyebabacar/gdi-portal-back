@@ -20,6 +20,7 @@ return array(
     'Michelf' => array($vendorDir . '/michelf/php-markdown'),
     'Metadata\\' => array($vendorDir . '/jms/metadata/src'),
     'Lsw\\GuzzleBundle' => array($vendorDir . '/leaseweb/guzzle-bundle'),
+    'Lsw\\ApiCallerBundle' => array($vendorDir . '/leaseweb/api-caller-bundle'),
     'JsonpCallbackValidator' => array($vendorDir . '/willdurand/jsonp-callback-validator/src'),
     'JMS\\SerializerBundle' => array($vendorDir . '/jms/serializer-bundle'),
     'JMS\\Serializer' => array($vendorDir . '/jms/serializer/src'),

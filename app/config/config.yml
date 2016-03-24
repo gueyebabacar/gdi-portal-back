@@ -85,7 +85,7 @@ jms_di_extra:
 
 nelmio_api_doc:
     sandbox:
-        endpoint: /api/portal
+        endpoint: /api
 
 fos_user:
     db_driver: orm

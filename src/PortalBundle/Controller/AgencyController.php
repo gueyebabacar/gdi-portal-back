@@ -28,7 +28,7 @@ class AgencyController
      * @ApiDoc(
      *      section = "Agency",
      *      resource = true,
-     *      description = "permet de récuperer le label dune agence"
+     *      description = "permet de récuperer le label dune agence (sécurisé)"
      * )
      * @param $regionId
      * @return array
@@ -36,5 +36,23 @@ class AgencyController
     public function getAgenciesFromRegionSecuredAction($regionId)
     {
         return $this->agencyService->getAgenciesFromRegionSecured($regionId);
+    }
+
+    /**
+     * Provide Agency's label.
+     * @Rest\Get("/regions/{regionId}/agencies")
+     * @Rest\View
+     *
+     * @ApiDoc(
+     *      section = "Agency",
+     *      resource = true,
+     *      description = "permet de récuperer le label dune agence"
+     * )
+     * @param $regionId
+     * @return array
+     */
+    public function getAgenciesFromRegionAction($regionId)
+    {
+        return $this->agencyService->getAgenciesFromRegion($regionId);
     }
 }

@@ -25,4 +25,14 @@ class SSOState extends \AerialShip\SamlSPBundle\Model\SSOState
     {
         return $this->id;
     }
+
+    /**
+     * @param int $id
+     * @return $this
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
+        return $this;
+    }
 }

@@ -103,6 +103,28 @@ class UserController
     }
 
     /**
+     * Displays a form to edit the rights of an existing User (recette ONLY).
+     * @Rest\Patch("/users/{userId}/rights")
+     * @Rest\View
+     *
+     * @ApiDoc(
+     *      section = "User",
+     *      resource = true,
+     *      description = "Editer le role et le contexte d'un user (recette ONLY)",
+     *      parameters={
+     *          {"name"="userId", "dataType"="Integer", "required"=true, "description"="Id User"},
+     *      }
+     * )
+     * @param Request $request
+     * @param $userId
+     * @return User
+     */
+    public function updateRightsAction(Request $request, $userId)
+    {
+        return $this->userService->updateRights($request, $userId);
+    }
+
+    /**
      * Deletes a User entity.
      * @Rest\Delete("/users/{userId}")
      * @Rest\View

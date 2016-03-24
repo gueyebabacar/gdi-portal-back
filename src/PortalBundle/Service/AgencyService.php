@@ -60,5 +60,16 @@ class AgencyService
         }
         return $agenciesSent;
     }
+
+    /**
+     * Return all agencies (secured)
+     * @param $regionId
+     * @return array
+     */
+    public function getAgenciesFromRegion($regionId)
+    {
+        $agencyRepo = $this->em->getRepository('PortalBundle:Agency');
+        return $agencyRepo->findBy(['region' => $regionId]);
+    }
 }
 
