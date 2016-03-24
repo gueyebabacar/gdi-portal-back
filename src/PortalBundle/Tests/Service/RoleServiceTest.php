@@ -52,16 +52,16 @@ class RoleServiceTest extends \PHPUnit_Framework_TestCase
     public function testGetRoles()
     {
         $roles = RolesEnum::getRoles();
-        $this->assertEquals(RolesEnum::ROLE_VISITEUR_LABEL,$roles[RolesEnum::ROLE_VISITEUR]);
-        $this->assertEquals(RolesEnum::ROLE_TECHNICIEN_LABEL,$roles[RolesEnum::ROLE_TECHNICIEN]);
-        $this->assertEquals(RolesEnum::ROLE_PROGRAMMATEUR_LABEL,$roles[RolesEnum::ROLE_PROGRAMMATEUR]);
-        $this->assertEquals(RolesEnum::ROLE_PROGRAMMATEUR_AVANCE_LABEL,$roles[RolesEnum::ROLE_PROGRAMMATEUR_AVANCE]);
-        $this->assertEquals(RolesEnum::ROLE_MANAGER_APPO_LABEL,$roles[RolesEnum::ROLE_MANAGER_APPO]);
-        $this->assertEquals(RolesEnum::ROLE_MANAGER_ATG_LABEL,$roles[RolesEnum::ROLE_MANAGER_ATG]);
-        $this->assertEquals(RolesEnum::ROLE_REFERENT_EQUIPE_LABEL,$roles[RolesEnum::ROLE_REFERENT_EQUIPE]);
-        $this->assertEquals(RolesEnum::ROLE_ADMINISTRATEUR_LOCAL_LABEL,$roles[RolesEnum::ROLE_ADMINISTRATEUR_LOCAL]);
-        $this->assertEquals(RolesEnum::ROLE_ADMINISTRATEUR_NATIONAL_LABEL,$roles[RolesEnum::ROLE_ADMINISTRATEUR_NATIONAL]);
-        $this->assertEquals(RolesEnum::ROLE_ADMINISTRATEUR_SI_LABEL,$roles[RolesEnum::ROLE_ADMINISTRATEUR_SI]);
+        $this->assertEquals(RolesEnum::ROLE_VISITEUR,$roles[0]);
+        $this->assertEquals(RolesEnum::ROLE_TECHNICIEN,$roles[1]);
+        $this->assertEquals(RolesEnum::ROLE_PROGRAMMATEUR,$roles[2]);
+        $this->assertEquals(RolesEnum::ROLE_PROGRAMMATEUR_AVANCE,$roles[3]);
+        $this->assertEquals(RolesEnum::ROLE_MANAGER_APPO,$roles[4]);
+        $this->assertEquals(RolesEnum::ROLE_MANAGER_ATG,$roles[5]);
+        $this->assertEquals(RolesEnum::ROLE_REFERENT_EQUIPE,$roles[6]);
+        $this->assertEquals(RolesEnum::ROLE_ADMINISTRATEUR_LOCAL,$roles[7]);
+        $this->assertEquals(RolesEnum::ROLE_ADMINISTRATEUR_NATIONAL,$roles[8]);
+        $this->assertEquals(RolesEnum::ROLE_ADMINISTRATEUR_SI,$roles[9]);
     }
 
     /**
@@ -71,28 +71,25 @@ class RoleServiceTest extends \PHPUnit_Framework_TestCase
     {
         $roles = RolesEnum::getRoles();
         $rolesSent = [];
-        foreach ($roles as $role => $roleLabel) {
+        foreach ($roles as $role) {
             $this->authorizationCheckerProphecy
                 ->isGranted('view', $role)
                 ->willReturn(true)
                 ->shouldBeCalled();
 
-            $rolesSent[] = [
-                'label' => $roleLabel,
-                'role' => $role
-            ];
+            $rolesSent[] = $role;
         }
         $this->agencyService->getRolesSecured();
 
-        $this->assertEquals($roles[RolesEnum::ROLE_VISITEUR], $rolesSent[0]['label']);
-        $this->assertEquals($roles[RolesEnum::ROLE_TECHNICIEN], $rolesSent[1]['label']);
-        $this->assertEquals($roles[RolesEnum::ROLE_PROGRAMMATEUR], $rolesSent[2]['label']);
-        $this->assertEquals($roles[RolesEnum::ROLE_PROGRAMMATEUR_AVANCE], $rolesSent[3]['label']);
-        $this->assertEquals($roles[RolesEnum::ROLE_MANAGER_APPO], $rolesSent[4]['label']);
-        $this->assertEquals($roles[RolesEnum::ROLE_MANAGER_ATG], $rolesSent[5]['label']);
-        $this->assertEquals($roles[RolesEnum::ROLE_REFERENT_EQUIPE], $rolesSent[6]['label']);
-        $this->assertEquals($roles[RolesEnum::ROLE_ADMINISTRATEUR_LOCAL], $rolesSent[7]['label']);
-        $this->assertEquals($roles[RolesEnum::ROLE_ADMINISTRATEUR_NATIONAL], $rolesSent[8]['label']);
-        $this->assertEquals($roles[RolesEnum::ROLE_ADMINISTRATEUR_SI], $rolesSent[9]['label']);
+        $this->assertEquals(RolesEnum::ROLE_VISITEUR , $rolesSent[0]);
+        $this->assertEquals(RolesEnum::ROLE_TECHNICIEN , $rolesSent[1]);
+        $this->assertEquals(RolesEnum::ROLE_PROGRAMMATEUR , $rolesSent[2]);
+        $this->assertEquals(RolesEnum::ROLE_PROGRAMMATEUR_AVANCE , $rolesSent[3]);
+        $this->assertEquals(RolesEnum::ROLE_MANAGER_APPO , $rolesSent[4]);
+        $this->assertEquals(RolesEnum::ROLE_MANAGER_ATG , $rolesSent[5]);
+        $this->assertEquals(RolesEnum::ROLE_REFERENT_EQUIPE , $rolesSent[6]);
+        $this->assertEquals(RolesEnum::ROLE_ADMINISTRATEUR_LOCAL , $rolesSent[7]);
+        $this->assertEquals(RolesEnum::ROLE_ADMINISTRATEUR_NATIONAL , $rolesSent[8]);
+        $this->assertEquals(RolesEnum::ROLE_ADMINISTRATEUR_SI , $rolesSent[9]);
     }
 }

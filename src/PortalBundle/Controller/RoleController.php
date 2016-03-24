@@ -17,7 +17,6 @@ use FOS\RestBundle\Controller\Annotations as Rest;
  */
 class RoleController extends FOSRestController
 {
-
     /**
      * @var RoleService
      * @DI\Inject("portal.service.role")

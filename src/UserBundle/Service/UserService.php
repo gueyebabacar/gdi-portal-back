@@ -12,6 +12,8 @@ use UserBundle\Entity\User;
 use Symfony\Component\Form\FormFactory;
 use Symfony\Component\HttpFoundation\Request;
 use JMS\DiExtraBundle\Annotation as DI;
+use UserBundle\Enum\ContextEnum;
+use UserBundle\Form\RightsUserType;
 use UserBundle\Form\UserType;
 use UserBundle\Form\EditUserType;
 
@@ -74,12 +76,11 @@ class UserService
         $users = $this->em->getRepository('UserBundle:User')->getUserAttributes();
         foreach ($users as $user) {
             $u = $this->formatUser($user);
-
             if (false !== $this->authorizationChecker->isGranted(VoterEnum::VIEW, $u)) {
                 $usersSent[] = $u;
             }
         }
-        return $users;
+        return $usersSent;
     }
 
     /**
@@ -133,9 +134,36 @@ class UserService
     {
         /** @var User $user */
         $user = $this->em->getRepository('UserBundle:User')->find($userId);
-        $form = $this->formFactory->create(EditUserType::class, $user, ['method'=> 'PATCH']);
+        $form = $this->formFactory->create(EditUserType::class, $user, ['method' => 'PATCH']);
         $form->submit($request, false);
         if ($form->isSubmitted() && $form->isValid()) {
+            $this->em->persist($user);
+            $this->em->flush();
+        }
+        if ($form->getErrors(true) !== null) {
+            foreach ($form->getErrors(true) as $error) {
+                $this->errorService->addError(ErrorEnum::INTERNAL, ErrorLevelEnum::CRITIC, $error->getMessage());
+            }
+            return array_merge($this->errorService->getErrors(), ['result' => $user]);
+        } else {
+            return ['result' => $user];
+        }
+    }
+
+    /**
+     * Displays a form to edit the rights of an existing User (recette ONLY).
+     * @param Request $request
+     * @param $userId
+     * @return User
+     */
+    public function updateRights(Request $request, $userId)
+    {
+        /** @var  $user */
+        $user = $this->em->getRepository('UserBundle:User')->find($userId);
+        $form = $this->formFactory->create(RightsUserType::class, $user, ['method' => 'PATCH']);
+        $form->submit($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $user->setRoles([$user->getRoles()[0]]);
             $this->em->persist($user);
             $this->em->flush();
         }
@@ -170,6 +198,30 @@ class UserService
     }
 
     /**
+     * @param User $user
+     * @return array
+     */
+    public function getProfile(User $user)
+    {
+        $maille = $user->getTerritorialContext();
+        $code_maille = null;
+        $nni = null;
+        $code_maille = $user->getTerritorialCode();
+
+        $profile = [
+            'gaia' => $user->getUsername(),
+            'nni' => $user->getNni(),
+            'nom' => $user->getLastName(),
+            'prenom' => $user->getFirstName(),
+            'role' => $user->getRoles()[0],
+            'maille' => $maille,
+            'code_maille' => ($code_maille === null) ? '' : $code_maille
+        ];
+
+        return $profile;
+    }
+
+    /**
      * @param $userArray
      * @return User
      */
@@ -188,16 +240,12 @@ class UserService
         $u->setNni($userArray['nni']);
         $u->setEmail($userArray['email']);
         $u->setSalt(null);
-        if (isset($userArray['agencyId'])) {
-            $u->setAgency($this->em->getRepository('PortalBundle:Agency')->find($userArray['agencyId']));
-            $u->setRegion($u->getAgency()->getRegion());
-            return $u;
-        } elseif (isset($userArray['regionId'])) {
-            $u->setRegion($this->em->getRepository('PortalBundle:Region')->find($userArray['regionId']));
-            return $u;
-        } else {
-            $u->setTerritorialCode("");
-            return $u;
+        if (isset($userArray['region']['id'])) {
+            $u->setRegion($this->em->getRepository('PortalBundle:Region')->find($userArray['region']['id']));
         }
+        if (isset($userArray['agency']['id'])) {
+            $u->setAgency($this->em->getRepository('PortalBundle:Agency')->find($userArray['agency']['id']));
+        }
+        return $u;
     }
 }

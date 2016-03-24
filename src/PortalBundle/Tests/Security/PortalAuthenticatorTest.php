@@ -41,7 +41,7 @@ class PortalAuthenticatorTest extends BaseWebTestCase
      */
     public function testAuthenticationSuccess()
     {
-        $this->client->request('get', '/users', [], [], $this->headers);
+        $this->client->request('get', '/portal/users', [], [], $this->headers);
         $this->assertEquals(200, $this->client->getResponse()->getStatusCode());
     }
 
@@ -51,7 +51,7 @@ class PortalAuthenticatorTest extends BaseWebTestCase
      */
     public function testAuthenticationFail()
     {
-        $this->client->request('get', '/users', [], [], []);
+        $this->client->request('get', '/portal/users', [], [], ['HTTP_gaiaId' => 'nogaia']);
         $this->assertEquals(401, $this->client->getResponse()->getStatusCode());
     }
 }

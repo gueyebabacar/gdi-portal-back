@@ -122,6 +122,7 @@ class User extends BaseUser
     {
         parent::__construct();
         $this->setTerritorialContext(ContextEnum::NATIONAL_CONTEXT);
+        $this->setTerritorialCode(null);
     }
 
     /**
@@ -268,12 +269,7 @@ class User extends BaseUser
     public function setAgency($agency)
     {
         $this->agency = $agency;
-        if ( $this->agency === null) {
-            return;
-        } else {
-            $this->setTerritorialContext(ContextEnum::AGENCY_CONTEXT);
-            $this->setTerritorialCode($this->agency->getCode());
-        }
+        $this->updateContext();
         return $this;
     }
 
@@ -292,12 +288,7 @@ class User extends BaseUser
     public function setRegion($region)
     {
         $this->region = $region;
-        if ( $this->region === null) {
-            return;
-        } else {
-            $this->setTerritorialContext(ContextEnum::REGION_CONTEXT);
-            $this->setTerritorialCode($this->region->getCode());
-        }
+        $this->updateContext();
         return $this;
     }
 
@@ -377,5 +368,21 @@ class User extends BaseUser
             EntityEnum::AI_ENTITY,
             EntityEnum::VISITOR_ENTITY
         ];
+    }
+
+    /**
+     *
+     */
+    public function updateContext(){
+        if (isset($this->agency)){
+            $this->setTerritorialContext(ContextEnum::AGENCY_CONTEXT);
+            $this->setTerritorialCode($this->agency->getCode());
+        }elseif(isset($this->region)){
+            $this->setTerritorialContext(ContextEnum::REGION_CONTEXT);
+            $this->setTerritorialCode($this->region->getCode());
+        } else {
+            $this->setTerritorialContext(ContextEnum::NATIONAL_CONTEXT);
+            $this->setTerritorialCode();
+        }
     }
 }

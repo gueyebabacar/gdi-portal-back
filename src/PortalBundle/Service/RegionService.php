@@ -58,5 +58,14 @@ class RegionService
         }
         return $regionsSent;
     }
+
+    /**
+     * Return all regions
+     * @return array
+     */
+    public function getRegions()
+    {
+        return $this->em->getRepository('PortalBundle:Region')->findAll();
+    }
 }
 
