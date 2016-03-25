@@ -109,6 +109,7 @@ class ImportCsvService
     public function importCsvAgences($filePath = null)
     {
         $agencyRepo = $this->em->getRepository('PortalBundle:Agency');
+        $regionRepo = $this->em->getRepository('PortalBundle:Region');
         foreach ($agencyRepo->findAll()  as $item) {
             $this->em->remove($item);
         }
@@ -131,7 +132,7 @@ class ImportCsvService
                     }
                     if (strlen(implode($fields)) != 0) {
                         $agency = new Agency();
-                        $agency->setRegion($this->regionRepo->findOneBy(['code' => $fields[0]]));
+                        $agency->setRegion($regionRepo->findOneBy(['code' => $fields[0]]));
                         $agency->setCode($fields[1]);
                         $agency->setLabel($fields[2]);
 
