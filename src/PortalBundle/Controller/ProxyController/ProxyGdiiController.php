@@ -84,7 +84,7 @@ class ProxyGdiiController extends FOSRestController
         }
 
         $parameters['headers'] = [
-            'x-profile' => json_encode($this->userService->getProfile($user)),
+            'x-profil' => json_encode($this->userService->getProfile($user)),
         ];
 
         $parameters['parameters'] = '';
@@ -119,7 +119,7 @@ class ProxyGdiiController extends FOSRestController
         }
 
         $parameters['headers'] = [
-            'x-profile' => json_encode($this->userService->getProfile($user)),
+            'x-profil' => json_encode($this->userService->getProfile($user)),
         ];
 
         $parameters['parameters'] = '';
@@ -154,7 +154,7 @@ class ProxyGdiiController extends FOSRestController
         }
 
         $parameters['headers'] = [
-            'x-profile' => json_encode($this->userService->getProfile($user)),
+            'x-profil' => json_encode($this->userService->getProfile($user)),
         ];
 
         $parameters['parameters'] = '';
@@ -189,7 +189,7 @@ class ProxyGdiiController extends FOSRestController
         }
 
         $parameters['headers'] = [
-            'x-profile' => json_encode($this->userService->getProfile($user)),
+            'x-profil' => json_encode($this->userService->getProfile($user)),
         ];
 
         $parameters['parameters'] = '';
