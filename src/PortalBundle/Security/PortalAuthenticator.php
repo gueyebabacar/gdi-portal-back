@@ -3,6 +3,7 @@
 namespace PortalBundle\Security;
 
 use FOS\UserBundle\Security\UserProvider;
+use Symfony\Component\Security\Core\Exception\DisabledException;
 use Symfony\Component\Security\Http\Authentication\SimplePreAuthenticatorInterface;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Exception\AuthenticationException;
@@ -63,6 +64,9 @@ class PortalAuthenticator implements SimplePreAuthenticatorInterface, Authentica
             throw new AuthenticationException(
                 sprintf('GaiaId "%s" does not exist.', $gaiaId)
             );
+        }
+        if (!$user->isEnabled()) {
+            throw new DisabledException('L\'utilisateur "%s" est désactivé.');
         }
         return new PreAuthenticatedToken(
             $user,
