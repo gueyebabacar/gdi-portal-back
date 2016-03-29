@@ -1,10 +1,13 @@
-services:
-        security.authentication.provider.aerial_ship_saml_sp:
-        class: SamlSpBundle\Security\Core\Authentication\Provider\SamlSpAuthenticationProvider
-        arguments:
-            - ~ # providerID
-            - ~ # user provider
-            - ~ # user checker
-            - false # create_user_if_not_exists
-        public: false
-        abstract: true
+parameters:
+    security.authentication.provider.aerial_ship_saml_sp.class: SamlSpBundle\Security\Core\Authentication\Provider\SamlSpAuthenticationProvider
+#
+#services:
+#        security.authentication.provider.aerial_ship_saml_sp:
+#        class: SamlSpBundle\Security\Core\Authentication\Provider\SamlSpAuthenticationProvider
+#        arguments:
+#            - ~ # providerID
+#            - ~ # user provider
+#            - ~ # user checker
+#            - false # create_user_if_not_exists
+#        public: false
+#        abstract: true
