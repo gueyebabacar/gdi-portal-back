@@ -1,11 +1,10 @@
 <?php
 
-namespace AerialShip\SamlSPBundle\Security\Core\Authentication\Provider;
+namespace SamlSpBundle\Security\Core\Authentication\Provider;
 
 use AerialShip\SamlSPBundle\Bridge\SamlSpInfo;
 use AerialShip\SamlSPBundle\Security\Core\Authentication\Token\SamlSpToken;
 use AerialShip\SamlSPBundle\Security\Core\User\UserManagerInterface;
-use Symfony\Component\Security\Core\Authentication\Provider\AuthenticationProviderInterface;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Exception\AuthenticationException;
 use Symfony\Component\Security\Core\Exception\AuthenticationServiceException;
@@ -13,8 +12,9 @@ use Symfony\Component\Security\Core\Exception\UsernameNotFoundException;
 use Symfony\Component\Security\Core\User\User;
 use Symfony\Component\Security\Core\User\UserCheckerInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
+use AerialShip\SamlSPBundle\Security\Core\Authentication\Provider\SamlSpAuthenticationProvider as SamlAuthenticateProvider;
 
-class SamlSpAuthenticationProvider implements AuthenticationProviderInterface
+class SamlSpAuthenticationProvider extends SamlAuthenticateProvider
 {
     /** @var string */
     protected $providerKey;
@@ -36,16 +36,7 @@ class SamlSpAuthenticationProvider implements AuthenticationProviderInterface
         UserCheckerInterface $userChecker = null,
         $createIfNotExists = false
     ) {
-        if (null !== $userProvider && null === $userChecker) {
-            throw new \InvalidArgumentException('$userChecker cannot be null, if $userProvider is not null');
-        }
-        if (null == $userProvider && $createIfNotExists) {
-            throw new \InvalidArgumentException('$createIfNotExists cannot be true, if $userProvider is null');
-        }
-        $this->providerKey = $providerKey;
-        $this->userProvider = $userProvider;
-        $this->userChecker = $userChecker;
-        $this->createIfNotExists = (bool)$createIfNotExists;
+        parent::__construct($providerKey, $userProvider, $userChecker, $createIfNotExists);
     }
 
 
