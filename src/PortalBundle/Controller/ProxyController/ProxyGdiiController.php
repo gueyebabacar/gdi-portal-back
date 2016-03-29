@@ -75,24 +75,7 @@ class ProxyGdiiController extends FOSRestController
      */
     public function redirectGetGdiiAction(Request $request, $uri)
     {
-        $user = $this->getCurrentUser();
-        $this->baseUrl = $this->getParameter('gdii_url');
-        $queryParameters = $request->getQueryString();
-        $url = $this->baseUrl . $uri;
-        if($queryParameters != null){
-            $url.= '?'.$queryParameters;
-        }
-
-        $parameters['headers'] = [
-            'x-profile' => json_encode($this->userService->getProfile($user)),
-        ];
-
-        $parameters['parameters'] = '';
-        if ($user !== null) {
-            return $this->curlService->sendRequest($url, $parameters);
-        } else {
-            return null;
-        }
+        return $this->forwardRequest($request, $uri);
     }
 
     /**
@@ -110,24 +93,7 @@ class ProxyGdiiController extends FOSRestController
      */
     public function redirectPostGdiiAction(Request $request, $uri)
     {
-        $user = $this->getCurrentUser();
-        $this->baseUrl = $this->getParameter('gdii_url');
-        $queryParameters = $request->getQueryString();
-        $url = $this->baseUrl . $uri;
-        if($queryParameters != null){
-            $url.= '?'.$queryParameters;
-        }
-
-        $parameters['headers'] = [
-            'x-profile' => json_encode($this->userService->getProfile($user)),
-        ];
-
-        $parameters['parameters'] = '';
-        if ($user !== null) {
-            return $this->curlService->sendRequest($url, $parameters);
-        } else {
-            return null;
-        }
+        return $this->forwardRequest($request, $uri);
     }
 
     /**
@@ -145,24 +111,25 @@ class ProxyGdiiController extends FOSRestController
      */
     public function redirectPutGdiiAction(Request $request, $uri)
     {
-        $user = $this->getCurrentUser();
-        $this->baseUrl = $this->getParameter('gdii_url');
-        $queryParameters = $request->getQueryString();
-        $url = $this->baseUrl . $uri;
-        if($queryParameters != null){
-            $url.= '?'.$queryParameters;
-        }
+        return $this->forwardRequest($request, $uri);
+    }
 
-        $parameters['headers'] = [
-            'x-profile' => json_encode($this->userService->getProfile($user)),
-        ];
-
-        $parameters['parameters'] = '';
-        if ($user !== null) {
-            return $this->curlService->sendRequest($url, $parameters);
-        } else {
-            return null;
-        }
+    /**
+     * @Rest\Patch("/gdii/{uri}", requirements={ "uri": "([a-z\.]{2,6})([\/\w \.-]*)*\/?$"})
+     * @Rest\View
+     *
+     * @ApiDoc(
+     *      section = "ProxyController",
+     *      resource = true,
+     *      description = "Redirection to Gdii"
+     * )
+     * @param Request $request
+     * @param $uri
+     * @return string
+     */
+    public function redirectPatchGdiiAction(Request $request, $uri)
+    {
+        return $this->forwardRequest($request, $uri);
     }
 
     /**
@@ -180,24 +147,7 @@ class ProxyGdiiController extends FOSRestController
      */
     public function redirectDeleteGdiiAction(Request $request, $uri)
     {
-        $user = $this->getCurrentUser();
-        $this->baseUrl = $this->getParameter('gdii_url');
-        $queryParameters = $request->getQueryString();
-        $url = $this->baseUrl . $uri;
-        if($queryParameters != null){
-            $url.= '?'.$queryParameters;
-        }
-
-        $parameters['headers'] = [
-            'x-profile' => json_encode($this->userService->getProfile($user)),
-        ];
-
-        $parameters['parameters'] = '';
-        if ($user !== null) {
-            return $this->curlService->sendRequest($url, $parameters);
-        } else {
-            return null;
-        }
+        return $this->forwardRequest($request, $uri);
     }
 
     private function getCurrentUser()
@@ -205,5 +155,34 @@ class ProxyGdiiController extends FOSRestController
         $user = $this->security->getToken()->getUser();
 
         return $user;
+    }
+
+    /**
+     * @param Request $request
+     * @param $uri
+     * @return mixed|null
+     */
+    private function forwardRequest(Request $request, $uri)
+    {
+        $user = $this->getCurrentUser();
+
+        $this->baseUrl = $this->getParameter('gdii_url');
+        $queryParameters = $request->getQueryString();
+        $url = $this->baseUrl . $uri;
+        if ($queryParameters != null) {
+            $url .= '?' . $queryParameters;
+        }
+
+        $parameters['headers'] = [
+            'x-profil' => json_encode($this->userService->getProfile($user)),
+        ];
+
+        $parameters['parameters'] = '';
+        if ($user !== null) {
+
+            return $this->curlService->sendRequest($url, $parameters);
+        } else {
+            return null;
+        }
     }
 }

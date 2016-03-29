@@ -1,4 +1,11 @@
 services:
+    validator.user.unique_nullable:
+        class: UserBundle\Validator\Constraints\ConstraintUniqueNullableValidator
+        arguments:
+            - @doctrine.orm.entity_manager
+        tags:
+            - { name: validator.constraint_validator, alias: unique_nullable_constraint }
+
     security.user_voter:
         class: UserBundle\Voter\UserVoter
         tags:

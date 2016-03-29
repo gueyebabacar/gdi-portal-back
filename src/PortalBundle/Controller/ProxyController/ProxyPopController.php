@@ -113,6 +113,24 @@ class ProxyPopController extends FOSRestController
     }
 
     /**
+     * @Rest\Patch("/newppi/{uri}", requirements={ "uri": "([a-z\.]{2,6})([\/\w \.-]*)*\/?$"})
+     * @Rest\View
+     *
+     * @ApiDoc(
+     *      section = "ProxyController",
+     *      resource = true,
+     *      description = "Redirection to Pop"
+     * )
+     * @param Request $request
+     * @param $uri
+     * @return string
+     */
+    public function redirectPatchPopAction(Request $request, $uri)
+    {
+        return $this->forwardRequest($request, $uri);
+    }
+
+    /**
      * @Rest\Delete("/newppi/{uri}", requirements={ "uri": "([a-z\.]{2,6})([\/\w \.-]*)*\/?$"})
      * @Rest\View
      *
