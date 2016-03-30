@@ -1,4 +1,5 @@
 services:
+#Validatior
     validator.user.unique_nullable:
         class: UserBundle\Validator\Constraints\ConstraintUniqueNullableValidator
         arguments:
@@ -6,12 +7,14 @@ services:
         tags:
             - { name: validator.constraint_validator, alias: unique_nullable_constraint }
 
+#Voters
     security.user_voter:
         class: UserBundle\Voter\UserVoter
         tags:
             - { name: security.voter }
         public: false
 
+#Repositories
     portal.user_repository:
         class:  UserBundle\Repository\UserRepository
         factory: ["@doctrine.orm.entity_manager", getRepository]

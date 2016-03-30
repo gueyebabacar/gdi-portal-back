@@ -16,7 +16,8 @@ php app/console doctrine:schema:create -e recette
 php app/console cache:clear -e recette
 php app/console assets:install web --symlink -e recette
 
-php app/console csv:import:portal -e recette
-php app/console csv:import:users -e recette
+php app/console csv:import regions  -e recette
+php app/console csv:import agencies  -e recette
+php app/console csv:import users  -e recette
 
 echo "--- Fin reinit ---"
