@@ -200,7 +200,7 @@ class ProxyGdiiController extends FOSRestController
         }
     }
 
-    private function getCurrentUser()
+    public function getCurrentUser()
     {
         $user = $this->security->getToken()->getUser();
 
