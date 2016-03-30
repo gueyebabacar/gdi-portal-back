@@ -1,18 +1,26 @@
 <?php
 
-namespace PortalBundle\Tests\Service;
+namespace PortalBundle\Tests\Service\CsvService;
 
-use Doctrine\ORM\EntityRepository;
-use PortalBundle\Service\CsvService\ImportCsvService;
-use Prophecy\Prophet;
-use Prophecy\Argument;
+use Doctrine\ORM\EntityManager;
+use PortalBundle\Controller\AgencyController;
 use PortalBundle\Entity\Agency;
 use PortalBundle\Entity\Region;
-use Doctrine\ORM\EntityManager;
+use PortalBundle\Repository\AgencyRepository;
+use PortalBundle\Repository\RegionRepository;
+use PortalBundle\Service\CsvService\ImportCsvService;
+use PortalBundle\Tests\BaseWebTestCase;
+use Prophecy\Argument;
 use Prophecy\Prophecy\ObjectProphecy;
+use Prophecy\Prophet;
 use Symfony\Component\HttpKernel\Kernel;
+use UserBundle\Repository\UserRepository;
 
-class ImportCsvServiceTest extends \PHPUnit_Framework_TestCase
+/**
+ * Class ImportServiceTest
+ * @package PortalBundle\Tests\Service\CsvService
+ */
+class ImportServiceTest extends BaseWebTestCase
 {
     /**
      * @var Prophet
@@ -22,97 +30,167 @@ class ImportCsvServiceTest extends \PHPUnit_Framework_TestCase
     /**
      * @var ObjectProphecy
      */
-    private $emProphecy;
+    protected $emProphecy;
 
     /**
      * @var ObjectProphecy
      */
-    private $kernelProphecy;
+    protected $kernelProphecy;
+
+    /**
+     * @var ObjectProphecy
+     */
+    protected $regionRepoProphecy;
+
+    /**
+     * @var ObjectProphecy
+     */
+    protected $agencyRepoProphecy;
+
+    /**
+     * @var ObjectProphecy
+     */
+    protected $userRepoProphecy;
 
     /**
      * @var ImportCsvService
      */
-    private $importCsvService;
+    protected $importService;
 
     /**
-     * setUp
+     * @var string
      */
+    protected $filePath;
+
     public function setUp()
     {
         parent::setUp();
 
         $this->prophet = new Prophet();
-
         $this->emProphecy = $this->prophet->prophesize(EntityManager::class);
-        /** @var EntityManager $em */
-        $em = $this->emProphecy->reveal();
-
+        $this->regionRepoProphecy = $this->prophet->prophesize(RegionRepository::class);
+        $this->agencyRepoProphecy = $this->prophet->prophesize(AgencyRepository::class);
+        $this->userRepoProphecy = $this->prophet->prophesize(UserRepository::class);
         $this->kernelProphecy = $this->prophet->prophesize(Kernel::class);
-        /** @var Kernel $kernel */
-        $kernel = $this->kernelProphecy->reveal();
 
-        $this->importCsvService = new ImportCsvService($em, $kernel);
+        $em = $this->emProphecy->reveal();
+        $this->importService = new ImportCsvService(
+            $this->regionRepoProphecy->reveal(),
+            $this->agencyRepoProphecy->reveal(),
+            $this->userRepoProphecy->reveal(),
+            $em,
+            $this->kernelProphecy->reveal()
+        );
+
+        $this->filePath = $this->kern->getRootDir() . '/../web/uploads/csv/';
     }
 
     /**
-     * @test testGetPath
+     * @test
+     * @group importService
      */
-    public function testGetPath()
+    public function testCsvToArraySuccess()
     {
-        $this->markTestSkipped();
-        $this->kernelProphecy
-            ->getRootDir()
-            ->willReturn("path")
-            ->shouldBeCalled();
-        $this->importCsvService->getPath();
+        $fileName = $this->filePath . 'PERF_Region.v3.csv';
+
+        $header = ['CodeRegion', 'LibelleRegion'];
+
+        $actual = $this->importService->csvToArray($fileName, $header);
+        $this->assertEquals("7", $actual[0]['CodeRegion']);
+        $this->assertEquals("OUEST", $actual[0]['LibelleRegion']);
     }
+
     /**
-     * @test testImportCsvAgences
+     * @test
+     * @group importService
      */
-    public function testImportCsvAgences()
+    public function testCsvToArrayFail()
     {
-        $this->markTestSkipped();
-        $agency = new Agency();
-//        $region = new Region();
-        $data = [
-            'code' => 'REG1',
-            'label' => 'Region 1',
-            'region' => 1,
-        ];
+        $fileName = $this->filePath . 'nofile.csv';
 
-        $repositoryProphecy = $this->prophet->prophesize(EntityRepository::class);
+        $header = ['CodeRegion', 'LibelleRegion'];
 
-        $agency->setCode($data['code']);
-        $agency->setLabel($data['label']);
-        $agency->setRegion($data['region']);
+        $actual = $this->importService->csvToArray($fileName, $header);
 
-        $this->assertEquals($agency->getCode(),$data['code']);
-        $this->assertEquals($agency->getLabel(),$data['label']);
-        $this->assertEquals($agency->getRegion(),$data['region']);
+        $this->assertFalse($actual);
+    }
+
+    /**
+     * @test
+     * @group importService
+     */
+    public function testImportCsvRegions()
+    {
+        $fileName = $this->filePath . 'PERF_Region.v3.csv';
 
         $this->emProphecy
-            ->getRepository('PortalBundle:Agency')
-            ->willReturn($repositoryProphecy)
-            ->shouldBeCalled();
-
-        $repositoryProphecy
-            ->findAll()
-            ->willReturn([$agency])
-            ->shouldBeCalled();
-
-        $this->emProphecy
-            ->persist($agency)
+            ->persist(Argument::any())
             ->shouldBeCalled();
 
         $this->emProphecy
             ->flush()
             ->shouldBeCalled();
 
-        $data = [
-            'path' => '/var/www/app/Resources/csv'
-        ];
+        $this->importService->importCsvRegions($fileName);
+    }
 
-        $this->importCsvService->importCsvAgences($data['path']);
+    /**
+     * @test
+     * @group importService
+     */
+    public function testImportCsvAgencies()
+    {
+        $fileName = $this->filePath . 'PERF_Agence.v3.csv';
+
+        $this->regionRepoProphecy
+            ->findOneBy(Argument::any())
+            ->willReturn(new Region())
+            ->shouldBeCalled();
+
+        $this->agencyRepoProphecy
+            ->findOneBy(Argument::any())
+            ->willReturn(null)
+            ->shouldBeCalled();
+
+        $this->emProphecy
+            ->persist(Argument::any())
+            ->shouldBeCalled();
+
+        $this->emProphecy
+            ->flush()
+            ->shouldBeCalled();
+
+        $this->importService->importCsvAgencies($fileName);
+    }
+
+    public function testImportCsvUsers()
+    {
+        $fileName = $this->filePath . 'utilisateurs.csv';
+
+        $this->regionRepoProphecy
+            ->findOneBy(Argument::any())
+            ->willReturn(new Region())
+            ->shouldBeCalled();
+
+        $this->agencyRepoProphecy
+            ->findOneBy(Argument::any())
+            ->willReturn(new Agency())
+            ->shouldBeCalled();
+
+        $this->userRepoProphecy
+            ->findOneBy(Argument::any())
+            ->willReturn(null)
+            ->shouldBeCalled();
+
+        $this->emProphecy
+            ->persist(Argument::any())
+            ->shouldBeCalled();
+
+        $this->emProphecy
+            ->flush()
+            ->shouldBeCalled();
+
+        $this->importService->importCsvUsers($fileName);
     }
 
     public function tearDown()
