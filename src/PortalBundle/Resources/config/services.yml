@@ -1,8 +1,10 @@
 services:
+#Authentication
     portal_authenticator:
         class:  PortalBundle\Security\PortalAuthenticator
         public: false
 
+#Voters
     security.region_voter:
             class: PortalBundle\Voter\RegionVoter
             tags:
@@ -20,3 +22,18 @@ services:
             tags:
                 - { name: security.voter }
             public: false
+
+#Repositories
+    portal.region_repository:
+            class:  PortalBundle\Repository\RegionRepository
+            factory: ["@doctrine.orm.entity_manager", getRepository]
+            arguments:
+                - "PortalBundle:Region"
+            public: true
+
+    portal.agency_repository:
+            class:  PortalBundle\Repository\AgencyRepository
+            factory: ["@doctrine.orm.entity_manager", getRepository]
+            arguments:
+                - "PortalBundle:Agency"
+            public: true

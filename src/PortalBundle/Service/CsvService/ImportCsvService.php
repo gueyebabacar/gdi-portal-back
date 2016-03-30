@@ -8,6 +8,7 @@ use PortalBundle\Entity\Agency;
 use PortalBundle\Entity\Region;
 use PortalBundle\Repository\AgencyRepository;
 use PortalBundle\Repository\RegionRepository;
+use Symfony\Component\HttpKernel\Kernel;
 use UserBundle\Entity\User;
 use UserBundle\Repository\UserRepository;
 
@@ -43,26 +44,38 @@ class ImportCsvService
 
     /**
      * @DI\InjectParams({
+     *     "regionRepo" = @DI\Inject("portal.region_repository"),
+     *     "agencyRepo" = @DI\Inject("portal.agency_repository"),
+     *     "userRepo" = @DI\Inject("portal.user_repository"),
      *     "em" = @DI\Inject("doctrine.orm.entity_manager"),
-     *     "kernel" = @DI\Inject("kernel")
+     *     "kernel" = @DI\Inject("kernel"),
      *
      * })
+     * @param RegionRepository $regionRepo
+     * @param AgencyRepository $agencyRepo
+     * @param UserRepository $userRepo
      * @param $em
-     * @param  $kernel
+     * @param $kernel
      */
-    public function __construct($em, $kernel)
-    {
-        $this->em = $em;
-        $this->regionRepo = $this->em->getRepository('PortalBundle:Region');
-        $this->agencyRepo = $this->em->getRepository('PortalBundle:Agency');
-        $this->userRepo = $this->em->getRepository('UserBundle:User');
+    public function __construct(
+        RegionRepository $regionRepo,
+        AgencyRepository $agencyRepo,
+        UserRepository $userRepo,
+        EntityManager $em,
+        Kernel $kernel
+    ) {
+        $this->agencyRepo = $agencyRepo;
+        $this->regionRepo = $regionRepo;
+        $this->userRepo= $userRepo;
         $this->kernel = $kernel;
+        $this->em = $em;
     }
 
     /**
      * Transform a CSV file into an array, keeping his references/titles
      *
      * @param string $fileName
+     * @param null $header
      * @param string $delimiter
      * @return array
      */
@@ -85,11 +98,9 @@ class ImportCsvService
                     try {
                        $data[] = array_combine($header, $row);
                         $count++;
-                    } catch (\Symfony\Component\Debug\Exception\ContextErrorException $e) {
-                        dump($header);
-                        dump($row);
-                        echo($count);
-                        exit();
+                    } catch (\Exception $e) {
+                        dump($header, $row);
+                       exit();
                     }
                 }
             }
@@ -97,17 +108,6 @@ class ImportCsvService
         }
 
         return $data;
-    }
-
-    /**
-     * @param $fileName
-     * @return string
-     */
-    public function getPath($fileName)
-    {
-        $path = realpath($this->kernel->getRootDir() . "/../web/uploads/csv");
-
-        return $path . "/" . $fileName;
     }
 
     /**
@@ -129,7 +129,7 @@ class ImportCsvService
         $regionArray = $this->csvToArray($csv_file, $header);
         foreach ($regionArray as $reg) {
             $counter++;
-            $region = $this->regionRepo->findOneByCode($reg['CodeRegion']);
+            $region = $this->regionRepo->findOneBy(['code' => $reg['CodeRegion']]);
             if (is_null($region)) {
                 $region = new Region();
             }
@@ -165,8 +165,8 @@ class ImportCsvService
         $agencyArray = $this->csvToArray($csv_file, $header);
         foreach ($agencyArray as $age) {
             $counter++;
-            $region = $this->regionRepo->findOneByCode($age['CodeRegion']);
-            $agency = $this->agencyRepo->findOneByCode($age['CodeAgence']);
+            $region = $this->regionRepo->findOneBy(['code' => $age['CodeRegion']]);
+            $agency = $this->agencyRepo->findOneBy(['code' => $age['CodeAgence']]);
             if (is_null($region)) {
                 echo "The line $counter was not inserted because the region code " . $age['CodeRegion'] . " doesn't exists \n";
             } else {
@@ -210,14 +210,14 @@ class ImportCsvService
         $userArray = $this->csvToArray($csv_file, $header);
         foreach ($userArray as $use) {
             $counter++;
-            $agency = $this->em->getRepository('PortalBundle:Agency')->findOneByCode($use['AGENCE']);
-            $region = $this->em->getRepository('PortalBundle:Region')->findOneByCode($use['REGION']);
-            $userByGaia = $this->em->getRepository('UserBundle:User')->findOneByUsername($use['GAIA']);
+            $agency = $this->agencyRepo->findOneBy(['code' => $use['AGENCE']]);
+            $region = $this->regionRepo->findOneBy(['code' => $use['REGION']]);
+            $userByGaia = $this->userRepo->findOneBy(['username' => $use['GAIA']]);
             if (!empty($use['EMAIL'])) {
-                $userByEmail = $this->em->getRepository('UserBundle:User')->findOneByEmail($use['EMAIL']);
+                $userByEmail = $this->userRepo->findOneBy(['email' => $use['EMAIL']]);
             }
             if (!empty($use['NNI'])) {
-                $userByNni = $this->em->getRepository('UserBundle:User')->findOneByNni($use['NNI']);
+                $userByNni = $this->userRepo->findOneBy(['nni' => $use['NNI']]);
             }
 
             if (!empty($userByGaia)) {
@@ -252,5 +252,16 @@ class ImportCsvService
             }
         }
         echo "$counterSuccess/$counter users added successfully\n";
+    }
+
+    /**
+     * @param $fileName
+     * @return string
+     */
+    private function getPath($fileName)
+    {
+        $path = realpath($this->kernel->getRootDir() . "/../web/uploads/csv");
+
+        return $path . "/" . $fileName;
     }
 }
