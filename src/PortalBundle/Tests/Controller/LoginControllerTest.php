@@ -28,6 +28,6 @@ class LoginControllerTest extends BaseWebTestCase
     {
         $this->client->request('GET', "/portal/user/whoami", [], [], $this->headers);
         $response = json_decode($this->client->getResponse()->getContent(), true);
-        $this->assertEquals('GAIA10', $response['user']['username']);
+        $this->assertEquals('GAIA10', $response['user']['gaia']);
     }
 }
