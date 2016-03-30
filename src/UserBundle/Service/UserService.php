@@ -139,7 +139,10 @@ class UserService
     public function getByIdGaia($gaiaId)
     {
         $userSent = null;
-        $userSent = $this->em->getRepository('UserBundle:User')->findOneByUsername($gaiaId);
+        $u = $this->em->getRepository('UserBundle:User')->findOneByUsername($gaiaId);
+        if (false !== $this->authorizationChecker->isGranted(VoterEnum::VIEW, $u)) {
+            $userSent = $u;
+        }
 
         return $userSent;
     }
