@@ -133,7 +133,7 @@ class UserService
     /**
      * Finds and displays a User entity.
      *
-     * @param $userId
+     * @param $gaiaId
      * @return null|object|User
      */
     public function getByIdGaia($gaiaId)
@@ -143,7 +143,6 @@ class UserService
         if (false !== $this->authorizationChecker->isGranted(VoterEnum::VIEW, $u)) {
             $userSent = $u;
         }
-
         return $userSent;
     }
 

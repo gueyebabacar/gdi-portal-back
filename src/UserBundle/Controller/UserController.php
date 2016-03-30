@@ -171,11 +171,11 @@ class UserController
      *          {"name"="gaiaId", "dataType"="String", "required"=true, "description"="identifiant gaia"},
      *      }
      * )
-     * @param $userId
+     * @param $gaiaId
+     * @return array
      */
     public function getUserByGaiaAction($gaiaId)
     {
-
         return ['user' => $this->userService->getByIdGaia($gaiaId)];
     }
 }
