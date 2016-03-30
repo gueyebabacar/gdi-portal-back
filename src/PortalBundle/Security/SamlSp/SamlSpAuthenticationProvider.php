@@ -55,7 +55,7 @@ class SamlSpAuthenticationProvider extends SamlAuthenticateProvider
         try {
             $user = $this->getUser($token);
 
-            if(!$user->isEnabled()){
+            if($user->isEnabled() === false){
                 throw new AuthenticationException('User disabled');
             }
 
