@@ -25,7 +25,6 @@ class AppKernel extends Kernel
             new PortalBundle\PortalBundle(),
             new FOS\UserBundle\FOSUserBundle(),
             new AerialShip\SamlSPBundle\AerialShipSamlSPBundle(),
-            new SamlSpBundle\SamlSpBundle(),
             new UserBundle\UserBundle(),
         );
 

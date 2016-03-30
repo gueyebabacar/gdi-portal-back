@@ -1,6 +1,6 @@
 <?php
 
-namespace SamlSpBundle\Security\Core\Authentication\Provider;
+namespace PortalBundle\Security\SamlSp;
 
 use AerialShip\SamlSPBundle\Bridge\SamlSpInfo;
 use AerialShip\SamlSPBundle\Security\Core\Authentication\Token\SamlSpToken;

@@ -1,15 +1,16 @@
 <?php
 
-namespace SamlSpBundle\DependencyInjection;
+namespace PortalBundle\DependencyInjection;
 
+use PortalBundle\Security\SamlSp\SamlSpAuthenticationProvider;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 
-class OverrideServiceCompilerPass implements CompilerPassInterface
+class OverrideSamlAuthProviderCompilerPass implements CompilerPassInterface
 {
     public function process(ContainerBuilder $container)
     {
         $definition = $container->getDefinition('security.authentication.provider.aerial_ship_saml_sp');
-        $definition->setClass('SamlSpBundle\Security\Core\Authentication\Provider\SamlSpAuthenticationProvider');
+        $definition->setClass(SamlSpAuthenticationProvider::class);
     }
 }
