@@ -373,6 +373,45 @@ class UserServiceTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * @test testGetProfile
+     */
+    public function testGetProfile()
+    {
+        $user = new User();
+        $maille = $user->getTerritorialContext();
+        $code_maille = null;
+        $codeMaille = $user->getTerritorialCode();
+        $profile = [
+            'gaia' => 'RJ5340',
+            'nni' => 'NNI11',
+            'nom' => 'gueye',
+            'prenom' => 'babacar',
+            'role' => ['ROLE_USER'],
+            'maille' => $maille,
+            'codeMaille' => ($codeMaille === null) ? '' : $codeMaille
+        ];
+
+        $user->setUsername($profile['gaia']);
+        $user->setNni($profile['nni']);
+        $user->setLastName($profile['nom']);
+        $user->setFirstName($profile['prenom']);
+        $user->setRoles($profile['role']);
+        $user->setTerritorialContext($profile['maille']);
+        $user->setTerritorialCode($profile['codeMaille']);
+
+        $this->assertEquals($profile['gaia'], $user->getUsername());
+        $this->assertEquals($profile['nni'], $user->getNni());
+        $this->assertEquals($profile['prenom'], $user->getFirstName());
+        $this->assertEquals($profile['nom'], $user->getLastName());
+        $this->assertEquals($profile['role'][0], $user->getRoles()[0]);
+        $this->assertEquals($profile['maille'], $user->getTerritorialContext());
+        $this->assertEquals($profile['codeMaille'], $user->getTerritorialCode());
+
+        $this->userService->getProfile($user);
+
+    }
+
+    /**
      * @param $userArray
      * @return User
      */
