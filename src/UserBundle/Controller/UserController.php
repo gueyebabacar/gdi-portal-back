@@ -17,6 +17,7 @@ use FOS\RestBundle\Controller\Annotations as Rest;
  */
 class UserController
 {
+
     /**
      * @var UserService
      * @DI\Inject("portal.service.user")
@@ -26,10 +27,9 @@ class UserController
     /**
      * Lists all User entities.
      * @Rest\Get("/users")
+     *
      * @Rest\View
-     *
      * @Security("has_role('ROLE_ADMINISTRATEUR_LOCAL')")
-     *
      * @ApiDoc(
      *      section = "User",
      *      resource = true,
@@ -44,8 +44,8 @@ class UserController
     /**
      * Creates a new User entity.
      * @Rest\Post("/users")
-     * @Rest\View
      *
+     * @Rest\View
      * @ApiDoc(
      *      section = "User",
      *      resource = true,
@@ -62,8 +62,8 @@ class UserController
     /**
      * Finds and displays a User entity.
      * @Rest\Get("/users/{userId}")
-     * @Rest\View
      *
+     * @Rest\View
      * @ApiDoc(
      *      section = "User",
      *      resource = true,
@@ -83,8 +83,8 @@ class UserController
     /**
      * Displays a form to edit an existing User entity.
      * @Rest\Patch("/users/{userId}")
-     * @Rest\View
      *
+     * @Rest\View
      * @ApiDoc(
      *      section = "User",
      *      resource = true,
@@ -105,8 +105,8 @@ class UserController
     /**
      * Displays a form to edit the rights of an existing User (recette ONLY).
      * @Rest\Patch("/users/{userId}/rights")
-     * @Rest\View
      *
+     * @Rest\View
      * @ApiDoc(
      *      section = "User",
      *      resource = true,
@@ -127,8 +127,8 @@ class UserController
     /**
      * Deletes a User entity.
      * @Rest\Delete("/users/{userId}")
-     * @Rest\View
      *
+     * @Rest\View
      * @ApiDoc(
      *      section = "User",
      *      resource = true,
@@ -147,8 +147,8 @@ class UserController
     /**
      * Lists all User profiles.
      * @Rest\Get("/profiles")
-     * @Rest\View
      *
+     * @Rest\View
      * @ApiDoc(
      *      section = "User",
      *      resource = true,
@@ -158,5 +158,24 @@ class UserController
     public function getProfilesAction()
     {
         return $this->userService->getProfiles();
+    }
+
+    /**
+     * @Rest\Get("/userbygaia/{gaiaId}")
+     * @Rest\View
+     * @ApiDoc(
+     *      section = "User",
+     *      resource = true,
+     *      description = "Recuperer un utilisateur par identifiant gaia",
+     *      parameters={
+     *          {"name"="gaiaId", "dataType"="String", "required"=true, "description"="identifiant gaia"},
+     *      }
+     * )
+     * @param $gaiaId
+     * @return array
+     */
+    public function getUserByGaiaAction($gaiaId)
+    {
+        return ['user' => $this->userService->getByIdGaia($gaiaId)];
     }
 }

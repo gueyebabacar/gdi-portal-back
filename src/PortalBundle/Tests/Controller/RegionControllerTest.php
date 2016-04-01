@@ -31,4 +31,14 @@ class RegionControllerTest extends BaseWebTestCase
         $response = json_decode($this->client->getResponse()->getContent(), true);
         $this->assertEquals($regions[0]->getCode(), $response[0]['code']);
     }
+
+    /**
+     *@test  testGetAllRegionsAction
+     */
+    public function testGetAllRegionsAction()
+    {
+        $regions = $this->em->getRepository('PortalBundle:Region')->findAll();
+        $this->client->request('GET', "/portal/regions", [], [], $this->headers);
+        $this->assertNotEmpty($regions);
+    }
 }

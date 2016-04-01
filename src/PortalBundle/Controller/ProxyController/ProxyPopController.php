@@ -175,8 +175,7 @@ class ProxyPopController extends FOSRestController
         $parameters['headers'] = [
             'x-profil' => json_encode($this->userService->getProfile($user)),
         ];
-
-        $parameters['parameters'] = '';
+        $parameters['parameters'] = json_encode($request->request->all());
         if ($user !== null) {
 
             return $this->curlService->sendRequest($url, $parameters);

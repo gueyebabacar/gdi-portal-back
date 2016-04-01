@@ -19,12 +19,13 @@ use UserBundle\Form\EditUserType;
 
 /**
  * Class UserService
- * @package User\Service
  *
+ * @package User\Service
  * @DI\Service("portal.service.user", public=true)
  */
 class UserService
 {
+
     /**
      * @var \Doctrine\ORM\EntityManager
      */
@@ -47,11 +48,11 @@ class UserService
 
     /**
      * ControlService constructor.
+     *
      * @param EntityManager $em
      * @param FormFactory $formFactory
      * @param AuthorizationChecker $authorizationChecker
      * @param $errorService
-     *
      * @DI\InjectParams({
      *     "em" = @DI\Inject("doctrine.orm.entity_manager"),
      *     "formFactory" = @DI\Inject("form.factory"),
@@ -80,11 +81,13 @@ class UserService
                 $usersSent[] = $u;
             }
         }
+
         return $usersSent;
     }
 
     /**
      * Creates a new User entity.
+     *
      * @param Request $request
      * @return User
      */
@@ -102,6 +105,7 @@ class UserService
             foreach ($form->getErrors(true) as $error) {
                 $this->errorService->addError(ErrorEnum::INTERNAL, ErrorLevelEnum::CRITIC, $error->getMessage());
             }
+
             return array_merge($this->errorService->getErrors(), ['result' => $user]);
         } else {
             return ['result' => $user];
@@ -110,6 +114,7 @@ class UserService
 
     /**
      * Finds and displays a User entity.
+     *
      * @param $userId
      * @return null|object|User
      */
@@ -121,11 +126,29 @@ class UserService
         if (false !== $this->authorizationChecker->isGranted(VoterEnum::VIEW, $u)) {
             $userSent = $u;
         }
+
+        return $userSent;
+    }
+
+    /**
+     * Finds and displays a User entity.
+     *
+     * @param $gaiaId
+     * @return null|object|User
+     */
+    public function getByIdGaia($gaiaId)
+    {
+        $userSent = null;
+        $u = $this->em->getRepository('UserBundle:User')->findOneByUsername($gaiaId);
+        if (false !== $this->authorizationChecker->isGranted(VoterEnum::VIEW, $u)) {
+            $userSent = $u;
+        }
         return $userSent;
     }
 
     /**
      * Displays a form to edit an existing User entity.
+     *
      * @param Request $request
      * @param $userId
      * @return User
@@ -144,6 +167,7 @@ class UserService
             foreach ($form->getErrors(true) as $error) {
                 $this->errorService->addError(ErrorEnum::INTERNAL, ErrorLevelEnum::CRITIC, $error->getMessage());
             }
+
             return array_merge($this->errorService->getErrors(), ['result' => $user]);
         } else {
             return ['result' => $user];
@@ -152,6 +176,7 @@ class UserService
 
     /**
      * Displays a form to edit the rights of an existing User (recette ONLY).
+     *
      * @param Request $request
      * @param $userId
      * @return User
@@ -171,6 +196,7 @@ class UserService
             foreach ($form->getErrors(true) as $error) {
                 $this->errorService->addError(ErrorEnum::INTERNAL, ErrorLevelEnum::CRITIC, $error->getMessage());
             }
+
             return array_merge($this->errorService->getErrors(), ['result' => $user]);
         } else {
             return ['result' => $user];
@@ -179,6 +205,7 @@ class UserService
 
     /**
      * Deletes a User entity.
+     *
      * @param $userId
      */
     public function delete($userId)

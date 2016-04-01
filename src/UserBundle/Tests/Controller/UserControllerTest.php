@@ -152,7 +152,7 @@ class UserControllerTest extends BaseWebTestCase
     }
 
     /**
-     *testGetProfiles
+     *@test testGetProfiles
      */
     public function testGetProfiles()
     {

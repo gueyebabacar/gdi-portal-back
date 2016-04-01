@@ -75,6 +75,11 @@ DirectoryIndex app.php
 
     # Cond env recette
     RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{HTTP_HOST} ^(172.17.14.173:8090)$ [NC]
+    RewriteRule ^(.*)$ %{ENV:BASE}/app_recette.php [L]
+
+    # Cond env recette
+    RewriteCond %{REQUEST_FILENAME} !-f
     RewriteCond %{HTTP_HOST} ^(portail-gdi-rec.carma.grdf.fr)$ [NC]
     RewriteRule ^(.*)$ %{ENV:BASE}/app_recette.php [L]
 
