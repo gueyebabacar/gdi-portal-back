@@ -58,6 +58,11 @@ DirectoryIndex app.php
     RewriteCond %{HTTP_HOST} ^(10.0.59.10)$ [NC]
     RewriteRule ^(.*)$ %{ENV:BASE}/app_dev.php [L]
 
+    # Cond env test
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{HTTP_HOST} ^(portal-front)$ [NC]
+    RewriteRule ^(.*)$ %{ENV:BASE}/app_test.php [L]
+
     # Cond env dev
     RewriteCond %{REQUEST_FILENAME} !-f
     RewriteCond %{HTTP_HOST} ^(docker.local)$ [NC]

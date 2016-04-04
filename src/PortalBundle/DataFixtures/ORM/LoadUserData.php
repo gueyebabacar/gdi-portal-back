@@ -99,6 +99,21 @@ class LoadUserData extends AbstractFixture implements FixtureInterface, Containe
             }
             $manager->persist($user);
         }
+        $user = new User();
+        $user->setFirstName(ucfirst($loremIpsum->getWords(1)));
+        $user->setLastName(ucfirst($loremIpsum->getWords(1)));
+        $user->setEmail(lcfirst($user->getFirstName()) . '.' . lcfirst($user->getLastName()) . '@grdf.fr');
+        $user->setUsername('BM5265');
+        $user->setPassword('test');
+        $user->setNni('NNI0042');
+        $user->setPhone1('+33111111');
+        $user->setPhone2('+33111112');
+        $user->setEnabled(true);
+        $user->setTerritorialCode();
+        $user->setEntity(EntityEnum::AI_ENTITY);
+        $user->setRoles([RolesEnum::ROLE_ADMINISTRATEUR_NATIONAL]);
+        $manager->persist($user);
+
         $manager->flush();
     }
 
