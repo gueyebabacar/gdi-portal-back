@@ -80,7 +80,7 @@ class ProxyOpticController extends FOSRestController
         }
 
         $parameters['headers'] = [
-            'x-profile' => json_encode($this->userService->getProfile($user)),
+            'x-profil' => json_encode($this->userService->getProfile($user)),
         ];
 
         $parameters['parameters'] = '';
@@ -115,7 +115,7 @@ class ProxyOpticController extends FOSRestController
         }
 
         $parameters['headers'] = [
-            'x-profile' => json_encode($this->userService->getProfile($user)),
+            'x-profil' => json_encode($this->userService->getProfile($user)),
         ];
 
         $parameters['parameters'] = '';
@@ -150,7 +150,7 @@ class ProxyOpticController extends FOSRestController
         }
 
         $parameters['headers'] = [
-            'x-profile' => json_encode($this->userService->getProfile($user)),
+            'x-profil' => json_encode($this->userService->getProfile($user)),
         ];
 
         $parameters['parameters'] = '';
@@ -185,7 +185,7 @@ class ProxyOpticController extends FOSRestController
         }
 
         $parameters['headers'] = [
-            'x-profile' => json_encode($this->userService->getProfile($user)),
+            'x-profil' => json_encode($this->userService->getProfile($user)),
         ];
 
         $parameters['parameters'] = '';
