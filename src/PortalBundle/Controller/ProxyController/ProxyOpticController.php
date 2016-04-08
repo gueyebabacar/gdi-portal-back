@@ -157,7 +157,7 @@ class ProxyOpticController extends FOSRestController
         if ($user !== null) {
             $data = $this->curlService->sendRequest($url, $parameters);
 
-            return new Response($data['contents'], 200, $data['headers']);
+            return new Response($data['contents'], 200, ['Set-Cookie' => $data['headers']['Set-Cookie'][0]]);
         } else {
             return null;
         }
