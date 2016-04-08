@@ -58,13 +58,13 @@ class CurlService
         $client = new Client();
         try {
             $response = $client->send($this->request($url, $parameters));
-            //$setCookie = $response->getHeaders()//getHeader('set-cookie');
+
             return array('headers' => $response->getHeaders(), 'contents' => $response->getBody()->getContents());
         } catch (RequestException $e) {
             $error['code'] = $e->getCode();
             $error['message'] = $e->getMessage();
 
-            return $error;
+            return array('headers' => null, 'contents' => json_encode($error));
         }
     }
 
