@@ -13,6 +13,7 @@ use JMS\DiExtraBundle\Annotation as DI;
 
 class ProxyOpticController extends FOSRestController
 {
+
     /**
      * @var UserService
      * @DI\Inject("portal.service.user")
@@ -39,10 +40,10 @@ class ProxyOpticController extends FOSRestController
 
     /**
      * ProxyOpticController constructor.
+     *
      * @param $userService
      * @param $curlService
      * @param $security
-     *
      * @DI\InjectParams({
      *     "userService" = @DI\Inject("portal.service.user"),
      *     "curlService" = @DI\Inject("portal.service.curl"),
@@ -59,7 +60,6 @@ class ProxyOpticController extends FOSRestController
     /**
      * @Rest\Get("/optic/{uri}", requirements={ "uri": "([a-z\.]{2,6})([\/\w \.-]*)*\/?$"})
      * @Rest\View
-     *
      * @ApiDoc(
      *      section = "ProxyController",
      *      resource = true,
@@ -71,30 +71,12 @@ class ProxyOpticController extends FOSRestController
      */
     public function redirectGetOpticAction(Request $request, $uri)
     {
-        $user = $this->getCurrentUser();
-        $this->baseUrl = $this->getParameter('optic_url');
-        $queryParameters = $request->getQueryString();
-        $url = $this->baseUrl . $uri;
-        if($queryParameters != null){
-            $url.= '?'.$queryParameters;
-        }
-
-        $parameters['headers'] = [
-            'x-profil' => json_encode($this->userService->getProfile($user)),
-        ];
-
-        $parameters['parameters'] = '';
-        if ($user !== null) {
-            return $this->curlService->sendRequest($url, $parameters);
-        } else {
-            return null;
-        }
+        return $this->forwardRequest($request, $uri);
     }
 
     /**
      * @Rest\Post("/optic/{uri}", requirements={ "uri": "([a-z\.]{2,6})([\/\w \.-]*)*\/?$"})
      * @Rest\View
-     *
      * @ApiDoc(
      *      section = "ProxyController",
      *      resource = true,
@@ -106,30 +88,12 @@ class ProxyOpticController extends FOSRestController
      */
     public function redirectPostOpticAction(Request $request, $uri)
     {
-        $user = $this->getCurrentUser();
-        $this->baseUrl = $this->getParameter('optic_url');
-        $queryParameters = $request->getQueryString();
-        $url = $this->baseUrl . $uri;
-        if($queryParameters != null){
-            $url.= '?'.$queryParameters;
-        }
-
-        $parameters['headers'] = [
-            'x-profil' => json_encode($this->userService->getProfile($user)),
-        ];
-
-        $parameters['parameters'] = '';
-        if ($user !== null) {
-            return $this->curlService->sendRequest($url, $parameters);
-        } else {
-            return null;
-        }
+        return $this->forwardRequest($request, $uri);
     }
 
     /**
      * @Rest\Put("/optic/{uri}", requirements={ "uri": "([a-z\.]{2,6})([\/\w \.-]*)*\/?$"})
      * @Rest\View
-     *
      * @ApiDoc(
      *      section = "ProxyController",
      *      resource = true,
@@ -141,30 +105,12 @@ class ProxyOpticController extends FOSRestController
      */
     public function redirectPutOpticAction(Request $request, $uri)
     {
-        $user = $this->getCurrentUser();
-        $this->baseUrl = $this->getParameter('optic_url');
-        $queryParameters = $request->getQueryString();
-        $url = $this->baseUrl . $uri;
-        if($queryParameters != null){
-            $url.= '?'.$queryParameters;
-        }
-
-        $parameters['headers'] = [
-            'x-profil' => json_encode($this->userService->getProfile($user)),
-        ];
-
-        $parameters['parameters'] = '';
-        if ($user !== null) {
-            return $this->curlService->sendRequest($url, $parameters);
-        } else {
-            return null;
-        }
+        return $this->forwardRequest($request, $uri);
     }
 
     /**
      * @Rest\Delete("/optic/{uri}", requirements={ "uri": "([a-z\.]{2,6})([\/\w \.-]*)*\/?$"})
      * @Rest\View
-     *
      * @ApiDoc(
      *      section = "ProxyController",
      *      resource = true,
@@ -176,30 +122,43 @@ class ProxyOpticController extends FOSRestController
      */
     public function redirectDeleteOpticAction(Request $request, $uri)
     {
+        return $this->forwardRequest($request, $uri);
+    }
+
+    /**
+     * @return mixed
+     */
+    private function getCurrentUser()
+    {
+        return $this->getUser();
+    }
+
+    /**
+     * @param Request $request
+     * @param $uri
+     * @return mixed|null
+     */
+    private function forwardRequest(Request $request, $uri)
+    {
         $user = $this->getCurrentUser();
+
         $this->baseUrl = $this->getParameter('optic_url');
         $queryParameters = $request->getQueryString();
         $url = $this->baseUrl . $uri;
-        if($queryParameters != null){
-            $url.= '?'.$queryParameters;
+        if ($queryParameters != null) {
+            $url .= '?' . $queryParameters;
         }
 
         $parameters['headers'] = [
             'x-profil' => json_encode($this->userService->getProfile($user)),
         ];
-
-        $parameters['parameters'] = '';
+        $parameters['parameters'] = json_encode($request->request->all());
         if ($user !== null) {
-            return $this->curlService->sendRequest($url, $parameters);
+            $data = $this->curlService->sendRequest($url, $parameters);
+
+            return new Response($data['contents'], 200, $data['headers']);
         } else {
             return null;
         }
-    }
-
-    private function getCurrentUser()
-    {
-        $user = $this->security->getToken()->getUser();
-
-        return $user;
     }
 }
