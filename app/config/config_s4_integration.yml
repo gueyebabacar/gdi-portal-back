@@ -1,10 +1,11 @@
 imports:
     - { resource: config.yml }
     - { resource: parameters_s4_integration.yml }
+    - { resource: gdi_urls_s4_integration.yml }
 
 framework:
     router:
-        resource: "@AerialShipSamlSPBundle/Resources/config/routing.yml"
+        resource: "%kernel.root_dir%/config/routing_s4_integration.yml"
         strict_requirements: true
     profiler: { only_exceptions: false }
 

@@ -11,13 +11,13 @@ use GuzzleHttp\Psr7\Request as CurlRequest;
 
 /**
  * Class CurlService
- *
  * @DI\Service("portal.service.curl", public=true)
  *
  * @package PortalBundle\Service
  */
 class CurlService
 {
+
     /**
      * @DI\Inject("service_container")
      * @var ContainerInterface
@@ -36,8 +36,8 @@ class CurlService
 
     /**
      * ControlService constructor.
-     * @param ContainerInterface $container
      *
+     * @param ContainerInterface $container
      * @DI\InjectParams({
      *     "container" = @DI\Inject("service_container"),
      * })
@@ -59,12 +59,12 @@ class CurlService
         try {
             $response = $client->send($this->request($url, $parameters));
 
-            return json_decode($response->getBody(), true);
+            return array('headers' => $response->getHeaders(), 'contents' => $response->getBody()->getContents());
         } catch (RequestException $e) {
             $error['code'] = $e->getCode();
             $error['message'] = $e->getMessage();
 
-            return $error;
+            return array('headers' => null, 'contents' => json_encode($error));
         }
     }
 

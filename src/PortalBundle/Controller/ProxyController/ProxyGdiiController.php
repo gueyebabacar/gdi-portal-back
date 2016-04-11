@@ -7,16 +7,19 @@ use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use PortalBundle\Service\CurlService;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorage;
 use UserBundle\Service\UserService;
 use JMS\DiExtraBundle\Annotation as DI;
 
 /**
  * Class ProxyGdiiController
+ *
  * @package PortalBundle\Controller\ProxyController
  */
 class ProxyGdiiController extends FOSRestController
 {
+
     /**
      * @var UserService
      * @DI\Inject("portal.service.user")
@@ -43,10 +46,10 @@ class ProxyGdiiController extends FOSRestController
 
     /**
      * ProxyGdiiController constructor.
+     *
      * @param $userService
      * @param $curlService
      * @param $security
-     *
      * @DI\InjectParams({
      *     "userService" = @DI\Inject("portal.service.user"),
      *     "curlService" = @DI\Inject("portal.service.curl"),
@@ -63,7 +66,6 @@ class ProxyGdiiController extends FOSRestController
     /**
      * @Rest\Get("/gdii/{uri}", requirements={ "uri": "([a-z\.]{2,6})([\/\w \.-]*)*\/?$"})
      * @Rest\View
-     *
      * @ApiDoc(
      *      section = "ProxyController",
      *      resource = true,
@@ -81,7 +83,6 @@ class ProxyGdiiController extends FOSRestController
     /**
      * @Rest\Post("/gdii/{uri}", requirements={ "uri": "([a-z\.]{2,6})([\/\w \.-]*)*\/?$"})
      * @Rest\View
-     *
      * @ApiDoc(
      *      section = "ProxyController",
      *      resource = true,
@@ -99,7 +100,6 @@ class ProxyGdiiController extends FOSRestController
     /**
      * @Rest\Put("/gdii/{uri}", requirements={ "uri": "([a-z\.]{2,6})([\/\w \.-]*)*\/?$"})
      * @Rest\View
-     *
      * @ApiDoc(
      *      section = "ProxyController",
      *      resource = true,
@@ -117,7 +117,6 @@ class ProxyGdiiController extends FOSRestController
     /**
      * @Rest\Patch("/gdii/{uri}", requirements={ "uri": "([a-z\.]{2,6})([\/\w \.-]*)*\/?$"})
      * @Rest\View
-     *
      * @ApiDoc(
      *      section = "ProxyController",
      *      resource = true,
@@ -135,7 +134,6 @@ class ProxyGdiiController extends FOSRestController
     /**
      * @Rest\Delete("/gdii/{uri}", requirements={ "uri": "([a-z\.]{2,6})([\/\w \.-]*)*\/?$"})
      * @Rest\View
-     *
      * @ApiDoc(
      *      section = "ProxyController",
      *      resource = true,
@@ -180,8 +178,9 @@ class ProxyGdiiController extends FOSRestController
         $parameters['parameters'] = json_encode($request->request->all());
 
         if ($user !== null) {
+            $data = $this->curlService->sendRequest($url, $parameters);
 
-            return $this->curlService->sendRequest($url, $parameters);
+            return new Response($data['contents']);
         } else {
             return null;
         }
