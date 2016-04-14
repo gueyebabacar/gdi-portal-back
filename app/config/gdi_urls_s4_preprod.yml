@@ -1,4 +1,4 @@
 parameters:
-    gdii_url: "http://10.146.10.46/"
-    pop_url: "http://10.146.10.45/"
+    gdii_url: "http://10.146.10.183/"
+    pop_url: "http://10.146.10.185/"
     optic_url: "http://10.146.10.77:8080/gdiWeb/rest/"
