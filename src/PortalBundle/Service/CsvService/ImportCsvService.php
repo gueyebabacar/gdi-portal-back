@@ -121,7 +121,7 @@ class ImportCsvService
         if ($filePath !== null) {
             $csv_file = $filePath;
         } else {
-            $csv_file = $this->getPath("PERF_Region.v3.csv"); // Name of your CSV file
+            $csv_file = $this->getPath("Portail_Region.v3.csv"); // Name of your CSV file
         }
 
         $counter = 0;
@@ -157,7 +157,7 @@ class ImportCsvService
         if ($filePath !== null) {
             $csv_file = $filePath;
         } else {
-            $csv_file = $this->getPath("PERF_Agence.v3.csv"); // Name of your CSV file
+            $csv_file = $this->getPath("Portail_Agence.v3.csv"); // Name of your CSV file
         }
 
         $counter = 0;
@@ -199,7 +199,7 @@ class ImportCsvService
         if ($filePath !== null) {
             $csv_file = $filePath;
         } else {
-            $csv_file = $this->getPath("utilisateurs.csv"); // Name of your CSV file
+            $csv_file = $this->getPath("Portail_utilisateurs.csv"); // Name of your CSV file
         }
 
         $counter = 0;
