@@ -79,7 +79,7 @@ class ImportCsvService
      * @param string $delimiter
      * @return array
      */
-    public function csvToArray($fileName, $header = null, $delimiter = ';')
+    public function csvToArray($fileName, $header = null, $delimiter = ',')
     {
         if (!file_exists($fileName) || !is_readable($fileName)) {
             return false;
