@@ -18,7 +18,7 @@ class ImportCsvCommand extends ContainerAwareCommand
             ->setName('csv:import')
             ->setDescription('This will import csv file content into database')
             ->setDefinition(array(
-                new InputArgument('entity', InputArgument::REQUIRED, 'The table to fill'),
+                new InputArgument('type', InputArgument::REQUIRED, "['user','region','agence']"),
                 new InputArgument('filepath', InputArgument::OPTIONAL, 'The path of the csv file'),
             ));
     }
