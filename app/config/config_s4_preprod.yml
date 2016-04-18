@@ -54,7 +54,7 @@ security:
                 services:
                     saml:
                         idp:
-                            file: "@UserBundle/Resources/FedId/dev/GIDPD_FederationMetaData_20151028.xml"
+                            file: "@UserBundle/Resources/FedId/preprod/GIDPA_FederationMetaData_20151028.xml"
                         sp:
                             config:
                                 base_url: https://pp-gdi.grdf.fr/api
