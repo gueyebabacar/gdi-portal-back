@@ -16,8 +16,8 @@ php app/console doctrine:schema:create -e s4_integration
 php app/console cache:clear -e s4_integration
 php app/console assets:install web --symlink -e s4_integration
 
-php app/console csv:import regions  -e s4_integration
-php app/console csv:import agencies  -e s4_integration
-php app/console csv:import users  -e s4_integration
+php app/console portal:import regions  -e s4_integration
+php app/console portal:import agencies  -e s4_integration
+php app/console portal:import users  -e s4_integration
 
 echo "--- Fin reinit ---"
