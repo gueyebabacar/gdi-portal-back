@@ -79,7 +79,7 @@ class ImportCsvService
      * @param string $delimiter
      * @return array
      */
-    public function csvToArray($fileName, $header = null, $delimiter = ';')
+    public function csvToArray($fileName, $header = null, $delimiter = ',')
     {
         if (!file_exists($fileName) || !is_readable($fileName)) {
             return false;
@@ -88,13 +88,14 @@ class ImportCsvService
         $isHeader = true;
         $data = array();
         $count = 0;
+
         if (($handle = fopen($fileName, 'r')) !== false) {
+
             while (($row = fgetcsv($handle, 1000, $delimiter)) !== false) {
                 if ($isHeader) {
                     $header = ($header) ? ($header) : ($row);
                     $isHeader = false;
                 } else {
-
                     try {
                        $data[] = array_combine($header, $row);
                         $count++;
@@ -106,7 +107,6 @@ class ImportCsvService
             }
             fclose($handle);
         }
-
         return $data;
     }
 
@@ -121,7 +121,7 @@ class ImportCsvService
         if ($filePath !== null) {
             $csv_file = $filePath;
         } else {
-            $csv_file = $this->getPath("PERF_Region.v3.csv"); // Name of your CSV file
+            $csv_file = $this->getPath("PortailRegion.csv"); // Name of your CSV file
         }
 
         $counter = 0;
@@ -157,7 +157,7 @@ class ImportCsvService
         if ($filePath !== null) {
             $csv_file = $filePath;
         } else {
-            $csv_file = $this->getPath("PERF_Agence.v3.csv"); // Name of your CSV file
+            $csv_file = $this->getPath("PortailAgence.csv"); // Name of your CSV file
         }
 
         $counter = 0;
@@ -199,7 +199,7 @@ class ImportCsvService
         if ($filePath !== null) {
             $csv_file = $filePath;
         } else {
-            $csv_file = $this->getPath("utilisateurs.csv"); // Name of your CSV file
+            $csv_file = $this->getPath("PortailUtilisateur.csv"); // Name of your CSV file
         }
 
         $counter = 0;
@@ -213,6 +213,7 @@ class ImportCsvService
             $agency = $this->agencyRepo->findOneBy(['code' => $use['AGENCE']]);
             $region = $this->regionRepo->findOneBy(['code' => $use['REGION']]);
             $userByGaia = $this->userRepo->findOneBy(['username' => $use['GAIA']]);
+
             if (!empty($use['EMAIL'])) {
                 $userByEmail = $this->userRepo->findOneBy(['email' => $use['EMAIL']]);
             }
@@ -226,9 +227,9 @@ class ImportCsvService
                     echo "The line $counter " . $use['NOM'] . " " . $use['PRENOM'] . " was not inserted because the email " . $use['EMAIL'] . " already exists \n";
             } elseif (!empty($userByNni)) {
                     echo "The line $counter " . $use['NOM'] . " " . $use['PRENOM'] . " was not inserted because the NNI " . $use['NNI'] . " already exists \n";
-            } else {
+            }else {
                 $user = new User();
-                if ($userByGaia === null && $userByEmail === null && $userByNni === null) {
+                if ($userByGaia === null && $userByEmail === null && $userByNni === null || empty($use['AGENCE'])) {
                     $user->setFirstName($use['PRENOM']);
                     $user->setLastName($use['NOM']);
                     $user->setUsername($use['GAIA']);

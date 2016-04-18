@@ -7,7 +7,8 @@ framework:
     router:
         resource: "%kernel.root_dir%/config/routing_s4_preprod.yml"
         strict_requirements: true
-    profiler: { only_exceptions: false }
+    profiler:
+        enabled: false
 
 monolog:
     handlers:
@@ -53,7 +54,7 @@ security:
                 services:
                     saml:
                         idp:
-                            file: "@UserBundle/Resources/FedId/dev/GIDPD_FederationMetaData_20151028.xml"
+                            file: "@UserBundle/Resources/FedId/preprod/GIDPA_FederationMetaData_20151028.xml"
                         sp:
                             config:
                                 base_url: https://pp-gdi.grdf.fr/api
