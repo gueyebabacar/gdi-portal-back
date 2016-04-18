@@ -4,6 +4,7 @@ namespace PortalBundle\Service\CsvService;
 
 use Doctrine\ORM\EntityManager;
 use JMS\DiExtraBundle\Annotation as DI;
+use Monolog\Logger;
 use PortalBundle\Entity\Agency;
 use PortalBundle\Entity\Region;
 use PortalBundle\Repository\AgencyRepository;
@@ -43,12 +44,18 @@ class ImportCsvService
     protected $userRepo;
 
     /**
+     * @var Logger
+     */
+    public $logger;
+
+    /**
      * @DI\InjectParams({
      *     "regionRepo" = @DI\Inject("portal.region_repository"),
      *     "agencyRepo" = @DI\Inject("portal.agency_repository"),
      *     "userRepo" = @DI\Inject("portal.user_repository"),
      *     "em" = @DI\Inject("doctrine.orm.entity_manager"),
      *     "kernel" = @DI\Inject("kernel"),
+     *     "logger" = @DI\Inject("monolog.logger.import")
      *
      * })
      * @param RegionRepository $regionRepo
@@ -62,13 +69,15 @@ class ImportCsvService
         AgencyRepository $agencyRepo,
         UserRepository $userRepo,
         EntityManager $em,
-        Kernel $kernel
+        Kernel $kernel,
+        Logger $logger
     ) {
         $this->agencyRepo = $agencyRepo;
         $this->regionRepo = $regionRepo;
-        $this->userRepo= $userRepo;
+        $this->userRepo = $userRepo;
         $this->kernel = $kernel;
         $this->em = $em;
+        $this->logger = $logger;
     }
 
     /**
@@ -97,11 +106,11 @@ class ImportCsvService
                     $isHeader = false;
                 } else {
                     try {
-                       $data[] = array_combine($header, $row);
+                        $data[] = array_combine($header, $row);
                         $count++;
                     } catch (\Exception $e) {
                         dump($header, $row);
-                       exit();
+                        exit();
                     }
                 }
             }
@@ -116,35 +125,55 @@ class ImportCsvService
      */
     public function importCsvRegions($filePath = null)
     {
+        $this->em->getConnection()->getConfiguration()->setSQLLogger(null);
+        $this->em->getConnection()->beginTransaction();
+
         $header = ['CodeRegion', 'LibelleRegion'];
+        $regionData = [];
 
         if ($filePath !== null) {
             $csv_file = $filePath;
         } else {
             $csv_file = $this->getPath("PortailRegion.csv"); // Name of your CSV file
         }
+        $this->logger->info('----------- Import du fichier "' . $csv_file . '" ... -----------');
 
         $counter = 0;
         $counterSuccess = 0;
         $regionArray = $this->csvToArray($csv_file, $header);
+
         foreach ($regionArray as $reg) {
             $counter++;
             $region = $this->regionRepo->findOneBy(['code' => $reg['CodeRegion']]);
             if (is_null($region)) {
                 $region = new Region();
             }
-            $region->setCode($reg['CodeRegion']);
-            $region->setLabel($reg['LibelleRegion']);
-            $this->em->persist($region);
-            try {
-                $this->em->flush();
+            if (in_array($reg['CodeRegion'], $regionData)) {
+                $this->importException('Erreur type "D" : Une ligne avec le Code Region \'' . $reg['CodeRegion'] . '\' a déja été inserée (ligne ' . ($counter + 1) . ')');
+                continue;
+            } else {
+                $region->setCode($reg['CodeRegion']);
+                $region->setLabel($reg['LibelleRegion']);
+                $this->em->persist($region);
+                $regionData[] = $reg['CodeRegion'];
                 $counterSuccess++;
-            } catch (\Exception $e) {
-                echo $e->getMessage();
             }
-
         }
-        echo "$counterSuccess/$counter regions added successfully\n";
+
+        try {
+            $this->em->flush();
+            $this->em->getConnection()->commit();
+            $this->em->clear();
+        } catch (\Exception $e) {
+            $this->em->getConnection()->rollback();
+            $this->em->close();
+            $this->importException($e->getMessage() . ' - opération annulée');
+            $counterSuccess = 0;
+            echo $e->getMessage();
+        }
+        $report = '----------- Import Terminé. Total : ' . $counter . '. Inserés : ' . $counterSuccess . '. Erreurs : ' . ($counter - $counterSuccess) . ' -----------';
+        echo $report . "\n";
+        $this->logger->info($report);
     }
 
     /**
@@ -153,7 +182,13 @@ class ImportCsvService
      */
     public function importCsvAgencies($filePath = null)
     {
+        $this->em->getConnection()->getConfiguration()->setSQLLogger(null);
+        $this->em->getConnection()->beginTransaction();
+
         $header = ['CodeRegion', 'CodeAgence', 'LibelleAgence', 'code_gestion_agence'];
+
+        $agencyData = [];
+
         if ($filePath !== null) {
             $csv_file = $filePath;
         } else {
@@ -163,29 +198,45 @@ class ImportCsvService
         $counter = 0;
         $counterSuccess = 0;
         $agencyArray = $this->csvToArray($csv_file, $header);
+
         foreach ($agencyArray as $age) {
             $counter++;
             $region = $this->regionRepo->findOneBy(['code' => $age['CodeRegion']]);
             $agency = $this->agencyRepo->findOneBy(['code' => $age['CodeAgence']]);
             if (is_null($region)) {
-                echo "The line $counter was not inserted because the region code " . $age['CodeRegion'] . " doesn't exists \n";
+                $this->importException('Erreur type "I" : La région \'' . $age['CodeRegion'] . '\' est introuvable (ligne ' . ($counter + 1) . ')');
             } else {
-                if (is_null($agency)){
+                if (is_null($agency)) {
                     $agency = new Agency();
                 }
-                $agency->setCode($age['CodeAgence']);
-                $agency->setLabel($age['LibelleAgence']);
-                $agency->setRegion($region);
-                $this->em->persist($agency);
-                try {
-                    $this->em->flush();
+                if (in_array($age['CodeAgence'], $agencyData)) {
+                    $this->importException('Erreur type "D" : Une ligne avec le Code Agence \'' . $age['CodeAgence'] . '\' a déja été inserée (ligne ' . ($counter + 1) . ')');
+                    continue;
+                } else {
+                    $agency->setCode($age['CodeAgence']);
+                    $agency->setLabel($age['LibelleAgence']);
+                    $agency->setRegion($region);
+                    $this->em->persist($agency);
+                    $agencyData[] = $age['CodeAgence'];
                     $counterSuccess++;
-                } catch (\Exception $e) {
-                    echo $e->getMessage();
                 }
             }
         }
-        echo "$counterSuccess/$counter agencies added successfully\n";
+
+        try {
+            $this->em->flush();
+            $this->em->getConnection()->commit();
+            $this->em->clear();
+        } catch (\Exception $e) {
+            $this->em->getConnection()->rollback();
+            $this->em->close();
+            $this->importException($e->getMessage() . ' - opération annulée');
+            $counterSuccess = 0;
+            echo $e->getMessage();
+        }
+        $report = '----------- Import Terminé. Total : ' . $counter . '. Inserés : ' . $counterSuccess . '. Erreurs : ' . ($counter - $counterSuccess) . ' -----------';
+        echo $report . "\n";
+        $this->logger->info($report);
     }
 
     /**
@@ -194,7 +245,14 @@ class ImportCsvService
      */
     public function importCsvUsers($filePath = null)
     {
+        $this->em->getConnection()->getConfiguration()->setSQLLogger(null);
+        $this->em->getConnection()->beginTransaction();
+
         $header = ['PRENOM', 'NOM', 'GAIA', 'ROLE', 'NNI', 'TEL1', 'TEL2', 'EMAIL', 'ENTITE', 'REGION', 'AGENCE'];
+
+        $userData['gaias'] = [];
+        $userData['nnis'] = [];
+        $userData['emails'] = [];
 
         if ($filePath !== null) {
             $csv_file = $filePath;
@@ -221,13 +279,26 @@ class ImportCsvService
                 $userByNni = $this->userRepo->findOneBy(['nni' => $use['NNI']]);
             }
 
-            if (!empty($userByGaia)) {
-                echo "The line $counter " . $use['NOM'] . " " . $use['PRENOM'] . " was not inserted because the GAIA " . $use['GAIA'] . " already exists \n";
-            } elseif (!empty($userByEmail)) {
-                    echo "The line $counter " . $use['NOM'] . " " . $use['PRENOM'] . " was not inserted because the email " . $use['EMAIL'] . " already exists \n";
-            } elseif (!empty($userByNni)) {
-                    echo "The line $counter " . $use['NOM'] . " " . $use['PRENOM'] . " was not inserted because the NNI " . $use['NNI'] . " already exists \n";
-            }else {
+            if (!is_null($userByGaia)) {
+                $this->importException('Erreur type "D" : Un utilisateur avec le GAIA \'' . $use['GAIA'] . '\' existe déjà (ligne ' . ($counter + 1) . ')');
+            }
+            if (empty($use['GAIA'])) {
+                $this->importException('Erreur type "I" : L\'utilisateur \'' . $use['PRENOM'] . ' ' . $use['NOM'] . '\' n\'est associé à aucun GAIA (ligne ' . ($counter + 1) . ')');
+            } elseif (in_array($use['GAIA'], $userData['gaias'])) {
+                $this->importException('Erreur type "D" : Un utilisateur avec le GAIA \'' . $use['GAIA'] . '\' a déjà été inseré (ligne ' . ($counter + 1) . ')');
+            } elseif (!is_null($userByEmail)) {
+                $this->importException('Erreur type "D" : Un utilisateur avec le mail \'' . $use['EMAIL'] . '\' existe déjà (ligne ' . ($counter + 1) . ')');
+            } elseif (!empty($use['EMAIL']) && in_array($use['EMAIL'], $userData['emails'])) {
+                $this->importException('Erreur type "D" : Un utilisateur avec le mail \'' . $use['EMAIL'] . '\' a déjà été inseré (ligne ' . ($counter + 1) . ')');
+            } elseif (!is_null($userByNni)) {
+                $this->importException('Erreur type "D" : Un utilisateur avec le NNI \'' . $use['NNI'] . '\' existe déjà (ligne ' . ($counter + 1) . ')');
+            } elseif (!empty($use['NNI']) && in_array($use['NNI'], $userData['nnis'])) {
+                $this->importException('Erreur type "D" : Un utilisateur avec le NNI \'' . $use['NNI'] . '\' a déjà été inseré (ligne ' . ($counter + 1) . ')');
+            } elseif (!empty($use['AGENCE']) && is_null($agency)) {
+                $this->importException('Erreur type "I" : L\'agence \'' . $use['AGENCE'] . '\' est introuvable (ligne ' . ($counter + 1) . ')');
+            } elseif (!empty($use['REGION']) && is_null($region)) {
+                $this->importException('Erreur type "I" : La region \'' . $use['REGION'] . '\' est introuvable (ligne ' . ($counter + 1) . ')');
+            } else {
                 $user = new User();
                 if ($userByGaia === null && $userByEmail === null && $userByNni === null || empty($use['AGENCE'])) {
                     $user->setFirstName($use['PRENOM']);
@@ -235,24 +306,50 @@ class ImportCsvService
                     $user->setUsername($use['GAIA']);
                     $user->addRole($use['ROLE']);
                     $use['NNI'] === '' ? $user->setNni(null) : $user->setNni($use['NNI']);
-                    $user->setPhone1($use['TEL1']);
-                    $user->setPhone2($use['TEL2']);
+                    $use['TEL1'] === '' ? $user->setPhone1(null) : $user->setPhone1($use['TEL1']);
+                    $use['TEL2'] === '' ? $user->setPhone2(null) : $user->setPhone2($use['TEL2']);
                     $use['EMAIL'] === '' ? $user->setEmail(null) : $user->setEmail($use['EMAIL']);
                     $use['ENTITE'] === '' ? $user->setEntity(null) : $user->setEntity($use['ENTITE']);
                     $user->setAgency($agency);
                     $user->setRegion($region);
                     $user->setEnabled(true);
                     $this->em->persist($user);
-                    try {
-                        $this->em->flush();
-                        $counterSuccess++;
-                    } catch (\Exception $e) {
-                        echo $e->getMessage();
+
+                    if ($use['EMAIL'] !== '') {
+                        $userData['emails'][] = $use['EMAIL'];
                     }
+                    if ($use['NNI'] !== '') {
+                        $userData['nnis'][] = $use['NNI'];
+                    }
+                    $userData['gaias'][] = $use['GAIA'];
+
+                    $counterSuccess++;
                 }
             }
         }
-        echo "$counterSuccess/$counter users added successfully\n";
+        try {
+            $this->em->flush();
+            $this->em->getConnection()->commit();
+            $this->em->clear();
+        } catch (\Exception $e) {
+            $this->em->getConnection()->rollback();
+            $this->em->close();
+            $this->importException($e->getMessage() . ' - opération annulée');
+            $counterSuccess = 0;
+            echo $e->getMessage();
+        }
+        $report = '----------- Import Terminé. Total : ' . $counter . '. Inserés : ' . $counterSuccess . '. Erreurs : ' . ($counter - $counterSuccess) . ' -----------';
+        echo $report . "\n";
+        $this->logger->info($report);
+    }
+
+    /**
+     * Logs import Exceptions
+     * @param $message
+     */
+    public function importException($message)
+    {
+        $this->logger->error($message);
     }
 
     /**

@@ -4,6 +4,7 @@ imports:
     - { resource: gdi_urls_test.yml }
 
 framework:
+    test: ~
     router:
         resource: "%kernel.root_dir%/config/routing_dev.yml"
         resource: "@AerialShipSamlSPBundle/Resources/config/routing.yml"
