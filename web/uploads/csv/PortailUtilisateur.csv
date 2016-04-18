@@ -1,0 +1,100 @@
+PRENOM,NOM,GAIA,ROLE,NNI,TEL1,TEL2,EMAIL,ENTITE,REGION,AGENCE
+mathis,ANDRE,ZM5017,ROLE_TECHNICIEN,C11374,,,mathis.andre@erdf-grdf.fr,AI,5,AI501
+patrick,ANDRES,OJ1006,ROLE_REFERENT_EQUIPE,A50734,,,patrick.andres@erdf-grdf.fr,AI,5,AI501
+jean louis,BEOLOR,GV1001,ROLE_REFERENT_EQUIPE,A24511,,,jean-louis.beolor@erdf-grdf.fr,AI,5,AI501
+alexandre,BOSSA,MN2159,ROLE_TECHNICIEN,I34175,,,alexandre.bossa@erdf-grdf.fr,AI,5,AI501
+anthony,BOULARD,EZ4115,ROLE_TECHNICIEN,G40573,,,anthony.boulard@erdf-grdf.fr,AI,5,AI501
+vincent,BRUBACH,TV5165,ROLE_TECHNICIEN,,,,vincent.brubach@erdf-grdf.fr,AI,5,AI501
+jean pierre,CAPERAN,PJ1011,ROLE_TECHNICIEN,B44711,,,jean-pierre.caperan@erdf-grdf.fr,AI,5,AI501
+victor,COUIX,JR4110,ROLE_TECHNICIEN,A40673,,,victor.couix@erdf-grdf.fr,AI,5,AI501
+damien,CUCIS,KN5032,ROLE_TECHNICIEN,J62574,,,damien.cucis@erdf-grdf.fr,AI,5,AI501
+jean,DALMASSO,BG1037,ROLE_TECHNICIEN,C74111,,,jean.dalmasso@erdf-grdf.fr,AI,5,AI501
+arnaud,DESHAIES,DK5018,ROLE_TECHNICIEN,J28973,,,arnaud.deshaies@erdf-grdf.fr,AI,5,AI501
+alexandra,ESTEVES,JG5048,ROLE_TECHNICIEN,C34474,,,alexandra.esteves@erdf-grdf.fr,AI,5,AI501
+sylvain,FARAUT,FQ1082,ROLE_REFERENT_EQUIPE,H44043,,,sylvain.faraut@erdf-grdf.fr,AI,5,AI501
+jean louis,FARCHETTO,BR1020,ROLE_REFERENT_EQUIPE,B84911,,,jean-louis.farchetto@erdf-grdf.fr,AI,5,AI501
+philippe,FOURN,TS1061,ROLE_REFERENT_EQUIPE,G11003,,,philippe.fourn@erdf-grdf.fr,AI,5,AI501
+gerard,GIUGE,PG1041,ROLE_REFERENT_EQUIPE,E15111,,,gerard.giuge@erdf-grdf.fr,AI,5,AI501
+carmel,GULLI,VJ1053,ROLE_TECHNICIEN,F25011,,,carmel.gulli@erdf-grdf.fr,AI,5,AI501
+victoria,HUBERT,XZ5227,ROLE_REFERENT_EQUIPE,H98175,,,victoria.hubert@erdf-grdf.fr,AI,5,AI501
+pascal,LANTERI,VO1059,ROLE_TECHNICIEN,F25911,,,pascal.lanteri@erdf-grdf.fr,AI,5,AI501
+ludovic,LAVILETTI,BZ1270,ROLE_TECHNICIEN,F57972,,,ludovic.laviletti@erdf-grdf.fr,AI,5,AI501
+cedric,LESPERT,CO1036,ROLE_REFERENT_EQUIPE,C78239,,,cedric.lespert@erdf-grdf.fr,AI,5,AI501
+christian,LUXI,UZ1037,ROLE_TECHNICIEN,D45011,,,christian.luxi@erdf-grdf.fr,AI,5,AI501
+frederic,MASTAIN,BD1025,ROLE_TECHNICIEN,B83153,,,frederic.mastain@erdf-grdf.fr,AI,5,AI501
+andre,MAUGNIE,GZ1009,ROLE_TECHNICIEN,A25222,,,andre.maugnie@erdf-grdf.fr,AI,5,AI501
+alain,MOISSET,NO1055,ROLE_REFERENT_EQUIPE,E97102,,,alain.moisset@erdf-grdf.fr,AI,5,AI501
+franck,NGAN NLEND,JI1257,ROLE_TECHNICIEN,E71772,,,franck.ngan-nlend@erdf-grdf.fr,AI,5,AI501
+guillaume,SANDRAS,JQ1034,ROLE_TECHNICIEN,E45175,,,guillaume.sandras@erdf-grdf.fr,AI,5,AI501
+luis alberto,TEIXEIRA COUTINHO,NK5267,ROLE_TECHNICIEN,F56876,,,teixeira-coutinho.luis-alberto@erdf-grdf.fr,AI,5,AI501
+benoit,TOUPENAS,HJ5015,ROLE_REFERENT_EQUIPE,D40574,,,benoit.toupenas@erdf-grdf.fr,AI,5,AI501
+yohann,VERBECKE,BB5157,ROLE_TECHNICIEN,A63575,,,yohann.verbecke@erdf-grdf.fr,AI,5,AI501
+jessy,BART,QZ5272,ROLE_TECHNICIEN,C13676,,,jessy.bart@erdf-grdf.fr,AI,5,AI501
+klervi,BLEAS,JK5047,ROLE_TECHNICIEN,B83274,,,klervi.bleas@erdf-grdf.fr,AI,5,AI501
+jonathan,CHANOINE,SR5343,ROLE_TECHNICIEN,H48076,,,jonathan.chanoine@erdf-grdf.fr,AI,5,AI501
+eric,COLOMB,RC1054,ROLE_TECHNICIEN,F09921,,,eric.colomb@erdf-grdf.fr,AI,5,AI501
+jean marie,GONZALES GABAN,XM1078,ROLE_TECHNICIEN,H15311,,,jean-marie.gonzalez@erdf-grdf.fr,AI,5,AI501
+joseph,GENES,EL1016,ROLE_TECHNICIEN,B05311,,,joseph.genes@erdf-grdf.Fr,AI,5,AI501
+bryan,HUEBER,HM5275,ROLE_TECHNICIEN,I03376,,,bryan.hueber@erdf-grdf.fr,AI,5,AI501
+mathieu,MEDJIAN,MG1115,ROLE_TECHNICIEN,B25073,,,mathieu.medjian@erdf-grdf.fr,AI,5,AI501
+nicolas,MUSY,,ROLE_TECHNICIEN,D39576,,,nicolas.musy@erdf-grdf.fr,AI,5,AI501
+etienne,ROUSSEAU,JR4125,ROLE_TECHNICIEN,F94473,,,etienne.rousseau@erdf-grdf.fr,AI,5,AI501
+jean marie,ROUX,YB1080,ROLE_TECHNICIEN,I06611,,,jean-marie.roux@erdf-grdf.fr,AI,5,AI501
+clement,ROUX,DT5215,ROLE_TECHNICIEN,I58775,,,clement.roux@erdf-grdf.fr,AI,5,AI501
+jeannis,TELOMBILA,JF5069,ROLE_TECHNICIEN,D76174,,,jeannis.telombila-diakabana@erdf-grdf.fr,AI,5,AI501
+jean,VALERO-RUIZ,BP1046,ROLE_TECHNICIEN,D67054,,,jean.valero@erdf-grdf.fr,AI,5,AI501
+sebastien,LESAGE,ZS1010,ROLE_MANAGER_ATG,B78039,,,sebastien.lesage@erdf-grdf.fr,AI,5,AI501
+olivier,TARIELLO,WX1140,ROLE_MANAGER_ATG,D06656,,,olivier.tariello@erdf-grdf.fr,AI,5,AI501
+driss,HALAL,QO1015,ROLE_MANAGER_ATG,B47954,,,driss.halal@erdf-grdf.fr,AI,5,AI501
+daniel,YACOUB,QY1224,ROLE_MANAGER_ATG,C89247,,,daniel.yacoub@erdf-grdf.fr,AI,5,AI501
+arnaud,ESPINOSA,QC1131,ROLE_MANAGER_ATG,E77055,,,arnaud.espinosa@erdf-grdf.fr,AI,5,AI501
+martine,RIDAO,GQ5283,ROLE_ADMINISTRATEUR_LOCAL,H10412,,,martine.ridao@erdf-grdf.fr,APPI,5,AI501
+max,BORGHESE,OG1047,ROLE_ADMINISTRATEUR_LOCAL,E11329,,,max.borghese@erdf-grdf.fr,APPI,5,AI501
+francois,BERNES,GZ1149,ROLE_ADMINISTRATEUR_LOCAL,F00156,,,francois.bernes@erdf-grdf.fr,APPI,5,AI501
+brigitte,DARMONT,TD1099,ROLE_PROGRAMMATEUR_AVANCE,I79211,,,brigitte.darmont@erdf-grdf.fr,APPI,5,AI501
+christine,DONATO,XK5195,ROLE_PROGRAMMATEUR_AVANCE,B84011,,,christine.donato@erdf-grdf.fr,APPI,5,AI501
+sara,DESEYNE,KH5371,ROLE_PROGRAMMATEUR_AVANCE,H60877,,,sara.deseyne@erdf-grdf.fr,APPI,5,AI501
+Karine,Abela,VG5059,ROLE_ADMINISTRATEUR_SI,,,,karine.abela@external.grdf.fr,APPI,,
+Samuel,Aminou,DL5214,ROLE_ADMINISTRATEUR_SI,,,,samuel.aminou@external.grdf.fr,APPI,,
+Harry,Balin,TV5363,ROLE_ADMINISTRATEUR_SI,,,,harry.balin@external.grdf.fr,APPI,,
+Emmanuel,Ballereau,KN1218,ROLE_ADMINISTRATEUR_SI,,,,emmanuel.ballereau@external.grdf.fr,APPI,,
+Michael,Benaim,VB5311,ROLE_ADMINISTRATEUR_SI,,,,michael.benaim@external.grdf.fr,APPI,,
+Abdeslam,Benakli,FFD043,ROLE_ADMINISTRATEUR_SI,,,,abdeslam.benakli@grdf.fr,APPI,,
+Mohammed,Benzekri,WM5235,ROLE_ADMINISTRATEUR_SI,,,,mohammed.benzekri@external.grdf.fr,APPI,,
+Raphael,Besse,JB5309,ROLE_ADMINISTRATEUR_SI,,,,raphael.besse@external.grdf.fr,APPI,,
+Franck,Biet,WL1015,ROLE_ADMINISTRATEUR_SI,,,,franck.biet@grdf.fr,APPI,,
+Guillaume,Biron,ZS5146,ROLE_ADMINISTRATEUR_SI,,,,guillaume.biron@grdf.fr,APPI,,
+Jérôme,Blanchard,JX1125,ROLE_ADMINISTRATEUR_SI,,,,jerome.blanchard@grdf.fr,APPI,,
+Alexis,Bougeois,IN4116,ROLE_ADMINISTRATEUR_SI,,,,alexis.bougeois@grdf.fr,APPI,,
+Mohammed,Boulalam,BL5304,ROLE_ADMINISTRATEUR_SI,,,,mohammed.boulalam@external.grdf.fr,APPI,,
+Matthieu,cellerier,JC5301,ROLE_ADMINISTRATEUR_SI,,,,matthieu.cellerier@external.grdf.fr,APPI,,
+Hanane,Charef,RX5360,ROLE_ADMINISTRATEUR_SI,,,,hanane.charef@external.grdf.fr,APPI,,
+Claire,David,WD5080,ROLE_ADMINISTRATEUR_SI,,,,claire.david@external.grdf.fr,APPI,,
+Fatme,El Bsat,MK5262,ROLE_ADMINISTRATEUR_SI,,,,fatme.elbsat@external.grdf.fr,APPI,,
+Houssem,Gherissi,BB5241,ROLE_ADMINISTRATEUR_SI,,,,houssem.gherissi@external.grdf.fr,APPI,,
+Gildas,Gouelleu,GH5365,ROLE_ADMINISTRATEUR_SI,,,,gildas.gouelleu@external.grdf.fr,APPI,,
+Babacar,Gueye,RJ5340,ROLE_ADMINISTRATEUR_SI,,,,babacar.gueye@external.grdf.fr,APPI,,
+Hervin,Vanessa,PO1138,ROLE_ADMINISTRATEUR_SI,,,,vanessa.hervin@grdf.fr,APPI,,
+Zdravko,Ivanovic,NR5125,ROLE_ADMINISTRATEUR_SI,,,,zdravko.ivanovic@external.grdf.fr,APPI,,
+Jérôme,Joffre,HFH438,ROLE_ADMINISTRATEUR_SI,,,,jerome.joffre@grdf.fr,APPI,,
+Imene,Khouildi,KB5260,ROLE_ADMINISTRATEUR_SI,,,,imene.khouildi@external.grdf.fr,APPI,,
+Marielle,Langlois,JF1144,ROLE_ADMINISTRATEUR_SI,,,,marielle.langlois@grdf.fr,APPI,,
+Marilyn,Le Touze,BM5265,ROLE_ADMINISTRATEUR_SI,,,,marilyn.letouze@external.grdf.fr,APPI,,
+Chloe,Mechaly,JD1209,ROLE_ADMINISTRATEUR_SI,,,,chloe.mechaly@grdf.fr,APPI,,
+Usman,Mohammadghazanfar,AT4242,ROLE_ADMINISTRATEUR_SI,,,,usman.mohammadghazanfar@external.grdf.fr,APPI,,
+Tanguy,Montfollet,OW2027,ROLE_ADMINISTRATEUR_SI,,,,tanguy.montfollet@grdf.fr,APPI,,
+Malick,Ndiaye,PM5365,ROLE_ADMINISTRATEUR_SI,,,,malick.ndiaye@external.grdf.fr,APPI,,
+Vincent,Nicopolsky,JR5279,ROLE_ADMINISTRATEUR_SI,,,,vincent.nicopolsky@external.grdf.fr,APPI,,
+Didier,Piter,XR5304,ROLE_ADMINISTRATEUR_SI,,,,didier.piter@external.grdf.fr,APPI,,
+Jean-Emmanuel,Priston,JQ5308,ROLE_ADMINISTRATEUR_SI,,,,jean-Emmanuel.priston@external.grdf.fr,APPI,,
+Gaetan,Racine,VG5058,ROLE_ADMINISTRATEUR_SI,,,,gaetan.racine@external.grdf.fr,APPI,,
+Antoine,Radiguet,MK5261,ROLE_ADMINISTRATEUR_SI,,,,antoine.radiguet@external.grdf.fr,APPI,,
+Elkhaoui,rafik,MK5261,ROLE_ADMINISTRATEUR_SI,,,,Elkhaoui.rafik@external.grdf.fr,APPI,,
+Noureddine,Saifi,GD5365,ROLE_ADMINISTRATEUR_SI,,,,noureddine.saifi@external.grdf.fr,APPI,,
+Raza,Siddiqi,GV5276,ROLE_ADMINISTRATEUR_SI,,,,raza.siddiqi@external.grdf.fr,APPI,,
+Sadek,Smaili,RX1042,ROLE_ADMINISTRATEUR_SI,,,,sadek.smaili@grdf.fr,APPI,,
+Fabrice,Stelitano,GH5364,ROLE_ADMINISTRATEUR_SI,,,,fabrice.stelitano@external.grdf.fr,APPI,,
+Franck,Sun,XJ5089,ROLE_ADMINISTRATEUR_SI,,,,franck.sun@external.grdf.fr,APPI,,
+Sophie,Tirlot,JM1166,ROLE_ADMINISTRATEUR_SI,,,,sophie.tirlot@grdf.fr,APPI,,
+Julien,Torra,MZ5256,ROLE_ADMINISTRATEUR_SI,,,,julien.torra@external.grdf.fr,APPI,,
+Sébastien,Verger,JS5196,ROLE_ADMINISTRATEUR_SI,,,,sebastien.verger@external.grdf.fr,APPI,,
