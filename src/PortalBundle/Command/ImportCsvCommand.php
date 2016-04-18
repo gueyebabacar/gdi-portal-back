@@ -15,10 +15,10 @@ class ImportCsvCommand extends ContainerAwareCommand
     protected function configure()
     {
         $this
-            ->setName('csv:import')
+            ->setName('portal:import')
             ->setDescription('This will import csv file content into database')
             ->setDefinition(array(
-                new InputArgument('type', InputArgument::REQUIRED, "['user','region','agence']"),
+                new InputArgument('type', InputArgument::REQUIRED, "['users','regions','agencies']"),
                 new InputArgument('filepath', InputArgument::OPTIONAL, 'The path of the csv file'),
             ));
     }
@@ -28,7 +28,7 @@ class ImportCsvCommand extends ContainerAwareCommand
         /** @var ImportCsvService $importCsvService */
         $importCsvService = $this->getContainer()->get('service.csv_import');
         $filepath = $input->getArgument('filepath');
-        $entityName = $input->getArgument('entity');
+        $entityName = $input->getArgument('type');
 
         if ($filepath !== null && !is_file($filepath)) {
             throw new \Exception("File not found : '" . $filepath . "'!");
