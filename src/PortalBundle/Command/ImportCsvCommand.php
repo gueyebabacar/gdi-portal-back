@@ -15,11 +15,11 @@ class ImportCsvCommand extends ContainerAwareCommand
     protected function configure()
     {
         $this
-            ->setName('csv:import')
-            ->setDescription('This will import csv file content into database')
+            ->setName('portal:import')
+            ->setDescription('Import des données de Portail GDI')
             ->setDefinition(array(
-                new InputArgument('type', InputArgument::REQUIRED, "['user','region','agence']"),
-                new InputArgument('filepath', InputArgument::OPTIONAL, 'The path of the csv file'),
+                new InputArgument('type', InputArgument::REQUIRED, "['user','regions','agencies']"),
+                new InputArgument('filepath', InputArgument::OPTIONAL, 'Chemin vers le fichier de données'),
             ));
     }
 
@@ -28,16 +28,16 @@ class ImportCsvCommand extends ContainerAwareCommand
         /** @var ImportCsvService $importCsvService */
         $importCsvService = $this->getContainer()->get('service.csv_import');
         $filepath = $input->getArgument('filepath');
-        $entityName = $input->getArgument('entity');
+        $type = $input->getArgument('type');
 
         if ($filepath !== null && !is_file($filepath)) {
             throw new \Exception("File not found : '" . $filepath . "'!");
         }
 
         $output->writeln('Start');
-        $output->writeln("Importing '" . $entityName . "' ...");
+        $output->writeln("Importing '" . $type . "' ...");
 
-        switch ($entityName) {
+        switch ($type) {
             case 'users':
                 $importCsvService->importCsvUsers($filepath);
                 break;
@@ -47,6 +47,8 @@ class ImportCsvCommand extends ContainerAwareCommand
             case 'agencies':
                 $importCsvService->importCsvAgencies($filepath);
                 break;
+            default :
+                throw new \Exception("Unknown import type '" . $type . "'!");
         }
         $output->writeln('End');
     }
