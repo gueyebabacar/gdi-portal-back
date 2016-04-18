@@ -37,7 +37,7 @@ jean marie,GONZALES GABAN,XM1078,ROLE_TECHNICIEN,H15311,,,jean-marie.gonzalez@er
 joseph,GENES,EL1016,ROLE_TECHNICIEN,B05311,,,joseph.genes@erdf-grdf.Fr,AI,5,AI501
 bryan,HUEBER,HM5275,ROLE_TECHNICIEN,I03376,,,bryan.hueber@erdf-grdf.fr,AI,5,AI501
 mathieu,MEDJIAN,MG1115,ROLE_TECHNICIEN,B25073,,,mathieu.medjian@erdf-grdf.fr,AI,5,AI501
-nicolas,MUSY,,ROLE_TECHNICIEN,D39576,,,nicolas.musy@erdf-grdf.fr,AI,5,AI501
+nicolas,MUSY,MUSY00,ROLE_TECHNICIEN,D39576,,,nicolas.musy@erdf-grdf.fr,AI,5,AI501
 etienne,ROUSSEAU,JR4125,ROLE_TECHNICIEN,F94473,,,etienne.rousseau@erdf-grdf.fr,AI,5,AI501
 jean marie,ROUX,YB1080,ROLE_TECHNICIEN,I06611,,,jean-marie.roux@erdf-grdf.fr,AI,5,AI501
 clement,ROUX,DT5215,ROLE_TECHNICIEN,I58775,,,clement.roux@erdf-grdf.fr,AI,5,AI501
@@ -89,7 +89,7 @@ Didier,Piter,XR5304,ROLE_ADMINISTRATEUR_SI,,,,didier.piter@external.grdf.fr,APPI
 Jean-Emmanuel,Priston,JQ5308,ROLE_ADMINISTRATEUR_SI,,,,jean-Emmanuel.priston@external.grdf.fr,APPI,,
 Gaetan,Racine,VG5058,ROLE_ADMINISTRATEUR_SI,,,,gaetan.racine@external.grdf.fr,APPI,,
 Antoine,Radiguet,MK5261,ROLE_ADMINISTRATEUR_SI,,,,antoine.radiguet@external.grdf.fr,APPI,,
-Elkhaoui,rafik,MK5261,ROLE_ADMINISTRATEUR_SI,,,,Elkhaoui.rafik@external.grdf.fr,APPI,,
+Elkhaoui,rafik,EU2073,ROLE_ADMINISTRATEUR_SI,,,,elkhaoui.rafik@external.grdf.fr,APPI,,
 Noureddine,Saifi,GD5365,ROLE_ADMINISTRATEUR_SI,,,,noureddine.saifi@external.grdf.fr,APPI,,
 Raza,Siddiqi,GV5276,ROLE_ADMINISTRATEUR_SI,,,,raza.siddiqi@external.grdf.fr,APPI,,
 Sadek,Smaili,RX1042,ROLE_ADMINISTRATEUR_SI,,,,sadek.smaili@grdf.fr,APPI,,
