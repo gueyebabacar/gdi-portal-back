@@ -107,14 +107,14 @@ class UserController extends FOSRestController
     }
 
     /**
-     * Displays a form to edit the rights of an existing User (recette ONLY).
+     * Displays a form to edit the rights of an existing User (Disabled in prod env).
      * @Rest\Patch("/users/{userId}/rights")
      *
      * @Rest\View
      * @ApiDoc(
      *      section = "User",
      *      resource = true,
-     *      description = "Editer le role et le contexte d'un user (recette ONLY)",
+     *      description = "Editer le role et le contexte d'un user (Disabled in prod env)",
      *      parameters={
      *          {"name"="userId", "dataType"="Integer", "required"=true, "description"="Id User"},
      *      }
@@ -125,7 +125,7 @@ class UserController extends FOSRestController
      */
     public function updateRightsAction(Request $request, $userId)
     {
-        if ($this->container->get('kernel')->getEnvironment() !== 'prof') {
+        if ($this->container->get('kernel')->getEnvironment() !== 'prod') {
             return $this->userService->updateRights($request, $userId);
         } else {
             throw new \Symfony\Component\Security\Core\Exception\AccessDeniedException(
