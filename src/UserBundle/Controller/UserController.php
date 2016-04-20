@@ -3,8 +3,12 @@
 namespace UserBundle\Controller;
 
 use FOS\RestBundle\Controller\Annotations\RouteResource;
+use FOS\RestBundle\Controller\FOSRestController;
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
+use Symfony\Component\Config\Definition\Exception\Exception;
+use Symfony\Component\Finder\Exception\AccessDeniedException;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use UserBundle\Entity\User;
 use UserBundle\Service\UserService;
 use Symfony\Component\HttpFoundation\Request;
@@ -15,7 +19,7 @@ use FOS\RestBundle\Controller\Annotations as Rest;
  * User controller
  * @RouteResource("User")
  */
-class UserController
+class UserController extends FOSRestController
 {
 
     /**
@@ -121,7 +125,13 @@ class UserController
      */
     public function updateRightsAction(Request $request, $userId)
     {
-        return $this->userService->updateRights($request, $userId);
+        if ($this->container->get('kernel')->getEnvironment() !== 'prof') {
+            return $this->userService->updateRights($request, $userId);
+        } else {
+            throw new \Symfony\Component\Security\Core\Exception\AccessDeniedException(
+                'This is not available on prod environment'
+            );
+        }
     }
 
     /**
