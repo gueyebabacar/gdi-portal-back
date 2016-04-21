@@ -34,12 +34,18 @@ class ConstraintUniqueNullableValidator extends ConstraintValidator
             throw new \Exception("Ce n'est pas un utilisateur");
         }
         $user = $value;
-        if($user->getNni() !== null && $this->em->getRepository('UserBundle:User')->findOneByNni($user->getNni()) !== $user){
+        if($user->getNni() !== null &&
+            $this->em->getRepository('UserBundle:User')->findOneByNni($user->getNni()) !== $user &&
+            $this->em->getRepository('UserBundle:User')->findOneByNni($user->getNni()) !== null
+        ){
             $this->context->buildViolation("Le NNI %nni% est déjà attribué à un utilisateur")
                 ->setParameter('%nni%', $user->getNni())
                 ->addViolation();
         }
-        if($user->getEmail() !== null && $this->em->getRepository('UserBundle:User')->findOneByEmail($user->getEmail()) !== $user){
+        if($user->getEmail() !== null &&
+            $this->em->getRepository('UserBundle:User')->findOneByEmail($user->getEmail()) !== $user &&
+            $this->em->getRepository('UserBundle:User')->findOneByEmail($user->getEmail()) !== null
+        ){
             $this->context->buildViolation("L'email %email% est déjà attribué à un utilisateur")
                 ->setParameter('%email%', $user->getEmail())
                 ->addViolation();

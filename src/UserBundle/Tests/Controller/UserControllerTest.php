@@ -48,16 +48,16 @@ class UserControllerTest extends BaseWebTestCase
     {
         $this->insertUser();
 
-        $transcoDestTerrSite = $this->em->getRepository('UserBundle:User')->findAll()[0];
+        $user = $this->em->getRepository('UserBundle:User')->findAll()[0];
         $this->client->request(
             'GET',
-            "/portal/users/" . $transcoDestTerrSite->getId(),
+            "/portal/users/" . $user->getId(),
             [],
             [],
             $this->headers
         );
         $response = json_decode($this->client->getResponse()->getContent(), true);
-        $this->assertEquals($transcoDestTerrSite->getId(), $response['id']);
+        $this->assertEquals($user->getId(), $response['id']);
     }
 
     /**
@@ -161,7 +161,7 @@ class UserControllerTest extends BaseWebTestCase
         $this->client->request(
             'GET',
             "/portal/profiles",
-            [],
+            ['firstname' => 'newFirstName'],
             [],
             $this->headers
         );

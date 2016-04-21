@@ -12,6 +12,8 @@ imports:
 #        metadata_cache_driver: apc
 #        result_cache_driver: apc
 #        query_cache_driver: apc
+framework:
+    test: ~
 
 monolog:
     handlers:
@@ -25,3 +27,23 @@ monolog:
             level: debug
         console:
             type:  console
+
+security:
+    firewalls:
+        unsecured_area:
+            pattern: ^/(_(profiler|wdt)|css|images|js|doc|portal/profiles)
+            security: false
+
+        secured_area:
+            pattern: ^/
+            stateless: true
+            simple_preauth:
+                authenticator: portal_authenticator
+            provider: fos_userbundle
+
+        dev:
+            pattern: ^/(_(profiler|wdt)|css|images|js|doc)/
+            security: false
+
+        main:
+            anonymous: ~
