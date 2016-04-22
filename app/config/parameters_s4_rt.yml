@@ -1,0 +1,6 @@
+# This file is auto-generated during the composer install
+parameters:
+    database_host: 127.0.0.1
+    database_name: portal_integration
+    database_user: portal
+    database_password: T;p3gc43C

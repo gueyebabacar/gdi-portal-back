@@ -1,0 +1,69 @@
+imports:
+    - { resource: config.yml }
+    - { resource: parameters_s4_rt.yml }
+    - { resource: gdi_urls_s4_rt.yml }
+
+framework:
+    router:
+        resource: "%kernel.root_dir%/config/routing_s4_rt.yml"
+        strict_requirements: true
+    profiler:
+        enabled: false
+
+monolog:
+    handlers:
+        main:
+            type:   stream
+            path:   "%kernel.logs_dir%/%kernel.environment%.log"
+            level:  debug
+        console:
+            type:   console
+            bubble: false
+            verbosity_levels:
+                VERBOSITY_VERBOSE: INFO
+                VERBOSITY_VERY_VERBOSE: DEBUG
+            channels: ["!doctrine"]
+        console_very_verbose:
+            type:   console
+            bubble: false
+            verbosity_levels:
+                VERBOSITY_VERBOSE: NOTICE
+                VERBOSITY_VERY_VERBOSE: NOTICE
+                VERBOSITY_DEBUG: DEBUG
+            channels: ["doctrine"]
+        # uncomment to get logging in your browser
+        # you may have to allow bigger header sizes in your Web server configuration
+        #firephp:
+        #    type:   firephp
+        #    level:  info
+        #chromephp:
+        #    type:   chromephp
+        #    level:  info
+security:
+    firewalls:
+        dev:
+            pattern: ^/(_(profiler|wdt)|css|images|js)
+            security: false
+        saml:
+            pattern: ^/
+            aerial_ship_saml_sp:
+                local_logout_path: /logout
+                default_target_path: /
+                create_user_if_not_exists: false
+                provider: fos_userbundle
+                services:
+                    saml:
+                        idp:
+                            file: "@UserBundle/Resources/FedId/dev/GIDPD_FederationMetaData_20151028.xml"
+                        sp:
+                            config:
+                                base_url: https://r2-gdi.grdf.fr/api
+                                entity_id: https://r2-gdi.grdf.fr/api
+                            meta:
+                                binding:
+                                    authn_request: post
+            logout:
+                path: /logout
+        main:
+            anonymous: ~
+
