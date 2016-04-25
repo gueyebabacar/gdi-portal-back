@@ -179,8 +179,7 @@ class ProxyGdiiController extends FOSRestController
 
         if ($user !== null) {
             $data = $this->curlService->sendRequest($url, $parameters);
-
-            return new Response($data['contents']);
+            return new Response($data['contents'], $data['code']);
         } else {
             return null;
         }
