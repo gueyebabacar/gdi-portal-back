@@ -5,7 +5,6 @@ namespace PortalBundle\Service;
 use GuzzleHttp\Exception\RequestException;
 use JMS\DiExtraBundle\Annotation as DI;
 use Symfony\Component\DependencyInjection\ContainerInterface;
-use Symfony\Component\HttpFoundation\Request;
 use GuzzleHttp\Client;
 use GuzzleHttp\Psr7\Request as CurlRequest;
 
@@ -59,12 +58,9 @@ class CurlService
         try {
             $response = $client->send($this->request($url, $parameters));
 
-            return array('headers' => $response->getHeaders(), 'contents' => $response->getBody()->getContents());
+            return array('headers' => $response->getHeaders(), 'contents' => $response->getBody()->getContents(), 'code' => $response->getStatusCode());
         } catch (RequestException $e) {
-            $error['code'] = $e->getCode();
-            $error['message'] = $e->getMessage();
-
-            return array('headers' => null, 'contents' => json_encode($error));
+            return array('headers' => null, 'contents' => json_encode($e->getMessage()), 'code' => $e->getCode());
         }
     }
 
