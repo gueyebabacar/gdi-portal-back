@@ -90,26 +90,11 @@ nelmio_api_doc:
 monolog:
     channels: ["import"]
     handlers:
-        applog:
-            type: stream
-            path: '%kernel.logs_dir%/application.log'
-            level: info
-        console:
-            type:   console
-            verbosity_levels:
-                VERBOSITY_DEBUG: NOTICE
-        main:
-            type:  rotating_file
-            handler: file
-            max_files: 100
-        file:
-            type: stream
-            level: info
         import:
             type: rotating_file
-            path: '%kernel.logs_dir%/import_%kernel.environment%.log'
+            path: "%kernel.logs_dir%/imports_%kernel.environment%.log"
             channels: import
-
+            
 fos_user:
     db_driver: orm
     firewall_name: main
