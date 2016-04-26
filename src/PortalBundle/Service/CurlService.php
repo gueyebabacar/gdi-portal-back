@@ -57,10 +57,14 @@ class CurlService
         $client = new Client();
         try {
             $response = $client->send($this->request($url, $parameters));
-
-            return array('headers' => $response->getHeaders(), 'contents' => $response->getBody()->getContents(), 'code' => $response->getStatusCode());
+            return array(
+                'headers' => $response->getHeaders(),
+                'contents' => $response->getBody()->getContents(),
+                'code' => $response->getStatusCode()
+            );
         } catch (RequestException $e) {
-            return array('headers' => null, 'contents' => json_encode($e->getMessage()), 'code' => $e->getCode());
+            $response = $e->getResponse();
+            return ['contents' => $response->getBody()->getContents(), 'code' => $e->getCode()];
         }
     }
 
