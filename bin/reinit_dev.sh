@@ -15,8 +15,8 @@ php app/console doctrine:schema:create -e dev
 php app/console cache:clear -e dev
 php app/console assets:install web --symlink -e dev
 
-php app/console portal:import regions  -e dev
-php app/console portal:import agencies  -e dev
-php app/console portal:import users  -e dev
+php app/console portal:import regions web/uploads/csvForDev/Portail_Region.v3.csv -e dev
+php app/console portal:import agencies web/uploads/csvForDev/Portail_Agence.v3.csv -e dev
+php app/console portal:import users web/uploads/csvForDev/Portail_utilisateurs.csv -e dev
 
 echo "--- Fin reinit ---"
