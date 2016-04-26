@@ -53,6 +53,7 @@ class CurlService
      */
     public function sendRequest($url, $parameters)
     {
+        $response = null;
         $this->method = $this->container->get('request')->getMethod();
         $client = new Client();
         try {
@@ -63,8 +64,10 @@ class CurlService
                 'code' => $response->getStatusCode()
             );
         } catch (RequestException $e) {
-            $response = $e->getResponse();
-            return ['contents' => $response->getBody()->getContents(), 'code' => $e->getCode()];
+            if($e->getResponse() != null){
+                $response = $e->getResponse()->getBody()->getContents();
+            }
+            return ['contents' => $response, 'code' => $e->getCode()];
         }
     }
 
