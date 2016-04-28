@@ -48,7 +48,7 @@ class UserController extends FOSRestController
     /**
      * Creates a new User entity.
      * @Rest\Post("/users")
-     *
+     * @Security("has_role('ROLE_ADMINISTRATEUR_LOCAL')")
      * @Rest\View
      * @ApiDoc(
      *      section = "User",
@@ -87,7 +87,7 @@ class UserController extends FOSRestController
     /**
      * Displays a form to edit an existing User entity.
      * @Rest\Patch("/users/{userId}")
-     *
+     * @Security("has_role('ROLE_ADMINISTRATEUR_LOCAL')")
      * @Rest\View
      * @ApiDoc(
      *      section = "User",
@@ -137,7 +137,7 @@ class UserController extends FOSRestController
     /**
      * Deletes a User entity.
      * @Rest\Delete("/users/{userId}")
-     *
+     * @Security("has_role('ROLE_ADMINISTRATEUR_LOCAL')")
      * @Rest\View
      * @ApiDoc(
      *      section = "User",
