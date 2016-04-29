@@ -3,7 +3,7 @@ parameters:
     database_host: mysql-portal
 #    database_host: 127.0.0.1
     database_port: null
-    database_name: portal_dev_test
+    database_name: portal_test
     database_user: root
     database_password: c4rm4r00t
     mailer_transport: smtp
