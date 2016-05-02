@@ -259,7 +259,6 @@ class ImportCsvService
         } else {
             $csv_file = $this->getPath("PortailUtilisateur.csv"); // Name of your CSV file
         }
-
         $counter = 0;
         $counterSuccess = 0;
         $userByGaia = null;
@@ -347,7 +346,7 @@ class ImportCsvService
      * Logs import Exceptions
      * @param $message
      */
-    public function importException($message)
+    private function importException($message)
     {
         $this->logger->error($message);
     }
