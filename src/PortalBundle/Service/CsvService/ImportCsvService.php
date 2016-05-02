@@ -259,7 +259,6 @@ class ImportCsvService
         } else {
             $csv_file = $this->getPath("PortailUtilisateur.csv"); // Name of your CSV file
         }
-
         $counter = 0;
         $counterSuccess = 0;
         $userByGaia = null;
@@ -270,13 +269,13 @@ class ImportCsvService
             $counter++;
             $agency = $this->agencyRepo->findOneBy(['code' => $use['AGENCE']]);
             $region = $this->regionRepo->findOneBy(['code' => $use['REGION']]);
-            $userByGaia = $this->userRepo->findOneBy(['username' => $use['GAIA']]);
+            $userByGaia = $this->userRepo->findOneByUsername($use['GAIA']);
 
             if (!empty($use['EMAIL'])) {
-                $userByEmail = $this->userRepo->findOneBy(['email' => $use['EMAIL']]);
+                $userByEmail = $this->userRepo->findOneByEmail($use['EMAIL']);
             }
             if (!empty($use['NNI'])) {
-                $userByNni = $this->userRepo->findOneBy(['nni' => $use['NNI']]);
+                $userByNni = $this->userRepo->findOneByNni($use['NNI']);
             }
 
             if (!is_null($userByGaia)) {
@@ -347,7 +346,7 @@ class ImportCsvService
      * Logs import Exceptions
      * @param $message
      */
-    public function importException($message)
+    private function importException($message)
     {
         $this->logger->error($message);
     }

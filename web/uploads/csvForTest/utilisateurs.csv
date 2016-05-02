@@ -2,5 +2,5 @@ PRENOM,NOM,GAIA,ROLE,NNI,TEL1,TEL2,EMAIL,ENTITE,REGION,AGENCE
 Marilyn,Le Touze,BM5265,ROLE_ADMINISTRATEUR_SI,NNI0042,,,marilyn.letouze@external.grdf.fr,AI,,
 Thomas,Garaux,AB5265,ROLE_ADMINISTRATEUR_SI,NNI0052,,,thomas.garaux@external.grdf.fr,AI,,
 Alexandre,Martinez,CB5266,ROLE_ADMINISTRATEUR_NATIONAL,NNI0860,,,admin.national@external.grdf.fr,AI,,
-Marielle,Dupont,CD5266,ROLE_ADMINISTRATEUR_LOCAL,NNI0060,,,admin.locale@external.grdf.fr,AI,3,
-Julie,Star,CD5866,ROLE_ADMINISTRATEUR_LOCAL,NNI0064,,,admin.local@external.grdf.fr,AI,3,V73BE
+Marielle,Dupont,CD5267,ROLE_ADMINISTRATEUR_LOCAL,NNI0060,,,admin.local1@external.grdf.fr,AI,3,
+Julie,Star,CD5866,ROLE_ADMINISTRATEUR_LOCAL,NNI0064,,,admin.local2@external.grdf.fr,AI,3,V73BE
