@@ -269,13 +269,13 @@ class ImportCsvService
             $counter++;
             $agency = $this->agencyRepo->findOneBy(['code' => $use['AGENCE']]);
             $region = $this->regionRepo->findOneBy(['code' => $use['REGION']]);
-            $userByGaia = $this->userRepo->findOneByUsername($use['GAIA']);
+            $userByGaia = $this->userRepo->findOneBy(['username' => $use['GAIA']]);
 
             if (!empty($use['EMAIL'])) {
-                $userByEmail = $this->userRepo->findOneByEmail($use['EMAIL']);
+                $userByEmail = $this->userRepo->findOneBy(['email' => $use['EMAIL']]);
             }
             if (!empty($use['NNI'])) {
-                $userByNni = $this->userRepo->findOneByNni($use['NNI']);
+                $userByNni = $this->userRepo->findOneBy(['nni' => $use['NNI']]);
             }
 
             if (!is_null($userByGaia)) {

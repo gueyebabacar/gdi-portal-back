@@ -257,7 +257,6 @@ class ImportServiceTest extends BaseWebTestCase
     /**
      * @test
      * @group importService
-     * @group coucou
      */
     public function testImportCsvUsersFailNNI()
     {
@@ -281,31 +280,229 @@ class ImportServiceTest extends BaseWebTestCase
 
         $this->mockImport();
 
+        $this->userRepoProphecy
+            ->findOneBy(Argument::any())
+            ->willReturn()
+            ->shouldBeCalled(null);
+
+        $this->userRepoProphecy
+            ->findOneBy(Argument::any())
+            ->willReturn(null)
+            ->shouldBeCalled();
+
+        $this->userRepoProphecy
+            ->findOneBy(['nni' => 'NNI0042'])
+            ->willReturn(new User())
+            ->shouldBeCalled();
+
+        $this->agencyRepoProphecy
+            ->findOneBy(Argument::type('array'))
+            ->willReturn(new Agency())
+            ->shouldBeCalled();
+
+        $this->loggerProphecy
+            ->error(Argument::any())
+            ->shouldBeCalled();
+
+        $this->importService->importCsvUsers($fileName);
+    }
+
+    /**
+     * @test
+     * @group importService
+     */
+    public function testImportCsvUsersFail()
+    {
+        $fileName = $this->filePath . 'utilisateurs.csv';
+
+        $connnectionProphecy = $this->prophet->prophesize(Connection::class);
+        $configurationProphecy = $this->prophet->prophesize(Configuration::class);
+
+        $this->emProphecy
+            ->getConnection()
+            ->willReturn($connnectionProphecy->reveal())
+            ->shouldBeCalled();
+
+        $connnectionProphecy
+            ->getConfiguration()
+            ->willReturn($configurationProphecy->reveal())
+            ->shouldBeCalled();
+
+        $configurationProphecy
+            ->setSQLLogger(null)
+            ->shouldBeCalled();
+
+        $connnectionProphecy
+            ->beginTransaction()
+            ->shouldBeCalled();
+
+        $this->loggerProphecy
+            ->info(Argument::any())
+            ->shouldBeCalled();
+
+        $this->regionRepoProphecy
+            ->findOneBy(Argument::type('array'))
+            ->willReturn(new Region())
+            ->shouldBeCalled();
+
         $this->agencyRepoProphecy
             ->findOneBy(Argument::type('array'))
             ->willReturn(new Agency())
             ->shouldBeCalled();
 
         $this->userRepoProphecy
-            ->findOneByUsername(Argument::type('array'))
+            ->findOneBy(Argument::type('array'))
             ->willReturn(null)
+            ->shouldBeCalledTimes(3);
+
+        $this->emProphecy
+            ->persist(Argument::any())
             ->shouldBeCalled();
 
-        $this->userRepoProphecy
-            ->findOneByEmail(Argument::type('array'))
-            ->willReturn(null)
+        $this->emProphecy
+            ->flush()
+            ->willThrow(new \Exception());
+
+        $connnectionProphecy
+            ->rollBack()
             ->shouldBeCalled();
 
-        $this->userRepoProphecy
-            ->findOneByNni(Argument::type('array'))
-            ->willReturn(new User)
+        $this->emProphecy
+            ->close()
             ->shouldBeCalled();
 
-//        $this->loggerProphecy
-//            ->error(Argument::any())
-//            ->shouldBeCalled();
+        $this->loggerProphecy
+            ->error(Argument::any())
+            ->shouldBeCalled();
 
         $this->importService->importCsvUsers($fileName);
+    }
+
+    /**
+     * @test
+     * @group importService
+     */
+    public function testImportCsvRegionFail()
+    {
+        $fileName = $this->filePath . 'regions.csv';
+
+        $connnectionProphecy = $this->prophet->prophesize(Connection::class);
+        $configurationProphecy = $this->prophet->prophesize(Configuration::class);
+
+        $this->emProphecy
+            ->getConnection()
+            ->willReturn($connnectionProphecy->reveal())
+            ->shouldBeCalled();
+
+        $connnectionProphecy
+            ->getConfiguration()
+            ->willReturn($configurationProphecy->reveal())
+            ->shouldBeCalled();
+
+        $configurationProphecy
+            ->setSQLLogger(null)
+            ->shouldBeCalled();
+
+        $connnectionProphecy
+            ->beginTransaction()
+            ->shouldBeCalled();
+
+        $this->loggerProphecy
+            ->info(Argument::any())
+            ->shouldBeCalled();
+
+        $this->regionRepoProphecy
+            ->findOneBy(Argument::type('array'))
+            ->willReturn(new Region())
+            ->shouldBeCalled();
+
+        $this->emProphecy
+            ->persist(Argument::any())
+            ->shouldBeCalled();
+
+        $this->emProphecy
+            ->flush()
+            ->willThrow(new \Exception());
+
+        $connnectionProphecy
+            ->rollBack()
+            ->shouldBeCalled();
+
+        $this->emProphecy
+            ->close()
+            ->shouldBeCalled();
+
+        $this->loggerProphecy
+            ->error(Argument::any())
+            ->shouldBeCalled();
+
+        $this->importService->importCsvRegions($fileName);
+    }
+
+    /**
+     * @test
+     * @group importService
+     */
+    public function testImportCsvAgencyFail()
+    {
+        $fileName = $this->filePath . 'agences.csv';
+
+        $connnectionProphecy = $this->prophet->prophesize(Connection::class);
+        $configurationProphecy = $this->prophet->prophesize(Configuration::class);
+
+        $this->emProphecy
+            ->getConnection()
+            ->willReturn($connnectionProphecy->reveal())
+            ->shouldBeCalled();
+
+        $connnectionProphecy
+            ->getConfiguration()
+            ->willReturn($configurationProphecy->reveal())
+            ->shouldBeCalled();
+
+        $configurationProphecy
+            ->setSQLLogger(null)
+            ->shouldBeCalled();
+
+        $connnectionProphecy
+            ->beginTransaction()
+            ->shouldBeCalled();
+
+        $this->loggerProphecy
+            ->info(Argument::any())
+            ->shouldBeCalled();
+
+        $this->regionRepoProphecy
+            ->findOneBy(Argument::type('array'))
+            ->willReturn(new Region())
+            ->shouldBeCalled();
+
+        $this->agencyRepoProphecy
+            ->findOneBy(Argument::type('array'))
+            ->willReturn(new Agency())
+            ->shouldBeCalled();
+
+        $this->emProphecy
+            ->persist(Argument::any())
+            ->shouldBeCalled();
+
+        $this->emProphecy
+            ->flush()
+            ->willThrow(new \Exception());
+
+        $connnectionProphecy
+            ->rollBack()
+            ->shouldBeCalled();
+
+        $this->emProphecy
+            ->close()
+            ->shouldBeCalled();
+
+        $this->loggerProphecy
+            ->error(Argument::any())
+            ->shouldBeCalled();
+
+        $this->importService->importCsvAgencies($fileName);
     }
 
     /**
