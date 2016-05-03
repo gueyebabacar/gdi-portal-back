@@ -50,6 +50,7 @@ class RoleServiceTest extends \PHPUnit_Framework_TestCase
      * testGetRoles
      * @test
      * @group roleService
+     * @group services
      */
     public function testGetRoles()
     {
@@ -70,6 +71,7 @@ class RoleServiceTest extends \PHPUnit_Framework_TestCase
      * testGetRoleSecured
      * @test
      * @group roleService
+     * @group services
      */
     public function testGetRoleSecured()
     {
