@@ -5,7 +5,11 @@ namespace PortalBundle\Service;
 use Doctrine\ORM\EntityManager;
 use JMS\DiExtraBundle\Annotation as DI;
 use PortalBundle\Enum\VoterEnum;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorage;
 use Symfony\Component\Security\Core\Authorization\AuthorizationChecker;
+use UserBundle\Entity\User;
+use UserBundle\Enum\ContextEnum;
 
 /**
  * Class AgencyService
@@ -28,37 +32,64 @@ class AgencyService
     public $authorizationChecker;
 
     /**
+     * @DI\Inject("security.token_storage")
+     * @var TokenStorage
+     */
+    public $tokenStorage;
+
+    /**
      * ControlService constructor.
      * @param EntityManager $em
      * @param $authorizationChecker
      *
+     * @param $tokenStorage
      * @DI\InjectParams({
      *     "em" = @DI\Inject("doctrine.orm.entity_manager"),
      *     "authorizationChecker" = @DI\Inject("security.authorization_checker"),
+     *     "tokenStorage" = @DI\Inject("security.token_storage")
      * })
      */
-    public function __construct($em, $authorizationChecker)
+    public function __construct($em, $authorizationChecker, $tokenStorage)
     {
         $this->em = $em;
         $this->authorizationChecker = $authorizationChecker;
+        $this->tokenStorage = $tokenStorage;
     }
 
     /**
      * Return all agencies (secured)
-     * @param $regionId
      * @return array
      */
     public function getAgenciesFromRegionSecured($regionId)
     {
-        $agenciesSent = [];
+        $result = [];
         $agencyRepo = $this->em->getRepository('PortalBundle:Agency');
-        $agencies = $agencyRepo->findBy(['region' => $regionId]);
-        foreach ($agencies as $agency) {
-            if (false !== $this->authorizationChecker->isGranted(VoterEnum::VIEW, $agency)) {
-                $agenciesSent[] = $agency;
-            }
+
+        /** @var User $user */
+        $user = $this->tokenStorage->getToken()->getUser();
+
+        switch ($user->getTerritorialContext()) {
+            case ContextEnum::AGENCY_CONTEXT:
+                $result[] = $user->getAgency();
+                break;
+
+            case ContextEnum::REGION_CONTEXT:
+                foreach ($user->getRegion()->getAgencies() as $agency) {
+                    $result[] = $agency;
+                }
+                break;
+
+            case ContextEnum::NATIONAL_CONTEXT:
+                foreach ($agencyRepo->findBy(['region' => $regionId]) as $agency) {
+                    $result[] = $agency;
+                }
+                break;
+
+            default:
+                return false;
+                break;
         }
-        return $agenciesSent;
+        return $result;
     }
 
     /**
