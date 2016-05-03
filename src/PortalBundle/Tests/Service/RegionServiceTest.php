@@ -75,6 +75,7 @@ class RegionServiceTest extends \PHPUnit_Framework_TestCase
      * testgetRegionsSecuredAgencyContext
      * @test
      * @group regionService
+     * @group services
      */
     public function testgetRegionsSecuredAgencyContext()
     {
@@ -120,6 +121,7 @@ class RegionServiceTest extends \PHPUnit_Framework_TestCase
      * testGetAgenciesFromRegionSecuredRegionContext
      * @test
      * @group regionService
+     * @group services
      */
     public function testGetRegionsFromRegionSecuredRegionContext()
     {
@@ -161,6 +163,7 @@ class RegionServiceTest extends \PHPUnit_Framework_TestCase
      * testGetRegionsFromRegionSecuredNationalContext
      * @test
      * @group regionService
+     * @group services
      */
     public function testGetRegionsFromRegionSecuredNationalContext()
     {
@@ -203,6 +206,7 @@ class RegionServiceTest extends \PHPUnit_Framework_TestCase
      * testGetRegionsFromRegionSecuredFail
      * @test
      * @group regionService
+     * @group services
      */
     public function testGetRegionsFromRegionSecuredFail()
     {
@@ -244,6 +248,7 @@ class RegionServiceTest extends \PHPUnit_Framework_TestCase
      * testGetRegions
      * @test
      * @group regionService
+     * @group services
      */
     public function testGetRegions()
     {

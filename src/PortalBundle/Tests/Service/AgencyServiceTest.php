@@ -75,6 +75,7 @@ class AgencyServiceTest extends \PHPUnit_Framework_TestCase
      * testGetAgenciesFromRegionSecuredAgencyContext
      * @test
      * @group agencyService
+     * @group services
      */
     public function testGetAgenciesFromRegionSecuredAgencyContext()
     {
@@ -122,6 +123,7 @@ class AgencyServiceTest extends \PHPUnit_Framework_TestCase
      * testGetAgenciesFromRegionSecuredRegionContext
      * @test
      * @group agencyService
+     * @group services
      */
     public function testGetAgenciesFromRegionSecuredRegionContext()
     {
@@ -174,6 +176,7 @@ class AgencyServiceTest extends \PHPUnit_Framework_TestCase
      * testGetAgenciesFromRegionSecuredNationalContext
      * @test
      * @group agencyService
+     * @group services
      */
     public function testGetAgenciesFromRegionSecuredNationalContext()
     {
@@ -226,6 +229,7 @@ class AgencyServiceTest extends \PHPUnit_Framework_TestCase
      * testGetAgenciesFromRegionSecuredFail
      * @test
      * @group agencyService
+     * @group services
      */
     public function testGetAgenciesFromRegionSecuredFail()
     {
@@ -273,6 +277,7 @@ class AgencyServiceTest extends \PHPUnit_Framework_TestCase
      * testGetAgenciesFromRegion
      * @test
      * @group agencyService
+     * @group services
      */
     public function testGetAgenciesFromRegion()
     {
