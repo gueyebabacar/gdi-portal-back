@@ -22,20 +22,64 @@ class ErrorServiceTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * testresetScopeError
      * @test
-     * testGetErrors
+     * @group errorService
+     * @group services
      */
+    public function testResetScopeError()
+    {
+        $this->errorService->resetScopeError();
 
+        $this->assertFalse($this->errorService->getScopeError());
+    }
+
+    /**
+     * testAddError
+     * @test
+     * @group errorService
+     * @group services
+     */
+    public function testAddError()
+    {
+        $message = 'errorMessage';
+        $error['message'] = $message;
+        $this->errorService->addError(500, 4, $message);
+        $this->assertEquals($message, $this->errorService->errors[0]['message']);
+    }
+
+    /**
+     * testAddErrorKeySet
+     * @test
+     * @group errorService
+     * @group services
+     */
+    public function testAddErrorKeySet()
+    {
+        $message = 'errorMessage';
+        $error['message'] = 'message';
+        $this->errorService->errors[0]['message'] = $message;
+        $this->errorService->addError(500, 4, $message);
+        $this->assertEquals($message, $this->errorService->errors[0]['message']);
+    }
+
+    /**
+     * testGetErrors
+     * @test
+     * @group errorService
+     * @group services
+     */
     public function testGetErrors()
     {
         $this->assertFalse($this->errorService->getErrors()['hasError']);
     }
 
     /**
-     * @test
      * testGetTotalError
+     * @test
+     * @group errorService
+     * @group services
      */
-
     public function testGetTotalError()
     {
         $totalError = 0;
@@ -43,10 +87,11 @@ class ErrorServiceTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @test
      * testGetHasError
+     * @test
+     * @group errorService
+     * @group services
      */
-
     public function testGetHasError()
     {
         $scopeError = 0;
@@ -55,15 +100,5 @@ class ErrorServiceTest extends \PHPUnit_Framework_TestCase
         } else {
             $this->assertFalse($this->errorService->getHasError());
         }
-    }
-
-    /**
-     * @test
-     * testresetScopeError
-     */
-
-    public function testresetScopeError()
-    {
-        $this->assertFalse($this->errorService->getScopeError());
     }
 }

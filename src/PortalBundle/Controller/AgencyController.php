@@ -28,7 +28,7 @@ class AgencyController
      * @ApiDoc(
      *      section = "Agency",
      *      resource = true,
-     *      description = "permet de récuperer le label dune agence (sécurisé)"
+     *      description = "permet de récuperer les agences (sécurisé)"
      * )
      * @param $regionId
      * @return array
@@ -46,7 +46,7 @@ class AgencyController
      * @ApiDoc(
      *      section = "Agency",
      *      resource = true,
-     *      description = "permet de récuperer le label dune agence"
+     *      description = "permet de récuperer les agences d'une region"
      * )
      * @param $regionId
      * @return array

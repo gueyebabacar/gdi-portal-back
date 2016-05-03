@@ -27,7 +27,7 @@ class RoleServiceTest extends \PHPUnit_Framework_TestCase
     /**
      * @var  RoleService
      */
-    private $agencyService;
+    private $roleService;
 
     /**
      * setUp
@@ -43,15 +43,17 @@ class RoleServiceTest extends \PHPUnit_Framework_TestCase
         /** @var AuthorizationChecker $authorizationChecker */
         $authorizationChecker = $this->authorizationCheckerProphecy->reveal();
 
-        $this->agencyService = new RoleService($authorizationChecker);
+        $this->roleService = new RoleService($authorizationChecker);
     }
 
     /**
      * testGetRoles
+     * @test
+     * @group roleService
      */
     public function testGetRoles()
     {
-        $roles = RolesEnum::getRoles();
+        $roles = $this->roleService->getRoles();
         $this->assertEquals(RolesEnum::ROLE_VISITEUR,$roles[0]);
         $this->assertEquals(RolesEnum::ROLE_TECHNICIEN,$roles[1]);
         $this->assertEquals(RolesEnum::ROLE_PROGRAMMATEUR,$roles[2]);
@@ -65,7 +67,9 @@ class RoleServiceTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * tesGetAgenciesFromRoleSecured
+     * testGetRoleSecured
+     * @test
+     * @group roleService
      */
     public function testGetRoleSecured()
     {
@@ -79,7 +83,7 @@ class RoleServiceTest extends \PHPUnit_Framework_TestCase
 
             $rolesSent[] = $role;
         }
-        $this->agencyService->getRolesSecured();
+        $this->roleService->getRolesSecured();
 
         $this->assertEquals(RolesEnum::ROLE_VISITEUR , $rolesSent[0]);
         $this->assertEquals(RolesEnum::ROLE_TECHNICIEN , $rolesSent[1]);
